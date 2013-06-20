@@ -1,0 +1,1 @@
+HTML, CSS, JavaScript and PHP files and a folder structure which can be used as a template for a website.

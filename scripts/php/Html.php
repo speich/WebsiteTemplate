@@ -54,7 +54,7 @@ abstract class Html {
 	
 	/**
 	 * Return the id attribute of a HTMLElement.
-	 * @return mixed
+	 * @return string|false
 	 */
 	public function getId() {
 		if ($this->id) { return $this->id; }
@@ -69,7 +69,7 @@ abstract class Html {
 	
 	/**
 	 * Return the class attribute of a HTMLElement.
-	 * @return mixed
+	 * @return string|false
 	 */
 	public function getCssClass() {
 		if ($this->cssClass) { return $this->cssClass; }
@@ -84,7 +84,7 @@ abstract class Html {
 	
 	/**
 	 * Return the style atribute of HTMLElement.
-	 * @return mixed
+	 * @return string|false
 	 */
 	public function getCssStyle() {
 		if ($this->cssStyle) { return $this->cssStyle; }
@@ -217,11 +217,11 @@ class Form extends Html {
 	 * If set then the HTMLFormElement is rendered selected.
 	 * @param bool $selected
 	 */
-	public function setSelected($selected = true) { $this->selected = $selected; }
+	public function setSelected($selected = true) { $this->selected = (bool) $selected; }
 	
 	/**
 	 * Return the label of the HTMLFormElement.
-	 * @return mixed
+	 * @return string|false
 	 */
 	public function getLabel() {
 		if ($this->label) { return $this->labelName; }
@@ -232,7 +232,7 @@ class Form extends Html {
 	 * Set HTMLAttribute required to true or false.
 	 * @param $bool
 	 */
-	public function setRequired($bool) {
+	public function setRequired($bool = true) {
 		$this->required = $bool;
 	}
 	
@@ -282,7 +282,7 @@ class HtmlRadioButton extends Form {
 	/**
 	 * Return the value of the HTMLAttribute name.
 	 * @see setGroup() method
-	 * @return mixed
+	 * @return string|false
 	 */
 	public function getGroup() {
 		if ($this->grouped) { return $this->groupName; }
@@ -301,15 +301,15 @@ class HtmlRadioButton extends Form {
 			echo '>'.$this->getLabel()."</label>\n";
 		}
 		echo '<input id="'.$this->getId().'"';
-		if ($this->grouped) { echo ' name="'.$this->getGroup().'"'; }
+		if ($this->grouped === true) { echo ' name="'.$this->getGroup().'"'; }
 		echo ' type="radio" value="'.$this->val.'"';
-		if ($this->selected) { echo ' checked="checked"'; }
-		if ($this->disabled) { echo ' disabled="disabled"'; }
+		if ($this->selected === true) { echo ' checked="checked"'; }
+		if ($this->disabled === true) { echo ' disabled="disabled"'; }
 		if ($this->tabIndex) { echo ' tabindex="'.$this->tabIndex.'"'; }
 		if ($this->cssClass) { echo ' class="'.$this->cssClass.'"'; }
 		if ($this->cssStyle) { echo ' style="'.$this->cssStyle.'"'; }
-		if ($this->required) { echo ' required="required"'; }
-		echo "/>";
+		if ($this->required === true) { echo ' required="required"'; }
+		echo ">";
 	}
 }
 
@@ -362,10 +362,10 @@ class HtmlSelectFld extends Form {
 	public function setMultiple() { $this->multiple = true; }
 
 	/**
-	 * Set a HTMLOptionElement to selected.	 * 
+	 * Set a HTMLOptionElement to selected.
 	 * If no type is given, the value attribute is used to set item selected.
 	 * @param mixed $val
-	 * @param constant|NULL $type	use text/value
+	 * @param const|NULL $type	use text/value
 	 * @return bool
 	 */
 	public function setSelected($val = false, $type = NULL) {
@@ -402,7 +402,7 @@ class HtmlSelectFld extends Form {
 	 * Default text value is 'Bitte auswählen'.
 	 * Set to false if no default item (first item in the list) should be displayed.
 	 *
-	 * @param mixed $txt
+	 * @param string|false $txt
 	 */
 	public function setDefaultVal($txt) {
 		$this->defaultVal = $txt;
@@ -499,13 +499,12 @@ class HtmlCheckBox extends Form {
 		}
 		echo '<input id="'.$this->getId().'" name="'.$this->name.'"';
 		echo ' type="checkbox" value="'.$this->val.'"';
-		if ($this->selected) { echo ' checked="checked"'; }
-		if ($this->disabled) { echo ' disabled="disabled"'; }
+		if ($this->selected === true) { echo ' checked="checked"'; }
+		if ($this->disabled == true) { echo ' disabled="disabled"'; }
 		if ($this->tabIndex) { echo ' tabindex="'.$this->tabIndex.'"'; }
 		if ($this->cssClass) { echo ' class="'.$this->cssClass.'"'; }
 		if ($this->cssStyle) { echo ' style="'.$this->cssStyle.'"'; }
-		if ($this->required) { echo ' required="required"'; }
-		echo "/>";
+		if ($this->required === true) { echo ' required="required"'; }
+		echo ">";
 	}
 }
-?>

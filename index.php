@@ -1,22 +1,16 @@
-<?php
-require_once("inc_script.php");
-?>
+<?php require_once 'inc_script.php'; ?>
 <!DOCTYPE html>
-<html>
+<html lang="<?php echo $web->getLang(); ?>" dir="ltr">
 <head>
-<title><?php echo $web->getWindowTitle(); ?></title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title><?php echo $web->getPageTitle(); ?></title>
+<?php require_once 'inc_head.php'; ?>
 <meta name="description" content="">
 <meta name="robots" content="index, follow">
-<?php require_once 'inc_head.php'; ?>
-<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/dojo/1.8/dojo/resources/dojo.css">
-<style type="text/css">
-
-</style>
 </head>
 
 <body>
 <?php require_once 'inc_bodystart.php'; ?>
+<nav><?php echo $mainNav->render(); ?></nav>
 <p>Default Website Project Template</p>
 <?php require_once 'inc_bodyend.php'; ?>
 </body>

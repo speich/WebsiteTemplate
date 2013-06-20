@@ -1,9 +1,9 @@
 <?php
 session_start();
 //set_time_limit(300);
-if (!isset($_SESSION['LoggedIn'])) { $_SESSION['LoggedIn'] = false; }
+if (!isset($_SESSION['loggedIn'])) { $_SESSION['loggedIn'] = false; }
 
-$webRoot = '';	// set it website is in subdir
+$webRoot = '';	// set if website is in a subdir
 
 // make include paths available to pages independent on subdir they reside in
 $path = $_SERVER['DOCUMENT_ROOT'].$webRoot;
@@ -13,13 +13,10 @@ $incPath.= $path.'/library';
 set_include_path($incPath);
 date_default_timezone_set('Europe/Zurich');
 
-require_once('Website.php');
-require_once('Menu.php');
+require_once 'Website.php';
+require_once 'Menu.php';
 
 $web = new Website();
 $web->setWebRoot($webRoot);
-$web->setLastUpdate('24.06.2010');
-$web->setWindowTitle('Website default');
-
-//require_once('inc_nav'.$web->getLangFileExt().'.php');
-?>
+$web->setLastUpdate('20.06.2013');
+$web->setPageTitle('Website default');

@@ -47,13 +47,13 @@ class MenuItem {
 	}
 	
 	/** Get item property if children will be rendered */
-	public function getchildrenToBeRendered() { return $this->childrenToBeRendered; }
+	public function getChildrenToBeRendered() { return $this->childrenToBeRendered; }
 	
 	/**
 	 * Set item property if children will be rendered.
 	 * @param bool [$ChildToBeRendered]
 	 */
-	public function setchildrenToBeRendered($childrenToBeRendered = true) {
+	public function setChildrenToBeRendered($childrenToBeRendered = true) {
 		$this->childrenToBeRendered = $childrenToBeRendered;
 	}
 	
@@ -74,9 +74,9 @@ class MenuItem {
 	}
 	
 	/**
-	 * Adds a css scripts to the item.
+	 * Adds a css class to the item.
 	 * Allows to have mutliple CSS classes per item.
-	 * @param string $name CSS scripts name
+	 * @param string $name CSS class name
 	 */
 	public function addCssClass($name) {
 		if (!is_null($this->cssClass)) {
@@ -86,7 +86,7 @@ class MenuItem {
 	}
 	
 	/**
-	 * Returns the css scripts string
+	 * Returns the css class string
 	 * @return string 
 	 */
 	public function getCssClass() {
@@ -133,20 +133,17 @@ class Menu extends MenuItem {
 	/** Flag to mark first ul tag in recursive method */
 	private $firstUl = true;
 	
-	/** Menu CSS scripts name */
+	/** Menu CSS class name */
 	public $cssClass = null;
 	
 	/** Menu CSS id name */
 	public $cssId = null;
 	
-	/** Active item CSS scripts name */
+	/** Active item CSS class name */
 	public $cssItemHasChildren = 'menuHasChildren';
 	
-	/** Active item CSS scripts name */
+	/** Active item CSS class name */
 	public $cssItemActive = 'menuIsActive';
-	
-	/** Open item CSS scripts name */
-	public $cssItemOpen = 'menuIsOpen';
 	
 	
 	/**
@@ -160,7 +157,7 @@ class Menu extends MenuItem {
 	public function __construct($cssId = null, $cssClass = null, $arrItem = null) {
 		if (!is_null($arrItem)) {
 			foreach ($arrItem as $item) {
-				$this->arritem[$item[0]] = new Menuitem($item[0], $item[1], $item[2], (array_key_exists(3, $item) ? $item[3] : null), (array_key_exists(4, $item) ? $item[4] : null));
+				$this->arrItem[$item[0]] = new MenuItem($item[0], $item[1], $item[2], (array_key_exists(3, $item) ? $item[3] : null), (array_key_exists(4, $item) ? $item[4] : null));
 			}
 		}
 		if (!is_null($cssClass)) {
@@ -172,7 +169,7 @@ class Menu extends MenuItem {
 	}
 	
 	/**
-	 * Add a new menu item.	 * 
+	 * Add a new menu item.
 	 * Array has to be in the form of:
 	 * array(id, parentId, linkTxt, optional linkUrl, optional event handler);
 	 * You can add new items to menu as long as you haven't called the render method.
@@ -201,10 +198,10 @@ class Menu extends MenuItem {
 	/**
 	 * Sets the url matching pattern of $autoActive property.
 	 * 1 = item url matches path only (default)
-	 * 2 = item url patches path + query, 
-	 * 3 item url matches any part of path + query 
-	 * @param object $type
-	 * @return 
+	 * 2 = item url matches path + all query variables,
+	 * 3 = item url matches any part of path + query
+	 * 4 = item url matches match path + item query
+	 * @param int $type
 	 */
 	public function setAutoActiveMatching($type) {
 		$this->autoActiveMatching = $type;
@@ -220,10 +217,9 @@ class Menu extends MenuItem {
 	
 	/**
 	 * Add an javascript event handler to a menu item.
-	 * 
 	 * Sets a js event 
 	 * @param integer|string $id menu id
-	 * @param string $EventHandler js event handler
+	 * @param string $eventHandler js event handler
 	 */
 	public function setEventHandler($id, $eventHandler) {
 		foreach ($this->arrItem as $item) {
@@ -241,8 +237,7 @@ class Menu extends MenuItem {
 	 * 1 items url matches full path
 	 * 2 items url matches full path + exact query string
 	 * 3 items url matches full path + part of query string
-	 * 4 match deepest containing folder + part of query string
-	 * 
+	 *
 	 * Returns boolean (match no match) or the number of matched directories.
 	 * This function may return Boolean TRUE OR FALSE, but may also return a non-Boolean value 
 	 * which evaluates to FALSE, such as 0 or 1 to TRUE. Use the === operator for testing 
@@ -250,15 +245,16 @@ class Menu extends MenuItem {
 	 * 
 	 * If item's active property is set to null it is not considered in active check.
 	 * 
-	 * @param object $item MenuItem
-	 * @return bool|int
+	 * @param MenuItem $item
+	 * @param integer $pattern
+	 * @return bool
 	 */
 	public function checkActive($item, $pattern = null) {
 		if (is_null($item->getActive())) {
 			return false;	// item explicitly set to null = skip
 		}
 		else if ($item->getActive()) {
-			return true; // item excplicitply set to active
+			return true; // item explicitly set to active
 		}
 		$url = $_SERVER['REQUEST_URI'];
 		$arrUrlPage = parse_url($url);
@@ -298,27 +294,10 @@ class Menu extends MenuItem {
 					return false;
 				}
 				break;
-			case 4:
-				$numMatched = 0;
-				$arrDirMenu = explode('/', $arrUrlMenu['path']);
-				$arrDirPage = explode('/', $arrUrlPage['path']);
-				for ($i = 0; $i < count($arrDirMenu); $i++) {
-					if (array_key_exists($i, $arrDirPage)) {
-						if ($arrDirPage[$i] == $arrDirMenu[$i]) {
-							$numMatched++;
-						}
-					}
-				}
-				if ($numMatched > 0) {
-					return $numMatched;
-				}
-				else {
-					return false;
-				}
-				break;
 			default;
 				return false;
 		}
+		return false;
 	}
 	
 	/**
@@ -354,7 +333,7 @@ class Menu extends MenuItem {
 		$this->strMenu.= '<ul';
 		if ($this->firstUl) {
 			if (!is_null($this->cssClass)) {
-				$this->strMenu.= ' scripts="'.$this->cssClass.'"';
+				$this->strMenu.= ' class="'.$this->cssClass.'"';
 			}
 			if (!is_null($this->cssId)) {
 				$this->strMenu.= ' id="'.$this->cssId.'"';
@@ -364,16 +343,14 @@ class Menu extends MenuItem {
 		$this->strMenu.= ">\n";
 		foreach ($this->arrItem as $item) {
 			if ($item->parentId === $parentId) {
-				if ($this->checkChildExists($item->id)) {
+				$hasChild = $this->checkChildExists($item->id);
+				if ($hasChild) {
 					$item->addCssClass($this->cssItemHasChildren);
-					if (($this->allChildrenToBeRendered || $item->getChildrenToBeRendered())) {
-						$item->addCssClass($this->cssItemOpen);
-					}
 				}				
-				else if ($item->getActive()) {
+				if ($item->getActive()) {
 					$item->addCssClass($this->cssItemActive);
 				}				
-				$this->strMenu.= '<li'.(is_null($item->getCssClass()) ? '' : ' scripts="'.$item->getCssClass().'"').'>';
+				$this->strMenu.= '<li id="nafidasMenuItem-'.$item->id.'"'.(is_null($item->getCssClass()) ? '' : ' class="'.$item->getCssClass().'"').'>';
 				if ($item->linkUrl != '') {
 					$this->strMenu.= '<a href="'.$item->linkUrl.'"'.(is_null($item->eventHandler) ? '' : ' '.$item->eventHandler).'>';
 				}
@@ -382,8 +359,8 @@ class Menu extends MenuItem {
 				}
 				$this->strMenu.= $item->linkTxt;
 				$this->strMenu.= '</a>';
-				if ($this->checkChildExists($item->id)) {
-					if (($this->allChildrenToBeRendered || $item->getChildrenToBeRendered())) {
+				if ($hasChild) {
+					if ($item->getActive() || $this->allChildrenToBeRendered) {
 						$this->createHtml($item->id);
 						$this->strMenu.= "</ul>\n";
 					}
@@ -403,45 +380,30 @@ class Menu extends MenuItem {
 	 */
 	public function setActive($url = null) {
 		if (is_null($url)) {
-			$itemId = null;	// used for matching pattern 4 = match containing folder with deepest matching
-			$lastNumMatched = 0; 
 			foreach ($this->arrItem as $item) {
-				$numMatched = $this->checkActive($item);
-				if ($numMatched === true) {
+				if ($this->checkActive($item)) {
 					$item->setActive();
 				}
-				if (is_int($numMatched)) {
-					if ($numMatched >= $lastNumMatched) {
-						$itemId = $item->id;	// find item with most folders matched (deepest folder match)
-						$lastNumMatched = $numMatched;
-					}
-					
-				}
-				if ($this->allChildrenToBeRendered || $item->getActive()) {
-					// set also item's parents to active
+
+				// set also the parent items to render
+				if ($this->allChildrenToBeRendered) {
 					$parentId = $item->parentId;
 					while (array_key_exists($parentId, $this->arrItem)) {
 						$this->arrItem[$parentId]->setChildrenToBeRendered();
+						$parentId = $this->arrItem[$parentId]->parentId;
+					}
+				}
+				// set also the parent items to active
+				if ($item->getActive()) {
+					// set also all item's parents
+					$parentId = $item->parentId;
+					while (array_key_exists($parentId, $this->arrItem)) {
 						$this->arrItem[$parentId]->setActive();
 						$parentId = $this->arrItem[$parentId]->parentId;
 					}
-				}				
-			}
-			// only used for matching pattern 4
-			if (!is_null($itemId)) {
-				$this->arrItem[$itemId]->setActive();
-				foreach ($this->arrItem as $item) {
-					if ($this->allChildrenToBeRendered || $item->getActive()) {
-						// set also item's parents to active
-						$parentId = $item->parentId;
-						while (array_key_exists($parentId, $this->arrItem)) {
-							$this->arrItem[$parentId]->setChildrenToBeRendered();
-							$this->arrItem[$parentId]->setActive();
-							$parentId = $this->arrItem[$parentId]->parentId;
-						}
-					}
 				}
-			}	
+
+			}
 		}
 		// match provided url
 		else {
@@ -480,4 +442,3 @@ class Menu extends MenuItem {
 		}
 	}
 }
-?>
