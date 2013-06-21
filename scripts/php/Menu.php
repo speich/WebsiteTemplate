@@ -139,12 +139,14 @@ class Menu extends MenuItem {
 	/** Menu CSS id name */
 	public $cssId = null;
 	
-	/** Active item CSS class name */
+	/** CSS class name when menu has children */
 	public $cssItemHasChildren = 'menuHasChildren';
 	
-	/** Active item CSS class name */
+	/** CSS class name when menu is active */
 	public $cssItemActive = 'menuIsActive';
-	
+
+	/** CSS class name when menu is open. Note: a menu can be open, but not active when allChildrenToBeRenderer is true */
+	public $cssItemOpen = 'menuIsOpen';
 	
 	/**
 	 * Constructs the menu.
@@ -346,11 +348,11 @@ class Menu extends MenuItem {
 				$hasChild = $this->checkChildExists($item->id);
 				if ($hasChild) {
 					$item->addCssClass($this->cssItemHasChildren);
-				}				
+				}
 				if ($item->getActive()) {
 					$item->addCssClass($this->cssItemActive);
-				}				
-				$this->strMenu.= '<li id="nafidasMenuItem-'.$item->id.'"'.(is_null($item->getCssClass()) ? '' : ' class="'.$item->getCssClass().'"').'>';
+				}
+				$this->strMenu.= '<li id="menuItem-'.$item->id.'"'.(is_null($item->getCssClass()) ? '' : ' class="'.$item->getCssClass().'"').'>';
 				if ($item->linkUrl != '') {
 					$this->strMenu.= '<a href="'.$item->linkUrl.'"'.(is_null($item->eventHandler) ? '' : ' '.$item->eventHandler).'>';
 				}
@@ -359,11 +361,9 @@ class Menu extends MenuItem {
 				}
 				$this->strMenu.= $item->linkTxt;
 				$this->strMenu.= '</a>';
-				if ($hasChild) {
-					if ($item->getActive() || $this->allChildrenToBeRendered) {
-						$this->createHtml($item->id);
-						$this->strMenu.= "</ul>\n";
-					}
+				if ($hasChild && ($item->getActive() || $this->allChildrenToBeRendered)) {
+					$this->createHtml($item->id);
+					$this->strMenu.= "</ul>\n";
 				}
 				$this->strMenu.= "</li>\n";
 			}

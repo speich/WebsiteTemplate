@@ -1,0 +1,7 @@
+#layoutMenu1, #layoutMenu3, #layoutContent { margin: 20px; }
+
+#layoutMenu2 {
+	background-image: linear-gradient(to bottom, #FFFFFF, #EFEFEF);
+	border: solid #999999;
+	border-width: 1px 0 1px 0;
+}

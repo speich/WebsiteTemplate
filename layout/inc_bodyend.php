@@ -1,3 +1,1 @@
-<?php
-
-?>
+</div><!-- End of #layoutContent
