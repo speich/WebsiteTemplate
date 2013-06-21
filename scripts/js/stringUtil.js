@@ -1,5 +1,5 @@
 /**
- * @module NAFIDAS/stringUtil
+ * @module stringUtil
  * A Module providing helper methods to work with strings.
  */
 define(function() {

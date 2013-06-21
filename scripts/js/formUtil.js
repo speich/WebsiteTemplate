@@ -1,12 +1,12 @@
 /**
- * @module NAFIDAS/formUtil
+ * @module formUtil
  */
 define(function() {
 	"use strict";
 
 	/**
 	 * A Module providing helper methods to work with numbers.
-	 * @exports NAFIDAS/formUtil
+	 * @exports formUtil
 	 */
 	return {
 

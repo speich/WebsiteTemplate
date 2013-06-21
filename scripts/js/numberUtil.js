@@ -3,8 +3,6 @@ define(function() {
 
 	/**
 	 * A Module providing helper methods to work with numbers.
-	 * @see <a href="http://www.w3.org/TR/AERT#color-contrast">www.w3.org</a>
-	 * @exports NAFIDAS-class/numberUtil
 	 */
 	return {
 
@@ -54,7 +52,7 @@ define(function() {
 		 * @return {object}
 		 */
 		getPlaces: function(num) {
-			var int, obj, len, str, ch, count = 0;
+			var integ, obj, len, str, ch, count = 0;
 			
 			obj = {
 				places: 0,
@@ -64,11 +62,11 @@ define(function() {
 
 			num = Number(num);
 
-			int = num > 0 ? Math.floor(num) : Math.ceil(num);
-			len = Math.abs(int).toString().length; // use absolute to deal with negative numbers
-			obj.places = int === 0 ? 0 : len;
+			integ = num > 0 ? Math.floor(num) : Math.ceil(num);
+			len = Math.abs(integ).toString().length; // use absolute to deal with negative numbers
+			obj.places = integ === 0 ? 0 : len;
 
-			if (num === int) {  // no decimal places
+			if (num === integ) {  // no decimal places
 				obj.decimals = 0;
 			}
 			else {
