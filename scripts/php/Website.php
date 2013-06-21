@@ -12,27 +12,25 @@
  */
 class Website {
 	/** @var string host e.g. www.lfi.ch */
-	private $host;
+	public $host;
 	/** @var string root folder e.g. / or /dev/ */
-	private $webRoot;
-	/** @var string physical path to root / e.g. c:/websites/lfi/ */
-	private $docRoot;
+	public $webRoot;
 	/** @var string current path from root including page, e.g. /library/inc_global.php */
-	private $path;
+	public $path;
 	/** @var string current page without path, e.g. inc_global.php */
-	private $page;
+	public $page;
 	/** @var string current path without page, e.g. /library */
-	private $dir;
+	public $dir;
 	/** @var string date of last website update */
-	protected $lastUpdate;
+	public $lastUpdate;
 	/** @var string default page title */
-	protected $pageTitle = '';
+	public $pageTitle = '';
 	/** @var string namespace for session variables */
-	protected $namespace = 'Web';
+	public $namespace = 'web';
 	/** @var string character set */
-	protected $charset = 'utf-8';
+	public $charset = 'utf-8';
 	/** @var string language code */
-	protected $lang = 'de';
+	public $lang = 'de';
 
 	/**
 	 * Creates a new instance of the class Web.
@@ -40,8 +38,7 @@ class Website {
 	 */
 	public function __construct() {
 		$arrUrl = parse_url("http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
-		$this->docRoot = $_SERVER['DOCUMENT_ROOT'];
-		$this->webRoot = '/'; // has to be set to another subfolder by using setWebRoot()
+		$this->webRoot = '/';
 		$this->host = $_SERVER['HTTP_HOST'];
 		$this->query = isset($arrUrl['query']) ? $arrUrl['query'] : false;
 		if (isset($arrUrl['path'])) {
@@ -58,36 +55,10 @@ class Website {
 	}
 
 	/**
-	 * Returns the host name of the website.
-	 * e.g. www.mywebsite.ch
-	 * @return string
-	 */
-	public function getHost() {
-		return $this->host;
-	}
-
-	/**
-	 * Returns the absolute path from the web root including the current page.
-	 * E.g. /examplepath/examplefile.php
-	 * @return string
-	 */
-	public function getPath() {
-		return $this->path;
-	}
-
-	/**
-	 * Returns the query string of the current url.
-	 * @return string|boolean
-	 */
-	public function getQuery() {
-		return $this->query;
-	}
-
-	/**
 	 * Takes an array of key-value pairs as input and adds it to the query string.
 	 * If there is already the same key in the query string its value gets overwritten
 	 * with the new value. Saves the added key-value pairs to be reused (query property is changed).
-	 * @return string querystring
+	 * @return string query string
 	 * @param array $arrQuery
 	 */
 	public function addQuery($arrQuery) {
@@ -103,75 +74,7 @@ class Website {
 	}
 
 	/**
-	 * Returns the file name of the current page.
-	 * @return string
-	 */
-	public function getPage() {
-		return $this->page;
-	}
-
-	/**
-	 * Returns the absolute path from the web root excluding the page.
-	 * E.g. /examplepath without the trailing slash.
-	 * @return string
-	 */
-	public function getDir() {
-		return $this->dir;
-	}
-
-	/**
-	 * Returns the document root directory under which the current website is running.
-	 * e.g. C:/Documents and Settings/Websites/mywebsite/
-	 * @return string
-	 */
-	public function getDocRoot() {
-		return $this->docRoot;
-	}
-
-	/**
-	 * Sets the document root to a subfolder.
-	 *
-	 * It is not always possible in a webproject to use relative paths.
-	 * But with absolute or phyisical paths you run into problems
-	 * if you want to move your project into another subfolder or you
-	 * publish your website into different folders
-	 * e.g. www.mywebsite.ch and www.mywebsite.ch/developerversion/
-	 * In these cases use getWebRoot()/ SetWebRoot() or SetDocRoot()/GetDocRoot
-	 *
-	 * @param string $path
-	 */
-	function setDocRoot($path) {
-		// if your developing version is in a subdir
-		$this->docRoot = $this->docRoot.'/'.$path;
-	}
-
-	/**
-	 * Returns the webs root directory under which the current website is running.
-	 * If developer version runs in a different subdir set it with the SetWebRoot() method, e.g. /dev
-	 * @return string
-	 */
-	public function getWebRoot() {
-		return $this->webRoot;
-	}
-
-	/**
-	 * Sets the document root to a subfolder.
-	 * It is not always possible in a webproject to use relative paths.
-	 * But with absolute or phyisical paths you run into problems
-	 * if you want to move your project into another subfolder or you
-	 * publish your website into different folders
-	 * e.g. www.mywebsite.ch and www.mywebsite.ch/developerversion/
-	 * In these cases use getWebRoot()/ SetWebRoot() or SetDocRoot()/GetDocRoot
-	 *
-	 * @param string $path
-	 */
-	function setWebRoot($path) {
-		// if your developing version is in a subdir
-		$this->webRoot = $path;
-	}
-
-	/**
-	 * Prints out all session variables.
+	 * Print out all session variables.
 	 */
 	public function printSession() {
 		echo "<strong>Sessions:</strong><br>";
@@ -188,7 +91,7 @@ class Website {
 	}
 
 	/**
-	 * Prints out all POST variables.
+	 * Print out all POST variables.
 	 */
 	public function printPost() {
 		echo "<strong>Posts:</strong><br>";
@@ -211,38 +114,6 @@ class Website {
 	public function checkHost($host, $port = null) {
 		$fp = @fsockopen($host, $port, $errNo, $errStr, 2);
 		return $fp != false;
-	}
-
-	/**
-	 * Returns the namespace used in session variables.
-	 * @return string
-	 */
-	public function getNamespace() {
-		return $this->namespace;
-	}
-
-	/**
-	 * Sets the namespace used in session variables
-	 * @param string $name
-	 */
-	public function setNamespace($name) {
-		$this->namespace = $name;
-	}
-
-	/**
-	 * Set websites default character set
-	 * @param string $charset
-	 */
-	public function setCharset($charset) {
-		$this->charset = $charset;
-	}
-
-	/**
-	 * Get websites default character set
-	 * @return string
-	 */
-	public function getCharset() {
-		return $this->charset;
 	}
 
 	/**
@@ -284,46 +155,4 @@ class Website {
 		$namespace = is_null($namespace) ? $this->namespace : $namespace;
 		unset($_SESSION[$namespace]['backPage']);
 	}
-
-	/**
-	 * Returns the page title.
-	 * @return string
-	 */
-	public function getPageTitle() {
-		return $this->pageTitle;
-	}
-
-	/**
-	 * Sets the page title.
-	 * @param string $pageTitle
-	 */
-	public function setPageTitle($pageTitle) {
-		$this->pageTitle = $pageTitle;
-	}
-
-	/**
-	 * Returns date of last website update.
-	 * @return string
-	 */
-	public function getLastUpdate() {
-		return $this->lastUpdate;
-	}
-
-	/**
-	 * Sets the date of the last website update.
-	 * @param string $lastUpdate
-	 * @see Website::$lastUpdate
-	 */
-	public function setLastUpdate($lastUpdate) {
-		$this->lastUpdate = $lastUpdate;
-	}
-
-	/**
-   * Returns the language identifier.
-   * @return string
-   */
-	public function getLang() {
-		return $this->lang;
-	}
-
 }
