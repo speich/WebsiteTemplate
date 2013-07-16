@@ -78,10 +78,9 @@ class PagedNav extends Website {
 	 */
 	function getLowerBoundary($curPage) {
 		// special case when less pages than range (=numRecPerPage)
-		if ($this->numPages < $this->numRecPerPage || $curPage <= floor($this->numRecPerPage / 2)) {
+		if ($this->numPages <= $this->numRecPerPage || $curPage <= floor($this->numRecPerPage / 2)) {
 			$i = 1;
 		}
-		//else if ($curPage < $this->numRecPerPage) {}
 		else {
 			$i = $curPage - floor($this->numRecPerPage / 2);
 		}
@@ -98,11 +97,14 @@ class PagedNav extends Website {
 		if ($this->numPages < $this->numRecPerPage) {
 			$j = $this->numPages;
 		}
-		// end range
+		// last range
 		else if ($curPage + floor($this->numRecPerPage / 2) > $this->numPages) {
 			$j = $this->numPages;
 		}
-		//
+		// first range
+		else if ($curPage < ($this->numRecPerPage / 2)) {
+			$j = $this->numRecPerPage;
+		}
 		else {
 			$j = $curPage + $this->numRecPerPage / 2;
 		}
