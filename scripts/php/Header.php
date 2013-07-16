@@ -4,6 +4,8 @@
  */
 class Header {
 
+	private $charset = 'utf-8';
+
 	/** @var string http header content type*/
 	private $contentTypes = array(
 		'text' => 'text/plain',
@@ -41,4 +43,7 @@ class Header {
 		return 'Content-Range: items '.$arrRange['start'].'-'.$arrRange['end'].'/'.$numRec;
 	}
 
+	public function getCharset() {
+		return $this->charset;
+	}
 }
