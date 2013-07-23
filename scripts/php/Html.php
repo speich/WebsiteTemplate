@@ -283,8 +283,11 @@ class HtmlSelectFld extends Form {
 
 	/**
 	 * Set the HTMLMultipleAttribute to true.
+	 * @param boolean $multiple
 	 */
-	public function setMultiple() { $this->multiple = true; }
+	public function setMultiple($multiple = true) {
+		$this->multiple = $multiple;
+	}
 
 	/**
 	 * Set a HTMLOptionElement to selected.
