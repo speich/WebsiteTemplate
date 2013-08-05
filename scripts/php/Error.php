@@ -1,10 +1,9 @@
 <?php
 /**
  * This file contains an error reporting class.
- *
  * @author Simon Speich
- * @package General
  */
+namespace WebsiteTemplate;
 
 /**
  * Class to work with PHP error messages.
@@ -12,7 +11,6 @@
  * Additional error messages can be set with the method set().
  *
  * @author Simon Speich
- * @package General
  */
 class Error {
 
@@ -103,5 +101,4 @@ class Error {
 		}
 		return $str;
 	}
-
 }

@@ -1,4 +1,6 @@
 <?php
+namespace WebsiteTemplate;
+
 /**
  * Class Header
  */

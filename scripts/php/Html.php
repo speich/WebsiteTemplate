@@ -5,8 +5,8 @@
  * @author Simon Speich
  * @copyright You can use and alter this freely as long as you list the author.
  * @version 1.0, 04.07.2007
- * @package NAFIDAS
  */
+namespace WebsiteTemplate;
 
 /**
  * Use the value attribute to set HTMLOptionElement to selected.
@@ -26,8 +26,6 @@ define("HTML_OPTION_TEXT", 'Txt');
  * This abstract base class defines a number of attributes and methods
  * to deal with HTMLAttributes that are shared by all HTMLElements, 
  * such as the style, id, name and class attribute.
- * 
- * @package NAFIDAS
  */
 abstract class Html {
 	protected $id = false;
@@ -86,8 +84,6 @@ abstract class Html {
  * Mimics a HTMLSelectElement, but constructed with HTMLDivElements.
  * You can pass to the constructor either a 1-dim array or a 2-dim array.
  * In the second case the first item would be used to set anchor attribute.
- * 
- * @package NAFIDAS
  */
 class HtmlDivList extends Html {
 	private $label = false;
@@ -193,7 +189,6 @@ class Form extends Html {
 /**
  * Class to create a HTMLRadioElement.
  * Often radio buttons occur in group with the same name. Use the setGroup method.
- * @package NAFIDAS
  * @see setGroup() method
  */
 class HtmlRadioButton extends Form {
@@ -250,8 +245,7 @@ class HtmlRadioButton extends Form {
 }
 
 /**
- * This class creates a HtmlSelectElement. *
- * @package NAFIDAS
+ * This class creates a HtmlSelectElement.
  */
 class HtmlSelectFld extends Form {
 	private $arrOption;

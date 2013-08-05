@@ -2,8 +2,8 @@
 /**
  * This file contains two classes to create a navigation menu.
  * @author Simon Speich
- * @package Main
  */
+namespace WebsiteTemplate;
 
 /**
  * Simple recursive php menu with unlimited levels which creates an unordered list
@@ -12,8 +12,6 @@
  * Each item can have its own js event handler. 
  * To increase performance only open menus are used in recursion unless you set
  * the whole menu to be open by setting the property AutoOpen = true;
- * 
- * @package Main
  */
 class MenuItem {
 	public $id = null;
@@ -98,7 +96,6 @@ class MenuItem {
 /**
  * Creates menu items.
  * A menu is made of menu items.
- * @package NAFIDAS
  */
 class Menu extends MenuItem {
 	/**

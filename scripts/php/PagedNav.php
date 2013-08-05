@@ -1,4 +1,5 @@
 <?php
+namespace WebsiteTemplate;
 require_once 'Website.php';
 
 class PagedNav extends Website {

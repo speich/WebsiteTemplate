@@ -3,12 +3,11 @@
  * File contains the class Web, which is a simple helper class to manage websites.
  * @author Simon Speich
  * @copyright You can use and alter this freely as long as you list the author.
- * @package General
  */
+namespace WebsiteTemplate;
 
 /**
  * Simple helper class to manage websites.
- * @package General
  */
 class Website {
 	/** @var string host e.g. www.lfi.ch */
