@@ -12,13 +12,13 @@ namespace WebsiteTemplate;
  * Use the value attribute to set HTMLOptionElement to selected.
  * @see function SetSelected()
  */
-define("HTML_OPTION_VALUE", 'Value');
+const HTML_OPTION_VALUE = 'value';
 
 /**
  * Use the child text to set HTMLOptionElement to selected.
  * @see function SetSelected()
  */
-define("HTML_OPTION_TEXT", 'Txt');
+const HTML_OPTION_TEXT = 'txt';
 
 /**
  * Base class to create HTML snippets.
@@ -288,7 +288,7 @@ class HtmlSelectFld extends Form {
 	 * If no type is given, the value attribute is used to set item selected. If type = HTML_OPTION_TEXT then
 	 * the option text is used to set selected.
 	 * @param mixed $val
-	 * @param const $type use text/value
+	 * @param string $type use text/value
 	 * @return bool
 	 */
 	public function setSelected($val = false, $type = NULL) {
