@@ -1,4 +1,6 @@
 <?php
+use WebsiteTemplate\Website;
+
 session_start();
 //set_time_limit(300);
 if (!isset($_SESSION['loggedIn'])) { $_SESSION['loggedIn'] = false; }
@@ -15,7 +17,7 @@ require_once 'Website.php';
 require_once 'Menu.php';
 
 $web = new Website();
-$web->lastUpdate = '20.06.2013';
+$web->lastUpdate = '03.09.2013';
 $web->pageTitle = 'Website default';
 
 require_once 'inc_nav.php';

@@ -37,40 +37,40 @@ abstract class Html {
 	 * @param string $id
 	 */
 	public function setId($id) { $this->id = $id; }
-	
+
 	/**
 	 * Return the id attribute of a HTMLElement.
-	 * @return string|false
+	 * @return string|bool id or false
 	 */
 	public function getId() {
 		if ($this->id) { return $this->id; }
 		else { return false; }
 	}
-	
+
 	/**
 	 * Set the class attribute of a HTMLElement.
 	 * @param string $Class
 	 */
 	public function setCssClass($Class) { $this->cssClass = $Class; }
-	
+
 	/**
 	 * Return the class attribute of a HTMLElement.
-	 * @return string|false
+	 * @return string|bool class or false
 	 */
 	public function getCssClass() {
 		if ($this->cssClass) { return $this->cssClass; }
 		else { return false; }
 	}
-	
+
 	/**
 	 * Set the style attribute of a HTMLElement.
 	 * @param string $style
 	 */
 	public function setCssStyle($style) { $this->cssStyle = $style; }
-	
+
 	/**
 	 * Return the style atribute of HTMLElement.
-	 * @return string|false
+	 * @return string|bool style or false
 	 */
 	public function getCssStyle() {
 		if ($this->cssStyle) { return $this->cssStyle; }
@@ -80,7 +80,7 @@ abstract class Html {
 
 /**
  * Class to create a list of HTMLDivElements.
- * 
+ *
  * Mimics a HTMLSelectElement, but constructed with HTMLDivElements.
  * You can pass to the constructor either a 1-dim array or a 2-dim array.
  * In the second case the first item would be used to set anchor attribute.
@@ -88,7 +88,7 @@ abstract class Html {
 class HtmlDivList extends Html {
 	private $label = false;
 	private $labelName;
-	
+
 	/**
 	 * Construct a HtmlDivList object.
 	 * @param string $id Id of container element
@@ -98,7 +98,7 @@ class HtmlDivList extends Html {
 		$this->setId($id);
 		$this->arrItem = $arrItem;
 	}
-	
+
 	/**
 	 * Label the list of div elements.
 	 * @param string $label
@@ -107,7 +107,7 @@ class HtmlDivList extends Html {
 		$this->labelName = $label;
 		$this->label = true;
 	}
-	
+
 	/**
 	 * Print the HTML list of div elements.
 	 */
@@ -131,17 +131,17 @@ class HtmlDivList extends Html {
 
 /**
  * Class to create HTMLFormElements.
- * 
+ *
  * This base class defines a number of attributes and methods to deal with
  * HTMLAttributes that are shared by all HTMLFormElements, such as the label, disabled, selected attribute.
  */
 class Form extends Html {
-	// form elements always need an Id 
+	// form elements always need an Id
 	protected $label = false;
 	protected $labelName;
 	protected $disabled = false;
 	protected $selected = false;
-	
+
 	/**
 	 * Set a form element to disabled.
 	 * If set to true the HTMLFormAttribute disabled="disabled" is rendered
@@ -149,7 +149,7 @@ class Form extends Html {
 	 * @param bool $bool
 	 */
 	public function setDisabled($bool) { $this->disabled = $bool; }
-	
+
 	/**
 	 * Set the form element label.
 	 * If set then the label attribute is rendered.
@@ -159,7 +159,7 @@ class Form extends Html {
 		$this->labelName = $label;
 		$this->label = true;
 	}
-	
+
 	/**
 	 * Remove form element label.
 	 */
@@ -167,23 +167,23 @@ class Form extends Html {
 		$this->labelName = null;
 		$this->label = false;
 	}
-	
+
 	/**
 	 * Set the form element or item to be selected.
 	 * If set then the HTMLFormElement is rendered selected.
 	 * @param bool $selected
 	 */
 	public function setSelected($selected = true) { $this->selected = $selected; }
-	
+
 	/**
 	 * Return the label of the HTMLFormElement.
-	 * @return string|false
+	 * @return string|bool label or false
 	 */
 	public function getLabel() {
 		if ($this->label) { return $this->labelName; }
 		else { return false; }
 	}
-	
+
 }
 
 /**
@@ -195,7 +195,7 @@ class HtmlRadioButton extends Form {
 	private $val;
 	private $grouped = false;	// radio buttons can be in groupes with the same name
 	private $groupName;			// name of radio group
-	
+
 	/**
 	 * Construct a HtmlRadioButton object.
 	 * The constructor sets the id and value attribute of the HTMLRadioElement.
@@ -206,7 +206,7 @@ class HtmlRadioButton extends Form {
 		$this->setId($id);
 		$this->val = $val;
 	}
-	
+
 	/**
 	 * Set the name attribute of the radio element.
 	 * If radio elements share the same name, clicking one radio deselects
@@ -217,17 +217,17 @@ class HtmlRadioButton extends Form {
 		$this->groupName = $name;
 		$this->grouped = true;
 	}
-	
+
 	/**
 	 * Return the value of the HTMLAttribute name.
 	 * @see SetGroup method.
-	 * @return string|false
+	 * @return string|bool value or false
 	 */
 	public function getGroup() {
 		if ($this->grouped) { return $this->groupName; }
 		else { return false; }
 	}
-	
+
 	/**
 	 * Print out the HTML radio button.
 	 */
@@ -240,7 +240,7 @@ class HtmlRadioButton extends Form {
 		if ($this->disabled) { echo ' disabled="disabled"'; }
 		if ($this->cssClass) { echo ' class="'.$this->cssClass.'"'; }
 		if ($this->cssStyle) { echo ' style="'.$this->cssStyle.'"'; }
-		echo " />";
+		echo '>';
 	}
 }
 
@@ -250,7 +250,7 @@ class HtmlRadioButton extends Form {
 class HtmlSelectFld extends Form {
 	private $arrOption;
 	private $multiple = false;
-	
+
 	// set selected field
 	private $useTxt = false;
 	private $selectedVal = array(array());		// store value/txt to compare, can be an array of values
@@ -260,14 +260,14 @@ class HtmlSelectFld extends Form {
 
 	/**
  * Construct a HtmlSelectFld object.
- * 
+ *
  * The constructor accepts either a one or a two dimensional array. In case of a
  * 1-dim array, a new, zero-based index is created to use as the HTMLValueAttribute and the
  * array values are used as the text of the HTMLOptionElements. Otherwise the first dimension
  * is used as the value, and the second as the text.
- * 
+ *
  * @param string $id
- * @param array $arrOption text and value data 
+ * @param array $arrOption text and value data
  */
 	public function __construct($id, $arrOption) {
 		$this->setId($id);
@@ -320,7 +320,7 @@ class HtmlSelectFld extends Form {
 		}
 		return $arr;
 	}
-	
+
 	/**
 	 * Set the name attribute independent of the id attribute.
 	 * If you use [] in you id or name attribute, then PHP makes it available as an array after posting.
@@ -334,7 +334,7 @@ class HtmlSelectFld extends Form {
 	 * Default text value is 'Bitte auswählen'.
 	 * Set to false if no default item (first item in the list) should be displayed.
 	 *
-	 * @param string|false $txt
+	 * @param string|bool $txt
 	 */
 	public function setDefaultVal($txt) {
 		$this->defaultVal = $txt;
@@ -342,7 +342,7 @@ class HtmlSelectFld extends Form {
 
 	/**
 	 * Return default text of first unselected option.
-	 * @return string|bool
+	 * @return string|bool text or false
 	 */
 	public function getDefaultVal() {
 		return $this->defaultVal;
