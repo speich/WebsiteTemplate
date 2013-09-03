@@ -1,4 +1,6 @@
 <?php
+use WebsiteTemplate\Menu;
+
 /**
  * This include file creates the navigation menu.
  * Each item needs its unique id for the menu to function properly.
