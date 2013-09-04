@@ -19,5 +19,3 @@ require_once 'Menu.php';
 $web = new Website();
 $web->lastUpdate = '03.09.2013';
 $web->pageTitle = 'Website default';
-
-require_once 'inc_nav.php';
