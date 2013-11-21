@@ -192,7 +192,9 @@ class Form extends Html {
 	 * and the element is disabled by the browser.
 	 * @param bool $bool
 	 */
-	public function setDisabled($bool) { $this->disabled = $bool; }
+	public function setDisabled($bool = true) {
+		$this->disabled = $bool;
+	}
 	
 	/**
 	 * Set the form element label.
