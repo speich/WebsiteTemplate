@@ -1,5 +1,5 @@
 <?php
-use Website\Language;
+use WebsiteTemplate\Language;
 
 session_start();
 //set_time_limit(300);

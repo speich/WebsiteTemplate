@@ -3,7 +3,7 @@
  * This file contains two classes to create a navigation menu.
  * @author Simon Speich
  */
-namespace Website;
+namespace WebsiteTemplate;
 
 /**
  * Simple recursive php menu with unlimited levels which creates an unordered list

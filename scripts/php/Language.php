@@ -1,5 +1,6 @@
 <?php
-namespace Website;
+namespace WebsiteTemplate;
+
 require_once 'Website.php';
 
 /**
