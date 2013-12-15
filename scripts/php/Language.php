@@ -128,7 +128,7 @@ class Language extends Website {
 		}
 		else if ($lang !== 'de') {
 			$page = str_replace('.php', '-'.$lang.'.php', $page);
-			if (!file_exists($this->getDocRoot().$this->getWebroot().$this->getDir().$page)) {
+			if (!file_exists($this->getDocRoot().$this->getWebRoot().$this->getDir().$page)) {
 				$page = $defaultPage;
 			}
 		}
