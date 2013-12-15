@@ -1,4 +1,5 @@
 <?php
+namespace WebsiteTemplate;
 
 /**
  * This class is used as a REST controller.
@@ -6,7 +7,6 @@
  * controller.php/administration/user/1 would be stored as
  * $this->controller = 'administration' and $this->resources = array('user', 1);
  */
-
 class Controller {
 
 	/** @var int minimum number of bytes before using gzip for response */

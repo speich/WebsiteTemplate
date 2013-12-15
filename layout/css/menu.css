@@ -1,22 +1,28 @@
+.menu a {
+	display: block;
+	text-decoration: none;
+}
+
+.menu li {
+	cursor: pointer;
+}
+
 /** menu1 is a simple horizontal menu */
 .menu1 { margin-top: 12px; }
 .menu1 li {
-	float: left;
+	float: left;	/* inline-block is not supported in IE < 8 */
 	font-size: 1.1em;
 	font-weight: bold;
 	padding-right: 24px;
 	line-height: 1;
-	cursor: pointer;
 }
 .menu1 a {
-	display: block;
-	text-decoration: none;
 	color: #578626;
 }
 .menu1 a:hover {
 	color: #b31e00;
 }
-.menu1 .menuIsActive a {
+.menu1 .menuActive a {
 	color: #b31e00;
 }
 
@@ -25,7 +31,6 @@
  * Modified from http://accu.org/index.php/journals/1399 to use css3 transitions
  */
 .menu2 {
-	cursor: default;
 	font-size: 11px;
 	margin-left: 7px;
 	list-style: none;
@@ -34,7 +39,6 @@
 .menu2 li {
 	position: relative;
 	display: inline-block;
-	cursor: pointer;
 }
 
 .menu2 li li {
@@ -63,7 +67,6 @@
 }
 
 .menu2 a {
-	display: block;
 	padding: 0 12px 1px 12px;
 	color: #555555;
 	text-decoration: none;
@@ -90,32 +93,48 @@
 	left: 100%;
 }
 
-.menuIsActive > a {
+.menuActive > a {
 	color: #a00a00;
 }
 
 /** Menu 3 is a classic vertical menu with submenus **/
-.menu3 {width: 150px; }
+.menu3 { width: 150px; }
 .menu3 ul { margin-left: 12px; }
-.menu3 li {  padding: 1px 0 1px 0; cursor: pointer;}
+.menu3 li {  padding: 1px 0 1px 0; }
 .menu3 a  {
-	display: block;
-	text-decoration: none;
 	padding: 6px 0 6px 0;
 	border-bottom: 1px solid #999999;
 	color: #578626;
 }
 .menu3 a:hover { color: #b31e00; }
-.menu3 .menuHasChildren {
+.menu3 .menuHasChild {
 	background: url('../images/arrowleft.gif') right 9px no-repeat;
 }
-.menu3 .menuIsOpen {
+.menu3 .menuOpen {
 	background: url('../images/arrowdown.gif') right 13px no-repeat;
 }
-.menu3 .menuIsOpen > a {	/* no way in IE6 */
-	color: #b31e00;
-}
-.menu3 .menuIsActive a {
+.menu3 .menuActive:not(.menuHasChild) > a {
 	color: #b31e00;
 	background-image: linear-gradient(to bottom, #FFFFFF, #EFEFEF);
 }
+
+
+/** Menu 3 is a classic vertical menu with submenus **/
+.menu4 { width: 150px; }
+.menu4 ul { margin-left: 12px; }
+.menu4 li {  padding: 1px 0 1px 0; }
+.menu4 a  {
+	padding: 6px 0 6px 0;
+	border-bottom: 1px solid #999999;
+	color: #578626;
+}
+.menu4 a:hover { color: #b31e00; }
+
+.menu4 .menuActive > a {
+	color: #b31e00;
+}
+.menu4 .menuActive:not(.menuHasChild) > a {
+	color: #b31e00;
+	background-image: linear-gradient(to bottom, #FFFFFF, #EFEFEF);
+}
+

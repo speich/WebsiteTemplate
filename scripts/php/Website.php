@@ -4,30 +4,30 @@
  * @author Simon Speich
  * @copyright You can use and alter this freely as long as you list the author.
  */
-namespace Website;
 
 /**
  * Simple helper class to manage websites.
-  */
+ * @package General
+ */
 class Website {
 	/** @var string host e.g. www.lfi.ch */
 	public $host;
 
 	/** @var string current path from root including page, e.g. /library/inc_global.php */
-	public $path = '';
-
+	public $path;
+	
 	/** @var string current page without path, e.g. inc_global.php */
-	public $page = '';
-
+	public $page;
+	
 	/** @var string current path without page, e.g. /library */
-	public $dir = '';
-
+	public $dir;
+	
 	/** @var string query string without leading question mark */
 	public $query = '';
-
+	
 	/** @var string default page title */
 	public $pageTitle = '';
-
+	
 	/** @var string namespace for session variables */
 	public $namespace = 'web';
 
@@ -36,7 +36,7 @@ class Website {
 
 	/** @var string character set */
 	public $charset = 'utf-8';
-
+	
 	/** @var string date of last update */
 	public $lastUpdate = '';
 

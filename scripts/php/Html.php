@@ -5,26 +5,20 @@
  * @author Simon Speich
  * @copyright You can use and alter this freely as long as you list the author.
  * @version 1.0, 04.07.2007
- * @package NAFIDAS
  */
+namespace WebsiteTemplate;
 
 /**
  * Use the value attribute to set HTMLOptionElement to selected.
  * @see function SetSelected()
  */
-define("HTML_OPTION_VALUE", 'Value');
+const HTML_OPTION_VALUE = 'value';
 
 /**
  * Use the child text to set HTMLOptionElement to selected.
  * @see function SetSelected()
  */
-define("HTML_OPTION_TEXT", 'Txt');
-
-/**
- * Render only option data of HTMLSelectElement.
- * @see function HtmlSelectFld::Render()
- */
-define("HTML_OPTION_ONLY", true);
+const HTML_OPTION_TEXT = 'txt';
 
 /**
  * Base class to create HTML snippets.
@@ -32,18 +26,10 @@ define("HTML_OPTION_ONLY", true);
  * This abstract base class defines a number of attributes and methods
  * to deal with HTMLAttributes that are shared by all HTMLElements, 
  * such as the style, id, name and class attribute.
- * 
- * @package NAFIDAS
  */
 abstract class Html {
-
-	/** @var bool|string html id attribute */
 	protected $id = false;
-
-	/** @var bool|string html class attribute */
 	protected $cssClass = false;
-
-	/** @var bool|string html style attribute */
 	protected $cssStyle = false;
 
 	/**
@@ -51,40 +37,40 @@ abstract class Html {
 	 * @param string $id
 	 */
 	public function setId($id) { $this->id = $id; }
-	
+
 	/**
 	 * Return the id attribute of a HTMLElement.
-	 * @return string|false
+	 * @return string|bool id or false
 	 */
 	public function getId() {
 		if ($this->id) { return $this->id; }
 		else { return false; }
 	}
-	
+
 	/**
 	 * Set the class attribute of a HTMLElement.
-	 * @param string $class
+	 * @param string $Class
 	 */
-	public function setCssClass($class) { $this->cssClass = $class; }
-	
+	public function setCssClass($Class) { $this->cssClass = $Class; }
+
 	/**
 	 * Return the class attribute of a HTMLElement.
-	 * @return string|false
+	 * @return string|bool class or false
 	 */
 	public function getCssClass() {
 		if ($this->cssClass) { return $this->cssClass; }
 		else { return false; }
 	}
-	
+
 	/**
 	 * Set the style attribute of a HTMLElement.
 	 * @param string $style
 	 */
 	public function setCssStyle($style) { $this->cssStyle = $style; }
-	
+
 	/**
 	 * Return the style atribute of HTMLElement.
-	 * @return string|false
+	 * @return string|bool style or false
 	 */
 	public function getCssStyle() {
 		if ($this->cssStyle) { return $this->cssStyle; }
@@ -94,23 +80,17 @@ abstract class Html {
 
 /**
  * Class to create a list of HTMLDivElements.
- * 
+ *
  * Mimics a HTMLSelectElement, but constructed with HTMLDivElements.
  * You can pass to the constructor either a 1-dim array or a 2-dim array.
  * In the second case the first item would be used to set anchor attribute.
- * 
- * @package NAFIDAS
  */
 class HtmlDivList extends Html {
-
-	/** @var bool render label attribute */
 	private $label = false;
-
-	/** @var string label for list */
 	private $labelName;
-	
+
 	/**
-	 * Construct a HtmlDivList object
+	 * Construct a HtmlDivList object.
 	 * @param string $id Id of container element
 	 * @param array $arrItem Array of elements
 	 */
@@ -118,7 +98,7 @@ class HtmlDivList extends Html {
 		$this->setId($id);
 		$this->arrItem = $arrItem;
 	}
-	
+
 	/**
 	 * Label the list of div elements.
 	 * @param string $label
@@ -127,7 +107,7 @@ class HtmlDivList extends Html {
 		$this->labelName = $label;
 		$this->label = true;
 	}
-	
+
 	/**
 	 * Print the HTML list of div elements.
 	 */
@@ -149,42 +129,18 @@ class HtmlDivList extends Html {
 	}
 }
 
-
 /**
  * Class to create HTMLFormElements.
- * 
+ *
  * This base class defines a number of attributes and methods to deal with
  * HTMLAttributes that are shared by all HTMLFormElements, such as the label, disabled, selected attribute.
- * 
- * @package NAFIDAS
  */
 class Form extends Html {
-
-	/** @var bool render label attribute */
+	// form elements always need an Id
 	protected $label = false;
-
-	/** @var string label */
 	protected $labelName;
-
-	/** @var bool|string disabled attribute */
 	protected $disabled = false;
-
-	/** @var bool|string selected attribute */
 	protected $selected = false;
-
-	/** @var bool|string required attribute */
-	protected $required = false;
-
-	/** @var bool|integer tab index attribute */
-	protected $tabIndex = false;
-
-	/**
-	 * Set the element's tab index
-	 * @param integer $index
-	 */
-	public function setTabIndex($index) {
-		$this->tabIndex = $index;
-	}
 
 	/**
 	 * Set a form element to disabled.
@@ -192,10 +148,8 @@ class Form extends Html {
 	 * and the element is disabled by the browser.
 	 * @param bool $bool
 	 */
-	public function setDisabled($bool = true) {
-		$this->disabled = $bool;
-	}
-	
+	public function setDisabled($bool) { $this->disabled = $bool; }
+
 	/**
 	 * Set the form element label.
 	 * If set then the label attribute is rendered.
@@ -205,7 +159,7 @@ class Form extends Html {
 		$this->labelName = $label;
 		$this->label = true;
 	}
-	
+
 	/**
 	 * Remove form element label.
 	 */
@@ -213,54 +167,37 @@ class Form extends Html {
 		$this->labelName = null;
 		$this->label = false;
 	}
-	
+
 	/**
 	 * Set the form element or item to be selected.
 	 * If set then the HTMLFormElement is rendered selected.
 	 * @param bool $selected
 	 */
-	public function setSelected($selected = true) { $this->selected = (bool) $selected; }
-	
+	public function setSelected($selected = true) { $this->selected = $selected; }
+
 	/**
 	 * Return the label of the HTMLFormElement.
-	 * @return string|false
+	 * @return string|bool label or false
 	 */
 	public function getLabel() {
 		if ($this->label) { return $this->labelName; }
 		else { return false; }
 	}
 
-	/**
-	 * Set HTMLAttribute required to true or false.
-	 * @param $bool
-	 */
-	public function setRequired($bool = true) {
-		$this->required = $bool;
-	}
-	
 }
 
 /**
- * Class to create a HTMLRadioElement
- * Often radio buttons occur in group with the same name. Use the SetGroup method.
- * @package NAFIDAS
+ * Class to create a HTMLRadioElement.
+ * Often radio buttons occur in group with the same name. Use the setGroup method.
  * @see setGroup() method
  */
 class HtmlRadioButton extends Form {
-	/**
-	 * Should radio buttons be grouped with same name?
-	 * @var bool
-	 */
-	private $grouped = false;
+	private $val;
+	private $grouped = false;	// radio buttons can be in groupes with the same name
+	private $groupName;			// name of radio group
 
 	/**
-	 * Name attribute of radio group
-	 * @var string
-	 */
-	private $groupName;
-	
-	/**
-	 * Construct a HtmlRadioButton object
+	 * Construct a HtmlRadioButton object.
 	 * The constructor sets the id and value attribute of the HTMLRadioElement.
 	 * @param string $id HTMLAttribute id
 	 * @param string $val HTMLAttribute value
@@ -269,7 +206,7 @@ class HtmlRadioButton extends Form {
 		$this->setId($id);
 		$this->val = $val;
 	}
-	
+
 	/**
 	 * Set the name attribute of the radio element.
 	 * If radio elements share the same name, clicking one radio deselects
@@ -280,76 +217,57 @@ class HtmlRadioButton extends Form {
 		$this->groupName = $name;
 		$this->grouped = true;
 	}
-	
+
 	/**
 	 * Return the value of the HTMLAttribute name.
-	 * @see setGroup() method
-	 * @return string|false
+	 * @see SetGroup method.
+	 * @return string|bool value or false
 	 */
 	public function getGroup() {
 		if ($this->grouped) { return $this->groupName; }
 		else { return false; }
 	}
-	
+
 	/**
 	 * Print out the HTML radio button.
 	 */
 	function render() {
-		if ($this->label) {
-			echo '<label for="'.$this->getId().'"';
-			if ($this->cssClass) {
-				echo ' class="label'.$this->cssClass.'"';
-			}
-			echo '>'.$this->getLabel()."</label>\n";
-		}
+		if ($this->label) {	echo '<label for="'.$this->getId().'">'.$this->getLabel()."</label>\n"; }
 		echo '<input id="'.$this->getId().'"';
-		if ($this->grouped === true) { echo ' name="'.$this->getGroup().'"'; }
+		if ($this->grouped) { echo ' name="'.$this->getGroup().'"'; }
 		echo ' type="radio" value="'.$this->val.'"';
-		if ($this->selected === true) { echo ' checked="checked"'; }
-		if ($this->disabled === true) { echo ' disabled="disabled"'; }
-		if ($this->tabIndex) { echo ' tabindex="'.$this->tabIndex.'"'; }
+		if ($this->selected) { echo ' checked="checked"'; }
+		if ($this->disabled) { echo ' disabled="disabled"'; }
 		if ($this->cssClass) { echo ' class="'.$this->cssClass.'"'; }
 		if ($this->cssStyle) { echo ' style="'.$this->cssStyle.'"'; }
-		if ($this->required === true) { echo ' required="required"'; }
-		echo ">";
+		echo '>';
 	}
 }
 
 /**
  * This class creates a HtmlSelectElement.
- * @package NAFIDAS
  */
 class HtmlSelectFld extends Form {
-
-	/** @var array array holding option element value and text */
 	private $arrOption;
-
-	/** @var bool multiple attribute */
 	private $multiple = false;
-	
-	/** @var bool use option text to set selected instead of value attribute */
+
+	// set selected field
 	private $useTxt = false;
+	private $selectedVal = array(array());		// store value/txt to compare, can be an array of values
+	private $defaultVal = 'Bitte auswählen';	// first item in select field
+	private $name = "";								// set name attribute separately, default = Id in constructor
+	// e.g. id="Test" name="Test[]" post PHP array [] not valid JS as an id
 
-	/** @var array  value/txt to compare when setting selected, can be an array of values */
-	private $selectedVal = array(array());
-
-	/** @var string first item in select field */
-	private $defaultVal = 'Bitte auswählen';
-
-	/** @var string name attribute, default == id attribute */
-	private $name = "";
-
-
-/**
+	/**
  * Construct a HtmlSelectFld object.
- * 
+ *
  * The constructor accepts either a one or a two dimensional array. In case of a
  * 1-dim array, a new, zero-based index is created to use as the HTMLValueAttribute and the
  * array values are used as the text of the HTMLOptionElements. Otherwise the first dimension
  * is used as the value, and the second as the text.
- * 
+ *
  * @param string $id
- * @param array $arrOption text and value data 
+ * @param array $arrOption text and value data
  */
 	public function __construct($id, $arrOption) {
 		$this->setId($id);
@@ -359,21 +277,26 @@ class HtmlSelectFld extends Form {
 
 	/**
 	 * Set the HTMLMultipleAttribute to true.
-     * Set to false by default.
+	 * @param boolean $multiple
 	 */
-	public function setMultiple() { $this->multiple = true; }
+	public function setMultiple($multiple = true) {
+		$this->multiple = $multiple;
+	}
 
 	/**
 	 * Set a HTMLOptionElement to selected.
-	 * If no type is given, the value attribute is used to set item selected.
+	 * If no type is given, the value attribute is used to set item selected. If type = HTML_OPTION_TEXT then
+	 * the option text is used to set selected.
 	 * @param mixed $val
-	 * @param const|NULL $type	use text/value
+	 * @param string $type use text/value
 	 * @return bool
 	 */
 	public function setSelected($val = false, $type = NULL) {
 		if ($val === false) { $this->selected = false; }
 		else { $this->selected = true; }
-		if ($type == HTML_OPTION_TEXT) { $this->useTxt = true; }
+		if ($type == HTML_OPTION_TEXT) {
+			$this->useTxt = true;
+		}
 		if (is_array($val)) {
 			$this->selectedVal = $val;
 		}
@@ -384,13 +307,20 @@ class HtmlSelectFld extends Form {
 	}
 
 	/**
-	 * Returns options data as a two dim array with value and text.
+	 * Return selected values or texts.
+	 * @param null $type
 	 * @return array
 	 */
-	public function getOptions() {
-		return $this->arrOption;
+	public function getSelected($type = null) {
+		$arr = array();
+		foreach ($this->arrOption as $option) {
+			if ($this->select($option)) {
+				$arr[] = $type == HTML_OPTION_TEXT ? $option[1] : $option[0];
+			}
+		}
+		return $arr;
 	}
-	
+
 	/**
 	 * Set the name attribute independent of the id attribute.
 	 * If you use [] in you id or name attribute, then PHP makes it available as an array after posting.
@@ -404,75 +334,79 @@ class HtmlSelectFld extends Form {
 	 * Default text value is 'Bitte auswählen'.
 	 * Set to false if no default item (first item in the list) should be displayed.
 	 *
-	 * @param string|false $txt
+	 * @param string|bool $txt
 	 */
 	public function setDefaultVal($txt) {
 		$this->defaultVal = $txt;
 	}
 
-	/** 
-	 * Print the HTMLSelectElement.
-	 * @param const $type render option elements only
+	/**
+	 * Return default text of first unselected option.
+	 * @return string|bool text or false
 	 */
-	public function render($type = NULL) {
-		$html = '';
-		if ($type != HTML_OPTION_ONLY) {
-			if ($this->label) {
-				echo '<label for="'.$this->getId().'"';
-				if ($this->cssClass) {
-					echo ' class="label'.$this->cssClass.'"';
-				}
-				echo '>'.$this->getLabel()."</label>\n";
-			}
+	public function getDefaultVal() {
+		return $this->defaultVal;
+	}
 
-			$html.= '<select id="'.$this->getId().'" name="'.$this->name.'"';
-			if ($this->cssClass) { $html.= ' class="'.$this->cssClass.'"'; }
-			if ($this->cssStyle) { $html.= ' style="'.$this->cssStyle.'"'; }
-			if ($this->multiple) { $html.= ' multiple="multiple"'; }
-			if ($this->disabled) { $html.= ' disabled="disabled"'; }
-			if ($this->tabIndex) { $html.= ' tabindex="'.$this->tabIndex.'"'; }
-			if ($this->required) { $html.= ' required="required"'; }
-			$html .= ">\n";
-		}
-		if ($this->defaultVal) { $html.= '<option value="">'.$this->defaultVal.'</option>'; }
+	/**
+	 * Print the HTMLSelectElement.
+	 */
+	public function render() {
+		if ($this->label) {	echo '<label for="'.$this->getId().'">'.$this->getLabel()."</label>\n"; }
+		$html = '<select id="'.$this->getId().'" name="'.$this->name.'"';
+		if ($this->cssClass) { $html .= ' class="'.$this->cssClass.'"'; }
+		if ($this->cssStyle) { $html .= ' style="'.$this->cssStyle.'"'; }
+		if ($this->multiple) { $html .= ' multiple="multiple"'; }
+		if ($this->disabled) { $html .= ' disabled="disabled"'; }
+		$html .= ">\n";
+		if ($this->defaultVal) { $html .= '<option value="">'.$this->defaultVal.'</option>'; }
 		$i = 0;
-		if (count($this->arrOption) == 0) { $html.= '<option></option>'; }
+		if (count($this->arrOption) == 0) { $html .= '<option></option>'; }
+		// if data is a 1-dim array: use created index as value attribute
+		// else 2-dim array: use first index as value attribute. Array keys can either be integer or assoc.
 		foreach ($this->arrOption as $row) {
-			// 1-dim array: use created index as value attribute
-			// 2-dim array: use first index as value attribute
-			if (count($row) > 1) {
-				$val = $row[0];
-				$text = $row[1];
-				$sel = '';
+			if (is_array($row)) {
+				$val = $row[key($row)];
+				next($row);
+				$text = $row[key($row)];
 			}
 			else {
 				$val = $i++;
 				$text = $row;
-				$sel = '';
 			}
-			if ($this->selected) {
-				foreach ($this->selectedVal as $selected) {
-					if ($this->useTxt) {
-						// use strict to prevent value="0" to be set as selected if passing false as $Val
-						if ($row[1] == $selected) { $sel = ' selected="selected"'; }
-					}
-					else if ($row[0] == $selected) {
-						$sel = ' selected="selected"';
+			reset($row);
+			$html.= '<option value="'.$val.'"'.($this->select($row) ? ' selected="selected"' : '').'>'.$text."</option>\n";
+		}
+		$html .= "</select>\n";
+		echo $html;
+	}
+
+	/**
+	 * Set HTML selected attribute.
+	 * @param array $row
+	 * @return bool
+	 */
+	protected function select($row) {
+		if ($this->selected) {
+			foreach ($this->selectedVal as $selected) {
+				if (!$this->useTxt && $row[key($row)] == $selected) {
+					return true;
+				}
+				else {
+					next($row);
+					// use strict to prevent value="0" to be set as selected if passing false as $Val
+					if ($row[key($row)] == $selected) {
+						return true;
 					}
 				}
-			}		
-			$html.= '<option value="'.$val.'"'.$sel.'>'.$text."</option>\n";
+			}
 		}
-		if ($type != HTML_OPTION_ONLY) {
-			$html.= "</select>\n";
-		}
-		echo $html;
+		return false;
 	}
 }
 
 /**
  * Create a HTMLSelectElement.
- * @package NAFIDAS
  */
 class HtmlCheckBox extends Form {
 	
@@ -492,21 +426,13 @@ class HtmlCheckBox extends Form {
 	 * Print the HTMLCheckboxElement.
 	 */
 	function render() {
-		if ($this->label) {
-			echo '<label for="'.$this->getId().'"';
-			if ($this->cssClass) {
-				echo ' class="label'.$this->cssClass.'"';
-			}
-			echo '>'.$this->getLabel()."</label>\n";
-		}
+		if ($this->label) {	echo '<label for="'.$this->getId().'">'.$this->getLabel()."</label>\n"; }
 		echo '<input id="'.$this->getId().'" name="'.$this->name.'"';
 		echo ' type="checkbox" value="'.$this->val.'"';
-		if ($this->selected === true) { echo ' checked="checked"'; }
-		if ($this->disabled == true) { echo ' disabled="disabled"'; }
-		if ($this->tabIndex) { echo ' tabindex="'.$this->tabIndex.'"'; }
+		if ($this->selected) { echo ' checked="checked"'; }
+		if ($this->disabled) { echo ' disabled="disabled"'; }
 		if ($this->cssClass) { echo ' class="'.$this->cssClass.'"'; }
 		if ($this->cssStyle) { echo ' style="'.$this->cssStyle.'"'; }
-		if ($this->required === true) { echo ' required="required"'; }
-		echo ">";
+		echo " />";
 	}
 }

@@ -1,4 +1,5 @@
 <?php
+namespace WebsiteTemplate;
 
 /**
  * Helper class to parse HTTP responses.
