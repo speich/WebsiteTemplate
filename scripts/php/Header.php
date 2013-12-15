@@ -45,6 +45,10 @@ class Header {
 		return 'Content-Range: items '.$arrRange['start'].'-'.$arrRange['end'].'/'.$numRec;
 	}
 
+	/**
+	 * Returns the character set
+	 * @return string
+	 */
 	public function getCharset() {
 		return $this->charset;
 	}

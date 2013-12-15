@@ -120,7 +120,7 @@ class Language extends Website {
 	public function createLangPage($page, $lang) {
 		$page = preg_replace('/\-[a-z]{2}\.php/', '.php', $page);
 		$defaultPage = $page;
-		if (strpos($this->dir, '/articles') !== false) {
+		if (strpos($this->getDir(), '/articles') !== false) {
 			$page = '';
 		}
 		else if ($page === '' || $page === 'default.php') {
@@ -128,7 +128,7 @@ class Language extends Website {
 		}
 		else if ($lang !== 'de') {
 			$page = str_replace('.php', '-'.$lang.'.php', $page);
-			if (!file_exists($_SERVER['DOCUMENT_ROOT'].'/'.$this->webroot.'/'.$this->dir.'/'.$page)) {
+			if (!file_exists($this->getDocRoot().$this->getWebroot().$this->getDir().$page)) {
 				$page = $defaultPage;
 			}
 		}
@@ -145,7 +145,7 @@ class Language extends Website {
 		$str.= '<ul id="navLang" class="nav">';
 		foreach ($this->arrLang as $lang) {
 			$page = $this->createLangPage($page, $lang);
-			$url = rtrim($this->dir, '/').'/'.$page.$this->getQuery(array('lang' => $lang));
+			$url = $this->getDir().$page.$this->getQuery(array('lang' => $lang));
 			$str.= '<li';
 			if ($lang == $this->getLang()) {
 				$str.= ' class="navActive"';

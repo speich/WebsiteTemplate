@@ -6,7 +6,7 @@ session_start();
 if (!isset($_SESSION['loggedIn'])) { $_SESSION['loggedIn'] = false; }
 
 // make include paths available to pages independent on subdir they reside in
-$path = rtrim($_SERVER['DOCUMENT_ROOT'], '/').'/';	// may have trailing slash depending of environment
+$path = rtrim($_SERVER['DOCUMENT_ROOT'], DIRECTORY_SEPARATOR).'/';	// may have trailing slash depending of environment
 $incPath = $path.'scripts/php'.PATH_SEPARATOR;
 $incPath.= $path.'layout'.PATH_SEPARATOR;
 $incPath.= $path.'library';

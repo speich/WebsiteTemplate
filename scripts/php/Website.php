@@ -20,7 +20,7 @@ class Website {
 	public $page;
 	
 	/** @var string current path without page, e.g. /library */
-	public $dir;
+	private $dir;
 	
 	/** @var string query string without leading question mark */
 	public $query = '';
@@ -31,8 +31,8 @@ class Website {
 	/** @var string namespace for session variables */
 	public $namespace = 'web';
 
-	/** @var string web root directory on web server (no trailing slash) */
-	public  $webroot = '';
+	/** @var string web root directory on web server */
+	private $webroot = '/';
 
 	/** @var string character set */
 	public $charset = 'utf-8';
@@ -52,8 +52,32 @@ class Website {
 			$this->path = $arrUrl['path'];
 			$arrPath = pathinfo($this->path);
 			$this->page = $arrPath['basename'];
-			$this->dir = rtrim(str_replace('\\', '/', $arrPath['dirname']), '/');	// returns \ instead of / on Windows
+			$this->dir = rtrim($arrPath['dirname'], DIRECTORY_SEPARATOR).'/';
 		}
+	}
+
+	/**
+	 * Returns the document root always with a trailing slash.
+	 * @return string
+	 */
+	public function getDocRoot() {
+		return rtrim($_SERVER['DOCUMENT_ROOT'], DIRECTORY_SEPARATOR).'/';
+	}
+
+	/**
+	 * Returns the web root always with a trailing slash.
+	 * @return string
+	 */
+	public function getWebRoot() {
+		return rtrim($this->webroot, '/').'/';
+	}
+
+	/**
+	 * Returns the path always with trailing slash.
+	 * @return string
+	 */
+	public function getDir() {
+		return rtrim($_SERVER['DOCUMENT_ROOT'], DIRECTORY_SEPARATOR).'/';
 	}
 
 	/**
@@ -209,5 +233,4 @@ class Website {
 			$this->query = preg_replace('/^\&/', '', $this->query); // if first key-value pair was removed change ampersand to questions mark
 			return htmlspecialchars($this->getQuery());
 		}
-
 }
