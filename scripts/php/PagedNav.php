@@ -4,11 +4,10 @@
  * @author Simon Speich
  * @package General
  */
-
+namespace Website;
 
 /**
  * Class to create and display a paged navigation.
- * @package General
  */
 class PagedNav {
 

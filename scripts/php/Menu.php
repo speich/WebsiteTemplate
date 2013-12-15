@@ -4,6 +4,7 @@
  * @author Simon Speich
  * @package Main
  */
+namespace Website;
 
 /**
  * Simple recursive php menu with unlimited levels which creates an unordered list
