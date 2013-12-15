@@ -31,8 +31,14 @@ class Website {
 	/** @var string namespace for session variables */
 	public $namespace = 'web';
 
+	/** @var string web root directory on web server (no trailing slash) */
+	public  $webroot = '';
+
 	/** @var string character set */
 	public $charset = 'utf-8';
+
+	/** @var string date of last update */
+	public $lastUpdate = '';
 
 	/**
 	 * Creates a new instance of the class Web.
@@ -46,7 +52,7 @@ class Website {
 			$this->path = $arrUrl['path'];
 			$arrPath = pathinfo($this->path);
 			$this->page = $arrPath['basename'];
-			$this->dir = str_replace('\\', '/', $arrPath['dirname']);	// returns \ instead of / on Windows
+			$this->dir = rtrim(str_replace('\\', '/', $arrPath['dirname']), '/');	// returns \ instead of / on Windows
 		}
 	}
 

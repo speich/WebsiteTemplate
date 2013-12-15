@@ -1,6 +1,6 @@
 <?php require_once 'inc_script.php'; ?>
 <!DOCTYPE html>
-<html lang="<?php echo $web->lang; ?>" dir="ltr">
+<html lang="<?php echo $web->getLang(); ?>" dir="ltr">
 <head>
 <title><?php echo $web->pageTitle; ?></title>
 <?php require_once 'inc_head.php'; ?>

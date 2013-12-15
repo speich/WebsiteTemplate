@@ -1,4 +1,6 @@
 <?php
+use Website\Language;
+
 session_start();
 //set_time_limit(300);
 if (!isset($_SESSION['loggedIn'])) { $_SESSION['loggedIn'] = false; }
@@ -11,11 +13,11 @@ $incPath.= $path.'library';
 set_include_path($incPath);
 date_default_timezone_set('Europe/Zurich');
 
-require_once 'Website.php';
+require_once 'Language.php';
 require_once 'Menu.php';
 
-$web = new Website();
-$web->lastUpdate = '20.06.2013';
+$web = new Language();
+$web->lastUpdate = '15.12.2013';
 $web->pageTitle = 'Website default';
 
 require_once 'inc_nav.php';

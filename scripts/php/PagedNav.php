@@ -54,7 +54,7 @@ class PagedNav {
 	private $varNamePgNav = 'cp';
 
 	/**
-	 * Constructs the paged navigation.	 *
+	 * Constructs the paged navigation.
 	 * Total number of records with given query, e.g. with WHERE clause included.
 	 * @param Website $web instance of class Website
 	 * @param integer $curPageNum Current page to display.
@@ -121,14 +121,14 @@ class PagedNav {
 		if ($this->curPageNum > $this->stepBig / 2) { // && $this->curPageNum >= $this->stepBig + $this->stepSmall) {
 			$stepBig = ($this->curPageNum > $this->stepBig ? $this->stepBig : $this->curPageNum - 1);
 			$query = $this->web->addQuery(array($this->varNamePgNav => ($this->curPageNum - $stepBig)));
-			echo '<li><a class="linkJumpBig" href="'.$this->web->getPage().$query.'" title="-'.$stepBig.'">';
+			echo '<li><a class="linkJumpBig" href="'.$this->web->page.$query.'" title="-'.$stepBig.'">';
 			echo '<span class="arrow-w"></span><span class="arrow-w"></span></a></li>';
 		}
 		// jump back small step
 		if ($this->curPageNum > $this->stepSmall / 2) {
 			$stepSmall = ($this->curPageNum > $this->stepSmall ? $this->stepSmall : $this->curPageNum - 1);
 			$query = $this->web->addQuery(array($this->varNamePgNav => ($this->curPageNum - $stepSmall)));
-			echo '<li><a class="linkJumpSmall" href="'.$this->web->getPage().$query.'" title="-'.$stepSmall.'">';
+			echo '<li><a class="linkJumpSmall" href="'.$this->web->page.$query.'" title="-'.$stepSmall.'">';
 			echo '<span class="arrow-w"></span></a></li>';
 		}
 		// direct accessible pages (1 2 3 4... links)
@@ -145,7 +145,7 @@ class PagedNav {
 				else {
 					$query = $this->web->addQuery(array($this->varNamePgNav => $i));
 					echo '<li class="pages">';
-					echo '<a class="linkJumpPage" href="'.$this->web->getPage().$query.'">';
+					echo '<a class="linkJumpPage" href="'.$this->web->page.$query.'">';
 				}
 				echo $i; // page number
 				if ($i == $this->curPageNum) {
@@ -160,14 +160,14 @@ class PagedNav {
 		if ($numPage > $this->curPageNum + $this->stepSmall / 2) {
 			$stepSmall = ($numPage > ($this->curPageNum + $this->stepSmall) ? $this->stepSmall : $numPage - $this->curPageNum);
 			$query = $this->web->addQuery(array($this->varNamePgNav => ($this->curPageNum + $stepSmall)));
-			echo '<li><a class="linkJumpSmall" href="'.$this->web->getPage().$query.'" title="+'.$stepSmall.'">';
+			echo '<li><a class="linkJumpSmall" href="'.$this->web->page.$query.'" title="+'.$stepSmall.'">';
 			echo '<span class="arrow-e"></span></a></li>';
 		}
 		// jump forward big step
 		if ($numPage >= $this->curPageNum + $this->stepBig / 2) {
 			$stepBig = ($numPage > $this->curPageNum + $this->stepBig ? $this->stepBig : $numPage - $this->curPageNum);
 			$query = $this->web->addQuery(array($this->varNamePgNav => ($this->curPageNum + $stepBig)));
-			echo '<li><a title="" class="linkJumpBig" href="'.$this->web->getPage().$query.'" title="+'.$stepBig.'">';
+			echo '<li><a title="" class="linkJumpBig" href="'.$this->web->page.$query.'" title="+'.$stepBig.'">';
 			echo '<span class="arrow-e"></span><span class="arrow-e"></span></a></li>';
 		}
 		// show number of records

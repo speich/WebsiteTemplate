@@ -1,5 +1,6 @@
 <?php
 namespace Website;
+require_once 'Website.php';
 
 /**
  * Helper class which allows website to be multi language.
@@ -25,7 +26,7 @@ class Language extends Website {
 		// explicitly changing lang?
 		if (isset($_GET['lang'])) {
 			$regExpr = "/[^".implode('', $this->arrLang)."]/";
-			$this->$lang = $lang = preg_replace($regExpr, '', $_GET['lang']);
+			$this->lang = $lang = preg_replace($regExpr, '', $_GET['lang']);
 		}
 		// session?
 		else if (isset($_SESSION[$this->namespace]['lang'])) {
@@ -33,7 +34,7 @@ class Language extends Website {
 		}
 		// check for lang preference?
 		else if (isset($_COOKIE['lang'])) {
-			$this->$lang = $_COOKIE['lang'];
+			$this->lang = $_COOKIE['lang'];
 		}
 		// check language header
 		else {
@@ -118,7 +119,7 @@ class Language extends Website {
 	public function createLangPage($page, $lang) {
 		$page = preg_replace('/\-[a-z]{2}\.php/', '.php', $page);
 		$defaultPage = $page;
-		if (strpos($this->getDir(), '/articles') !== false) {
+		if (strpos($this->dir, '/articles') !== false) {
 			$page = '';
 		}
 		else if ($page === '' || $page === 'default.php') {
@@ -126,7 +127,7 @@ class Language extends Website {
 		}
 		else if ($lang !== 'de') {
 			$page = str_replace('.php', '-'.$lang.'.php', $page);
-			if (!file_exists($this->getDocRoot().'/'.$this->getDir().'/'.$page)) {
+			if (!file_exists($_SERVER['DOCUMENT_ROOT'].'/'.$this->webroot.'/'.$this->dir.'/'.$page)) {
 				$page = $defaultPage;
 			}
 		}
@@ -138,12 +139,12 @@ class Language extends Website {
 	 * @return string Html
 	 */
 	public function renderLangNav() {
-		$page = $this->getPage();
+		$page = $this->page;
 		$str = '';
 		$str.= '<ul id="navLang" class="nav">';
 		foreach ($this->arrLang as $lang) {
 			$page = $this->createLangPage($page, $lang);
-			$url = rtrim($this->getDir(), '/').'/'.$page.$this->getQuery(array('lang' => $lang));
+			$url = rtrim($this->dir, '/').'/'.$page.$this->getQuery(array('lang' => $lang));
 			$str.= '<li';
 			if ($lang == $this->getLang()) {
 				$str.= ' class="navActive"';
