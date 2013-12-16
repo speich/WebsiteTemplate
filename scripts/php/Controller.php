@@ -56,16 +56,23 @@ class Controller {
 	/**
 	 * Converts PHP input parameters to an object
 	 * Object properties correspond with request data
+	 * @param bool $json handle post data as json
 	 * @return object|null
 	 */
-	public function getDataAsObject() {
+	public function getDataAsObject($json = false) {
 		switch ($this->method) {
 			case 'POST':
-				$arr = $_POST;
+				$data = count($_POST) > 0 ? $_POST : file_get_contents('php://input');	// in my local php installation $_POST is always empty, haven't figured out why yet
+				$arr = $json ? json_decode($data) : $data;
 				break;
 			case 'PUT':
 				$data = file_get_contents('php://input');
-				parse_str($data, $arr);
+				if ($json) {
+					$arr = json_decode($data);
+				}
+				else {
+					parse_str($data, $arr);
+				}
 				break;
 			case 'GET':
 				$arr = $_GET;
@@ -84,6 +91,7 @@ class Controller {
 		}
 		return count($arr) > 0 ? (object) $arr : null;
 	}
+
 
 	/**
 	 * Returns the first path segment.

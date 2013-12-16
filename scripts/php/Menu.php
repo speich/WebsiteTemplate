@@ -17,8 +17,6 @@ namespace WebsiteTemplate;
  */
 
 
-
-
 /**
  * Class to create menu items.
  */
