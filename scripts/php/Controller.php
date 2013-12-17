@@ -60,12 +60,14 @@ class Controller {
 	 * @return object|null
 	 */
 	public function getDataAsObject($json = false) {
-		// note: Make sure you set the correct Content-Type when POST
 		switch ($this->method) {
 			case 'POST':
-				$arr = $_POST;
 				if ($json) {
-					$arr = json_decode($arr);
+					$arr = json_decode(file_get_contents('php://input'));
+				}
+				else {
+					// note: Make sure you set the correct Content-Type when doint a xhr POST
+					$arr = $_POST;
 				}
 				break;
 			case 'PUT':
