@@ -65,6 +65,9 @@ class PagedNav {
 	)
 	);
 
+	/** @var bool render text */
+	public $renderText = true;
+
 	/** @var float number of pages */
 	private $numPages;
 
@@ -131,12 +134,14 @@ class PagedNav {
 
 		echo '<div id="'.$this->cssId.'">';
 
-		echo '<div class="text">';
-		echo $this->i18n[$web->getLang()]['search result'].": ".$this->numRec." ";
-		echo $this->numRec > 1 ? $this->i18n[$web->getLang()]['entries'] : $this->i18n[$web->getLang()]['entry'];
-		echo " ".$this->i18n[$web->getLang()]['on']." $this->numPages ";
-		echo $this->numPages > 1 ? $this->i18n[$web->getLang()]['pages'] : $this->i18n[$web->getLang()]['page'];
-		echo '</div>';
+		if ($this->renderText) {
+			echo '<div class="text">';
+			echo $this->i18n[$web->getLang()]['search result'].": ".$this->numRec." ";
+			echo $this->numRec > 1 ? $this->i18n[$web->getLang()]['entries'] : $this->i18n[$web->getLang()]['entry'];
+			echo " ".$this->i18n[$web->getLang()]['on']." $this->numPages ";
+			echo $this->numPages > 1 ? $this->i18n[$web->getLang()]['pages'] : $this->i18n[$web->getLang()]['page'];
+			echo '</div>';
+		}
 
 		echo '<div class="pages">';
 		// link jump back small
