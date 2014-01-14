@@ -183,9 +183,9 @@ class Menu extends MenuItem {
 	/**
 	 * Constructs the menu.
 	 * You can provide a 2-dim array with all menu items 
-	 * or use the add method for each item singedly.
+	 * or use the add method for each item singly.
 	 * @param string $cssId HTMLIdAttribute
-	 * @param string $cssClass HTMLClassAttibute
+	 * @param string $cssClass HTMLClassAttribute
 	 * @param array $arrItem array with menu items
 	 */
 	public function __construct($cssId = null, $cssClass = null, $arrItem = null) {
@@ -478,6 +478,7 @@ class Menu extends MenuItem {
 	 * @return string
 	 */
 	public function render() {
+		$this->reset();
 		if ($this->autoActive) {
 			$this->setActive();
 		}
@@ -489,5 +490,13 @@ class Menu extends MenuItem {
 		else {
 			return '';
 		}
+	}
+
+	/**
+	 * Reset menu
+	 */
+	public function reset() {
+		$this->firstUl = true;
+		$this->strMenu = '';
 	}
 }

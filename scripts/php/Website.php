@@ -77,7 +77,7 @@ class Website {
 	 * @return string
 	 */
 	public function getDir() {
-		return rtrim($_SERVER['DOCUMENT_ROOT'], DIRECTORY_SEPARATOR).'/';
+		return $this->dir;
 	}
 
 	/**

@@ -14,8 +14,8 @@ class PagedNav {
 	/** @var int total number of records with current query */
 	public $numRec;
 
-	/** @var int even number of records per page */
-	public $numRecPerPage = 10;
+	/** @var int even number of links to display */
+	public $numLinks = 10;
 
 	/** @var string name of query variable to pass current page */
 	public $queryVarName = 'pg';
@@ -65,18 +65,21 @@ class PagedNav {
 	)
 	);
 
+	/** @var bool render text */
+	public $renderText = true;
+
 	/** @var float number of pages */
 	private $numPages;
 
 	/**
 	 * Construct instance of PageNav.
 	 * @param int $numRec total number of records
-	 * @param int|null $numRecPerPage number of records per page
+	 * @param int|null $numLinks number of links to display in navigation
 	 */
-	function __construct($numRec, $numRecPerPage = null) {
+	function __construct($numRec, $numLinks = null) {
 		$this->numRec = $numRec;
-		$this->numRecPerPage = $numRecPerPage ? $numRecPerPage : $this->numRecPerPage;
-		$this->numPages = ceil($this->numRec / $this->numRecPerPage);
+		$this->numLinks = $numLinks ? $numLinks : $this->numLinks;
+		$this->numPages = ceil($this->numRec / $this->numLinks);
 	}
 
 	/**
@@ -86,11 +89,11 @@ class PagedNav {
 	 */
 	function getLowerBoundary($curPage) {
 		// special case when less pages than range (=numRecPerPage)
-		if ($this->numPages <= $this->numRecPerPage || $curPage <= floor($this->numRecPerPage / 2)) {
+		if ($this->numPages <= $this->numLinks || $curPage <= floor($this->numLinks / 2)) {
 			$i = 1;
 		}
 		else {
-			$i = $curPage - floor($this->numRecPerPage / 2);
+			$i = $curPage - floor($this->numLinks / 2);
 		}
 		return $i;
 	}
@@ -102,19 +105,19 @@ class PagedNav {
 	 */
 	function getUpperBoundary($curPage) {
 		// special case when less pages than range (=numRecPerPage)
-		if ($this->numPages < $this->numRecPerPage) {
+		if ($this->numPages < $this->numLinks) {
 			$j = $this->numPages;
 		}
 		// last range
-		else if ($curPage + floor($this->numRecPerPage / 2) > $this->numPages) {
+		else if ($curPage + floor($this->numLinks / 2) > $this->numPages) {
 			$j = $this->numPages;
 		}
 		// first range
-		else if ($curPage < ($this->numRecPerPage / 2)) {
-			$j = $this->numRecPerPage;
+		else if ($curPage < ($this->numLinks / 2)) {
+			$j = $this->numLinks;
 		}
 		else {
-			$j = $curPage + $this->numRecPerPage / 2;
+			$j = $curPage + $this->numLinks / 2;
 		}
 		return $j;
 	}
@@ -131,16 +134,18 @@ class PagedNav {
 
 		echo '<div id="'.$this->cssId.'">';
 
-		echo '<div class="text">';
-		echo $this->i18n[$web->getLang()]['search result'].": ".$this->numRec." ";
-		echo $this->numRec > 1 ? $this->i18n[$web->getLang()]['entries'] : $this->i18n[$web->getLang()]['entry'];
-		echo " ".$this->i18n[$web->getLang()]['on']." $this->numPages ";
-		echo $this->numPages > 1 ? $this->i18n[$web->getLang()]['pages'] : $this->i18n[$web->getLang()]['page'];
-		echo '</div>';
+		if ($this->renderText) {
+			echo '<div class="text">';
+			echo $this->i18n[$web->getLang()]['search result'].": ".$this->numRec." ";
+			echo $this->numRec > 1 ? $this->i18n[$web->getLang()]['entries'] : $this->i18n[$web->getLang()]['entry'];
+			echo " ".$this->i18n[$web->getLang()]['on']." $this->numPages ";
+			echo $this->numPages > 1 ? $this->i18n[$web->getLang()]['pages'] : $this->i18n[$web->getLang()]['page'];
+			echo '</div>';
+		}
 
 		echo '<div class="pages">';
 		// link jump back small
-		if ($lb > $this->numRecPerPage / 2) {
+		if ($lb > $this->numLinks / 2) {
 			// reuse existing query string in navigation links
 			$query = $web->getQuery(array($this->queryVarName => $curPage - $this->stepSmall));
 			echo '<span class="pageStepSmall"><a href="'.$web->page.$query.'">';
@@ -148,7 +153,7 @@ class PagedNav {
 			echo '</a></span>';
 		}
 		// direct accessible pages
-		for ($lb; $lb <= $ub; $lb++) {
+		for (; $lb <= $ub; $lb++) {
 			if ($this->numPages > 1) {
 				if ($lb == $curPage) {
 					echo '<span class="curPage">';
@@ -166,7 +171,7 @@ class PagedNav {
 			}
 		}
 		// link jump forward small
-		if ($ub <= $this->numPages - $this->numRecPerPage / 2) {
+		if ($ub <= $this->numPages - $this->numLinks / 2) {
 			// reuse query string
 			$query = $web->getQuery(array($this->queryVarName => $curPage + $this->stepSmall));
 			echo '<span class="pageStepSmall"><a href="'.$web->page.$query.'">';
