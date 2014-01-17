@@ -74,12 +74,13 @@ class PagedNav {
 	/**
 	 * Construct instance of PageNav.
 	 * @param int $numRec total number of records
+	 * @param int $numRecPerPage number of records on a page
 	 * @param int|null $numLinks number of links to display in navigation
 	 */
-	function __construct($numRec, $numLinks = null) {
+	function __construct($numRec, $numRecPerPage, $numLinks = null) {
 		$this->numRec = $numRec;
 		$this->numLinks = $numLinks ? $numLinks : $this->numLinks;
-		$this->numPages = ceil($this->numRec / $this->numLinks);
+		$this->numPages = ceil($this->numRec / $numRecPerPage);
 	}
 
 	/**
