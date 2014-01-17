@@ -360,10 +360,10 @@ class HtmlSelectFld extends Form {
 		if ($this->disabled) { $html .= ' disabled="disabled"'; }
 		$html .= ">\n";
 		if ($this->defaultVal) { $html .= '<option value="">'.$this->defaultVal.'</option>'; }
-		$i = 0;
-		if (count($this->arrOption) == 0) { $html .= '<option></option>'; }
+
 		// if data is a 1-dim array: use created index as value attribute
 		// else 2-dim array: use first index as value attribute. Array keys can either be integer or assoc.
+		$i = 0;
 		foreach ($this->arrOption as $row) {
 			if (is_array($row)) {
 				$val = $row[key($row)];
