@@ -128,59 +128,60 @@ class PagedNav {
 	 * The parameter $curPage is 1-based.
 	 * @param integer $curPage current page number
 	 * @param Language $web
+	 * @return string HTML string to print
 	 */
-	function printNav($curPage, $web) {
+	function render($curPage, $web) {
 		$lb = $this->getLowerBoundary($curPage);
 		$ub = $this->getUpperBoundary($curPage);
 
-		echo '<div id="'.$this->cssId.'">';
+		$str = '<div id="'.$this->cssId.'">';
 
 		if ($this->renderText) {
-			echo '<div class="text">';
-			echo $this->i18n[$web->getLang()]['search result'].": ".$this->numRec." ";
-			echo $this->numRec > 1 ? $this->i18n[$web->getLang()]['entries'] : $this->i18n[$web->getLang()]['entry'];
-			echo " ".$this->i18n[$web->getLang()]['on']." $this->numPages ";
-			echo $this->numPages > 1 ? $this->i18n[$web->getLang()]['pages'] : $this->i18n[$web->getLang()]['page'];
-			echo '</div>';
+			$str.= '<div class="text">';
+			$str.= $this->i18n[$web->getLang()]['search result'].": ".$this->numRec." ";
+			$str.= $this->numRec > 1 ? $this->i18n[$web->getLang()]['entries'] : $this->i18n[$web->getLang()]['entry'];
+			$str.= " ".$this->i18n[$web->getLang()]['on']." $this->numPages ";
+			$str.= $this->numPages > 1 ? $this->i18n[$web->getLang()]['pages'] : $this->i18n[$web->getLang()]['page'];
+			$str.= '</div>';
 		}
 
-		echo '<div class="pages">';
+		$str.= '<div class="pages">';
 		// link jump back small
 		if ($lb > $this->numLinks / 2) {
 			// reuse existing query string in navigation links
 			$query = $web->getQuery(array($this->queryVarName => $curPage - $this->stepSmall));
-			echo '<span class="pageStepSmall"><a href="'.$web->page.$query.'">';
-			echo '[-'.$this->stepSmall.']';
-			echo '</a></span>';
+			$str.= '<span class="pageStepSmall"><a href="'.$web->page.$query.'">';
+			$str.= '[-'.$this->stepSmall.']';
+			$str.= '</a></span>';
 		}
 		// direct accessible pages
 		for (; $lb <= $ub; $lb++) {
 			if ($this->numPages > 1) {
 				if ($lb == $curPage) {
-					echo '<span class="curPage">';
+					$str.= '<span class="curPage">';
 				}
 				else {
-					echo '<span class="page">';
+					$str.= '<span class="page">';
 					$query = $web->getQuery(array($this->queryVarName => $lb));
-					echo '<a href="'.$web->page.$query.'">';
+					$str.= '<a href="'.$web->page.$query.'">';
 				}
-				echo $lb;
+				$str.= $lb;
 				if ($lb !== $curPage) {
-					echo '</a>';
+					$str.= '</a>';
 				}
-				echo '</span>';
+				$str.= '</span>';
 			}
 		}
 		// link jump forward small
 		if ($ub <= $this->numPages - $this->numLinks / 2) {
 			// reuse query string
 			$query = $web->getQuery(array($this->queryVarName => $curPage + $this->stepSmall));
-			echo '<span class="pageStepSmall"><a href="'.$web->page.$query.'">';
-			echo '[+'.$this->stepSmall.']';
-			echo "</a></span>";
+			$str.= '<span class="pageStepSmall"><a href="'.$web->page.$query.'">';
+			$str.= '[+'.$this->stepSmall.']';
+			$str.= "</a></span>";
 		}
-		echo '</div>';
+		$str.= '</div></div>';
 
-		echo '</div>';
+		return $str;
 	}
 }
