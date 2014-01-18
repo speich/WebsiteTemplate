@@ -19,9 +19,6 @@ class Language extends Website {
 	/** @var array maps language codes to text */
 	public $arrLangLong = array('de' => 'Deutsch', 'en' => 'English');
 
-	/** @var null|array save language strings as arrays */
-	public $i18n = null;
-
 	/**
 	 * Returns the language code.
 	 * @return string
