@@ -47,6 +47,7 @@
 }
 
 .menu2 ul {
+	padding: 3px;
 	position: absolute;
 	border: 1px solid #ccc;
 	background-color: #fafafa;
@@ -96,6 +97,15 @@
 .menuActive > a {
 	color: #a00a00;
 }
+
+.menu2 > li:nth-child(2) > ul > li:nth-child(1),
+.menu2 > li:nth-child(3) > ul > li:nth-child(1),
+.menu2 > li:nth-child(3) > ul ul > li:nth-child(2) {
+	border-bottom: 1px solid #cccccc;
+	box-shadow: 0 1px #ffffff;
+}
+
+
 
 /** Menu 3 is a classic vertical menu with submenus **/
 .menu3 { width: 150px; }
