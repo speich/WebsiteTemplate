@@ -21,7 +21,10 @@ class Controller {
 	/** @var null|string http method */
 	private $method = null;
 
-	/** @var array array of path segments */
+	/** @var string holding path */
+	private $resource = '';
+
+	/** @var array holding path segments */
 	private $resources = array();
 
 	/** @var string|null first path segment */
@@ -42,12 +45,12 @@ class Controller {
 		$this->header = $header;
 		$this->protocol = $_SERVER["SERVER_PROTOCOL"];
 		$this->method = $_SERVER['REQUEST_METHOD'];
-		$this->resources = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : null;
+		$this->resource = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : null;
 		$this->err = $error;
 
-		if (!is_null($this->resources)) {
+		if (!is_null($this->resource)) {
 			/* Resource (path) is split into an array. The first segment is saved as the controller. */
-			$this->resources = trim($this->resources, '/');
+			$this->resources = ltrim($this->resource, '/');
 			$this->resources = explode('/', $this->resources);
 			$this->controller = array_shift($this->resources);
 		}
@@ -127,6 +130,14 @@ class Controller {
 	 */
 	public function getResources() {
 		return $this->resources;
+	}
+
+	/**
+	 * Returns the full resource (path)
+	 * @return string
+	 */
+	public function getResource() {
+		return $this->resource;
 	}
 
 	/**
