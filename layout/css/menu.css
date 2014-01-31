@@ -1,11 +1,22 @@
+.menu {
+	cursor: pointer;
+    list-style: none;
+}
+
+.menu a:hover {
+	color: #a00a00;
+}
+
 .menu a {
 	display: block;
 	text-decoration: none;
 }
 
-.menu li {
-	cursor: pointer;
+.menu .menuActive > a {
+	color: #a00a00;
 }
+
+
 
 /** menu1 is a simple horizontal menu */
 .menu1 { margin-top: 12px; }
@@ -19,21 +30,15 @@
 .menu1 a {
 	color: #578626;
 }
-.menu1 a:hover {
-	color: #b31e00;
-}
-.menu1 .menuActive a {
-	color: #b31e00;
-}
 
 
-/** menu2 is a advanced horizontal menu with animated submenus
+
+/** menu2 is an advanced horizontal menu with animated submenus
  * Modified from http://accu.org/index.php/journals/1399 to use css3 transitions
  */
 .menu2 {
 	font-size: 11px;
 	margin-left: 7px;
-	list-style: none;
 }
 
 .menu2 li {
@@ -42,23 +47,24 @@
 }
 
 .menu2 li li {
-	list-style-type: none;
-	display: block;
+    display: block;
 }
 
 .menu2 ul {
-	padding: 3px;
-	position: absolute;
-	border: 1px solid #ccc;
-	background-color: #fafafa;
-	opacity: 0;
-	top: -999px;	/* move out of viewport to prevent overlapping */
-   transition: opacity .5s ease-in-out;
-	box-shadow: #ccc 4px 4px 4px;
+    padding: 3px;
+    position: absolute;
+    border: 1px solid #ccc;
+    background-color: #fafafa;
+    opacity: 0;
+    top: -999px; /* move out of viewport to prevent overlapping */
+    transition: opacity .5s ease-in-out;
+    box-shadow: #ccc 4px 4px 4px;
 }
+
 .menu2 > li > ul {
-	border-top: none;
+    border-top: none;
 }
+
 .menu2 li:hover > ul {
 	top: -1px;
  	opacity: 1;
@@ -94,10 +100,6 @@
 	left: 100%;
 }
 
-.menuActive > a {
-	color: #a00a00;
-}
-
 .menu2 > li:nth-child(2) > ul > li:nth-child(1),
 .menu2 > li:nth-child(3) > ul > li:nth-child(1),
 .menu2 > li:nth-child(3) > ul ul > li:nth-child(2) {
@@ -116,7 +118,7 @@
 	border-bottom: 1px solid #999999;
 	color: #578626;
 }
-.menu3 a:hover { color: #b31e00; }
+
 .menu3 .menuHasChild {
 	background: url('../images/arrowleft.gif') right 9px no-repeat;
 }
@@ -138,13 +140,8 @@
 	border-bottom: 1px solid #999999;
 	color: #578626;
 }
-.menu4 a:hover { color: #b31e00; }
 
-.menu4 .menuActive > a {
-	color: #b31e00;
-}
 .menu4 .menuActive:not(.menuHasChild) > a {
 	color: #b31e00;
 	background-image: linear-gradient(to bottom, #FFFFFF, #EFEFEF);
 }
-
