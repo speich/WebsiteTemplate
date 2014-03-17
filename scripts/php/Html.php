@@ -560,6 +560,14 @@ class HtmlSelectFld extends Form {
 		}
 		return $strHtml;
 	}
+
+	/**
+	 * Return default text of first unselected option.
+	 * @return string|bool
+	 */
+	public function getDefaultVal() {
+		return $this->defaultVal;
+	}
 }
 
 /**
