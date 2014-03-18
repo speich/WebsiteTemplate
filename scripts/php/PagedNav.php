@@ -31,38 +31,38 @@ class PagedNav {
 
 	/** @var array translations for internationalization */
 	public $i18n = array(
-	'de' => array(
-	'entries' => 'Einträge',
-	'entry' => 'Eintrag',
-	'pages' => 'Seiten',
-	'page' => 'Seite',
-	'search result' => 'Suchergebnis',
-	'on' => 'auf'
-	),
-	'fr' => array(
-	'entries' => 'inscriptions',
-	'entry' => 'inscription',
-	'pages' => 'pages',
-	'page' => 'page',
-	'search result' => 'Résultat de la recherche',
-	'on' => ''
-	),
-	'it' => array(
-	'entries' => 'entries',
-	'entry' => 'entry',
-	'pages' => 'pages',
-	'page' => 'page',
-	'search result' => 'search result',
-	'on' => 'on'
-	),
-	'en' => array(
-	'entries' => 'iscrizioni',
-	'entry' => 'inscriptione',
-	'pages' => 'pagine',
-	'page' => 'pagina',
-	'search result' => 'Risultato della ricerca',
-	'on' => ''
-	)
+		'de' => array(
+			'entries' => 'Einträge',
+			'entry' => 'Eintrag',
+			'pages' => 'Seiten',
+			'page' => 'Seite',
+			'search result' => 'Suchergebnis',
+			'on' => 'auf'
+		),
+		'fr' => array(
+			'entries' => 'inscriptions',
+			'entry' => 'inscription',
+			'pages' => 'pages',
+			'page' => 'page',
+			'search result' => 'Résultat de la recherche',
+			'on' => ''
+		),
+		'it' => array(
+			'entries' => 'iscrizioni',
+			'entry' => 'inscriptione',
+			'pages' => 'pagine',
+			'page' => 'pagina',
+			'search result' => 'Risultato della ricerca',
+			'on' => ''
+		),
+		'en' => array(
+			'entries' => 'entries',
+			'entry' => 'entry',
+			'pages' => 'pages',
+			'page' => 'page',
+			'search result' => 'search result',
+			'on' => 'on'
+		)
 	);
 
 	/** @var bool render text */
