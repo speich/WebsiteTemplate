@@ -1,6 +1,8 @@
 <?php
 namespace WebsiteTemplate;
 
+use stdClass;
+
 require_once 'Website.php';
 
 /**
@@ -113,45 +115,65 @@ class Language extends Website {
 
 	/**
 	 * Modify $page for language.
-	 * @param string $page
-	 * @param string $lang
+	 * Inserts a minus character and the language abbreviation between page name and page extension except
+	 * for the default language, e.g.: mypage.php -> mypage-fr.php
+	 * @param string $page page only
+	 * @param string|null $lang
 	 * @return string
 	 */
-	public function createLangPage($page, $lang) {
+	public function createLangPage($page, $lang = null) {
 		$page = preg_replace('/\-[a-z]{2}\.php/', '.php', $page);
-		$defaultPage = $page;
-		if (strpos($this->getDir(), '/articles') !== false) {
-			$page = '';
+
+		if (is_null($lang)) {
+			$lang = $this->getLang();
 		}
-		else if ($page === '' || $page === 'default.php') {
-			$page = 'default.php';
+
+		if ($lang === '') {
+			$page = $this->indexPage;
 		}
-		else if ($lang !== 'de') {
+		else if ($lang !== $this->langDefault) {
 			$page = str_replace('.php', '-'.$lang.'.php', $page);
-			if (!file_exists($this->getDocRoot().$this->getWebRoot().$this->getDir().$page)) {
-				$page = $defaultPage;
-			}
+
 		}
+
 		return $page;
 	}
 
 	/**
 	 * Returns a HTML string with links to select the language.
+	 * Config object allows to overwrite the following HTML attributes:
+	 * 	$config->ulId 				= 'navLang'
+	 * 	$config->ulClass			= 'nav'
+	 * 	$config->liClassActive	= 'navActive'
+	 * 	$config->delimiter		= ''
+	 *
+	 * @param stdClass $config
 	 * @return string Html
 	 */
-	public function renderLangNav() {
+	public function renderLangNav($config = null) {
+		if (is_null($config)) {
+			$config = new stdClass();
+			$config->ulId = 'navLang';
+			$config->ulClass = 'nav';
+			$config->liClassActive = 'navActive';
+			$config->delimiter = '';
+		}
+
 		$page = $this->page;
 		$str = '';
-		$str.= '<ul id="navLang" class="nav">';
+		$str.= '<ul id="'.$config->ulId.'" class="'.$config->ulClass.'">';
 		foreach ($this->arrLang as $lang) {
 			$page = $this->createLangPage($page, $lang);
 			$url = $this->getDir().$page.$this->getQuery(array('lang' => $lang));
 			$str.= '<li';
 			if ($lang == $this->getLang()) {
-				$str.= ' class="navActive"';
+				$str.= ' class="'.$config->liClassActive.'"';
 			}
 			$str.= '><a href="'.$url.'" title="'.$this->arrLangLong[$lang].'">'.strtoupper($lang).'</a>';
 			$str.= '</li>';
+			if ($config->delimiter != '' && key($this->arrLang) < count($this->arrLang)) {
+				$str.= '<li>'.$config->delimiter.'</li>';
+			}
 		}
 		$str.= '</ul>';
 
