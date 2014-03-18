@@ -7,4 +7,9 @@ Furthermore, the folder structure can be used as a template for your website.
 * Multilingual support
 * JavaScript utils
 
-Checkout the index.php to see the menu and the template in action.
+Checkout the index.php to see how the menu and the template works.
+
+## See it in action
+* [Swiss National Forest Inventory](http://www.lfi.ch/index-en.php)
+* [speich.net](http://www.speich.net?lang=en)
+* [Förderverein Forstmuseum](http://www.forstmeseum.ch)
