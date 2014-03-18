@@ -140,12 +140,14 @@ class Language extends Website {
 	}
 
 	/**
-	 * Returns a HTML string with links to select the language.
+	 * Returns a HTML string with links to the current page in all available languages.
+	 * Method checks if the page exist for each language. If it doesn't
 	 * Config object allows to overwrite the following HTML attributes:
 	 * 	$config->ulId 				= 'navLang'
 	 * 	$config->ulClass			= 'nav'
 	 * 	$config->liClassActive	= 'navActive'
 	 * 	$config->delimiter		= ''
+	 * 	$config->redirect			= Website::getWebRoot().Website::indexPage?lang=Website::langDefault;
 	 *
 	 * @param stdClass $config
 	 * @return string Html
@@ -157,6 +159,7 @@ class Language extends Website {
 			$config->ulClass = 'nav';
 			$config->liClassActive = 'navActive';
 			$config->delimiter = '';
+			$config->redirect = $this->getWebRoot().$this->indexPage.'?lang='.$this->langDefault;
 		}
 
 		$page = $this->page;
@@ -164,7 +167,13 @@ class Language extends Website {
 		$str.= '<ul id="'.$config->ulId.'" class="'.$config->ulClass.'">';
 		foreach ($this->arrLang as $lang) {
 			$page = $this->createLangPage($page, $lang);
-			$url = $this->getDir().$page.$this->getQuery(array('lang' => $lang));
+			$file = $this->getDir().$page;
+			if (file_exists(__DIR__.'/..'.$file)) {
+				$url = $file.$this->getQuery(array('lang' => $lang));
+			}
+			else {
+				$url = $config->redirect.$this->getQuery(array('lang' => $lang, 'url' => $file));
+			}
 			$str.= '<li';
 			if ($lang == $this->getLang()) {
 				$str.= ' class="'.$config->liClassActive.'"';
