@@ -19,6 +19,9 @@ class PagedNav {
 	/** @var int number of records to display per page */
 	private $numRecPerPage = 10;
 
+	/** @var int number of pages */
+	private $numPages;
+
 	/** @var int even number of links to display */
 	public $numLinks = 10;
 
@@ -73,9 +76,6 @@ class PagedNav {
 	/** @var bool render text */
 	public $renderText = true;
 
-	/** @var float number of pages */
-	private $numPages;
-
 	/**
 	 * Construct instance of PageNav.
 	 * @param int $numRec total number of records
@@ -83,24 +83,44 @@ class PagedNav {
 	 * @param int|null $numLinks number of links to display in navigation
 	 */
 	function __construct($numRec = null, $numRecPerPage = null, $numLinks = null) {
-		$this->numRec = $numRec;
-		$this->numRecPerPage = $numRecPerPage ? $numRecPerPage : $this->numRecPerPage;
-		$this->numLinks = $numLinks ? $numLinks : $this->numLinks;
-
-		if (!is_null($numRec) && !is_null($numRecPerPage)) {
-			$this->setProps($numRec, $numRecPerPage);
+		if (!is_null($numRec) && is_numeric($numRec)) {
+			$this->numRec = $numRec;
+			$this->updateNumPages();
+		}
+		if (!is_null($numRecPerPage) && is_numeric($numRecPerPage)) {	// do not overwrite default value with null
+			$this->numRecPerPage = $numRecPerPage;
+		}
+		if (!is_null($numLinks) && is_numeric($numLinks)) {	// do not overwrite default value with null
+			$this->numLinks = $numLinks ? $numLinks : $this->numLinks;
 		}
 	}
 
 	/**
-	 * Sets the number of records, number of records per page and calculates the resulting number of pages.
+	 * Set total number of records
 	 * @param int $numRec number of records
-	 * @param int $numRecPerPage number of records per page
 	 */
-	public function setProps($numRec, $numRecPerPage) {
+	public function setNumRec($numRec) {
 		$this->numRec = $numRec;
+		$this->updateNumPages();
+	}
+
+	/**
+	 * Set number of records to display per page.
+	 * @param int $numRecPerPage
+	 */
+	public function setNumRecPerPage($numRecPerPage) {
 		$this->numRecPerPage = $numRecPerPage;
-		$this->numPages = ceil($this->numRec / $numRecPerPage);
+		if (isset($this->numRec)) {
+			$this->updateNumPages();
+		}
+	}
+
+	/**
+	 * Update the number of pages.
+	 * Sets the total number of pages based on total number of records and number of records per page.
+	 */
+	private function updateNumPages() {
+		$this->numPages = ceil($this->numRec / $this->numRecPerPage);
 	}
 
 	/**
