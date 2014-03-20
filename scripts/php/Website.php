@@ -148,13 +148,10 @@ class Website {
 		if ($this->query != '') { // check if query var(s) already exists -> overwrite with new or append
 			parse_str($this->query, $arrVar);
 			$arrQuery = array_merge($arrVar, $arrQuery); // if arrays have same string keys, the later key will overwrite the previous
-			$this->query = http_build_query($arrQuery); // update local self::$Query
 		}
-		else {
-			$this->query = http_build_query($arrQuery);
-		}
+		$this->query = http_build_query($arrQuery); // update local self::$Query
 
-		return '?'.htmlspecialchars($this->query);
+		return '?'.$this->query;
 	}
 
 	/**
