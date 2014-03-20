@@ -183,7 +183,6 @@ class Website {
 			if (is_array($modifier)) { // all of second array is to delete
 				$str = $this->getQuery($modifier, 2);
 				$str = str_replace('?', '', $str);
-				$str = html_entity_decode($str);
 				parse_str($str, $arrVar);
 				$arrQuery = array_merge($arrVar, $arrQuery);
 			}
@@ -214,7 +213,7 @@ class Website {
 			}
 		}
 
-		return '?'.htmlspecialchars(http_build_query($arrQuery, '', '&amp;'));
+		return '?'.http_build_query($arrQuery);
 	}
 
 	/**
