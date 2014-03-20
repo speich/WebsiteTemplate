@@ -11,8 +11,13 @@ require_once 'Website.php';
  * Class to create and display a paged navigation.
  */
 class PagedNav {
+	// Note: numRec and numRecPerPage are private to force setting either through constructor or setter setProps
+
 	/** @var int total number of records with current query */
-	public $numRec;
+	private $numRec;
+
+	/** @var int number of records to display per page */
+	private $numRecPerPage = 10;
 
 	/** @var int even number of links to display */
 	public $numLinks = 10;
@@ -27,7 +32,7 @@ class PagedNav {
 	public $stepBig = 50;
 
 	/** @var string name of CSS class of container element */
-	public $cssId = 'pgNav';
+	public $cssClass = 'pgNav';
 
 	/** @var array translations for internationalization */
 	public $i18n = array(
@@ -77,10 +82,40 @@ class PagedNav {
 	 * @param int $numRecPerPage number of records on a page
 	 * @param int|null $numLinks number of links to display in navigation
 	 */
-	function __construct($numRec, $numRecPerPage, $numLinks = null) {
+	function __construct($numRec = null, $numRecPerPage = null, $numLinks = null) {
 		$this->numRec = $numRec;
+		$this->numRecPerPage = $numRecPerPage ? $numRecPerPage : $this->numRecPerPage;
 		$this->numLinks = $numLinks ? $numLinks : $this->numLinks;
+
+		if (!is_null($numRec) && !is_null($numRecPerPage)) {
+			$this->setProps($numRec, $numRecPerPage);
+		}
+	}
+
+	/**
+	 * Sets the number of records, number of records per page and calculates the resulting number of pages.
+	 * @param int $numRec number of records
+	 * @param int $numRecPerPage number of records per page
+	 */
+	public function setProps($numRec, $numRecPerPage) {
+		$this->numRec = $numRec;
+		$this->numRecPerPage = $numRecPerPage;
 		$this->numPages = ceil($this->numRec / $numRecPerPage);
+	}
+
+	/**
+	 * Get the total number of records
+	 * @return int
+	 */
+	public function getNumRec() {
+		return $this->numRec;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getNumRecPerPage() {
+		return $this->numRecPerPage;
 	}
 
 	/**
@@ -134,7 +169,7 @@ class PagedNav {
 		$lb = $this->getLowerBoundary($curPage);
 		$ub = $this->getUpperBoundary($curPage);
 
-		$str = '<div id="'.$this->cssId.'">';
+		$str = '<div class="'.$this->cssClass.'">';
 
 		if ($this->renderText) {
 			$str.= '<div class="text">';
@@ -150,7 +185,7 @@ class PagedNav {
 		if ($lb > $this->numLinks / 2) {
 			// reuse existing query string in navigation links
 			$query = $web->getQuery(array($this->queryVarName => $curPage - $this->stepSmall));
-			$str.= '<span class="pageStepSmall"><a href="'.$web->page.$query.'">';
+			$str.= '<span class="pageStepSmall prevPages"><a href="'.$web->page.$query.'">';
 			$str.= '[-'.$this->stepSmall.']';
 			$str.= '</a></span>';
 		}
@@ -176,7 +211,7 @@ class PagedNav {
 		if ($ub <= $this->numPages - $this->numLinks / 2) {
 			// reuse query string
 			$query = $web->getQuery(array($this->queryVarName => $curPage + $this->stepSmall));
-			$str.= '<span class="pageStepSmall"><a href="'.$web->page.$query.'">';
+			$str.= '<span class="pageStepSmall nextPages"><a href="'.$web->page.$query.'">';
 			$str.= '[+'.$this->stepSmall.']';
 			$str.= "</a></span>";
 		}
