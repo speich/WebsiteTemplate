@@ -79,6 +79,14 @@ class Website {
 	}
 
 	/**
+	 * Set the web root.
+	 * @param string $webroot
+	 */
+	public function setWebroot($webroot) {
+		$this->webroot = $webroot;
+	}
+
+	/**
 	 * Returns the path always with trailing slash.
 	 * @return string
 	 */
