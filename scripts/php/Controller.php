@@ -1,5 +1,12 @@
 <?php
+/**
+ * This file contains the class Controller.
+ */
 namespace WebsiteTemplate;
+
+use General\Header;
+use stdClass;
+
 
 /**
  * This class is used as a REST controller.
@@ -21,20 +28,20 @@ class Controller {
 	/** @var null|string http method */
 	private $method = null;
 
-	/** @var string holding path */
-	private $resource = '';
-
-	/** @var array holding path segments */
+	/** @var array array of path segments */
 	private $resources = array();
 
 	/** @var string|null first path segment */
 	private $controller = null;
 
-	/** @var string */
+	/** @var string content type of response */
 	public $contentType = 'json';
 
-	/** @var bool resource not found */
+	/** @var bool respond with 404 resource not found */
 	public $notFound = false;
+
+	/** @var bool set the first path segment as the controller */
+	public $useController = true;
 
 	/**
 	 * Constructs the controller instance.
@@ -45,14 +52,16 @@ class Controller {
 		$this->header = $header;
 		$this->protocol = $_SERVER["SERVER_PROTOCOL"];
 		$this->method = $_SERVER['REQUEST_METHOD'];
-		$this->resource = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : null;
+		$this->resources = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : null;
 		$this->err = $error;
 
-		if (!is_null($this->resource)) {
+		if (!is_null($this->resources)) {
 			/* Resource (path) is split into an array. The first segment is saved as the controller. */
-			$this->resources = ltrim($this->resource, '/');
+			$this->resources = trim($this->resources, '/');
 			$this->resources = explode('/', $this->resources);
-			$this->controller = array_shift($this->resources);
+			if ($this->useController) {
+				$this->controller = array_shift($this->resources);
+			}
 		}
 	}
 
@@ -60,7 +69,7 @@ class Controller {
 	 * Converts PHP input parameters to an object
 	 * Object properties correspond with request data
 	 * @param bool $json handle post data as json
-	 * @return object|null
+	 * @return stdClass |null
 	 */
 	public function getDataAsObject($json = false) {
 		switch ($this->method) {
@@ -133,14 +142,6 @@ class Controller {
 	}
 
 	/**
-	 * Returns the full resource (path)
-	 * @return string
-	 */
-	public function getResource() {
-		return $this->resource;
-	}
-
-	/**
 	 * Set gzip threshold.
 	 * This is the minimum number of bytes before response is automatically gzipped unless you set autocompress to false.
 	 * @param int $gzipThreshold
@@ -167,7 +168,7 @@ class Controller {
 
 		// server error
 		if (count($this->err->get()) > 0) {
-			header($_SERVER['SERVER_PROTOCOL'].' 505 Internal Server Error');
+			header($this->getProtocol().' 505 Internal Server Error');
 		}
 		// resource not found
 		else if ($this->notFound) {
