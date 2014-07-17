@@ -39,9 +39,6 @@ class Controller {
 	/** @var bool respond with 404 resource not found */
 	public $notFound = false;
 
-	/** @var bool set the first path segment as the controller */
-	public $useController = true;
-
 	/**
 	 * Constructs the controller instance.
 	 * If you don't want the first path segment to be set as the controller, set $useController to false.
@@ -62,9 +59,6 @@ class Controller {
 			$this->resources = explode('/', $this->resources);
 			if ($useController) {
 				$this->controller = array_shift($this->resources);
-			}
-			else {
-				$this->useController = false;
 			}
 		}
 	}
