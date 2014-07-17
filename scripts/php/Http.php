@@ -7,7 +7,7 @@ namespace WebsiteTemplate;
 class Http {
 
 	/**
-	 * Extract the http resonse header into array.
+	 * Extract the http response header into array.
 	 * @param string $str http response
 	 * @return array
 	 */
