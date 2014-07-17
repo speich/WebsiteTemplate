@@ -13,3 +13,4 @@ Checkout the index.php to see how the menu and the template works.
 * [Swiss National Forest Inventory](http://www.lfi.ch/index-en.php)
 * [speich.net](http://www.speich.net?lang=en)
 * [Förderverein Forstmuseum](http://www.forstmuseum.ch)
+* [kooky.biz](http://kooky.biz)
