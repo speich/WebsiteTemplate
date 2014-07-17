@@ -4,7 +4,6 @@
  */
 namespace WebsiteTemplate;
 
-use General\Header;
 use stdClass;
 
 
@@ -45,10 +44,12 @@ class Controller {
 
 	/**
 	 * Constructs the controller instance.
+	 * If you don't want the first path segment to be set as the controller, set $useController to false.
 	 * @param Header $header
 	 * @param Error $error
+	 * @param Boolean $useController
 	 */
-	public function __construct($header, $error) {
+	public function __construct($header, $error, $useController = true) {
 		$this->header = $header;
 		$this->protocol = $_SERVER["SERVER_PROTOCOL"];
 		$this->method = $_SERVER['REQUEST_METHOD'];
@@ -59,8 +60,11 @@ class Controller {
 			/* Resource (path) is split into an array. The first segment is saved as the controller. */
 			$this->resources = trim($this->resources, '/');
 			$this->resources = explode('/', $this->resources);
-			if ($this->useController) {
+			if ($useController) {
 				$this->controller = array_shift($this->resources);
+			}
+			else {
+				$this->useController = false;
 			}
 		}
 	}
