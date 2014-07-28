@@ -27,12 +27,17 @@ class Header {
 
 	/**
 	 * Extracts the range start and end from the header.
-	 * Returns an array with start and end key.
-	 * @return array
+	 * Returns an array with start and end key or null if range header is not sent.
+	 * @return array|null
 	 */
 	public function getRange() {
-		$arr = explode('-', substr($_SERVER['HTTP_RANGE'], 6));	// e.g. items=0-24
-		return array('start' => $arr[0], 'end' => $arr[1]);
+		if (isset($_SERVER['HTTP_RANGE'])) {
+			$arr = explode('-', substr($_SERVER['HTTP_RANGE'], 6)); // e.g. items=0-24
+			return array('start' => $arr[0], 'end' => $arr[1]);
+		}
+		else {
+			return null;
+		}
 	}
 
 	/**
