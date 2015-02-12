@@ -380,7 +380,7 @@ class HtmlRadioButton extends Form {
 class HtmlSelectFld extends Form {
 
 	/** @var array array holding option element value and text */
-	private $arrOption;
+	public $arrOption;
 
 	/** @var bool multiple attribute */
 	private $multiple = false;
