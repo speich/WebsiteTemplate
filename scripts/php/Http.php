@@ -28,6 +28,7 @@ class Http {
 	}
 
 	/**
+	 * Decode the chunked-encoded string.
 	 * @param $str
 	 * @return string
 	 */
