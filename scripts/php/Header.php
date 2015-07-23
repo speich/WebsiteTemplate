@@ -2,27 +2,32 @@
 namespace WebsiteTemplate;
 
 /**
- * Class Header
+ * Helper class to work with HTTP headers.
  */
 class Header {
 
 	private $charset = 'utf-8';
 
-	/** @var string http header content type*/
+	private $headers = array();
+
+	/** @var array $contentTypes mime types */
 	private $contentTypes = array(
 		'text' => 'text/plain',
+		'csv' => 'text/csv',
 		'json' => 'application/json',
 		'pdf' => 'application/pdf',
 		'html' => 'text/html',
-		'svg'	 => 'image/svg+xml'
+		'svg'	=> 'image/svg+xml'
 	);
 
 	/**
+	 * Returns full content type by abbreviation.
+	 * Returns false if abbreviation (key in array) is not found.
 	 * @param string $type
-	 * @return string
+	 * @return string|false
 	 */
 	public function getContentType($type) {
-		return $this->contentTypes[$type];
+		return array_key_exists($type, $this->contentTypes) ? $this->contentTypes[$type] : false;
 	}
 
 	/**
@@ -56,5 +61,21 @@ class Header {
 	 */
 	public function getCharset() {
 		return $this->charset;
+	}
+
+	/**
+	 * Add a header to the headers array.
+	 * @param {String} $header header string
+	 */
+	public function add($header) {
+		array_push($this->headers, $header);
+	}
+
+	/**
+	 * Returns the array containing headers.
+	 * @return array
+	 */
+	public function get() {
+		return $this->headers;
 	}
 }
