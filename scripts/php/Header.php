@@ -6,11 +6,16 @@ namespace WebsiteTemplate;
  */
 class Header {
 
+	/** @var string $contentType header default MIME type set to text/html */
+	private $contentType = 'text/html';
+
+	/** @var string $charset default characterset set to utf-8 */
 	private $charset = 'utf-8';
 
+	/** @var array contains additional response headers */
 	private $headers = array();
 
-	/** @var array $contentTypes mime types */
+	/** @var array $contentTypes MIME types lookup */
 	private $contentTypes = array(
 		'text' => 'text/plain',
 		'csv' => 'text/csv',
@@ -21,13 +26,21 @@ class Header {
 	);
 
 	/**
-	 * Returns full content type by abbreviation.
-	 * Returns false if abbreviation (key in array) is not found.
-	 * @param string $type
-	 * @return string|false
+	 * Set the MIME type of the header.
+	 * Abbreviations can be used instead of full MIME type for some content types.
+	 * @param string $contentType
 	 */
-	public function getContentType($type) {
-		return array_key_exists($type, $this->contentTypes) ? $this->contentTypes[$type] : false;
+	public function setContentType($contentType) {
+		$contentType = array_key_exists($contentType, $this->contentTypes) ? $this->contentTypes[$contentType] : $contentType;
+		$this->contentType = $contentType;
+	}
+
+	/**
+	 * Returns the content type (MIME type).
+	 * @return string
+	 */
+	public function getContentType() {
+		return $this->contentType;
 	}
 
 	/**
@@ -72,7 +85,7 @@ class Header {
 	}
 
 	/**
-	 * Returns the array containing headers.
+	 * Returns the array containing the headers.
 	 * @return array
 	 */
 	public function get() {

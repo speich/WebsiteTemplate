@@ -33,11 +33,17 @@ class Controller {
 	/** @var string|null first path segment */
 	private $controller = null;
 
-	/** @var string content type of response */
-	public $contentType = 'json';
+	/** @var null|Header  */
+	private $header = null;
 
 	/** @var bool respond with 404 resource not found */
 	public $notFound = false;
+
+	/** @var bool flush buffer every bytes */
+	public $outputChunked = false;
+
+	/** @var int chunk size for flushing */
+	public $chunkSize = 4096;	// = 1 KB
 
 	/**
 	 * Constructs the controller instance.
@@ -46,7 +52,7 @@ class Controller {
 	 * @param Error $error
 	 * @param Boolean $useController
 	 */
-	public function __construct($header, $error, $useController = true) {
+	public function __construct(Header $header, Error $error, $useController = true) {
 		$this->header = $header;
 		$this->protocol = $_SERVER["SERVER_PROTOCOL"];
 		$this->method = $_SERVER['REQUEST_METHOD'];
@@ -158,11 +164,15 @@ class Controller {
 	}
 
 	/**
-	 * Set HTTP header.
+	 * Prints the header section of the HTTP response.
+	 * Sets the Status Code, Content-Type and additional headers set optionally.
 	 */
 	public function printHeader() {
-
-		header('Content-Type: '.$this->header->getContentType($this->contentType).'; '.$this->header->getCharset());
+		$contentType = $this->notFound ? 'text/html' : $this->header->getContentType();
+		header('Content-Type: '.$contentType.'; '.$this->header->getCharset());
+		foreach($this->header->get() as $header) {
+			header($header);
+		}
 
 		// server error
 		if (count($this->err->get()) > 0) {
@@ -182,12 +192,14 @@ class Controller {
 	}
 
 	/**
-	 * Print http response body.
+	 * Prints the body section of the HTTP response.
+	 * Automatically compresses body if autoCompress is set to true and length threshold is reached.
+	 * Prints the body in chunks if outputChunked is set to true.
 	 * @param string $data response body
 	 */
 	public function printBody($data = null) {
 		if (count($this->err->get()) > 0) {
-			if ($this->contentType == 'json') {
+			if ($this->header->getContentType() === 'application/json') {
 				echo $this->err->getAsJson();
 			}
 			else {
@@ -195,13 +207,26 @@ class Controller {
 			}
 		}
 		else if ($data) {
-			$len = strlen($data);
+			$len = function_exists('mb_strlen') ? mb_strlen($data) : strlen($data); // mb_string is not always available (e.g. RedHat 5 or lower).
 			if ($this->autoCompress && $len > $this->gzipThreshold) {
 				$data = gzencode($data);
+				// recalc length after compressing
+				$len = function_exists('mb_strlen') ? mb_strlen($data) : strlen($data);
 				header('Content-Encoding: gzip');
 				header('Content-Length: '.$len);
 			}
-			echo $data;
+
+			if ($this->outputChunked) {
+				$chunks = str_split($data, $this->chunkSize);
+				foreach ($chunks as $chunk) {
+					echo $chunk;
+					ob_flush();
+					flush();
+				}
+			}
+			else {
+				echo $data;
+			}
 		}
 	}
 }
