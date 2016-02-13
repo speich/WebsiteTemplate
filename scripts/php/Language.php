@@ -3,12 +3,12 @@ namespace WebsiteTemplate;
 
 use stdClass;
 
-require_once 'Website.php';
 
 /**
  * Helper class which allows website to be multi language.
  */
-class Language extends Website {
+class Language {
+
 	/** @var string current language code */
 	private $lang = '';
 
@@ -16,35 +16,35 @@ class Language extends Website {
 	public $langDefault = 'de';
 
 	/** @var array contains all available language codes */
-	public $arrLang = array('de', 'en');
+	public $arrLang = array('de', 'fr', 'it', 'en');
 
 	/** @var array maps language codes to text */
-	public $arrLangLong = array('de' => 'Deutsch', 'en' => 'English');
+	public $arrLangLong = array('de' => 'Deutsch', 'fr' => 'Français', 'it' => 'Italiano', 'en' => 'English');
+
+	/** @var string namespace for session to use */
+	public $namespace = __NAMESPACE__;
+
+	/** @var null|string regular expression to match language from page naming */
+	private $pagePattern = null;
+
+	/** @var null|string page name to match against  */
+	public $page = null;
+
+	/**
+	 * Language constructor.
+	 */
+	public function __construct() {
+		if (isset($this->page)) {
+			$this->pagePattern = '/-(['.implode('|', $this->arrLang).'])\.php/';
+		}
+	}
 
 	/**
 	 * Returns the language code.
+	 * Gets the language short code by order of precedence of query string, session, cookie or http header.
 	 * @return string
 	 */
-	public function getLang() {
-		// explicitly changing lang?
-		if (isset($_GET['lang'])) {
-			$regExpr = "/[^".implode('', $this->arrLang)."]/";
-			$this->lang = $lang = preg_replace($regExpr, '', $_GET['lang']);
-		}
-		// session?
-		else if (isset($_SESSION[$this->namespace]['lang'])) {
-			$this->lang = $_SESSION[$this->namespace]['lang'];
-		}
-		// check for lang preference?
-		else if (isset($_COOKIE['lang'])) {
-			$this->lang = $_COOKIE['lang'];
-		}
-		// check language header
-		else {
-			$lang = $this->getLangFromHeader();
-			$this->lang = $lang ? $lang : $this->langDefault;
-		}
-
+	public function get() {
 		return $this->lang;
 	}
 
@@ -60,7 +60,7 @@ class Language extends Website {
 	 * @see http://www.thefutureoftheweb.com/blog/use-accept-language-header
 	 * @return array
 	 */
-	public function getLangHeader() {
+	public function getHttpHeader() {
 		$arr = array();
 
 		if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
@@ -89,7 +89,7 @@ class Language extends Website {
 	 * @return bool|string
 	 */
 	public function getLangFromHeader() {
-		$arr = $this->getLangHeader();
+		$arr = $this->getHttpHeader();
 
 		// look through sorted list and use first one that matches our languages
 		foreach ($arr as $lang => $val) {
@@ -102,38 +102,84 @@ class Language extends Website {
 	}
 
 	/**
-	 * Sets the language code.
-	 * @param string $lang
+	 * @param null|string $pagePattern
 	 */
-	public function setLang($lang = null) {
-		if (isset($lang) && in_array($lang, $this->arrLang)) {
-			setcookie('lang', $lang, time() + 3600 * 24 * 365);
-			$_SESSION[$this->namespace]['lang'] = $lang;
-			$this->lang = $lang;
-		}
+	public function setPagePattern($pagePattern) {
+		$this->pagePattern = $pagePattern;
 	}
 
 	/**
-	 * Modify $page for language.
+	 * Sets the language code.
+	 * Sets the language property either explicitly by passing it or automatically by checking in order of precendence: query string,
+	 * session, cookie, http header or optionally the current page.
+	 * @param null|string $lang
+	 */
+	public function set($lang = null) {
+
+		$langHeader = $this->getLangFromHeader();
+
+		// set explicitly, overrides all
+		if (isset($lang)) {
+			$this->lang = $lang;
+		}
+
+		// query string?
+		if (isset($_GET['lang'])) {
+			$this->lang = $_GET['lang'];
+		}
+		// session?
+		else if (isset($_SESSION[$this->namespace]['lang'])) {
+			$this->lang = $_SESSION[$this->namespace]['lang'];
+		}
+		// cookie?
+		else if (isset($_COOKIE[$this->namespace]['lang'])) {
+			$this->lang = $_COOKIE[$this->namespace]['lang'];
+		}
+		// http language header
+		else if ($langHeader) {
+			$this->lang = $langHeader;
+		}
+		// by page/file name
+		else if (isset($this->pagePattern) && preg_match($this->pagePattern, $this->page, $matches) === 1) {
+			$this->lang = $matches[1];
+		}
+		else {
+			$this->lang = $this->langDefault;
+		}
+
+		// check that lang property only contains valid content
+		if (!in_array($this->lang, $this->arrLang)) {
+			$this->lang = $this->langDefault;
+		}
+
+		// remove subdomain www from host to prevent conflicting with cookies set in subdomain
+		$domain = str_replace('www.', '.', $_SERVER['HTTP_HOST']);
+		setcookie($this->namespace.'[lang]', $this->lang, time() + 3600 * 24 * 365, '/', $domain, false);
+		$_SESSION[$this->namespace]['lang'] = $this->lang;
+	}
+
+	/**
+	 * Modify a $page for language.
 	 * Inserts a minus character and the language abbreviation between page name and page extension except
 	 * for the default language, e.g.: mypage.php -> mypage-fr.php
 	 * @param string $page page only
 	 * @param string|null $lang
 	 * @return string
 	 */
-	public function createLangPage($page, $lang = null) {
-		$page = preg_replace('/\-[a-z]{2}\.php/', '.php', $page);
+	public function createPage($page, $lang = null) {
+		$page = preg_replace('/\-[a-z]{2}\.(php|gif|jpg|pdf)$/', '.$1', $page);
 
 		if (is_null($lang)) {
-			$lang = $this->getLang();
+			$lang = $this->get();
 		}
 
 		if ($lang === '') {
-			$page = $this->indexPage;
+			$lang = $this->langDefault;
 		}
-		else if ($lang !== $this->langDefault) {
-			$page = str_replace('.php', '-'.$lang.'.php', $page);
 
+		if ($lang !== $this->langDefault) {
+			//$page = str_replace('.php', '-'.$lang.'.php', $page);
+			$page = preg_replace('/\.(php|gif|jpg|pdf)$/', '-'.$lang.'.$1', $page);
 		}
 
 		return $page;
@@ -143,48 +189,49 @@ class Language extends Website {
 	 * Returns a HTML string with links to the current page in all available languages.
 	 * Method checks if the page exist for each language. If it doesn't
 	 * Config object allows to overwrite the following HTML attributes:
-	 * 	$config->ulId 				= 'navLang'
-	 * 	$config->ulClass			= 'nav'
-	 * 	$config->liClassActive	= 'navActive'
-	 * 	$config->delimiter		= ''
-	 * 	$config->redirect			= Website::getWebRoot().Website::indexPage?lang=Website::langDefault;
+	 *   $config->ulId            = 'navLang'
+	 *   $config->ulClass         = 'nav'
+	 *   $config->liClassActive   = 'navActive'
+	 *   $config->delimiter      = ''
+	 *   $config->redirect         = Website::getWebRoot().Website::indexPage?lang=Website::langDefault;
 	 *
 	 * @param stdClass $config
+	 * @param Website $web
 	 * @return string Html
 	 */
-	public function renderLangNav($config = null) {
+	public function renderNav($config = null, $web) {
 		if (is_null($config)) {
 			$config = new stdClass();
 			$config->ulId = 'navLang';
 			$config->ulClass = 'nav';
 			$config->liClassActive = 'navActive';
 			$config->delimiter = '';
-			$config->redirect = $this->getWebRoot().$this->indexPage.'?lang='.$this->langDefault;
+			$config->redirect = $web->getWebRoot().$web->indexPage.'?lang='.$this->langDefault;
 		}
 
-		$page = $this->page;
+		$page = $web->page;
 		$str = '';
-		$str.= '<ul id="'.$config->ulId.'" class="'.$config->ulClass.'">';
+		$str .= '<ul id="'.$config->ulId.'" class="'.$config->ulClass.'">';
 		foreach ($this->arrLang as $lang) {
-			$page = $this->createLangPage($page, $lang);
-			$file = $this->getDir().$page;
+			$page = $this->createPage($page, $lang);
+			$file = $web->getDir().$page;
 			if (file_exists(__DIR__.'/..'.$file)) {
-				$url = $file.$this->getQuery(array('lang' => $lang));
+				$url = $file.$web->getQuery(array('lang' => $lang));
 			}
 			else {
-				$url = $config->redirect.$this->getQuery(array('lang' => $lang, 'url' => $file));
+				$url = $config->redirect.$web->getQuery(array('lang' => $lang, 'url' => $file));
 			}
-			$str.= '<li';
-			if ($lang == $this->getLang()) {
-				$str.= ' class="'.$config->liClassActive.'"';
+			$str .= '<li';
+			if ($lang == $this->get()) {
+				$str .= ' class="'.$config->liClassActive.'"';
 			}
-			$str.= '><a href="'.$url.'" title="'.$this->arrLangLong[$lang].'">'.strtoupper($lang).'</a>';
-			$str.= '</li>';
+			$str .= '><a href="'.$url.'" title="'.$this->arrLangLong[$lang].'">'.strtoupper($lang).'</a>';
+			$str .= '</li>';
 			if ($config->delimiter != '' && key($this->arrLang) < count($this->arrLang)) {
-				$str.= '<li>'.$config->delimiter.'</li>';
+				$str .= '<li>'.$config->delimiter.'</li>';
 			}
 		}
-		$str.= '</ul>';
+		$str .= '</ul>';
 
 		return $str;
 	}
