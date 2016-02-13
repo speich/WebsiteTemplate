@@ -1,37 +1,35 @@
-.menu {
+ul.menu {
 	cursor: pointer;
-    list-style: none;
+	list-style: none;
 }
 
-.menu a:hover {
+ul.menu a:hover {
 	color: #a00a00;
 }
 
-.menu a {
+ul.menu a {
 	display: block;
 	text-decoration: none;
 }
 
-.menu .menuActive > a {
+ul.menu .menuActive > a {
 	color: #a00a00;
 }
 
-
-
 /** menu1 is a simple horizontal menu */
 .menu1 { margin-top: 12px; }
+
 .menu1 li {
-	float: left;	/* inline-block is not supported in IE < 8 */
+	display: inline-block; /* inline-block is not supported in IE < 8 */
 	font-size: 1.1em;
 	font-weight: bold;
 	padding-right: 24px;
 	line-height: 1;
 }
+
 .menu1 a {
 	color: #578626;
 }
-
-
 
 /** menu2 is an advanced horizontal menu with animated submenus
  * Modified from http://accu.org/index.php/journals/1399 to use css3 transitions
@@ -41,34 +39,41 @@
 	margin-left: 7px;
 }
 
+ul.menu2 {
+	background: linear-gradient(to bottom, #FFFFFF, #EFEFEF) no-repeat;
+	border: solid #999999;
+	border-width: 1px 0 1px 0;
+}
+
 .menu2 li {
 	position: relative;
 	display: inline-block;
 }
 
 .menu2 li li {
-    display: block;
+	display: block;
 }
 
 .menu2 ul {
-    padding: 3px;
-    position: absolute;
-    border: 1px solid #ccc;
-    background-color: #fafafa;
-    opacity: 0;
-    top: -999px; /* move out of viewport to prevent overlapping */
-    transition: opacity .5s ease-in-out;
-    box-shadow: #ccc 4px 4px 4px;
+	padding: 3px;
+	position: absolute;
+	border: 1px solid #ccc;
+	background-color: #fafafa;
+	opacity: 0;
+	top: -999px; /* move out of viewport to prevent overlapping */
+	transition: opacity .5s ease-in-out;
+	box-shadow: #ccc 4px 4px 4px;
 }
 
 .menu2 > li > ul {
-    border-top: none;
+	border-top: none;
 }
 
 .menu2 li:hover > ul {
 	top: -1px;
- 	opacity: 1;
+	opacity: 1;
 }
+
 .menu2 > li:hover > ul {
 	top: 13px;
 }
@@ -107,13 +112,14 @@
 	box-shadow: 0 1px #ffffff;
 }
 
-
-
 /** Menu 3 is a classic vertical menu with submenus **/
 .menu3 { width: 150px; }
+
 .menu3 ul { margin-left: 12px; }
-.menu3 li {  padding: 1px 0 1px 0; }
-.menu3 a  {
+
+.menu3 li { padding: 1px 0 1px 0; }
+
+.menu3 a {
 	padding: 6px 0 6px 0;
 	border-bottom: 1px solid #999999;
 	color: #578626;
@@ -122,20 +128,24 @@
 .menu3 .menuHasChild {
 	background: url('../images/arrowleft.gif') right 9px no-repeat;
 }
+
 .menu3 .menuOpen {
 	background: url('../images/arrowdown.gif') right 13px no-repeat;
 }
+
 .menu3 .menuActive:not(.menuHasChild) > a {
 	color: #b31e00;
 	background-image: linear-gradient(to bottom, #FFFFFF, #EFEFEF);
 }
 
-
 /** Menu 3 is a classic vertical menu with submenus **/
 .menu4 { width: 150px; }
+
 .menu4 ul { margin-left: 12px; }
-.menu4 li {  padding: 1px 0 1px 0; }
-.menu4 a  {
+
+.menu4 li { padding: 1px 0 1px 0; }
+
+.menu4 a {
 	padding: 6px 0 6px 0;
 	border-bottom: 1px solid #999999;
 	color: #578626;

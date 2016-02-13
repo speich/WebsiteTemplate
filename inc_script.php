@@ -1,5 +1,7 @@
 <?php
 use WebsiteTemplate\Language;
+use WebsiteTemplate\Website;
+
 
 session_start();
 if (!isset($_SESSION['loggedIn'])) { $_SESSION['loggedIn'] = false; }
@@ -11,11 +13,15 @@ $incPath.= $path.'library';
 set_include_path($incPath);
 date_default_timezone_set('Europe/Zurich');
 
+require_once 'Website.php';
 require_once 'Language.php';
 require_once 'Menu.php';
 
-$web = new Language();
-$web->lastUpdate = '22.01.2014';
-$web->pageTitle = 'Website default';
+$lang = new Language();
+$lang->set();
+
+$web = new Website();
+$web->lastUpdate = '13.02.2016';
+$web->pageTitle = 'Website Template';
 
 require_once 'inc_nav.php';
