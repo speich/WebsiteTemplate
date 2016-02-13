@@ -32,7 +32,7 @@ class Website {
 	public $pageTitle = '';
 
 	/** @var string namespace for session variables */
-	public $namespace = 'web';
+	public $namespace = __NAMESPACE__;
 
 	/** @var string web root directory on web server */
 	private $webroot = '/';
@@ -242,17 +242,18 @@ class Website {
 
 	/**
 	 * Returns the current protocol.
-	 * Returns the current protocol including the colon and the double slashes e.g. <protocol>://
-	 * unless false is passed as the method argument.
+	 * Returns the current protocol (only HTTP or HTTPS) from the requested page
+	 * including the colon and the double slashes e.g. <protocol>:// unless false is passed as the method argument.
 	 * @param bool $full return additional characters ?
 	 * @return string
 	 */
 	public function getProtocol($full = true) {
+		$this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https" : "http";
 		if ($full) {
 			return $this->protocol.'://';
 		}
 		else {
 			return $this->protocol;
-			}
+		}
 	}
 }
