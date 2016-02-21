@@ -282,7 +282,7 @@ class Menu {
 
 	/**
 	 * Sets the CSS class string of the item depending on it's status
-	 * @param $item
+	 * @param MenuItem $item
 	 */
 	protected function setItemCssClass($item) {
 		$hasChild = $this->checkChildExists($item->id);
