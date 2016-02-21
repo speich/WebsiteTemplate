@@ -10,10 +10,10 @@ use stdClass;
 class Language {
 
 	/** @var string current language code */
-	private $lang = '';
+	private static $lang = '';
 
 	/** @var string default language code */
-	public $langDefault = 'de';
+	public static $langDefault = 'de';
 
 	/** @var array contains all available language codes */
 	public $arrLang = array('de', 'fr', 'it', 'en');
@@ -44,8 +44,8 @@ class Language {
 	 * Gets the language short code by order of precedence of query string, session, cookie or http header.
 	 * @return string
 	 */
-	public function get() {
-		return $this->lang;
+	public static function get() {
+		return self::$lang;
 	}
 
 	/**
@@ -120,42 +120,42 @@ class Language {
 
 		// set explicitly, overrides all
 		if (isset($lang)) {
-			$this->lang = $lang;
+			self::$lang = $lang;
 		}
 
 		// query string?
 		if (isset($_GET['lang'])) {
-			$this->lang = $_GET['lang'];
+			self::$lang = $_GET['lang'];
 		}
 		// session?
 		else if (isset($_SESSION[$this->namespace]['lang'])) {
-			$this->lang = $_SESSION[$this->namespace]['lang'];
+			self::$lang = $_SESSION[$this->namespace]['lang'];
 		}
 		// cookie?
 		else if (isset($_COOKIE[$this->namespace]['lang'])) {
-			$this->lang = $_COOKIE[$this->namespace]['lang'];
+			self::$lang = $_COOKIE[$this->namespace]['lang'];
 		}
 		// http language header
 		else if ($langHeader) {
-			$this->lang = $langHeader;
+			self::$lang = $langHeader;
 		}
 		// by page/file name
 		else if (isset($this->pagePattern) && preg_match($this->pagePattern, $this->page, $matches) === 1) {
-			$this->lang = $matches[1];
+			self::$lang = $matches[1];
 		}
 		else {
-			$this->lang = $this->langDefault;
+			self::$lang = self::$langDefault;
 		}
 
 		// check that lang property only contains valid content
-		if (!in_array($this->lang, $this->arrLang)) {
-			$this->lang = $this->langDefault;
+		if (!in_array(self::$lang, $this->arrLang)) {
+			self::$lang = self::$langDefault;
 		}
 
 		// remove subdomain www from host to prevent conflicting with cookies set in subdomain
 		$domain = str_replace('www.', '.', $_SERVER['HTTP_HOST']);
-		setcookie($this->namespace.'[lang]', $this->lang, time() + 3600 * 24 * 365, '/', $domain, false);
-		$_SESSION[$this->namespace]['lang'] = $this->lang;
+		setcookie($this->namespace.'[lang]', self::$lang, time() + 3600 * 24 * 365, '/', $domain, false);
+		$_SESSION[$this->namespace]['lang'] = self::$lang;
 	}
 
 	/**
@@ -174,10 +174,10 @@ class Language {
 		}
 
 		if ($lang === '') {
-			$lang = $this->langDefault;
+			$lang = self::$langDefault;
 		}
 
-		if ($lang !== $this->langDefault) {
+		if ($lang !== self::$langDefault) {
 			//$page = str_replace('.php', '-'.$lang.'.php', $page);
 			$page = preg_replace('/\.(php|gif|jpg|pdf)$/', '-'.$lang.'.$1', $page);
 		}
@@ -206,20 +206,19 @@ class Language {
 			$config->ulClass = 'nav';
 			$config->liClassActive = 'navActive';
 			$config->delimiter = '';
-			$config->redirect = $web->getWebRoot().$web->indexPage.'?lang='.$this->langDefault;
+			$config->redirect = '/'.$web->indexPage;
 		}
 
-		$page = $web->page;
 		$str = '';
 		$str .= '<ul id="'.$config->ulId.'" class="'.$config->ulClass.'">';
 		foreach ($this->arrLang as $lang) {
-			$page = $this->createPage($page, $lang);
+			$page = $web->page === '' ? $this->createPage($web->indexPage, $lang) : $this->createPage($web->page, $lang);
 			$file = $web->getDir().$page;
 			if (file_exists(__DIR__.'/..'.$file)) {
-				$url = $file.$web->getQuery(array('lang' => $lang));
+				$url = $file.$web->getQuery(['lang' => $lang]);
 			}
 			else {
-				$url = $config->redirect.$web->getQuery(array('lang' => $lang, 'url' => $file));
+				$url = $this->createPage($config->redirect).$web->getQuery(['lang' => $lang, 'url' => $file]);
 			}
 			$str .= '<li';
 			if ($lang == $this->get()) {
