@@ -125,7 +125,7 @@ class Language {
 
 		// query string?
 		if (isset($_GET['lang'])) {
-			self::$lang = $_GET['lang'];
+			self::$lang = preg_replace('/\W/', '', $_GET['lang']);
 		}
 		// session?
 		else if (isset($_SESSION[$this->namespace]['lang'])) {

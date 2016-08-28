@@ -77,6 +77,13 @@ class Header {
 	}
 
 	/**
+	 * @param string $charset
+	 */
+	public function setCharset($charset) {
+		$this->charset = $charset;
+	}
+
+	/**
 	 * Add a header to the headers array.
 	 * @param {String} $header header string
 	 */

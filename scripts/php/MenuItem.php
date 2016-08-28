@@ -1,6 +1,6 @@
 <?php
 /**
- * This file contains two classes to create a navigation menu.
+ * This file a class to create items for the navigation menu.
  * @author Simon Speich
  */
 namespace WebsiteTemplate;

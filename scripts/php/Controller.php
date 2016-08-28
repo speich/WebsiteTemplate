@@ -228,5 +228,10 @@ class Controller {
 				echo $data;
 			}
 		}
+		else {
+			if ($this->header->getContentType() === 'application/json') {
+				echo '{}';
+			}
+		}
 	}
 }

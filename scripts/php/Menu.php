@@ -1,6 +1,6 @@
 <?php
 /**
- * This file contains two classes to create a navigation menu.
+ * This file contains the class to create a navigation menu.
  * @author Simon Speich
  */
 namespace WebsiteTemplate;
@@ -19,19 +19,26 @@ namespace WebsiteTemplate;
 require_once 'MenuItem.php';
 
 /**
- * Creates the menu.
+ * Creates the navigational menu.
+ * A menu is made of menu items.
  */
 class Menu {
 	/**
 	 * Holds array of menu items.
-	 * @var MenuItem[] menu items
+	 * @var array menu items
 	 */	 
-	public $arrItem = array();
-	
-	/** @var string HTML menu string */
+	public $arrItem = [];
+
+	/**
+	 * Holds html string of created menu.
+	 * @var string menu string
+	 */
 	private $strMenu = '';
-	
-	/** @var bool render all children */
+
+	/**
+	 * All child menus are rendered by default
+	 * @var bool render children
+	 */
 	public $allChildrenToBeRendered = false;
 	
 	/**
@@ -56,11 +63,11 @@ class Menu {
 	/**  @var null|string prefix for item id attribute */
 	public $itemIdPrefix = null;
 	
-	/** @var null|string CSS class name of menu */
-	public $cssClass = null;
+	/** @var string CSS class name of menu */
+	public $cssClass = 'menu';
 	
-	/** @var null|string CSS id of menu */
-	public $cssId = null;
+	/** @var string CSS id of menu */
+	public $cssId = 'menu-1';
 	
 	/** @var string CSS class name, when item has at least one child */
 	public $cssItemHasChildren = 'menuHasChild';
@@ -76,35 +83,27 @@ class Menu {
 
 	/**
 	 * Constructs the menu.
-	 * You can provide a 2-dim array with all menu items 
-	 * or use the add method for each item singly.
-	 * @param string $cssId HTMLIdAttribute
-	 * @param string $cssClass HTMLClassAttribute
-	 * @param array $arrItem array with menu items
+	 * You can provide a 2-dim array with all menu items.
+	 * or use the add method for each item singedly.
+	 * @param array [$arrItem] array with menu items
 	 */
-	public function __construct($cssId = null, $cssClass = null, $arrItem = null) {
+	public function __construct($arrItem = null) {
 		if (!is_null($arrItem)) {
 			foreach ($arrItem as $item) {
-				$this->arrItem[$item[0]] = new MenuItem($item[0], $item[1], $item[2], (array_key_exists(3, $item) ? $item[3] : null), (array_key_exists(4, $item) ? $item[4] : null));
+				$this->arrItem[$item[0]] = new MenuItem($item[0], $item[1], $item[2], (array_key_exists(3, $item) ? $item[3] : null));
 			}
-		}
-		if (!is_null($cssClass)) {
-			$this->cssClass = $cssClass;
-		}
-		if (!is_null($cssId)) {
-			$this->cssId = $cssId;
 		}
 	}
 	
 	/**
 	 * Add a new menu item.
 	 * Array has to be in the form of:
-	 * array(id, parentId, linkTxt, optional linkUrl);
+	 * array(id, parentId, linkTxt, optional linkUrl, optional event handler);
 	 * You can add new items to menu as long as you haven't called the render method.
 	 * @param array $arr menu item
 	 */
 	public function add($arr) {
-		$this->arrItem[$arr[0]] = new MenuItem($arr[0], $arr[1], $arr[2], (array_key_exists(3, $arr) ? $arr[3] : null));
+		$this->arrItem[$arr[0]] = new MenuItem($arr[0], $arr[1], $arr[2], (array_key_exists(3, $arr) ? $arr[3] : null), (array_key_exists(4, $arr) ? $arr[4] : null));
 	}
 	
 	/**
@@ -220,7 +219,7 @@ class Menu {
 	 * @return mixed id
 	 */
 	public function getActive() {
-		$arrActive = array();
+		$arrActive = [];
 		foreach ($this->arrItem as $item) {
 			if ($item->getActive()) {
 				$arrActive[] = $item->id;
@@ -384,6 +383,22 @@ class Menu {
 		else {
 			return '';
 		}
+	}
+
+	/**
+	 * Set the css class attribute of the HTML to be rendered
+	 * @param string $cssClass
+	 */
+	public function setCssClass($cssClass) {
+		$this->cssClass = $cssClass;
+	}
+
+	/**
+	 * Set the id attribute of the HTML to be rendered
+	 * @param string $cssId
+	 */
+	public function setCssId($cssId) {
+		$this->cssId = $cssId;
 	}
 
 	/**
