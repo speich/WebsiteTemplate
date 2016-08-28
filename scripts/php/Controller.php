@@ -207,11 +207,11 @@ class Controller {
 			}
 		}
 		else if ($data) {
-			$len = function_exists('mb_strlen') ? mb_strlen($data) : strlen($data); // mb_string is not always available (e.g. RedHat 5 or lower).
+			$len = strlen($data);
 			if ($this->autoCompress && $len > $this->gzipThreshold) {
 				$data = gzencode($data);
 				// recalc length after compressing
-				$len = function_exists('mb_strlen') ? mb_strlen($data) : strlen($data);
+				$len = strlen($data);
 				header('Content-Encoding: gzip');
 				header('Content-Length: '.$len);
 			}
