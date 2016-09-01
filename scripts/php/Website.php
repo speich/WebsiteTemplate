@@ -48,7 +48,6 @@ class Website {
 
 	/**
 	 * Creates a new instance of the class Web.
-	 * @return Website
 	 */
 	public function __construct() {
 		$arrUrl = parse_url("http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
