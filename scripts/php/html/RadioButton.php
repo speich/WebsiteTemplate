@@ -1,6 +1,8 @@
 <?php
 namespace WebsiteTemplate;
 
+require_once 'Form.php';
+
 
 /**
  * Class to create a HTMLRadioElement.

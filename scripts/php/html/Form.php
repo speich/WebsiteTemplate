@@ -1,6 +1,7 @@
 <?php
 namespace WebsiteTemplate;
 
+require_once 'Html.php';
 
 
 /** Render the label before the form element */

@@ -1,6 +1,8 @@
 <?php
 namespace WebsiteTemplate;
 
+require_once 'Form.php';
+
 
 /**
  * Create a HTMLSelectElement.
@@ -8,7 +10,7 @@ namespace WebsiteTemplate;
 class CheckBox extends Form {
 
 	/**
-	 * Construct a HtmlCheckBox object.
+	 * Construct a CheckBox object.
 	 * Sets the id attribute and the value attribute.
 	 * @param string $id
 	 * @param string $val

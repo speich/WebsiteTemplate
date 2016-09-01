@@ -1,6 +1,8 @@
 <?php
 namespace WebsiteTemplate;
 
+require_once 'Html.php';
+
 
 /**
  * Class to create a list of HTMLDivElements.

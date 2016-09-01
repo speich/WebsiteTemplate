@@ -1,6 +1,9 @@
 <?php
 namespace WebsiteTemplate;
 
+require_once 'Form.php';
+
+
 /**
  * Use the value attribute to set HTMLOptionElement to selected.
  * @see function SetSelected()
@@ -15,7 +18,7 @@ define("HTML_OPTION_TEXT", 'Txt');
 
 /**
  * Render only option data of HTMLSelectElement.
- * @see function HtmlSelectFld::Render()
+ * @see function SelectFld::Render()
  */
 define("HTML_OPTION_ONLY", true);
 
@@ -23,13 +26,17 @@ define("HTML_OPTION_ONLY", true);
 /**
  * This class creates a HtmlSelectElement.
  */
-class SelectFld extends Form {
+class SelectField extends Form {
 
 	/** @var array array holding option element value and text */
 	public $arrOption = array();
 
 	/** @var bool multiple attribute */
 	private $multiple = false;
+
+	/** @var int number of visible rows */
+	// note: this should be set to at least 2, when you want to use css height and not have multiple = true
+	private $size = 1;
 
 	/** @var bool use option text to set selected instead of value attribute */
 	private $useTxt = false;
@@ -44,7 +51,7 @@ class SelectFld extends Form {
 	private $name = "";
 
 	/**
-	 * Construct a HtmlSelectFld object.
+	 * Construct a SelectFld object.
 	 *
 	 * The constructor accepts either a one or a two dimensional array. In case of a
 	 * 1-dim array, a new, zero-based index is created to use as the HTMLValueAttribute and the
@@ -67,6 +74,15 @@ class SelectFld extends Form {
 	 */
 	public function setMultiple($multiple = true) {
 		$this->multiple = $multiple;
+	}
+
+	/**
+	 * Set the number of visible rows.
+	 * Note: this is independent of multiple attribute
+	 * @param $size
+	 */
+	public function setSize($size) {
+		$this->size = $size;
 	}
 
 	/**
@@ -157,6 +173,9 @@ class SelectFld extends Form {
 			}
 			if ($this->multiple) {
 				$strHtml.= ' multiple="multiple"';
+			}
+			if ($this->size > 1) {
+				$strHtml.= ' size="'.$this->size.'"';
 			}
 			if ($this->disabled) {
 				$strHtml.= ' disabled="disabled"';
