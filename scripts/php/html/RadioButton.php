@@ -10,6 +10,9 @@ require_once 'Form.php';
  * @see setGroup() method
  */
 class RadioButton extends Form {
+	/** @var string value attribute */
+	public $val;
+
 	/** @var bool group buttons with same name? */
 	private $grouped = false;
 

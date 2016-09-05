@@ -8,6 +8,11 @@ require_once 'Form.php';
  * Create a HTMLSelectElement.
  */
 class CheckBox extends Form {
+	/** @var string value attribute */
+	public $val;
+
+	/** @var string name attribute */
+	public $name;
 
 	/**
 	 * Construct a CheckBox object.

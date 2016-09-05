@@ -13,6 +13,9 @@ require_once 'Html.php';
  */
 class DivList extends Html {
 
+	/** @var array list of items */
+	public $arrItem;
+
 	/** @var bool renderAsHtml label attribute */
 	private $label = false;
 

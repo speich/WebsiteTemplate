@@ -1,5 +1,5 @@
 <?php
-namespace WebsiteTemplate;
+namespace General;
 
 /**
  * Helper class to parse HTTP responses.

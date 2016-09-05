@@ -24,4 +24,4 @@ $web = new Website();
 $web->lastUpdate = '13.02.2016';
 $web->pageTitle = 'Website Template';
 
-require_once 'inc_nav.php';
+require_once __DIR__.'/layout/inc_nav.php';

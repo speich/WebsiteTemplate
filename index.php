@@ -1,6 +1,5 @@
 <?php
 require_once 'inc_script.php';
-require_once 'inc_nav.php';
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $lang->get(); ?>" dir="ltr">
