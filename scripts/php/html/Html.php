@@ -1,16 +1,12 @@
 <?php
 namespace WebsiteTemplate;
 
-
-
 /**
  * Base class to create HTML snippets.
  *
  * This abstract base class defines a number of attributes and methods
  * to deal with HTMLAttributes that are shared by all HTMLElements,
  * such as the style, id, name and class attribute.
- *
- * @package NAFIDAS
  */
 abstract class Html {
 
@@ -22,6 +18,9 @@ abstract class Html {
 
 	/** @var bool|string html style attribute */
 	protected $cssStyle = false;
+
+	/** @var string title attribute */
+	protected $title = '';
 
 	/**
 	 * Set the id attribute of a HTMLElement.
@@ -85,4 +84,22 @@ abstract class Html {
 			return false;
 		}
 	}
+
+	/**
+	 * Get the title attribute.
+	 * @return string
+	 */
+	public function getTitle() {
+		return $this->title;
+	}
+
+	/**
+	 * Set the title attribute
+	 * @param string $title
+	 */
+	public function setTitle($title) {
+		$this->title = $title;
+	}
+
+
 }

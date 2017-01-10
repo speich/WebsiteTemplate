@@ -3,30 +3,28 @@ namespace WebsiteTemplate;
 
 require_once 'Form.php';
 
-
-/**
- * Use the value attribute to set HTMLOptionElement to selected.
- * @see function SetSelected()
- */
-define("HTML_OPTION_VALUE", 'Value');
-
-/**
- * Use the child text to set HTMLOptionElement to selected.
- * @see function SetSelected()
- */
-define("HTML_OPTION_TEXT", 'Txt');
-
-/**
- * Render only option data of HTMLSelectElement.
- * @see function SelectFld::Render()
- */
-define("HTML_OPTION_ONLY", true);
-
-
 /**
  * This class creates a HtmlSelectElement.
  */
 class SelectField extends Form {
+
+	/** use the option text to set the option title attribute */
+	const OPTION_TITLE_FROM_TEXT = 1;
+
+	/** use the option value to set the option title attribute */
+	const OPTION_TITLE_FROM_VALUE = 2;
+
+	/** Use the value attribute to set HTMLOptionElement to selected. */
+	const SELECTED_BY_VALUE = 1;
+
+	/** Use the child text to set HTMLOptionElement to selected. */
+	const SELECTED_BY_TEXT = 2;
+
+	/** Render all elements */
+	const RENDER_ALL = 1;
+
+	/** Render only the option elements without the Select element. */
+	const RENDER_OPTION_ONLY = 2;
 
 	/** @var array array holding option element value and text */
 	public $arrOption = array();
@@ -47,8 +45,7 @@ class SelectField extends Form {
 	/** @var string first item in select field */
 	private $defaultText = 'Bitte auswählen';
 
-	/** @var string name attribute, default == id attribute */
-	private $name = "";
+	private $autoOptionTitle;
 
 	/**
 	 * Construct a SelectFld object.
@@ -90,17 +87,17 @@ class SelectField extends Form {
 	 * If no type is given, the value attribute is used to set item selected. If type = HTML_OPTION_TEXT then
 	 * the option text is used to set selected.
 	 * @param mixed $val
-	 * @param string|NULL $type use text/value
+	 * @param int $type SelectField::SELECTED_BY_VALUE | SelectField::SELECTED_BY_TEXT
 	 * @return bool
 	 */
-	public function setSelected($val = false, $type = NULL) {
+	public function setSelected($val = false, $type = SelectField::SELECTED_BY_VALUE) {
 		if ($val === false) {
 			$this->selected = false;
 		}
 		else {
 			$this->selected = true;
 		}
-		if ($type == HTML_OPTION_TEXT) {
+		if ($type === SelectField::SELECTED_BY_TEXT) {
 			$this->useTxt = true;
 		}
 		if (is_array($val)) {
@@ -121,7 +118,7 @@ class SelectField extends Form {
 		$arr = array();
 		foreach ($this->arrOption as $option) {
 			if ($this->select($option)) {
-				$arr[] = $type == HTML_OPTION_TEXT ? $option[1] : $option[0];
+				$arr[] = $type === SelectField::OPTION_TITLE_FROM_TEXT ? $option[1] : $option[0];
 	}
 		}
 		return $arr;
@@ -150,17 +147,17 @@ class SelectField extends Form {
 
 	/**
 	 * Print the HTMLSelectElement.
-	 * @param string $type renderAsHtml option elements only
+	 * @param int $type render all elements or specific elements only
 	 * @return string Html
 	 */
-	public function render($type = NULL) {
+	public function render($type = SelectField::RENDER_ALL) {
 		$strHtml = '';
-		if ($type != HTML_OPTION_ONLY) {
+		if ($type === SelectField::RENDER_ALL) {
 			$strHtml .= $this->renderLabel();
 			$strHtml .= $this->renderSelect();
 		}
 		$strHtml .= $this->renderOptions();
-		if ($type != HTML_OPTION_ONLY) {
+		if ($type === SelectField::RENDER_ALL) {
 			$strHtml .= '</select>';
 		}
 
@@ -208,6 +205,7 @@ class SelectField extends Form {
 	private function renderOption($value = '', $text) {
 		$str = '';
 		$sel = '';
+		$title = '';
 		if ($this->selected) {
 			foreach ($this->selectedVal as $selected) {
 				$comp = $this->useTxt ? $text : $value;
@@ -218,7 +216,11 @@ class SelectField extends Form {
 			}
 		}
 		$value = ' value="'.$value.'"';
-		$str .= '<option'.$value.$sel.'>'.$text.'</option>';
+		if (isset($this->autoOptionTitle)) {
+			$title = $this->autoOptionTitle === SelectField::OPTION_TITLE_FROM_TEXT ? $text : $value;
+			$title = ' title="'.$title.'"';
+		}
+		$str .= '<option'.$value.$sel.$title.'>'.$text.'</option>';
 
 		return $str;
 	}
@@ -274,4 +276,13 @@ class SelectField extends Form {
 	public function getDefaultVal() {
 		return $this->defaultText;
 	}
+
+	/**
+	 * @param int $type
+	 */
+	public function setAutoOptionTitle($type = SelectField::OPTION_TITLE_FROM_TEXT) {
+		$this->autoOptionTitle = $type;
+	}
+
+
 }
