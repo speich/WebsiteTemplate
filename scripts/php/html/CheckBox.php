@@ -11,11 +11,6 @@ class CheckBox extends Form {
 	/** @var string value attribute */
 	public $val;
 
-	/** @var string name attribute */
-	public $name;
-
-	protected $labelPosition = Form::LABEL_AFTER;
-
 	/**
 	 * Construct a CheckBox object.
 	 * Sets the id attribute and the value attribute.

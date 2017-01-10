@@ -39,6 +39,8 @@ class Form extends Html {
 	/** @var bool|integer tab index attribute */
 	protected $tabIndex = false;
 
+	protected $name;
+
 	/**
 	 * Set the element's tab index
 	 * @param integer $index

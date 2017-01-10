@@ -16,11 +16,6 @@ class RadioButton extends Form {
 	/** @var bool group buttons with same name? */
 	private $grouped = false;
 
-	/** @var string name of radio group */
-	private $groupName;
-
-	protected $labelPosition = Form::LABEL_AFTER;
-
 	/**
 	 * Construct a HtmlRadioButton object.
 	 * The constructor sets the id and value attribute of the HTMLRadioElement.
@@ -39,7 +34,7 @@ class RadioButton extends Form {
 	 * @param string $name HTMLAttribute name
 	 */
 	public function setGroup($name) {
-		$this->groupName = $name;
+		$this->name = $name;
 		$this->grouped = true;
 	}
 
@@ -49,7 +44,7 @@ class RadioButton extends Form {
 	 * @return string|bool value or false
 	 */
 	public function getGroup() {
-		return $this->grouped ? $this->groupName : false;
+		return $this->grouped ? $this->name : false;
 	}
 
 	/**
