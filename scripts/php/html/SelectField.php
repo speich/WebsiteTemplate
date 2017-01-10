@@ -45,7 +45,7 @@ class SelectField extends Form {
 	private $selectedVal = array(array());
 
 	/** @var string first item in select field */
-	private $defaultVal = 'Bitte auswählen';
+	private $defaultText = 'Bitte auswählen';
 
 	/** @var string name attribute, default == id attribute */
 	private $name = "";
@@ -145,7 +145,7 @@ class SelectField extends Form {
 	 * @param string|bool $txt
 	 */
 	public function setDefaultVal($txt) {
-		$this->defaultVal = $txt;
+		$this->defaultText = $txt;
 	}
 
 	/**
@@ -156,40 +156,81 @@ class SelectField extends Form {
 	public function render($type = NULL) {
 		$strHtml = '';
 		if ($type != HTML_OPTION_ONLY) {
-			if ($this->label) {
-				$strHtml.= '<label for="'.$this->getId().'"';
-				if ($this->cssClass) {
-					$strHtml.= ' class="label'.$this->cssClass.'"';
-				}
-				$strHtml.= '>'.$this->getLabel().'</label>';
-			}
-
-			$strHtml.= '<select id="'.$this->getId().'" name="'.$this->name.'"';
-			if ($this->cssClass) {
-				$strHtml.= ' class="'.$this->cssClass.'"';
-			}
-			if ($this->cssStyle) {
-				$strHtml.= ' style="'.$this->cssStyle.'"';
-			}
-			if ($this->multiple) {
-				$strHtml.= ' multiple="multiple"';
-			}
-			if ($this->size > 1) {
-				$strHtml.= ' size="'.$this->size.'"';
-			}
-			if ($this->disabled) {
-				$strHtml.= ' disabled="disabled"';
-			}
-			if ($this->tabIndex) {
-				$strHtml.= ' tabindex="'.$this->tabIndex.'"';
-			}
-			if ($this->required) {
-				$strHtml.= ' required="required"';
-			}
-			$strHtml.= ">\n";
+			$strHtml .= $this->renderLabel();
+			$strHtml .= $this->renderSelect();
 		}
-		if ($this->defaultVal) {
-			$strHtml.= '<option value="">'.$this->defaultVal.'</option>';
+		$strHtml .= $this->renderOptions();
+		if ($type != HTML_OPTION_ONLY) {
+			$strHtml .= '</select>';
+		}
+
+		return $strHtml;
+	}
+
+	/**
+	 *  Render HTML select element.
+	 * @return string
+	 */
+	private function renderSelect() {
+		$str = '<select id="'.$this->getId().'" name="'.$this->name.'"';
+		if ($this->cssClass) {
+			$str .= ' class="'.$this->cssClass.'"';
+		}
+		if ($this->cssStyle) {
+			$str .= ' style="'.$this->cssStyle.'"';
+		}
+		if ($this->multiple) {
+			$str .= ' multiple="multiple"';
+		}
+		if ($this->size > 1) {
+			$str .= ' size="'.$this->size.'"';
+		}
+		if ($this->disabled) {
+			$str .= ' disabled="disabled"';
+		}
+		if ($this->tabIndex) {
+			$str .= ' tabindex="'.$this->tabIndex.'"';
+		}
+		if ($this->required) {
+			$str .= ' required="required"';
+		}
+		$str .= ">\n";
+
+		return $str;
+	}
+
+	/**
+	 * Render HTML option element.
+	 * @param string $value
+	 * @param string $text
+	 * @return string HTML
+	 */
+	private function renderOption($value = '', $text) {
+		$str = '';
+		$sel = '';
+		if ($this->selected) {
+			foreach ($this->selectedVal as $selected) {
+				$comp = $this->useTxt ? $text : $value;
+				// use strict to prevent value="0" to be set as selected if passing false as $value
+				if ($comp === $selected) {
+					$sel .= ' selected="selected"';
+				}
+			}
+		}
+		$value = ' value="'.$value.'"';
+		$str .= '<option'.$value.$sel.'>'.$text.'</option>';
+
+		return $str;
+	}
+
+	/**
+	 * Render HTML option elements.
+	 * @return string
+	 */
+	private function renderOptions() {
+		$str = '';
+		if ($this->defaultText) {
+			$str .= $this->renderOption('', $this->defaultText);
 		}
 		$i = 0;
 		foreach ($this->arrOption as $row) {
@@ -198,32 +239,32 @@ class SelectField extends Form {
 			if (count($row) > 1) {
 				$val = $row[0];
 				$text = $row[1];
-				$sel = '';
 			}
 			else {
 				$val = $i++;
 				$text = $row;
-				$sel = '';
 			}
-			if ($this->selected) {
-				foreach ($this->selectedVal as $selected) {
-					if ($this->useTxt) {
-						// use strict to prevent value="0" to be set as selected if passing false as $Val
-						if ($row[1] == $selected) {
-							$sel = ' selected="selected"';
-						}
-					}
-					else if ($row[0] == $selected) {
-						$sel = ' selected="selected"';
-					}
-				}
+			$str .= $this->renderOption($val, $text);
+		}
+
+		return $str;
+	}
+
+	/**
+	 * Render HTML for label element.
+	 * @return string
+	 */
+	private function renderLabel(){
+		$str = '';
+		if ($this->label) {
+			$str.= '<label for="'.$this->getId().'"';
+			if ($this->cssClass) {
+				$str.= ' class="label'.$this->cssClass.'"';
 			}
-			$strHtml.= '<option value="'.$val.'"'.$sel.'>'.$text."</option>\n";
+			$str.= '>'.$this->getLabel().'</label>';
 		}
-		if ($type != HTML_OPTION_ONLY) {
-			$strHtml.= "</select>\n";
-		}
-		return $strHtml;
+
+		return $str;
 	}
 
 	/**
@@ -231,6 +272,6 @@ class SelectField extends Form {
 	 * @return string|bool
 	 */
 	public function getDefaultVal() {
-		return $this->defaultVal;
+		return $this->defaultText;
 	}
 }
