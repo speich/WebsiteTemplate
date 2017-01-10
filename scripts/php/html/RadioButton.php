@@ -19,6 +19,8 @@ class RadioButton extends Form {
 	/** @var string name of radio group */
 	private $groupName;
 
+	protected $labelPosition = Form::LABEL_AFTER;
+
 	/**
 	 * Construct a HtmlRadioButton object.
 	 * The constructor sets the id and value attribute of the HTMLRadioElement.
@@ -28,7 +30,6 @@ class RadioButton extends Form {
 	public function __construct($id, $val) {
 		$this->setId($id);
 		$this->val = $val;
-		$this->labelPosition = HTML_LABEL_AFTER;
 	}
 
 	/**
@@ -67,7 +68,7 @@ class RadioButton extends Form {
 			$strLabel.= '>'.$this->getLabel().'</label>';
 		}
 
-		if ($this->labelPosition === HTML_LABEL_BEFORE) {
+		if ($this->labelPosition === Form::LABEL_BEFORE) {
 			$strHtml.= $strLabel;
 		}
 		$strHtml.= '<input id="'.$this->getId().'"';
@@ -94,7 +95,7 @@ class RadioButton extends Form {
 			$strHtml.= ' required="required"';
 		}
 		$strHtml.= ">";
-		if ($this->labelPosition === HTML_LABEL_AFTER) {
+		if ($this->labelPosition === Form::LABEL_AFTER) {
 			$strHtml.= $strLabel;
 		}
 		return $strHtml;

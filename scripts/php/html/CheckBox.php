@@ -14,6 +14,8 @@ class CheckBox extends Form {
 	/** @var string name attribute */
 	public $name;
 
+	protected $labelPosition = Form::LABEL_AFTER;
+
 	/**
 	 * Construct a CheckBox object.
 	 * Sets the id attribute and the value attribute.
@@ -24,7 +26,6 @@ class CheckBox extends Form {
 		$this->setId($id);
 		$this->val = $val;
 		$this->name = $id;
-		$this->labelPosition = HTML_LABEL_AFTER;
 	}
 
 	/**
@@ -43,7 +44,7 @@ class CheckBox extends Form {
 			$strLabel.= '>'.$this->getLabel()."</label>\n";
 		}
 
-		if ($this->labelPosition === HTML_LABEL_BEFORE) {
+		if ($this->labelPosition === Form::LABEL_BEFORE) {
 			$strHtml.= $strLabel;
 		}
 
@@ -68,7 +69,7 @@ class CheckBox extends Form {
 			$strHtml.= ' required="required"';
 		}
 		$strHtml.= ">";
-		if ($this->labelPosition === HTML_LABEL_AFTER) {
+		if ($this->labelPosition === Form::LABEL_AFTER) {
 			$strHtml.= $strLabel;
 		}
 

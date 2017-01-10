@@ -4,12 +4,6 @@ namespace WebsiteTemplate;
 require_once 'Html.php';
 
 
-/** Render the label before the form element */
-define('HTML_LABEL_BEFORE', 'before');
-
-/** Render the label after the form element */
-define('HTML_LABEL_AFTER', 'after');
-
 /**
  * Class to create HTMLFormElements.
  *
@@ -18,6 +12,12 @@ define('HTML_LABEL_AFTER', 'after');
  */
 class Form extends Html {
 
+	/** Render the label before the form element */
+	const LABEL_BEFORE = 1;
+
+	/** Render the label after the form element */
+	const LABEL_AFTER = 2;
+
 	/** @var bool renderAsHtml label attribute */
 	protected $label = false;
 
@@ -25,7 +25,7 @@ class Form extends Html {
 	protected $labelName = '';
 
 	/** @var string position of label in relation to element */
-	protected $labelPosition = HTML_LABEL_BEFORE;
+	protected $labelPosition = Form::LABEL_BEFORE;
 
 	/** @var bool|string disabled attribute */
 	protected $disabled = false;
@@ -62,12 +62,12 @@ class Form extends Html {
 	 * If set then the label attribute is rendered. The position can be set to before or after with the constants
 	 * HTML_LABEL_BEFORE and HTML_LABEL_AFTER.
 	 * @param string $label label
-	 * @param string $position position of the label
+	 * @param int $position position of label
 	 */
-	public function setLabel($label, $position = null) {
+	public function setLabel($label, $position = Form::LABEL_BEFORE) {
 		$this->labelName = $label;
 		$this->label = true;
-		$this->labelPosition = is_null($position) ? $this->labelPosition : $position;
+		$this->labelPosition = $position;
 	}
 
 	/**
@@ -76,7 +76,6 @@ class Form extends Html {
 	public function removeLabel() {
 		$this->labelName = null;
 		$this->label = false;
-		$this->labelPosition = HTML_LABEL_BEFORE;
 	}
 
 	/**
