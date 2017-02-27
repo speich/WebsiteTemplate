@@ -8,16 +8,17 @@ use WebsiteTemplate\Menu;
 require_once 'Menu.php';
 
 /* simple horizontal menu */
-$menu1 = new Menu('menu1', 'menu menu1', array(
+$menu1 = new Menu(array(
 	array(1, 0, 'Home', $web->getWebRoot().'index.php'),
 	array(2, 0, 'About', $web->getWebRoot().'about.php'),
 	array(3, 0, 'Services', $web->getWebRoot().'services.php'),
 	array(7, 0, 'Contact', $web->getWebRoot().'contact.php')
 ));
 $menu1->setActive($web->getWebRoot().'services.php');
+$menu1->cssId = 'menu1';
 
 /* Advanced animated horizontal menu with submenus */
-$menu2 = new Menu('menu2', 'menu menu2', array(
+$menu2 = new Menu(array(
 	array(1, 0, 'Home', $web->getWebRoot().'index.php'),
 	array(2, 0, 'About'),
 		array(8, 2, 'Me...'),
@@ -34,10 +35,10 @@ $menu2 = new Menu('menu2', 'menu menu2', array(
 ));
 $menu2->allChildrenToBeRendered = true;
 $menu2->setActive($web->getWebRoot().'services/more.php');
-
+$menu2->cssId = 'menu2';
 
 /* Simple vertical menu */
-$menu3 = new Menu('menu3', 'menu menu3', array(
+$menu3 = new Menu(array(
 	array(1, 0, 'Home', $web->getWebRoot().'index.php'),
 	array(2, 0, 'About', $web->getWebRoot().'about.php'),
 		array(8, 2, 'Me', $web->getWebRoot().'about.php'),
@@ -50,11 +51,11 @@ $menu3 = new Menu('menu3', 'menu menu3', array(
 	array(7, 0, 'Contact', $web->getWebRoot().'contact.php')
 ));
 $menu3->setActive($web->getWebRoot().'services/services.php');
-//$menu3->setActive($web->getWebRoot().'services/load.php');
+$menu3->cssId = 'menu3';
 
 
 /* Simple vertical menu showing all children */
-$menu4 = new Menu('menu4', 'menu menu4', array(
+$menu4 = new Menu(array(
 	array(1, 0, 'Home', $web->getWebRoot().'index.php'),
 	array(2, 0, 'About'),
 		array(8, 2, 'Me'),
@@ -68,3 +69,4 @@ $menu4 = new Menu('menu4', 'menu menu4', array(
 ));
 $menu4->allChildrenToBeRendered = true;
 $menu4->setActive($web->getWebRoot().'services/load.php');
+$menu4->cssId = 'menu4';
