@@ -152,12 +152,13 @@ class SelectField extends Form {
 	public function render($type = SelectField::RENDER_ALL) {
 		$strHtml = '';
 		if ($type === SelectField::RENDER_ALL) {
-			$strHtml .= $this->renderLabel();
+			$strHtml .= $this->labelPosition === Form::LABEL_BEFORE ? $this->renderLabel() : '';
 			$strHtml .= $this->renderSelect();
 		}
 		$strHtml .= $this->renderOptions();
 		if ($type === SelectField::RENDER_ALL) {
 			$strHtml .= '</select>';
+			$strHtml .= $this->labelPosition === Form::LABEL_AFTER ? $this->renderLabel() : '';
 		}
 
 		return $strHtml;
