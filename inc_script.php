@@ -21,7 +21,7 @@ $lang = new Language();
 $lang->set();
 
 $web = new Website();
-$web->lastUpdate = '13.02.2016';
+$web->lastUpdate = '27.02.2017';
 $web->pageTitle = 'Website Template';
 
 require_once __DIR__.'/layout/inc_nav.php';

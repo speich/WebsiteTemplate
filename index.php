@@ -1,6 +1,4 @@
-<?php
-require_once 'inc_script.php';
-?>
+<?php require_once 'inc_script.php'; ?>
 <!DOCTYPE html>
 <html lang="<?php echo $lang->get(); ?>" dir="ltr">
 <head>

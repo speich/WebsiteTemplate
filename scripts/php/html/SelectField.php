@@ -1,7 +1,6 @@
 <?php
 namespace WebsiteTemplate;
 
-require_once 'Form.php';
 
 /**
  * This class creates a HtmlSelectElement.
