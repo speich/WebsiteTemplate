@@ -209,8 +209,7 @@ class SelectField extends Form {
 		if ($this->selected) {
 			foreach ($this->selectedVal as $selected) {
 				$comp = $this->useTxt ? $text : $value;
-				// use strict to prevent value="0" to be set as selected if passing false as $value
-				if ($comp === $selected) {
+				if ($comp == $selected) {
 					$sel .= ' selected="selected"';
 				}
 			}
