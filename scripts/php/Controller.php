@@ -27,7 +27,7 @@ class Controller {
 	/** @var null|string http method */
 	private $method = null;
 
-	/** @var array array of path segments */
+	/** @var string|array array of path segments */
 	private $resources = array();
 
 	/** @var null|Header  */
@@ -53,7 +53,7 @@ class Controller {
 		$this->header = $header;
 		$this->protocol = $_SERVER["SERVER_PROTOCOL"];
 		$this->method = $_SERVER['REQUEST_METHOD'];
-		$this->resources = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : null;
+		$this->resources = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : array();
 		$this->err = $error;
 	}
 
