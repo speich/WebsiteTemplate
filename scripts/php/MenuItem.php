@@ -36,6 +36,9 @@ class MenuItem {
 	/** @var bool has item an active child */
 	private $hasActiveChild = false;
 
+    /** @var string link target */
+    public $linkTarget = '';
+
 	/**
 	 * Constructs the menu item.
 	 * @param integer|string $id unique id

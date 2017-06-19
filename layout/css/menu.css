@@ -3,18 +3,24 @@ ul.menu {
 	list-style: none;
 }
 
-ul.menu a:hover {
+ul.menu a:hover, ul.menu div:hover {
 	color: #a00a00;
 }
 
 ul.menu a {
 	display: block;
 	text-decoration: none;
+	color: inherit;
 }
 
-ul.menu .menuActive > a {
+ul.menu .menuActive > a, ul.menu .menuActive > div {
 	color: #a00a00;
 }
+
+.menu li {
+	color: #578626;
+}
+
 
 /** menu1 is a simple horizontal menu */
 #menu1 { margin-top: 12px; }
@@ -27,9 +33,6 @@ ul.menu .menuActive > a {
 	line-height: 1;
 }
 
-#menu1 a {
-	color: #578626;
-}
 
 /** menu2 is an advanced horizontal menu with animated submenus
  * Modified from http://accu.org/index.php/journals/1399 to use css3 transitions
@@ -75,7 +78,7 @@ ul.menu .menuActive > a {
 	top: 13px;
 }
 
-#menu2 a {
+#menu2 a, #menu2 div {
 	padding: 0 12px 1px 12px;
 	color: #555555;
 	text-decoration: none;
@@ -85,12 +88,12 @@ ul.menu .menuActive > a {
 	background-image: none;
 }
 
-#menu2 a:hover {
+#menu2 a:hover, #menu2 div:hover {
 	color: #ffffff;
 	background-color: #578626;
 }
 
-#menu2 ul a {
+#menu2 ul a, #menu2 ul div {
 	min-width: 120px;
 	padding: 8px 12px 8px 12px;
 	background: url(../images/arrowright.gif) right no-repeat;
@@ -116,10 +119,9 @@ ul.menu .menuActive > a {
 
 #menu3 li { padding: 1px 0 1px 0; }
 
-#menu3 a {
+#menu3 a, #menu3 div {
 	padding: 6px 0 6px 0;
 	border-bottom: 1px solid #999999;
-	color: #578626;
 }
 
 #menu3 .menuHasChild {
@@ -130,7 +132,7 @@ ul.menu .menuActive > a {
 	background: url('../images/arrowdown.gif') right 13px no-repeat;
 }
 
-#menu3 .menuActive:not(.menuHasChild) > a {
+#menu3 .menuActive:not(.menuHasChild) > a, #menu3 .menuActive:not(.menuHasChild) > div {
 	color: #b31e00;
 	background-image: linear-gradient(to bottom, #FFFFFF, #EFEFEF);
 }
@@ -142,13 +144,12 @@ ul.menu .menuActive > a {
 
 #menu4 li { padding: 1px 0 1px 0; }
 
-#menu4 a {
+#menu4 a, #menu4 div {
 	padding: 6px 0 6px 0;
 	border-bottom: 1px solid #999999;
-	color: #578626;
 }
 
-#menu4 .menuActive:not(.menuHasChild) > a {
+#menu4 .menuActive:not(.menuHasChild) > a, #menu4 .menuActive:not(.menuHasChild) > div {
 	color: #b31e00;
 	background-image: linear-gradient(to bottom, #FFFFFF, #EFEFEF);
 }

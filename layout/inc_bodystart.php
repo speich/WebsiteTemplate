@@ -1,6 +1,6 @@
 <h2>Simple CSS menu</h2>
 <div><?php echo $menu1->render(); ?></div>
-<h2>Complex CSS menu with submenus</h2>
+<h2>Complex CSS menu with animated submenus</h2>
 <div>
 <?php echo $menu2->render(); ?>
 </div>
