@@ -5,7 +5,6 @@
  */
 namespace WebsiteTemplate;
 
-require_once 'Website.php';
 
 /**
  * Class to create and display a paged navigation.

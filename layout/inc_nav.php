@@ -5,7 +5,6 @@ use WebsiteTemplate\Menu;
  * This include file creates the navigation menu.
  * Each item needs its unique id for the menu to function properly.
  */
-require_once 'Menu.php';
 
 /* simple horizontal menu */
 $menu1 = new Menu(array(

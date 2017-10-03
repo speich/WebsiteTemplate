@@ -1,5 +1,6 @@
 <?php
-namespace WebsiteTemplate;
+namespace WebsiteTemplate\html;
+
 
 
 /**

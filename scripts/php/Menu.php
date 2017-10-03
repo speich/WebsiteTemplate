@@ -17,7 +17,7 @@ namespace WebsiteTemplate;
  *    A menu can be open without being active, when $allChildrenToBeRendered is set to true.
  */
 
-require_once 'MenuItem.php';
+
 
 /**
  * Creates the navigational menu.
