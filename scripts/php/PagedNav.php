@@ -72,6 +72,9 @@ class PagedNav {
 		)
 	);
 
+	/** @var string Language */
+    public $lang = 'en';
+
 	/** @var bool render text */
 	public $renderText = true;
 
@@ -181,7 +184,7 @@ class PagedNav {
 	 * Print HTML navigation.
 	 * The parameter $curPage is 1-based.
 	 * @param integer $curPage current page number
-	 * @param Language $web
+	 * @param Website $web
 	 * @return string HTML string to print
 	 */
 	function render($curPage, $web) {
@@ -192,10 +195,10 @@ class PagedNav {
 
 		if ($this->renderText) {
 			$str.= '<div class="text">';
-			$str.= $this->i18n[$web->getLang()]['search result'].": ".$this->numRec." ";
-			$str.= $this->numRec > 1 ? $this->i18n[$web->getLang()]['entries'] : $this->i18n[$web->getLang()]['entry'];
-			$str.= " ".$this->i18n[$web->getLang()]['on']." $this->numPages ";
-			$str.= $this->numPages > 1 ? $this->i18n[$web->getLang()]['pages'] : $this->i18n[$web->getLang()]['page'];
+			$str.= $this->i18n[$this->lang]['search result'].": ".$this->numRec." ";
+			$str.= $this->numRec > 1 ? $this->i18n[$this->lang]['entries'] : $this->i18n[$this->lang]['entry'];
+			$str.= " ".$this->i18n[$this->lang]['on']." $this->numPages ";
+			$str.= $this->numPages > 1 ? $this->i18n[$this->lang]['pages'] : $this->i18n[$this->lang]['page'];
 			$str.= '</div>';
 		}
 
