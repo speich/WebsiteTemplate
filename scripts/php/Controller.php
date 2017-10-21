@@ -27,8 +27,8 @@ class Controller {
 	/** @var null|string http method */
 	private $method = null;
 
-	/** @var string|array array of path segments */
-	private $resources = array();
+	/** @var string|array|null array of path segments */
+	private $resources = null;
 
 	/** @var null|Header  */
 	private $header = null;
@@ -53,7 +53,7 @@ class Controller {
 		$this->header = $header;
 		$this->protocol = $_SERVER["SERVER_PROTOCOL"];
 		$this->method = $_SERVER['REQUEST_METHOD'];
-		$this->resources = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : array();
+		$this->resources = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : $this->resources;
 		$this->err = $error;
 	}
 
@@ -117,20 +117,23 @@ class Controller {
 		return $this->protocol;
 	}
 
-	/**
-	 * Returns the path split into segments (resources).
-	 * @param bool $asString return a string instead of an array
-	 * @return array|string
-	 */
-	public function getResources($asString = false) {
-		$resources = $this->resources;
-		if (!is_null($resources) && $asString === false) {
-			$resources = trim($resources, '/');
-			$resources = explode('/', $resources);
-		}
+    /**
+   	 * Returns the path split into segments (resources).
+        * Contains any client-provided pathname information trailing the actual script filename but preceding the query string.
+        * Returns null, if no path information is available. If path is only a slash and $asString is false, an array with and empty string is returned.
+   	 * @param bool $asString return a string instead of an array
+   	 * @return array|string
+   	 */
+   	public function getResources($asString = false) {
+   		$resources = $this->resources;
+   		if (!is_null($resources) && $asString === false) {
+   			$resources = trim($resources, '/');
+   			$resources = explode('/', $resources);
+   		}
 
-		return $resources;
-	}
+   		return $resources;
+   	}
+
 
 	/**
 	 * Set gzip threshold.
