@@ -135,26 +135,26 @@ class Language
 
         // set explicitly, override all
         if (isset($lang)) {
-            $this->lang = $lang;
+            self::$lang = $lang;
         } // query string ? (e.g. switch to different language)?
         else if (isset($_GET['lang'])) {
-            $this->lang = preg_replace('/\W/', '', $_GET['lang']);
+            self::$lang = preg_replace('/\W/', '', $_GET['lang']);
         } // language by page url
         else if (preg_match($this->pagePattern, $this->getPage(), $matches) === 1) {
             // note: default language 'de' is not part ot the page url, e.g. page-de.php does not exist
             // will be set to 'de' bewlow, e.g. using default lanuage
-            $this->lang = $matches[1];
+            self::$lang = $matches[1];
         } // use default language
         else {
-            $this->lang = $this->langDefault;
+            self::$lang = self::$langDefault;
         }
 
         // check that lang property only contains valid content
-        if (!in_array($this->lang, $this->arrLang)) {
-            $this->lang = $this->langDefault;
+        if (!in_array(self::$lang, $this->arrLang)) {
+            self::$lang = self::$langDefault;
         }
 
-        $this->setCookie($this->lang);
+        $this->setCookie(self::$lang);
     }
 
     /**
@@ -163,7 +163,7 @@ class Language
      */
     public function getDefault()
     {
-        $lang = $this->langDefault;
+        $lang = self::$langDefault;
 
         // if there is no previously set language, e.g. (session or cooky) use browser http header
         $langHeader = $this->getLangFromHeader();
