@@ -1,4 +1,5 @@
 {
+  "name": "speich.net/WebsiteTemplate",
   "autoload": {
     "psr-4": {
       "WebsiteTemplate\\": "../scripts/php"
