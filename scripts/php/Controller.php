@@ -14,8 +14,9 @@ use stdClass;
  * $this->controller = 'administration' and $this->resources = array('user', 1);
  */
 class Controller {
+    public $err;
 
-	/** @var int minimum number of bytes before using gzip for response */
+    /** @var int minimum number of bytes before using gzip for response */
 	private $gzipThreshold = 300;
 
 	/** @var bool response is automatically gzipped if body is longer than threshold. */
