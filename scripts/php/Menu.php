@@ -29,7 +29,7 @@ class Menu
      * Holds array of menu items.
      * @var array menu items
      */
-    public $arrItem = [];
+    public $arrItem = array();
 
     /**
      * Holds html string of created menu.
@@ -124,6 +124,7 @@ class Menu
                 break;
             }
         }
+
         return $found;
     }
 
@@ -189,7 +190,7 @@ class Menu
                 }
                 break;
             case 2:
-                if ($arrUrlPage['path'] . '?' . $arrUrlPage['query'] == $item->linkUrl) {
+                if ($arrUrlPage['path'].'?'.$arrUrlPage['query'] == $item->linkUrl) {
                     return true;
                 }
                 break;
@@ -215,6 +216,7 @@ class Menu
             default;
                 return false;
         }
+
         return false;
     }
 
@@ -225,7 +227,7 @@ class Menu
      */
     public function getActive()
     {
-        $arrActive = [];
+        $arrActive = array();
         foreach ($this->arrItem as $item) {
             if ($item->getActive()) {
                 $arrActive[] = $item->id;
@@ -251,10 +253,10 @@ class Menu
         $this->strMenu .= '<ul';
         if ($this->firstUl) {
             if (!is_null($this->cssClass)) {
-                $this->strMenu .= ' class="' . $this->cssClass . '"';
+                $this->strMenu .= ' class="'.$this->cssClass.'"';
             }
             if (!is_null($this->cssId)) {
-                $this->strMenu .= ' id="' . $this->cssId . '"';
+                $this->strMenu .= ' id="'.$this->cssId.'"';
             }
             $this->firstUl = false;
         }
