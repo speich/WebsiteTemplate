@@ -238,11 +238,12 @@ class Language
         $str = '';
         $str .= '<ul id="'.$config->ulId.'" class="'.$config->ulClass.'">';
         foreach ($this->arrLang as $lang) {
-            $page = $this->createPage($this->getPage(), $lang);
-            if (file_exists($page)) {
-                $url = $page.$web->getQuery(['lang' => $lang]);
+            $page = $this->createPage($web->page, $lang);
+            $path = $web->getDir();
+            if (file_exists($web->getDocRoot().$path.$page)) {
+                $url = $path.$page.$web->getQuery(['lang' => $lang]);
             } else {
-                $url = $config->redirect.$web->getQuery(['lang' => $lang, 'url' => $page]);
+                $url = $config->redirect.$web->getQuery(['lang' => $lang, 'url' => $path.$page]);
             }
             $str .= '<li';
             if ($lang == $this->get()) {
