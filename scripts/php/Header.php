@@ -91,6 +91,18 @@ class Header {
 		array_push($this->headers, $header);
 	}
 
+    /**
+     * Set header disposition to attachment forcing browser to offer download dialog.
+     * @param string $file file path
+     * @param string $contentType
+     */
+    public function addAttachment($file, $contentType) {
+        $this->setContentType($contentType);
+        $this->add('Expires: 0');
+        $this->add('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        $this->add('Content-Disposition: attachment; filename="'.$file.'"');
+    }
+
 	/**
 	 * Returns the array containing the headers.
 	 * @return array
