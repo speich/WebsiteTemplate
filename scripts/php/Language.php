@@ -12,19 +12,16 @@ class Language
 {
 
     /** @var string current language code */
-    private static $lang = '';
+    private $lang = '';
 
     /** @var string default language code */
-    public static $langDefault = 'de';
-
-    /** @var array contains all available language codes */
-    public $arrLang = array('de', 'fr', 'it', 'en');
+    private $langDefault = 'de';
 
     /** @var array maps language codes to text */
-    public $arrLangLong = array('de' => 'Deutsch', 'fr' => 'Français', 'it' => 'Italiano', 'en' => 'English');
+    public $arrLang = array('de' => 'Deutsch', 'fr' => 'Français', 'it' => 'Italiano', 'en' => 'English');
 
     /** @var string namespace for session to use */
-    public $namespace = __NAMESPACE__;
+    private $namespace = __NAMESPACE__;
 
     /** @var null|string regular expression to match language from page naming */
     private $pagePattern = null;
@@ -34,7 +31,7 @@ class Language
      */
     public function __construct()
     {
-        $this->pagePattern = '/-('.implode('|', $this->arrLang).')\.php/';
+        $this->pagePattern = '/-('.implode('|', $this->getAll()).')\.php/';
     }
 
     /**
@@ -42,9 +39,26 @@ class Language
      * Gets the language short code by order of precedence of query string, session, cookie or http header.
      * @return string
      */
-    public static function get()
+    public function get()
     {
-        return self::$lang;
+        return $this->lang;
+    }
+
+    /**
+     * Returns all language codes
+     * @return array
+     */
+    public function getAll()
+    {
+        return array_keys($this->arrLang);
+    }
+
+    /**
+     * @return string
+     */
+    public function getNamespace()
+    {
+        return $this->namespace;
     }
 
     /**
@@ -97,7 +111,7 @@ class Language
         // look through sorted list and use first one that matches our languages
         foreach ($arr as $lang => $val) {
             $lang = explode('-', $lang);
-            if (in_array($lang[0], $this->arrLang)) {
+            if (array_key_exists($lang[0], $this->arrLang)) {
                 return $lang[0];
             }
         }
@@ -135,35 +149,43 @@ class Language
 
         // set explicitly, override all
         if (isset($lang)) {
-            self::$lang = $lang;
+            $this->lang = $lang;
         } // query string ? (e.g. switch to different language)?
         else if (isset($_GET['lang'])) {
-            self::$lang = preg_replace('/\W/', '', $_GET['lang']);
+            $this->lang = preg_replace('/\W/', '', $_GET['lang']);
         } // language by page url
         else if (preg_match($this->pagePattern, $this->getPage(), $matches) === 1) {
             // note: default language 'de' is not part ot the page url, e.g. page-de.php does not exist
             // will be set to 'de' bewlow, e.g. using default lanuage
-            self::$lang = $matches[1];
+            $this->lang = $matches[1];
         } // use default language
         else {
-            self::$lang = self::$langDefault;
+            $this->lang = $this->langDefault;
         }
 
         // check that lang property only contains valid content
-        if (!in_array(self::$lang, $this->arrLang)) {
-            self::$lang = self::$langDefault;
+        if (!array_key_exists($this->lang, $this->arrLang)) {
+            $this->lang = $this->langDefault;
         }
 
-        $this->setCookie(self::$lang);
+        $this->setCookie($this->lang);
+    }
+
+    /**
+     * @return string
+     */
+    public function getLangDefault()
+    {
+        return $this->langDefault;
     }
 
     /**
      * Returns the language detected from a previously set cookie or from the http header.
      * @return string
      */
-    public function getDefault()
+    public function getAutoDefault()
     {
-        $lang = self::$langDefault;
+        $lang = $this->langDefault;
 
         // if there is no previously set language, e.g. (session or cooky) use browser http header
         $langHeader = $this->getLangFromHeader();
@@ -207,10 +229,10 @@ class Language
         }
 
         if ($lang === '') {
-            $lang = self::$langDefault;
+            $lang = $this->langDefault;
         }
 
-        if ($lang !== self::$langDefault) {
+        if ($lang !== $this->langDefault) {
             //$page = str_replace('.php', '-'.$lang.'.php', $page);
             $page = preg_replace('/\.(php|gif|jpg|pdf)$/', '-'.$lang.'.$1', $page);
         }
@@ -235,9 +257,10 @@ class Language
      */
     public function renderNav($config, $web)
     {
+        $count = 0;
         $str = '';
         $str .= '<ul id="'.$config->ulId.'" class="'.$config->ulClass.'">';
-        foreach ($this->arrLang as $lang) {
+        foreach ($this->arrLang as $lang => $label) {
             $page = $this->createPage($web->page, $lang);
             $path = $web->getDir();
             if (file_exists($web->getDocRoot().$path.$page)) {
@@ -249,11 +272,12 @@ class Language
             if ($lang == $this->get()) {
                 $str .= ' class="'.$config->liClassActive.'"';
             }
-            $str .= '><a href="'.$url.'" title="'.$this->arrLangLong[$lang].'">'.strtoupper($lang).'</a>';
+            $str .= '><a href="'.$url.'" title="'.$label.'">'.strtoupper($lang).'</a>';
             $str .= '</li>';
-            if ($config->delimiter != '' && key($this->arrLang) < count($this->arrLang)) {
+            if ($config->delimiter != '' && $count < count($this->arrLang)) {
                 $str .= '<li>'.$config->delimiter.'</li>';
             }
+            $count++;
         }
         $str .= '</ul>';
 
