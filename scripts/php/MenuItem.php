@@ -107,7 +107,7 @@ class MenuItem
 
     /**
      * Adds a css class to the item.
-     * Allows to have mutliple CSS classes per item.
+     * Allows to have multiple CSS classes per item.
      * @param string $name CSS class name
      */
     public function addCssClass($name)
@@ -125,5 +125,14 @@ class MenuItem
     public function getCssClass()
     {
         return $this->cssClass;
+    }
+
+    /**
+     * Sets the css class string.
+     * @param null|string $cssClass
+     */
+    public function setCssClass($cssClass)
+    {
+        $this->cssClass = $cssClass;
     }
 }
