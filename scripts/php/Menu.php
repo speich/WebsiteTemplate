@@ -17,8 +17,6 @@ namespace WebsiteTemplate;
  *    A menu can be open without being active, when $allChildrenToBeRendered is set to true.
  */
 
-
-
 /**
  * Creates the navigational menu.
  * A menu is made of menu items.
@@ -93,7 +91,8 @@ class Menu
     {
         if (!is_null($arrItem)) {
             foreach ($arrItem as $item) {
-                $this->arrItem[$item[0]] = new MenuItem($item[0], $item[1], $item[2], (array_key_exists(3, $item) ? $item[3] : null));
+                $this->arrItem[$item[0]] = new MenuItem($item[0], $item[1], $item[2],
+                    (array_key_exists(3, $item) ? $item[3] : null));
             }
         }
     }
@@ -265,17 +264,17 @@ class Menu
         foreach ($this->arrItem as $item) {
             if ($item->parentId === $parentId) {
                 $this->setItemCssClass($item);
-                $itemIdPrefix = is_null($this->itemIdPrefix) ? '' : ' id="' . $this->itemIdPrefix . $item->id . '"';
-                $cssClass = is_null($item->getCssClass()) ? '' : ' class="' . $item->getCssClass() . '"';
-                $this->strMenu .= '<li' . $itemIdPrefix . $cssClass . '>';
+                $itemIdPrefix = is_null($this->itemIdPrefix) ? '' : ' id="'.$this->itemIdPrefix.$item->id.'"';
+                $cssClass = is_null($item->getCssClass()) ? '' : ' class="'.$item->getCssClass().'"';
+                $this->strMenu .= '<li'.$itemIdPrefix.$cssClass.'>';
                 $tagName = is_null($item->linkUrl) ? 'div' : 'a';
-                $this->strMenu .= '<' . $tagName;    // for css we have the same structure, with or without a link: TODO: use div/span instead
+                $this->strMenu .= '<'.$tagName;    // for css we have the same structure, with or without a link: TODO: use div/span instead
                 if (!is_null($item->linkUrl)) {
-                    $this->strMenu .= ' href="' . $item->linkUrl . '"' . ($item->linkTarget === '' ? '' : ' target="' . $item->linkTarget . '"');
+                    $this->strMenu .= ' href="'.$item->linkUrl.'"'.($item->linkTarget === '' ? '' : ' target="'.$item->linkTarget.'"');
                 }
                 $this->strMenu .= '>';
                 $this->strMenu .= $item->linkTxt;
-                $this->strMenu .= '</' . $tagName . '>';
+                $this->strMenu .= '</'.$tagName.'>';
                 if ($this->checkChildExists($item->id) && ($item->getActive() || $this->allChildrenToBeRendered)) {
                     $this->createHtml($item->id);
                     $this->strMenu .= '</ul>';
@@ -283,6 +282,7 @@ class Menu
                 $this->strMenu .= '</li>';
             }
         }
+
         return $this->strMenu;
     }
 
@@ -388,7 +388,8 @@ class Menu
         if (count($this->arrItem) > 0) {
             $this->setHasActiveChildren();
             $str = $this->createHtml(reset($this->arrItem)->parentId);
-            return $str . '</ul>';
+
+            return $str.'</ul>';
         } else {
             return '';
         }
