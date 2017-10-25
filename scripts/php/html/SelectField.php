@@ -55,14 +55,17 @@ class SelectField extends Form
      * array values are used as the text of the HTMLOptionElements. Otherwise the first dimension
      * is used as the value, and the second as the text.
      *
+     * @param array $arrOption text and value data
      * @param string $id
      * @param array $arrOption text and value data
      */
-    public function __construct($id, $arrOption)
+    public function __construct($arrOption, $id = null)
     {
-        $this->setId($id);
         $this->arrOption = $arrOption;
-        $this->name = $id;
+        if(!is_null($id)) {
+            $this->setId($id);
+            $this->name = $id;
+        };
     }
 
     /**
@@ -179,7 +182,7 @@ class SelectField extends Form
      */
     private function renderSelect()
     {
-        $str = '<select id="'.$this->getId().'" name="'.$this->name.'"';
+        $str = '<select'.($this->id ? ' id="'.$this->getId().'"' : '').($this->name ? ' name="'.$this->name.'"' : '');
         if ($this->cssClass) {
             $str .= ' class="'.$this->cssClass.'"';
         }
@@ -290,6 +293,7 @@ class SelectField extends Form
     }
 
     /**
+     * Automatically sets the title attribute on the option element from the option text.
      * @param int $type
      */
     public function setAutoOptionTitle($type = SelectField::OPTION_TITLE_FROM_TEXT)
