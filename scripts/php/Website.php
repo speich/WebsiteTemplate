@@ -18,7 +18,7 @@ class Website
     /** @var string */
     public $protocol = 'http';
 
-    /** @var string current path from root including page, e.g. /library/inc_global.php */
+    /** @var string current path from root including page, e.g. /scripts/php/inc_global.php */
     public $path;
 
     /** @var string current page without path, e.g. inc_global.php */

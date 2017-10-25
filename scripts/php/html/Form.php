@@ -7,6 +7,7 @@ namespace WebsiteTemplate\html;
  *
  * This base class defines a number of attributes and methods to deal with
  * HTMLAttributes that are shared by all HTMLFormElements, such as the label, disabled, selected attribute.
+ * TODO: add method renderAttributes, which can be reused in child classes to set id, name, etc. attributes
  */
 class Form extends Html
 {

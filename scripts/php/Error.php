@@ -105,7 +105,7 @@ class Error
             }
             $str .= addslashes($str);
             if ($key < count($errs) - 1) {
-                $str .= '<br/>';
+                $str .= '<br>';
             }
         }
 
