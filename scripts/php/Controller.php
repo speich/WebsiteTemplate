@@ -21,8 +21,12 @@ class Controller
     /** @var int minimum number of bytes before using gzip for response */
     private $gzipThreshold = 300;
 
-    /** @var bool response is automatically gzipped if body is longer than threshold. */
-    private $autoCompress = true;
+    /**
+     * @var bool response is automatically gzipped if body is longer than threshold.
+     * Be are, that enabling this could lead to double encoding, if server already does gzip/deflate.
+     * Also remember to honour the requests Accept-Encoding header with $_SERVER['HTTP_ACCEPT_ENCODING']
+     */
+    private $autoCompress = false;
 
     /** @var null|string http protocol */
     private $protocol = null;
