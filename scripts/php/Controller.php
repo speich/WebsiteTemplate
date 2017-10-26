@@ -123,13 +123,13 @@ class Controller
     }
 
     /**
-     * Returns the path split into segments (resources).
+     * Returns the path split into segments.
      * Contains any client-provided pathname information trailing the actual script filename but preceding the query string.
      * Returns null, if no path information is available. If path is only a slash and $asString is false, an array with and empty string is returned.
      * @param bool $asString return a string instead of an array
-     * @return array|string
+     * @return array|string|null
      */
-    public function getResources($asString = false)
+    public function getResource($asString = false)
     {
         $resources = $this->resources;
         if (!is_null($resources) && $asString === false) {
@@ -194,20 +194,22 @@ class Controller
      */
     public function printBody($data = null)
     {
+        // an error occurred
         if (count($this->err->get()) > 0) {
             if ($this->header->getContentType() === 'application/json') {
                 echo $this->err->getAsJson();
             } else {
                 echo $this->err->getAsString();
             }
-        } else if ($data) {
-            $len = strlen($data);
+        } // response contains data
+        else if ($data) {
+            $len = function_exists('mb_strlen') ? mb_strlen($data) : strlen($data); // mb_string is not always available (e.g. RedHat 5 or lower).
             if ($this->autoCompress && $len > $this->gzipThreshold) {
                 $data = gzencode($data);
                 // recalc length after compressing
-                $len = strlen($data);
-                header('Content-Encoding: gzip');
-                header('Content-Length: '.$len);
+                $len = function_exists('mb_strlen') ? mb_strlen($data) : strlen($data);
+                $this->header->add('Content-Encoding: gzip');
+                $this->header->add('Content-Length: '.$len);
             }
 
             if ($this->outputChunked) {
@@ -220,7 +222,8 @@ class Controller
             } else {
                 echo $data;
             }
-        } else {
+        } // no response, 200 ok only // TODO: should be 204 No Content
+        else {
             if ($this->header->getContentType() === 'application/json') {
                 echo '{}';
             }
