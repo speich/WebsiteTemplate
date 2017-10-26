@@ -18,16 +18,6 @@ class Controller
 {
     public $err;
 
-    /** @var int minimum number of bytes before using gzip for response */
-    private $gzipThreshold = 300;
-
-    /**
-     * @var bool response is automatically gzipped if body is longer than threshold.
-     * Be are, that enabling this could lead to double encoding, if server already does gzip/deflate.
-     * Also remember to honour the requests Accept-Encoding header with $_SERVER['HTTP_ACCEPT_ENCODING']
-     */
-    private $autoCompress = false;
-
     /** @var null|string http protocol */
     private $protocol = null;
 
@@ -145,26 +135,6 @@ class Controller
     }
 
     /**
-     * Set gzip threshold.
-     * This is the minimum number of bytes before response is automatically gzipped unless you set autocompress to false.
-     * @param int $gzipThreshold
-     */
-    public function setGzipThreshold($gzipThreshold)
-    {
-        $this->gzipThreshold = $gzipThreshold;
-    }
-
-    /**
-     * Set if response body is automatically compressed.
-     * If body is longer than $this->gzipThreshold it is automatically compressed using gzip unless you set this to false.
-     * @param boolean $autoCompress
-     */
-    public function setAutoCompress($autoCompress)
-    {
-        $this->autoCompress = $autoCompress;
-    }
-
-    /**
      * Prints the header section of the HTTP response.
      * Sets the Status Code, Content-Type and additional headers set optionally.
      */
@@ -207,15 +177,6 @@ class Controller
             }
         } // response contains data
         else if ($data) {
-            $len = function_exists('mb_strlen') ? mb_strlen($data) : strlen($data); // mb_string is not always available (e.g. RedHat 5 or lower).
-            if ($this->autoCompress && $len > $this->gzipThreshold) {
-                $data = gzencode($data);
-                // recalc length after compressing
-                $len = function_exists('mb_strlen') ? mb_strlen($data) : strlen($data);
-                $this->header->add('Content-Encoding: gzip');
-                $this->header->add('Content-Length: '.$len);
-            }
-
             if ($this->outputChunked) {
                 $chunks = str_split($data, $this->chunkSize);
                 foreach ($chunks as $chunk) {
