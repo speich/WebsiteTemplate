@@ -26,7 +26,7 @@ class SelectField extends Form
     /** Render only the option elements without the Select element. */
     const RENDER_OPTION_ONLY = 2;
 
-    /** @var array array holding option element value and text */
+    /** @var OptionElement[] array holding option elements */
     public $arrOption = array();
 
     /** @var bool multiple attribute */
@@ -36,16 +36,16 @@ class SelectField extends Form
     // note: this should be set to at least 2, when you want to use css height and not have multiple = true
     private $size = 1;
 
-    /** @var bool use option text to set selected instead of value attribute */
-    private $useTxt = false;
-
-    /** @var array  value/txt to compare when setting selected, can be an array of values */
-    private $selectedVal = array(array());
+    /** @var array contains the selected text and values*/
+    private $selectedOptions = array();
 
     /** @var string first item in select field */
     private $defaultText = 'Bitte auswählen';
 
-    private $autoOptionTitle;
+    private $autoOptionTitle = false;
+
+    /** @var bool auto index option values if arrOption is 1-dim array */
+    public $autoOptionValues = true;
 
     /**
      * Construct a SelectFld object.
@@ -60,11 +60,35 @@ class SelectField extends Form
      */
     public function __construct($arrOption, $id = null)
     {
-        $this->arrOption = $arrOption;
         if(!is_null($id)) {
             $this->setId($id);
             $this->name = $id;
         };
+        $this->initOptions($arrOption);
+    }
+
+    /**
+     * Create array of option elements
+     * If argument $options is a 1-dim array: use created index as value attribute
+     * If arguments $options is a 2-dim array: use first index as value attribute, but only
+     * if autoOptionValues is true, otherwise no value attibute is set.
+     * @param array $options
+     */
+    private function initOptions($options) {
+        $i = 0;
+        foreach ($options as $key => $row) {
+            $option = new OptionElement();
+            if (count($row) > 1) {
+                $option->value = $row[0];
+                $option->text = $row[1];
+            } else {
+                if ($this->autoOptionValues) {
+                    $option->value = $i++;
+                }
+                $option->text = $row;
+            }
+            $this->arrOption[] = $option;
+        }
     }
 
     /**
@@ -91,44 +115,51 @@ class SelectField extends Form
      * Set a HTMLOptionElement to selected.
      * If no type is given, the value attribute is used to set item selected. If type = HTML_OPTION_TEXT then
      * the option text is used to set selected.
-     * @param mixed $val
+     * @param string|bool $val
      * @param int $type SelectField::SELECTED_BY_VALUE | SelectField::SELECTED_BY_TEXT
-     * @return bool
      */
     public function setSelected($val = false, $type = SelectField::SELECTED_BY_VALUE)
     {
+        // kind a useless?
         if ($val === false) {
             $this->selected = false;
         } else {
             $this->selected = true;
         }
-        if ($type === SelectField::SELECTED_BY_TEXT) {
-            $this->useTxt = true;
-        }
-        if (is_array($val)) {
-            $this->selectedVal = $val;
-        } else {
-            $this->selectedVal = array($val);
+
+        if (!$val) {
+            $this->selectedOptions = array();
         }
 
-        return true;
+        foreach ($this->arrOption as $option) {
+            if (!$val) {
+                // deselect all
+                $option->selected = false;
+            }
+            else {
+                $testVal = $type === SelectField::SELECTED_BY_TEXT ? $option->text : $option->value;
+                if ($val === $testVal){
+                    $option->selected = true;
+                    array_push($this->selectedOptions, $option);
+                }
+            }
+        }
     }
 
     /**
-     * Return selected values or texts.
-     * @param null $type
-     * @return array
+     * Returns the first selected value or text
+     * @param null $type SelectField::SELECTED_BY_VALUE | SelectField::SELECTED_BY_TEXT
+     * @return bool|string
      */
     public function getSelected($type = null)
     {
-        $arr = array();
         foreach ($this->arrOption as $option) {
-            if ($this->select($option)) {
-                $arr[] = $type === SelectField::OPTION_TITLE_FROM_TEXT ? $option[1] : $option[0];
+            if ($option->selected) {
+                return $type === SelectField::SELECTED_BY_TEXT ? $option->text : $option->value;
             }
         }
 
-        return $arr;
+        return false;
     }
 
     /**
