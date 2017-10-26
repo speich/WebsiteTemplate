@@ -103,12 +103,12 @@ class Header
 
     /**
      * Set header disposition to attachment forcing browser to offer download dialog.
+     * Note: Content type has to be set separately.
      * @param string $fileName file path
      * @param string $fileExtension
      */
     public function addDownload($fileName, $fileExtension)
     {
-        $this->setContentType($fileExtension);
         $this->add('Expires: 0');
         $this->add('Cache-Control: must-revalidate, post-check=0, pre-check=0');
         $this->add('Content-Disposition: attachment; filename="'.$fileName.'.'.$fileExtension.'"');
