@@ -56,8 +56,7 @@ class SelectField extends Form
      * is used as the value, and the second as the text.
      *
      * @param array $arrOption text and value data
-     * @param string $id
-     * @param array $arrOption text and value data
+     * @param string|null $id
      */
     public function __construct($arrOption, $id = null)
     {

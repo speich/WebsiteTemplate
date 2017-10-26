@@ -25,7 +25,7 @@ class Menu
 {
     /**
      * Holds array of menu items.
-     * @var array menu items
+     * @var MenuItem[] menu items
      */
     public $arrItem = array();
 
