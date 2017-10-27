@@ -240,35 +240,6 @@ class SelectField extends Form
     }
 
     /**
-     * Render HTML option element.
-     * @param string $value
-     * @param string $text
-     * @return string HTML
-     */
-    private function renderOption($value = '', $text)
-    {
-        $str = '';
-        $sel = '';
-        $title = '';
-        if ($this->selected) {
-            foreach ($this->selectedVal as $selected) {
-                $comp = $this->useTxt ? $text : $value;
-                if ($comp == $selected) {
-                    $sel .= ' selected="selected"';
-                }
-            }
-        }
-        $value = ' value="'.$value.'"';
-        if (isset($this->autoOptionTitle)) {
-            $title = $this->autoOptionTitle === SelectField::OPTION_TITLE_FROM_TEXT ? $text : $value;
-            $title = ' title="'.$title.'"';
-        }
-        $str .= '<option'.$value.$sel.$title.'>'.$text.'</option>';
-
-        return $str;
-    }
-
-    /**
      * Render HTML option elements.
      * @return string
      */
@@ -276,20 +247,12 @@ class SelectField extends Form
     {
         $str = '';
         if ($this->defaultText) {
-            $str .= $this->renderOption('', $this->defaultText);
+            $option = new OptionElement();
+            $option->text = $this->defaultText;
+            $str .= $option->render();
         }
-        $i = 0;
-        foreach ($this->arrOption as $row) {
-            // 1-dim array: use created index as value attribute
-            // 2-dim array: use first index as value attribute
-            if (count($row) > 1) {
-                $val = $row[0];
-                $text = $row[1];
-            } else {
-                $val = $i++;
-                $text = $row;
-            }
-            $str .= $this->renderOption($val, $text);
+        foreach ($this->arrOption as $option) {
+            $str .= $option->render();
         }
 
         return $str;
