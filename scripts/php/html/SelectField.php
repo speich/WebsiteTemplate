@@ -113,26 +113,26 @@ class SelectField extends Form
 
     /**
      * Set a HTMLOptionElement to selected.
+     * Passing false or null deselects everything.
      * If no type is given, the value attribute is used to set item selected. If type = HTML_OPTION_TEXT then
      * the option text is used to set selected.
-     * @param string|bool $val
+     * @param string|bool|null $val
      * @param int $type SelectField::SELECTED_BY_VALUE | SelectField::SELECTED_BY_TEXT
      */
     public function setSelected($val = false, $type = SelectField::SELECTED_BY_VALUE)
     {
+        // TODO: should not inhert this method from parent
+        $deselect = $val === false || $val === null;
         // kind a useless?
-        if ($val === false) {
+        if ($deselect) {
             $this->selected = false;
+            $this->selectedOptions = array();
         } else {
             $this->selected = true;
         }
 
-        if (!$val) {
-            $this->selectedOptions = array();
-        }
-
         foreach ($this->arrOption as $option) {
-            if (!$val) {
+            if ($deselect) {
                 // deselect all
                 $option->selected = false;
             }

@@ -91,6 +91,7 @@ class Form extends Html
      */
     public function setSelected($selected = true)
     {
+        // TODO: remove method use Checkbox::checked and SelectField. setSelcted instead
         $this->selected = (bool)$selected;
     }
 
