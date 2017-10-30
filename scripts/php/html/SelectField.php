@@ -163,6 +163,15 @@ class SelectField extends Form
     }
 
     /**
+     * Returns the select option elements.
+     * @return OptionElement[]
+     */
+    public function getSelectedOptions()
+    {
+        return $this->selectedOptions;
+    }
+
+    /**
      * Set the name attribute independent of the id attribute.
      * If you use [] in you id or name attribute, then PHP makes it available as an array after posting.
      * But [] is not valid as an id in JS and HTML.
