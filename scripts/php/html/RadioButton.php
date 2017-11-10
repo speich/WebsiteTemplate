@@ -12,9 +12,6 @@ class RadioButton extends Form
     /** @var string value attribute */
     public $val;
 
-    /** @var bool group buttons with same name? */
-    private $grouped = false;
-
     /**
      * Construct a HtmlRadioButton object.
      * The constructor sets the id and value attribute of the HTMLRadioElement.
@@ -25,28 +22,6 @@ class RadioButton extends Form
     {
         $this->setId($id);
         $this->val = $val;
-    }
-
-    /**
-     * Set the name attribute of the radio element.
-     * If radio elements share the same name, clicking one radio deselects
-     * the other radios having the same name (the same group).
-     * @param string $name HTMLAttribute name
-     */
-    public function setGroup($name)
-    {
-        $this->name = $name;
-        $this->grouped = true;
-    }
-
-    /**
-     * Return the value of the HTMLAttribute name.
-     * @see setGroup() method
-     * @return string|bool value or false
-     */
-    public function getGroup()
-    {
-        return $this->grouped ? $this->name : false;
     }
 
     /**
@@ -70,8 +45,8 @@ class RadioButton extends Form
             $strHtml .= $strLabel;
         }
         $strHtml .= '<input id="'.$this->getId().'"';
-        if ($this->grouped === true) {
-            $strHtml .= ' name="'.$this->getGroup().'"';
+        if ($this->name !== false) {
+            $strHtml .= ' name="'.$this->name.'"';
         }
         $strHtml .= ' type="radio" value="'.$this->val.'"';
         if ($this->selected === true) {

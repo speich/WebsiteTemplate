@@ -39,7 +39,8 @@ class Form extends Html
     /** @var bool|integer tab index attribute */
     protected $tabIndex = false;
 
-    protected $name;
+    /** @var bool|string name attribute */
+    protected $name = false;
 
     /**
      * Set the element's tab index
@@ -115,5 +116,14 @@ class Form extends Html
     public function setRequired($bool = true)
     {
         $this->required = $bool;
+    }
+
+    /**
+     * Set the name attribute of the element
+     * @param bool|string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
     }
 }
