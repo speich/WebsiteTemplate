@@ -36,15 +36,16 @@ class SelectField extends Form
     // note: this should be set to at least 2, when you want to use css height and not have multiple = true
     private $size = 1;
 
-    /** @var array contains the selected text and values*/
+    /** @var array contains the selected text and values */
     private $selectedOptions = array();
 
     /** @var string first item in select field */
     private $defaultText = 'Bitte auswählen';
 
+    /** @var bool automatically set option title attribute from option text or value attribute */
     private $autoOptionTitle = false;
 
-    /** @var bool auto index option values if arrOption is 1-dim array */
+    /** @var bool automatically index option values if passed $arrOption is a 1-dim array */
     public $autoOptionValues = true;
 
     /**
@@ -60,7 +61,7 @@ class SelectField extends Form
      */
     public function __construct($arrOption, $id = null)
     {
-        if(!is_null($id)) {
+        if (!is_null($id)) {
             $this->setId($id);
             $this->name = $id;
         };
@@ -74,7 +75,8 @@ class SelectField extends Form
      * if autoOptionValues is true, otherwise no value attibute is set.
      * @param array $options
      */
-    private function initOptions($options) {
+    private function initOptions($options)
+    {
         $i = 0;
         foreach ($options as $key => $row) {
             $option = new OptionElement();
@@ -121,24 +123,18 @@ class SelectField extends Form
      */
     public function setSelected($val = false, $type = SelectField::SELECTED_BY_VALUE)
     {
-        // TODO: should not inhert this method from parent
         $deselect = $val === false || $val === null;
-        // kind a useless?
         if ($deselect) {
-            $this->selected = false;
             $this->selectedOptions = array();
-        } else {
-            $this->selected = true;
         }
 
         foreach ($this->arrOption as $option) {
             if ($deselect) {
                 // deselect all
                 $option->selected = false;
-            }
-            else {
+            } else {
                 $testVal = $type === SelectField::SELECTED_BY_TEXT ? $option->text : $option->value;
-                if ($val === $testVal){
+                if ($val === $testVal) {
                     $option->selected = true;
                     array_push($this->selectedOptions, $option);
                 }
@@ -261,6 +257,7 @@ class SelectField extends Form
             $str .= $option->render();
         }
         foreach ($this->arrOption as $option) {
+            $this->setAutoOptionTitle($option);
             $str .= $option->render();
         }
 
@@ -295,12 +292,22 @@ class SelectField extends Form
     }
 
     /**
-     * Automatically sets the title attribute on the option element from the option text.
-     * @param int $type
+     * Enable setting the title attribute on the option element automatically.
+     * Title can be set from the option text or option value attribute.
+     * @param int $type SelectField::OPTION_TITLE_FROM_TEXT | SelectField::OPTION_TITLE_FROM_VALUE
      */
-    public function setAutoOptionTitle($type = SelectField::OPTION_TITLE_FROM_TEXT)
+    public function setOptionTitleAuto($type = SelectField::OPTION_TITLE_FROM_TEXT)
     {
         $this->autoOptionTitle = $type;
     }
 
+    /**
+     * Set the title attribute automatically.
+     * @param $option
+     */
+    private function setAutoOptionTitle($option) {
+        if ($this->autoOptionTitle !== false) {
+            $option->title = $this->autoOptionTitle === SelectField::OPTION_TITLE_FROM_TEXT ? $option->text : $option->value;
+        }
+    }
 }
