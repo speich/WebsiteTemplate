@@ -8,7 +8,7 @@ class RadioGroup extends Form
 
     const RENDER_VERTICALLY = 2;
 
-    /** @var RadioButton[] array  */
+    /** @var RadioButton[] */
     public $radios = array();
 
     /**
@@ -39,11 +39,11 @@ class RadioGroup extends Form
     }
 
     /**
-     * @param $indeces
+     * @param $indices
      */
-    public function setTabIndeces($indeces)
+    public function setTabIndices($indices)
     {
-        foreach ($indeces as $key => $index) {
+        foreach ($indices as $key => $index) {
             $this->radios[$key]->setTabIndex($index);
         }
     }
@@ -63,6 +63,7 @@ class RadioGroup extends Form
 
     /**
      * Render the radio button group as html
+     * @param int $layout
      * @return string html
      */
     public function render($layout = RadioGroup::RENDER_HORIZONTALLY) {
