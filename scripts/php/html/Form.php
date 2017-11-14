@@ -31,7 +31,7 @@ class Form extends Html
     protected $disabled = false;
 
     /** @var bool|string selected attribute */
-    protected $selected = false;
+    protected $checked = false;
 
     /** @var bool|string required attribute */
     protected $required = false;
@@ -83,17 +83,6 @@ class Form extends Html
     {
         $this->labelName = null;
         $this->label = false;
-    }
-
-    /**
-     * Set the form element or item to be selected.
-     * If set then the HTMLFormElement is rendered selected.
-     * @param bool $selected
-     */
-    public function setSelected($selected = true)
-    {
-        // TODO: remove method use Checkbox::checked and SelectField. setSelcted instead
-        $this->selected = (bool)$selected;
     }
 
     /**

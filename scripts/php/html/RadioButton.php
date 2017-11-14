@@ -25,6 +25,16 @@ class RadioButton extends Form
     }
 
     /**
+     * Set the checked attribute to checked.
+     * @param bool $checked
+     */
+    public function setChecked($checked = true)
+    {
+        // TODO: remove method use Checkbox::checked and SelectField. setSelcted instead
+        $this->checked = (bool)$checked;
+    }
+
+    /**
      * Print out the HTML radio button.
      * @return string Html
      */
@@ -49,7 +59,7 @@ class RadioButton extends Form
             $strHtml .= ' name="'.$this->name.'"';
         }
         $strHtml .= ' type="radio" value="'.$this->val.'"';
-        if ($this->selected === true) {
+        if ($this->checked === true) {
             $strHtml .= ' checked="checked"';
         }
         if ($this->disabled === true) {

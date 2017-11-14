@@ -24,6 +24,18 @@ class CheckBox extends Form
     }
 
     /**
+     * Set the form element or item to be selected.
+     * If set then the HTMLFormElement is rendered selected.
+     * @param bool $checked
+     */
+    public function setChecked($checked = true)
+    {
+        // TODO: remove method use Checkbox::checked and SelectField. setSelcted instead
+        $this->checked = (bool)$checked;
+    }
+
+
+    /**
      * Print the HTMLCheckboxElement.
      * @return string Html
      */
@@ -46,7 +58,7 @@ class CheckBox extends Form
 
         $strHtml .= '<input id="'.$this->getId().'" name="'.$this->name.'"';
         $strHtml .= ' type="checkbox" value="'.$this->val.'"';
-        if ($this->selected === true) {
+        if ($this->checked === true) {
             $strHtml .= ' checked="checked"';
         }
         if ($this->disabled == true) {
