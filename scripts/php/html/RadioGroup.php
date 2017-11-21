@@ -49,6 +49,23 @@ class RadioGroup extends Form
     }
 
     /**
+     * Set a radio button of the group to checked.
+     * Sets the radio button, where the value attribute equals the parameter $value to checked.
+     * Note: uses strict comparison
+     * @param $value
+     */
+    public function setChecked($value) {
+        foreach ($this->radios as $radio) {
+            if ($radio->val === $value) {
+                $radio->setChecked(true);
+            }
+            else {
+                $radio->setChecked(false);
+            }
+        }
+    }
+
+    /**
      * Set all radios to disabled.
      * If set to true the HTMLFormAttribute disabled="disabled" is rendered
      * and the element is disabled by the browser.
