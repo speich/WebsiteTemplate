@@ -5,6 +5,7 @@ Furthermore, the folder structure can be used as a template for your website.
 * Simple REST controller
 * Navigation generation with automatically marking active page
 * Multilingual support
+* Generate form elements directly from PHP
 * JavaScript utils
 
 Checkout the index.php to see how the menu and the template works.
