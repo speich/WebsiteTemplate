@@ -52,7 +52,7 @@ class RadioGroup extends Form
      * Set a radio button of the group to checked.
      * Sets the radio button, where the value attribute equals the parameter $value to checked.
      * Note: uses strict comparison
-     * @param $value
+     * @param string $value value to set checked
      */
     public function setChecked($value) {
         foreach ($this->radios as $radio) {
