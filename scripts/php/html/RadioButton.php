@@ -41,16 +41,12 @@ class RadioButton extends Form
     public function render()
     {
         $strHtml = '';
+        $css = $this->renderCssClass();
+
         $strLabel = '';
-
         if ($this->label) {
-            $strLabel .= '<label for="'.$this->getId().'"';
-            if ($this->cssClass) {
-                $strLabel .= ' class="label'.$this->cssClass.'"';
-            }
-            $strLabel .= '>'.$this->getLabel().'</label>';
+            $strLabel .= '<label for="'.$this->getId().'"'.$css.'>'.$this->getLabel().'</label>';
         }
-
         if ($this->labelPosition === Form::LABEL_BEFORE) {
             $strHtml .= $strLabel;
         }
@@ -68,12 +64,7 @@ class RadioButton extends Form
         if ($this->tabIndex) {
             $strHtml .= ' tabindex="'.$this->tabIndex.'"';
         }
-        if ($this->cssClass) {
-            $strHtml .= ' class="'.$this->cssClass.'"';
-        }
-        if ($this->cssStyle) {
-            $strHtml .= ' style="'.$this->cssStyle.'"';
-        }
+        $strHtml .= $css;
         if ($this->required === true) {
             $strHtml .= ' required="required"';
         }

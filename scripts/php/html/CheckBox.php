@@ -41,17 +41,13 @@ class CheckBox extends Form
      */
     public function render()
     {
+        $css = $this->renderCssClass();
         $strHtml = '';
+
         $strLabel = '';
-
         if ($this->label) {
-            $strLabel .= '<label for="'.$this->getId().'"';
-            if ($this->cssClass) {
-                $strLabel .= ' class="label'.$this->cssClass.'"';
-            }
-            $strLabel .= '>'.$this->getLabel()."</label>\n";
+            $strLabel .= '<label for="'.$this->getId().'"'.$css.'>'.$this->getLabel()."</label>\n";
         }
-
         if ($this->labelPosition === Form::LABEL_BEFORE) {
             $strHtml .= $strLabel;
         }
@@ -67,12 +63,7 @@ class CheckBox extends Form
         if ($this->tabIndex) {
             $strHtml .= ' tabindex="'.$this->tabIndex.'"';
         }
-        if ($this->cssClass) {
-            $strHtml .= ' class="'.$this->cssClass.'"';
-        }
-        if ($this->cssStyle) {
-            $strHtml .= ' style="'.$this->cssStyle.'"';
-        }
+        $strHtml .= $css;
         if ($this->required === true) {
             $strHtml .= ' required="required"';
         }

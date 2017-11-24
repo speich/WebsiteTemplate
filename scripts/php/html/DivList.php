@@ -48,14 +48,7 @@ class DivList extends Html
      */
     public function render()
     {
-        $strHtml = '<div id="'.$this->getId().'"';
-        if ($this->cssClass) {
-            $strHtml .= ' class="'.$this->cssClass.'"';
-        }
-        if ($this->cssStyle) {
-            $strHtml .= ' style="'.$this->cssStyle.'"';
-        }
-        $strHtml .= ">\n";
+        $strHtml = '<div id="'.$this->getId().'"'.$this->renderCssClass().'>';
         if ($this->label) {
             $strHtml .= '<div>'.$this->labelName."</div>\n";
         }

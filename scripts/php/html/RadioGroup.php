@@ -8,6 +8,10 @@ class RadioGroup extends Form
 
     const RENDER_VERTICALLY = 2;
 
+    public $cssClass = 'radiogroup';
+
+    public $cssClassVertical = 'layout-vertical';
+
     /** @var RadioButton[] */
     public $radios = array();
 
@@ -84,14 +88,15 @@ class RadioGroup extends Form
      * @return string html
      */
     public function render($layout = RadioGroup::RENDER_HORIZONTALLY) {
-        $html = '';
-
+        $this->setCssClass($this->cssClass);
+        if ($layout === RadioGroup::RENDER_VERTICALLY) {
+            $this->setCssClass($this->cssClassVertical);
+        }
+        $html = '<div'.($this->id ? ' id="'.$this->getId().'"' : '').$this->renderCssClass().'>';
         foreach ($this->radios as $radio) {
             $html .= $radio->render();
-            if ($layout === RadioGroup::RENDER_VERTICALLY) {
-                $html.= '<br>';
-            }
         }
+        $html .= '</div>';
 
         return $html;
     }

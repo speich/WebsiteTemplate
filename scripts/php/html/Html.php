@@ -7,19 +7,15 @@ namespace WebsiteTemplate\html;
  *
  * This abstract base class defines a number of attributes and methods
  * to deal with HTMLAttributes that are shared by all HTMLElements,
- * such as the style, id, name and class attribute.
+ * such as the id, name and class attribute.
  */
 abstract class Html
 {
-
     /** @var bool|string html id attribute */
     protected $id = false;
 
-    /** @var bool|string html class attribute */
-    protected $cssClass = false;
-
-    /** @var bool|string html style attribute */
-    protected $cssStyle = false;
+    /** @var array html class attribute */
+    private $cssClass = array();
 
     /** @var string title attribute */
     protected $title = '';
@@ -48,24 +44,25 @@ abstract class Html
 
     /**
      * Set the class attribute of a HTMLElement.
+     * Note: Always overwrites existing classes.
+     * TODO: allow to append
      * @param string $class
      */
     public function setCssClass($class)
     {
-        $this->cssClass = $class;
+        $this->cssClass = array_unique(array_merge($this->cssClass, (array)$class));
     }
 
     /**
      * Return the class attribute of a HTMLElement.
-     * @return string|bool class or false
+     * Returns the
+     * @return string html class attribute string
      */
-    public function getCssClass()
+    public function renderCssClass()
     {
-        if ($this->cssClass) {
-            return $this->cssClass;
-        } else {
-            return false;
-        }
+        $str = implode(' ', $this->cssClass);
+
+        return $str === '' ? '' : ' class="'.$str.'"';
     }
 
     /**
@@ -75,19 +72,6 @@ abstract class Html
     public function setCssStyle($style)
     {
         $this->cssStyle = $style;
-    }
-
-    /**
-     * Return the style atribute of HTMLElement.
-     * @return string|bool style or false
-     */
-    public function getCssStyle()
-    {
-        if ($this->cssStyle) {
-            return $this->cssStyle;
-        } else {
-            return false;
-        }
     }
 
     /**

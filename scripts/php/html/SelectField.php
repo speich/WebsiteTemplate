@@ -218,12 +218,6 @@ class SelectField extends Form
     private function renderSelect()
     {
         $str = '<select'.($this->id ? ' id="'.$this->getId().'"' : '').($this->name ? ' name="'.$this->name.'"' : '');
-        if ($this->cssClass) {
-            $str .= ' class="'.$this->cssClass.'"';
-        }
-        if ($this->cssStyle) {
-            $str .= ' style="'.$this->cssStyle.'"';
-        }
         if ($this->multiple) {
             $str .= ' multiple="multiple"';
         }
@@ -236,6 +230,7 @@ class SelectField extends Form
         if ($this->tabIndex) {
             $str .= ' tabindex="'.$this->tabIndex.'"';
         }
+        $str .= $this->renderCssClass();
         if ($this->required) {
             $str .= ' required="required"';
         }
@@ -272,11 +267,7 @@ class SelectField extends Form
     {
         $str = '';
         if ($this->label) {
-            $str .= '<label for="'.$this->getId().'"';
-            if ($this->cssClass) {
-                $str .= ' class="label'.$this->cssClass.'"';
-            }
-            $str .= '>'.$this->getLabel().'</label>';
+            $str .= '<label for="'.$this->getId().'"'.$this->renderCssClass().'>'.$this->getLabel().'</label>';
         }
 
         return $str;
