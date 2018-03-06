@@ -246,7 +246,7 @@ class SelectField extends Form
     private function renderOptions()
     {
         $str = '';
-        if ($this->defaultText) {
+        if ($this->defaultText !== false) {
             $option = new OptionElement();
             $option->text = $this->defaultText;
             $str .= $option->render();
