@@ -196,9 +196,9 @@ class PagedNav
      */
     function render($curPage, $web)
     {
+        $query = new QueryString();
         $lb = $this->getLowerBoundary($curPage);
         $ub = $this->getUpperBoundary($curPage);
-
         $str = '<div class="'.$this->cssClass.'">';
 
         if ($this->renderText) {
@@ -214,7 +214,7 @@ class PagedNav
         // link jump back small
         if ($lb > $this->numLinks / 2) {
             // reuse existing query string in navigation links
-            $query = $web->getQuery(array($this->queryVarName => $curPage - $this->stepSmall));
+            $query = $query->withString(array($this->queryVarName => $curPage - $this->stepSmall));
             $str .= '<span class="pageStepSmall prevPages"><a href="'.$web->page.$query.'">';
             $str .= '[-'.$this->stepSmall.']';
             $str .= '</a></span>';
@@ -226,7 +226,7 @@ class PagedNav
                     $str .= '<span class="curPage">';
                 } else {
                     $str .= '<span class="page">';
-                    $query = $web->getQuery(array($this->queryVarName => $lb));
+                    $query = $query->withString(array($this->queryVarName => $lb));
                     $str .= '<a href="'.$web->page.$query.'">';
                 }
                 $str .= $lb;
@@ -239,7 +239,7 @@ class PagedNav
         // link jump forward small
         if ($ub <= $this->numPages - $this->numLinks / 2) {
             // reuse query string
-            $query = $web->getQuery(array($this->queryVarName => $curPage + $this->stepSmall));
+            $query = $query->withString(array($this->queryVarName => $curPage + $this->stepSmall));
             $str .= '<span class="pageStepSmall nextPages"><a href="'.$web->page.$query.'">';
             $str .= '[+'.$this->stepSmall.']';
             $str .= "</a></span>";
