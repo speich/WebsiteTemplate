@@ -46,11 +46,15 @@ class QueryString
     }
 
     /**
+     * Returns the query string.
+     * Returns the string prefixed with a question mark. If there is no query an empty string is returned.
      * @param int $encType
      * @return string
      */
     public function getString($encType = PHP_QUERY_RFC1738) {
-        return http_build_query($this->queryVars, $encType);
+        $str = http_build_query($this->queryVars, $encType);
+
+        return $str === '' ? '' : '?'.$str;
     }
 
     /**
@@ -81,6 +85,7 @@ class QueryString
 
     /**
      * Returns the URL-encoded query string.
+     * Returns the string prefixed with a question mark. If there is no query an empty string is returned.
      * With the argument $arrInc variables and values can be included to the returned query string without changing the internally
      * stored original query string read from the server. The variable names should used as the keys of the array and the
      * values as the array values.
@@ -93,6 +98,8 @@ class QueryString
      * @return string
      */
     public function withString($arrInc = null, $arrExl = null, $encType = PHP_QUERY_RFC1738) {
-        return http_build_query($this->with($arrInc, $arrExl), $encType);
+        $str = http_build_query($this->with($arrInc, $arrExl), $encType);
+
+        return $str === '' ? '' : '?'.$str;
     }
 }

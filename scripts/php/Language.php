@@ -265,9 +265,9 @@ class Language
             $page = $this->createPage($web->page, $lang);
             $path = $web->getDir();
             if (file_exists($web->getDocRoot().$path.$page)) {
-                $url = $path.$page.'?'.$query->withString(array('lang' => $lang));
+                $url = $path.$page.$query->withString(array('lang' => $lang));
             } else {
-                $url = $config->redirect.'?'.$query->withString(array('lang' => $lang, 'url' => $path.$page));
+                $url = $config->redirect.$query->withString(array('lang' => $lang, 'url' => $path.$page));
             }
             $str .= '<li';
             if ($lang == $this->get()) {
