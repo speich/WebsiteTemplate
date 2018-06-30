@@ -67,7 +67,7 @@ class Menu
     public $cssClass = 'menu';
 
     /** @var string CSS id of menu */
-    public $cssId = 'menu-1';
+    public $cssId;
 
     /** @var string CSS class name, when item has at least one child */
     public $cssItemHasChildren = 'menuHasChild';
@@ -84,7 +84,7 @@ class Menu
     /**
      * Constructs the menu.
      * You can provide a 2-dim array with all menu items.
-     * or use the add method for each item singedly.
+     * or use the add method for each item singly.
      * @param array [$arrItem] array with menu items
      */
     public function __construct($arrItem = null)
@@ -251,9 +251,7 @@ class Menu
     {
         $this->strMenu .= '<ul';
         if ($this->firstUl) {
-            if (!is_null($this->cssClass)) {
-                $this->strMenu .= ' class="'.$this->cssClass.'"';
-            }
+            $this->strMenu .= ' class="'.$this->cssClass.'"';
             if (!is_null($this->cssId)) {
                 $this->strMenu .= ' id="'.$this->cssId.'"';
             }
@@ -393,24 +391,6 @@ class Menu
         } else {
             return '';
         }
-    }
-
-    /**
-     * Set the css class attribute of the HTML to be rendered
-     * @param string $cssClass
-     */
-    public function setCssClass($cssClass)
-    {
-        $this->cssClass = $cssClass;
-    }
-
-    /**
-     * Set the id attribute of the HTML to be rendered
-     * @param string $cssId
-     */
-    public function setCssId($cssId)
-    {
-        $this->cssId = $cssId;
     }
 
     /**
