@@ -26,6 +26,9 @@ class LanguageMenu extends Language
 	/** @var Website */
     private $web;
 
+    /** @var bool link text based on label instead of lang */
+    public $useLabel = false;
+
     /**
      * LanguageMenu constructor.
      * @param Website $web
@@ -62,7 +65,8 @@ class LanguageMenu extends Language
             if ($lang == $this->get()) {
                 $str .= ' class="'.$this->liClassActive.'"';
             }
-            $str .= '><a href="'.$url.'" title="'.$label.'">'.strtoupper($lang).'</a>';
+            $text = $this->useLabel ? $label : strtoupper($lang);
+            $str .= '><a href="'.$url.'" title="'.$label.'">'.$text.'</a>';
             $str .= '</li>';
             if ($this->delimiter != '' && $count < count($this->arrLang)) {
                 $str .= '<li>'.$this->delimiter.'</li>';
