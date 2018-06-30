@@ -6,7 +6,7 @@ namespace WebsiteTemplate;
  * Class LanguageMenu
  * Class to render a menu to change the language
  */
-class LanguageMenu extends Language
+class LanguageMenu
 {
     /** @var string id attribute of HTMLUListElement */
 	public $ulId = 'navLang';
@@ -29,13 +29,17 @@ class LanguageMenu extends Language
     /** @var bool link text based on label instead of lang */
     public $useLabel = false;
 
+    /** @var Language */
+    private $lang;
+
     /**
      * LanguageMenu constructor.
+     * @param Language $lang
      * @param Website $web
      */
-	public function __construct(Website $web)
+	public function __construct(Language $lang, Website $web)
     {
-        parent::__construct();
+        $this->lang = $lang;
         $this->web = $web;
         $this->redirect = '/'.$web->indexPage;
     }
@@ -49,26 +53,27 @@ class LanguageMenu extends Language
      */
     public function render()
     {
+        $language = $this->lang;
         $query = new QueryString();
         $count = 0;
         $str = '';
         $str .= '<ul id="'.$this->ulId.'" class="'.$this->ulClass.'">';
-        foreach ($this->arrLang as $lang => $label) {
-            $page = $this->createPage($this->web->page, $lang);
+        foreach ($language->arrLang as $lang => $label) {
+            $page = $this->lang->createPage($this->web->page, $lang);
             $path = $this->web->getDir();
+            $text = $this->useLabel ? $label : strtoupper($lang);
             if (file_exists($this->web->getDocRoot().$path.$page)) {
                 $url = $path.$page.$query->withString(array('lang' => $lang));
             } else {
                 $url = $this->redirect.$query->withString(array('lang' => $lang, 'url' => $path.$page));
             }
-            $str .= '<li';
-            if ($lang == $this->get()) {
-                $str .= ' class="'.$this->liClassActive.'"';
+            if ($lang === $language->get()) {
+                $str .= '<li class="'.$this->liClassActive.'">'.$text.'</li>';
             }
-            $text = $this->useLabel ? $label : strtoupper($lang);
-            $str .= '><a href="'.$url.'" title="'.$label.'">'.$text.'</a>';
-            $str .= '</li>';
-            if ($this->delimiter != '' && $count < count($this->arrLang)) {
+            else {
+                $str .= '<li><a href="'.$url.'" title="'.$label.'">'.$text.'</a></li>';
+            }
+            if ($this->delimiter != '' && $count < count($language->arrLang)) {
                 $str .= '<li>'.$this->delimiter.'</li>';
             }
             $count++;
