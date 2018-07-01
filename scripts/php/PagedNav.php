@@ -88,11 +88,10 @@ class PagedNav
     function __construct($numRec = null, $numRecPerPage = null, $numLinks = null)
     {
         if (!is_null($numRec) && is_numeric($numRec)) {
-            $this->numRec = $numRec;
-            $this->updateNumPages();
+            $this->setNumRec($numRec);
         }
         if (!is_null($numRecPerPage) && is_numeric($numRecPerPage)) {    // do not overwrite default value with null
-            $this->numRecPerPage = $numRecPerPage;
+            $this->setNumRecPerPage($numRecPerPage);
         }
         if (!is_null($numLinks) && is_numeric($numLinks)) {    // do not overwrite default value with null
             $this->numLinks = $numLinks ? $numLinks : $this->numLinks;
