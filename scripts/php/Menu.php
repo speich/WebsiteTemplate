@@ -173,7 +173,7 @@ class Menu
     {
         if (is_null($item->getActive())) {
             return false;    // item explicitly set to null = skip
-        } else if ($item->getActive()) {
+        } elseif ($item->getActive()) {
             return true; // item explicitly set to active
         }
         $url = $_SERVER['REQUEST_URI'];
@@ -200,7 +200,7 @@ class Menu
                     foreach ($arr as $var => $val) {
                         if (!array_key_exists($var, $_GET)) {
                             return false;
-                        } else if ($_GET[$var] != $val) {
+                        } elseif ($_GET[$var] != $val) {
                             return false;
                         }
                     }
@@ -235,7 +235,7 @@ class Menu
         $num = count($arrActive);
         if ($num == 0) {
             return false;
-        } else if ($num == 1) {
+        } elseif ($num == 1) {
             return $arrActive[0];
         } else {
             return $arrActive;

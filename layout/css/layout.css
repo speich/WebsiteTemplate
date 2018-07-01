@@ -1,1 +1,13 @@
+body {
+	background-color: #ffffff;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	padding: 1em;
+}
+
+h2 {
+	margin-bottom: 1em;
+}
+
+p { margin: 8px 0; }
 .menu { margin: 20px; }
