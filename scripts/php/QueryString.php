@@ -8,8 +8,6 @@ namespace WebsiteTemplate;
  * Class to work with query strings.
  * All methods related to adding something expect the passed array to have keys and values. All methods removing something expect
  * the passed array only to contains values.
- * Security note: It is your own responsibility to sanitize (by using htmlspecialchars) the query variables before using them.
- * This class just reads the query variables from the server into an array.
  * @package LFI
  */
 class QueryString
@@ -17,10 +15,21 @@ class QueryString
     /** @var array query string names and values */
     private $queryVars;
 
+    public $charset = 'UTF-8';
+
     public function __construct()
     {
         parse_str($_SERVER['QUERY_STRING'], $queries);
-        $this->queryVars = $queries;
+        $this->queryVars = $this->htmlSpecialChars($queries);
+    }
+
+    private function htmlSpecialChars($variables) {
+        $arr = array();
+        foreach ($variables as $key => $value) {
+            $arr[htmlspecialchars($key)] = htmlspecialchars($value, ENT_QUOTES, $this->charset);
+        }
+
+        return $arr;
     }
 
     /**
@@ -28,7 +37,8 @@ class QueryString
      */
     public function add($arr)
     {
-        $this->queryVars = array_merge($this->queryVars, $arr);
+        $vars = $this->htmlSpecialChars($arr);
+        $this->queryVars = array_merge($this->queryVars, $vars);
     }
 
     public function remove($arr = null)
