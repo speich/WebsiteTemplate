@@ -8,6 +8,8 @@ namespace WebsiteTemplate;
  * Class to work with query strings.
  * All methods related to adding something expect the passed array to have keys and values. All methods removing something expect
  * the passed array only to contains values.
+ * Security note: It is your own responsibility to sanitize (by using htmlspecialchars) the query variables before using them.
+ * This class just reads the query variables from the server into an array.
  * @package LFI
  */
 class QueryString
