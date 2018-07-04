@@ -32,6 +32,9 @@ class LanguageMenu
     /** @var Language */
     private $lang;
 
+    /** @var array keys that are allowed in the query string */
+    private $whitelist = array();
+
     /**
      * LanguageMenu constructor.
      * @param Language $lang
@@ -45,6 +48,14 @@ class LanguageMenu
     }
 
     /**
+     * Set the allowed keys in the query string.
+     * @param array $whitelist
+     */
+    public function setWhitelist($whitelist) {
+        $this->whitelist = $whitelist;
+    }
+
+    /**
      * Returns a HTML string with links to the current page in all available languages.
      * Method checks if the page exist for each language. If it doesn't, the link will point to a language switcher page,
      * which is referenced with the property LanguageMenu::redirect
@@ -54,7 +65,7 @@ class LanguageMenu
     public function render()
     {
         $language = $this->lang;
-        $query = new QueryString();
+        $query = new QueryString($this->whitelist);
         $count = 0;
         $str = '';
         $str .= '<ul id="'.$this->ulId.'" class="'.$this->ulClass.'">';

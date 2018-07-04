@@ -28,6 +28,9 @@ class PagedNav
     /** @var string name of query variable to pass current page */
     public $queryVarName = 'pg';
 
+    /** @var array keys that are allowed in the query string */
+    private $whitelist = array();
+
     /** @var int small forward-backward link, e.g. [-10] [+10] */
     public $stepSmall = 10;
 
@@ -96,6 +99,14 @@ class PagedNav
         if (!is_null($numLinks) && is_numeric($numLinks)) {    // do not overwrite default value with null
             $this->numLinks = $numLinks ? $numLinks : $this->numLinks;
         }
+    }
+
+    /**
+     * Set the allowed keys in the query string.
+     * @param array $whitelist
+     */
+    public function setWhitelist($whitelist) {
+        $this->whitelist = $whitelist;
     }
 
     /**
@@ -195,7 +206,7 @@ class PagedNav
      */
     function render($curPage, $web)
     {
-        $query = new QueryString();
+        $query = new QueryString($this->whitelist);
         $lb = $this->getLowerBoundary($curPage);
         $ub = $this->getUpperBoundary($curPage);
         $str = '<div class="'.$this->cssClass.'">';

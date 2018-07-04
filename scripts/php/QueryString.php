@@ -6,6 +6,8 @@ namespace WebsiteTemplate;
 /**
  * Class QueryString
  * Class to work with query strings.
+ * Reads the unsafe query string from the server. Only whitelisted keys are allowed in the query string. Query values are
+ * escaped with htmlspecialchars.
  * All methods related to adding something expect the passed array to have keys and values. All methods removing something expect
  * the passed array only to contains values.
  * @package LFI
@@ -17,22 +19,52 @@ class QueryString
 
     public $charset = 'UTF-8';
 
-    public function __construct()
+    /**
+     * QueryString constructor.
+     * By default the query string only contains keys that are whitelisted.
+     * @param array $whitelist allowed keys in the query string
+     */
+    public function __construct($whitelist = array())
     {
         parse_str($_SERVER['QUERY_STRING'], $queries);
+        $queries = $this->intersect($queries, $whitelist);
         $this->queryVars = $this->htmlSpecialChars($queries);
     }
 
+    /**
+     * Call htmlspecialchars() on each array value
+     * @param $variables
+     * @return array
+     */
     private function htmlSpecialChars($variables) {
         $arr = array();
         foreach ($variables as $key => $value) {
-            $arr[htmlspecialchars($key)] = htmlspecialchars($value, ENT_QUOTES, $this->charset);
+            $arr[htmlspecialchars($key)] = is_array($value) ? $this->htmlSpecialChars($value) : htmlspecialchars($value, ENT_QUOTES, $this->charset);
         }
 
         return $arr;
     }
 
     /**
+     * Only allow keys that are whitelisted
+     * @param array $queries key-values from query string
+     * @param array $whitelist keys to be allowed
+     * @return array
+     */
+    private function intersect($queries, $whitelist) {
+        // can't use array_intersect_keys() would remove duplicate keys, which are perfectly fine in a query string
+        $arr = array();
+        foreach ($whitelist as $key) {
+            if (array_key_exists($key, $queries)) {
+                $arr[$key] = $queries[$key];
+            }
+        }
+
+        return $arr;
+    }
+
+    /**
+     * Add
      * @param $arr
      */
     public function add($arr)
@@ -44,7 +76,7 @@ class QueryString
     public function remove($arr = null)
     {
         if ($arr === null) {
-            $this->queryVars = [];
+            $this->queryVars = array();
         }
         else {
             $keys = array_fill_keys($arr, null);
