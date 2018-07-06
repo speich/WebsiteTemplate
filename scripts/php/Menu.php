@@ -266,7 +266,7 @@ class Menu
                 $cssClass = is_null($item->getCssClass()) ? '' : ' class="'.$item->getCssClass().'"';
                 $this->strMenu .= '<li'.$itemIdPrefix.$cssClass.'>';
                 $tagName = is_null($item->linkUrl) ? 'div' : 'a';
-                $this->strMenu .= '<'.$tagName;    // for css we have the same structure, with or without a link: TODO: use div/span instead
+                $this->strMenu .= '<'.$tagName;
                 if (!is_null($item->linkUrl)) {
                     $this->strMenu .= ' href="'.$item->linkUrl.'"'.($item->linkTarget === '' ? '' : ' target="'.$item->linkTarget.'"');
                 }
