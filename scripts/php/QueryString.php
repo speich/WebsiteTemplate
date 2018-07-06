@@ -6,8 +6,7 @@ namespace WebsiteTemplate;
 /**
  * Class QueryString
  * Class to work with query strings.
- * Reads the unsafe query string from the server. Only whitelisted keys are allowed in the query string. Query values are
- * escaped with htmlspecialchars.
+ * Reads the query string from the server. Allowd keys can be whitelisted.
  * All methods related to adding something expect the passed array to have keys and values. All methods removing something expect
  * the passed array only to contains values.
  * @package LFI
@@ -22,27 +21,15 @@ class QueryString
     /**
      * QueryString constructor.
      * By default the query string only contains keys that are whitelisted.
-     * @param array $whitelist allowed keys in the query string
+     * @param array|null $whitelist allowed keys in the query string
      */
-    public function __construct($whitelist = array())
+    public function __construct($whitelist = null)
     {
         parse_str($_SERVER['QUERY_STRING'], $queries);
-        $queries = $this->intersect($queries, $whitelist);
-        $this->queryVars = $this->htmlSpecialChars($queries);
-    }
-
-    /**
-     * Call htmlspecialchars() on each array value
-     * @param $variables
-     * @return array
-     */
-    private function htmlSpecialChars($variables) {
-        $arr = array();
-        foreach ($variables as $key => $value) {
-            $arr[htmlspecialchars($key)] = is_array($value) ? $this->htmlSpecialChars($value) : htmlspecialchars($value, ENT_QUOTES, $this->charset);
+        if (is_array($whitelist)) {
+            $queries = $this->intersect($queries, $whitelist);
         }
-
-        return $arr;
+        $this->queryVars = $queries;
     }
 
     /**
@@ -65,11 +52,10 @@ class QueryString
 
     /**
      * Add
-     * @param $arr
+     * @param $vars
      */
-    public function add($arr)
+    public function add($vars)
     {
-        $vars = $this->htmlSpecialChars($arr);
         $this->queryVars = array_merge($this->queryVars, $vars);
     }
 
@@ -91,7 +77,7 @@ class QueryString
 
     /**
      * Returns the query string.
-     * Returns the string prefixed with a question mark. If there is no query an empty string is returned.
+     * Returns the urlencoded string prefixed with a question mark. If there is no query an empty string is returned.
      * @param int $encType
      * @return string
      */
