@@ -14,7 +14,7 @@ $menu1 = new Menu(array(
 	array(7, 0, 'Contact', $web->getWebRoot().'contact.php')
 ));
 $menu1->setActive($web->getWebRoot().'services.php');
-$menu1->cssId = 'menu1';
+$menu1->cssClass = 'menu menu1';
 
 /* Advanced animated horizontal menu with submenus */
 $menu2 = new Menu(array(
@@ -34,7 +34,7 @@ $menu2 = new Menu(array(
 ));
 $menu2->allChildrenToBeRendered = true;
 $menu2->setActive($web->getWebRoot().'services/more.php');
-$menu2->cssId = 'menu2';
+$menu2->cssClass = 'menu menu2';
 
 /* Simple vertical menu */
 $menu3 = new Menu(array(
@@ -50,7 +50,7 @@ $menu3 = new Menu(array(
 	array(7, 0, 'Contact', $web->getWebRoot().'contact.php')
 ));
 $menu3->setActive($web->getWebRoot().'services/services.php');
-$menu3->cssId = 'menu3';
+$menu3->cssClass = 'menu menu3';
 
 
 /* Simple vertical menu showing all children */
@@ -68,4 +68,4 @@ $menu4 = new Menu(array(
 ));
 $menu4->allChildrenToBeRendered = true;
 $menu4->setActive($web->getWebRoot().'services/load.php');
-$menu4->cssId = 'menu4';
+$menu4->cssClass = 'menu menu4';
