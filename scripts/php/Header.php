@@ -65,14 +65,18 @@ class Header
     }
 
     /**
-     * Creates the range header string.
+     * Creates the range header.
+     * Returns an array where the first item ist the name of the range header and second the value.
+     * Note: Uses items instead of bytes as the ranges-specifier to work with dstore
      * @param array $arrRange array containing start and end
      * @param int $numRec total number of items
-     * @return string
+     * @return array
      */
     public function createRange($arrRange, $numRec)
     {
-        return 'Content-Range: items '.$arrRange['start'].'-'.$arrRange['end'].'/'.$numRec;
+        $end = $arrRange['end'] > $numRec ? $numRec : $arrRange['end'];
+
+        return array('Content-Range', 'items='.$arrRange['start'].'-'.$end.'/'.$numRec);
     }
 
     /**
@@ -94,11 +98,16 @@ class Header
 
     /**
      * Add a header to the headers array.
-     * @param {String} $header header string
+     * Note: Header with same name will be overwritten no matter its case-insensitively.
+     * @param $name
+     * @param $value
      */
-    public function add($header)
+    public function add($name, $value)
     {
-        array_push($this->headers, $header);
+        $this->headers = array_filter($this->headers, function ($key, $name) {
+            return strtolower($key) !== strtolower($name);
+        }, ARRAY_FILTER_USE_KEY);
+        $this->headers[$name] = $value;
     }
 
     /**
@@ -109,9 +118,9 @@ class Header
      */
     public function addDownload($fileName, $fileExtension)
     {
-        $this->add('Expires: 0');
-        $this->add('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-        $this->add('Content-Disposition: attachment; filename="'.$fileName.'.'.$fileExtension.'"');
+        $this->add('Expires', 0);
+        $this->add('Cache-Control', 'must-revalidate, post-check=0, pre-check=0');
+        $this->add('Content-Disposition', 'attachment; filename="'.$fileName.'.'.$fileExtension.'"');
     }
 
     /**
