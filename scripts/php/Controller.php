@@ -166,7 +166,6 @@ class Controller
 
     /**
      * Prints the body section of the HTTP response.
-     * Automatically compresses body if autoCompress is set to true and length threshold is reached.
      * Prints the body in chunks if outputChunked is set to true.
      * @param string $data response body
      */
