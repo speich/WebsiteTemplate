@@ -140,10 +140,11 @@ class Controller
      */
     public function printHeader()
     {
+        $headers = $this->header->get();
         $contentType = $this->notFound ? 'text/html' : $this->header->getContentType();
         header('Content-Type: '.$contentType.'; '.$this->header->getCharset());
-        foreach ($this->header->get() as $header) {
-            header($header);
+        foreach ($headers as $key => $value) {
+            header($key.': '.$value);
         }
 
         // server error
@@ -155,6 +156,9 @@ class Controller
         } // resource found and processed
         else if ($this->getMethod() == 'POST') {
             header($this->getProtocol().' 201 Created');
+        } // range response
+        else if (array_key_exists('content-range', $headers)) {
+            header($this->getProtocol().' 206 Partial Content');
         } else {
             header($this->getProtocol().' 200 OK');
         }
