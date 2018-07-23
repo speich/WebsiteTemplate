@@ -98,15 +98,24 @@ class Header
 
     /**
      * Add a header to the headers array.
-     * Note: Header with same name will be overwritten no matter its case-insensitively.
+     * Note: Header with same name will be overwritten no matter its case
      * @param $name
      * @param $value
      */
     public function add($name, $value)
     {
+        // ARRAY_FILTER_USE_KEY is only available in php5.6+
+        /*
         $this->headers = array_filter($this->headers, function ($key, $name) {
             return strtolower($key) !== strtolower($name);
         }, ARRAY_FILTER_USE_KEY);
+        */
+        $keys = array_keys($this->headers);
+        for ($i = 0; $i < count($this->headers); $i++) {
+            if (strtolower($keys[$i]) === strtolower($name)) {
+                unset($this->headers[$keys[$i]]);
+            }
+        }
         $this->headers[$name] = $value;
     }
 
