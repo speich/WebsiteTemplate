@@ -20,7 +20,7 @@ class Error
      * Stores error messages.
      * @var array $arrErr
      */
-    var $arrErr = null;
+    var $arrErr = array();
 
     /**
      * Constructs the error reporting class by setting the native set_error_handler function.
@@ -43,9 +43,6 @@ class Error
      */
     public function set($errNo, $errMsg, $errFile = '', $errLine = 0)
     {
-        if (!is_array($this->arrErr)) {
-            $this->arrErr = array();
-        }
         $this->arrErr[] = array('code' => $errNo, 'msg' => $errMsg, 'file' => $errFile, 'line' => $errLine);
     }
 
@@ -63,7 +60,7 @@ class Error
      */
     public function reset()
     {
-        $this->arrErr = null;
+        $this->arrErr = array();
     }
 
     /**
