@@ -2,9 +2,6 @@
 
 namespace WebsiteTemplate;
 
-use stdClass;
-
-
 /**
  * Helper class which allows website to be multi language.
  */
@@ -151,12 +148,12 @@ class Language
         if (isset($lang)) {
             $this->lang = $lang;
         } // query string ? (e.g. switch to different language)?
-        else if (isset($_GET['lang'])) {
+        elseif (isset($_GET['lang'])) {
             $this->lang = preg_replace('/\W/', '', $_GET['lang']);
         } // language by page url
-        else if (preg_match($this->pagePattern, $this->getPage(), $matches) === 1) {
+        elseif (preg_match($this->pagePattern, $this->getPage(), $matches) === 1) {
             // note: default language 'de' is not part ot the page url, e.g. page-de.php does not exist
-            // will be set to 'de' bewlow, e.g. using default lanuage
+            // will be set to 'de' below, e.g. using default lanuage
             $this->lang = $matches[1];
         } // use default language
         else {
@@ -187,14 +184,14 @@ class Language
     {
         $lang = $this->langDefault;
 
-        // if there is no previously set language, e.g. (session or cooky) use browser http header
+        // if there is no previously set language, e.g. (session or cookie) use browser http header
         $langHeader = $this->getLangFromHeader();
 
         // cookie?
         if (isset($_COOKIE[$this->namespace]['lang'])) {
             $lang = $_COOKIE[$this->namespace]['lang'];
         } // http language header
-        else if ($langHeader) {
+        elseif ($langHeader) {
             $lang = $langHeader;
         }
 
