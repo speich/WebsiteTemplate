@@ -138,14 +138,14 @@ class Language
 
     /**
      * Sets the language code.
-     * Sets the language property either explicitly by passing it or detects it automatically either using the query string
-     * or the lanuage contained in the page url.
+     * Sets the language property either explicitly by passing it or detects it automatically,
+     * either by using the query string or the language contained in the page url.
      * @param null|string $lang
      */
     public function set($lang = null)
     {
-        // Note: do not read session or cookies to switch language here, otherwise accessing the webite
-        // directly from a link might messup languages. Use cookie or session to read language only on index page
+        // Note: do not read session or cookies to switch language here, otherwise accessing the website
+        // directly from a link might mess up languages. Use cookie or session to read language only on index page
 
         // set explicitly, override all
         if (isset($lang)) {
