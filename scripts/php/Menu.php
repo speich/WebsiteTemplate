@@ -126,7 +126,7 @@ class Menu
             // note: array_splice would reindex keys
             $arrBefore = array_slice($this->arrItem, 0, $i, $preserve_keys = true);
             $arrAfter = array_slice($this->arrItem, $i, null, $preserve_keys = true);
-            $this->arrItem = $arrBefore + $arrAfter;
+            $this->arrItem = $arrBefore + array($newItem) + $arrAfter;
         }
     }
 
