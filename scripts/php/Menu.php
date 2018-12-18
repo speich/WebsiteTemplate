@@ -103,6 +103,7 @@ class Menu
      * array(id, parentId, linkTxt, optional linkUrl);
      * You can add new items to menu as long as you haven't called the render method.
      * @param array $arr menu item
+     * @param null $idAfter id of item to insert new item after
      */
     public function add($arr, $idAfter = null)
     {
