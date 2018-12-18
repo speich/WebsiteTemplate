@@ -104,9 +104,26 @@ class Menu
      * You can add new items to menu as long as you haven't called the render method.
      * @param array $arr menu item
      */
-    public function add($arr)
+    public function add($arr, $idAfter = null)
     {
-        $this->arrItem[$arr[0]] = new MenuItem($arr[0], $arr[1], $arr[2], (array_key_exists(3, $arr) ? $arr[3] : null));
+        // note: for position we can not just use the index. The index is dynamic depending on the number of items, which
+        // can be added or removed (e.g. when logged in a different number of items is rendered)
+        // -> we need to use the actual id of the item to insert after
+        $newItem = new MenuItem($arr[0], $arr[1], $arr[2], array_key_exists(3, $arr) ? $arr[3] : null);
+        if ($idAfter === null) {
+            $this->arrItem[$arr[0]] = $newItem;
+        }
+        else {
+            // note: arrItem is an associative array where key and index are not the same
+            $i = 0;
+            foreach ($this->arrItem as $index => $item) {
+                if ($item->id === $idAfter) {
+                    break;
+                }
+                $i++;
+            }
+            array_splice($this->arrItem, $i, 0, array($newItem));
+        }
     }
 
     /**
