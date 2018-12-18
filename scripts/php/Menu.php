@@ -123,7 +123,10 @@ class Menu
                 }
                 $i++;
             }
-            array_splice($this->arrItem, $i, 0, array($newItem));
+            // note: array_splice would reindex keys
+            $arrBefore = array_slice($this->arrItem, 0, $i, $preserve_keys = true);
+            $arrAfter = array_slice($this->arrItem, $i, null, $preserve_keys = true);
+            $this->arrItem = $arrBefore + $arrAfter;
         }
     }
 
