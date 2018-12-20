@@ -140,24 +140,35 @@ class Controller
      */
     public function printHeader()
     {
+        $this->printStatus();
         $headers = $this->header->get();
         $contentType = $this->notFound ? 'text/html' : $this->header->getContentType();
         header('Content-Type: '.$contentType.'; '.$this->header->getCharset());
         foreach ($headers as $key => $value) {
             header($key.': '.$value);
         }
+    }
+
+    /**
+     * Sets HTTP header status code
+     */
+    public function printStatus()
+    {
+        $headers = $this->header->get();
+        $headers = array_change_key_case($headers);
 
         // server error
         if (count($this->err->get()) > 0) {
             header($this->getProtocol().' 500 Internal Server Error');
         } // resource not found
-        else if ($this->notFound) {
+        elseif ($this->notFound) {
             header($this->getProtocol().' 404 Not Found');
         } // resource found and processed
-        else if ($this->getMethod() == 'POST') {
+        elseif ($this->getMethod() === 'POST' && !array_key_exists('content-disposition', $headers)) {
+            // IE/Edge fail to download with status 201
             header($this->getProtocol().' 201 Created');
         } // range response
-        else if (array_key_exists('content-range', $headers)) {
+        elseif (array_key_exists('content-range', $headers)) {
             header($this->getProtocol().' 206 Partial Content');
         } else {
             header($this->getProtocol().' 200 OK');
@@ -179,7 +190,7 @@ class Controller
                 echo $this->err->getAsString();
             }
         } // response contains data
-        else if ($data) {
+        elseif ($data) {
             if ($this->outputChunked) {
                 $chunks = str_split($data, $this->chunkSize);
                 foreach ($chunks as $chunk) {

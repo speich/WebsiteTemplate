@@ -70,9 +70,9 @@ class SelectField extends Form
 
     /**
      * Create array of option elements
-     * If argument $options is a 1-dim array: use created index as value attribute
-     * If arguments $options is a 2-dim array: use first index as value attribute, but only
-     * if autoOptionValues is true, otherwise no value attibute is set.
+     * If argument $options is a 1-dim array: created value attribute if autoOptionValues is true, otherwise no value attribute is set.
+     * If arguments $options is a 2-dim array: use first index as value attribute, second as text
+     *
      * @param array $options
      */
     private function initOptions($options)
@@ -294,7 +294,7 @@ class SelectField extends Form
 
     /**
      * Set the title attribute automatically.
-     * @param $option
+     * @param OptionElement $option
      */
     private function setAutoOptionTitle($option) {
         if ($this->autoOptionTitle !== false) {
