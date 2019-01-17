@@ -33,9 +33,6 @@ class Website
     /** @var string default page title */
     public $pageTitle = '';
 
-    /** @var string namespace for session variables */
-    public $namespace = __NAMESPACE__;
-
     /** @var string web root directory on web server */
     private $webroot = '/';
 
@@ -111,47 +108,6 @@ class Website
         $fp = @fsockopen($host, $port, $errNo, $errStr, 2);
 
         return $fp != false;
-    }
-
-    /**
-     * Save current url to a session variable.
-     * If argument $url is provided it is used instead of current url.
-     * @param string $url
-     * @param string $namespace
-     */
-    public function setLastPage($url = null, $namespace = null)
-    {
-        $namespace = is_null($namespace) ? $this->namespace : $namespace;
-        if (isset($url)) {
-            $_SESSION[$namespace]['backPage'] = $url;
-        } else {
-            $_SESSION[$namespace]['backPage'] = $_SERVER['REQUEST_URI'];
-        }
-    }
-
-    /**
-     * Returns the page to go back to.
-     * @param string $namespace
-     * @return null|string
-     */
-    public function getLastPage($namespace = null)
-    {
-        $namespace = is_null($namespace) ? $this->namespace : $namespace;
-        if (!isset($_SESSION[$namespace]['backPage'])) {
-            return null;
-        } else {
-            return $_SESSION[$namespace]['backPage'];
-        }
-    }
-
-    /**
-     * Resets the saved url.
-     * @param string $namespace
-     */
-    public function resetLastPage($namespace = null)
-    {
-        $namespace = is_null($namespace) ? $this->namespace : $namespace;
-        unset($_SESSION[$namespace]['backPage']);
     }
 
     /**

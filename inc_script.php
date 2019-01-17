@@ -6,11 +6,6 @@ use WebsiteTemplate\Website;
 require_once 'library/vendor/autoload.php';
 
 
-session_start();
-if (!isset($_SESSION['loggedIn'])) {
-    $_SESSION['loggedIn'] = false;
-}
-
 $path = __DIR__ . '/';
 $incPath = $path . 'layout' . PATH_SEPARATOR;
 set_include_path($incPath);
