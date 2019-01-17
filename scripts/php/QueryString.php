@@ -51,8 +51,9 @@ class QueryString
     }
 
     /**
-     * Add
-     * @param $vars
+     * Add query variables to the query string
+     * $vars is expected to be a associative array with key values.
+     * @param array $vars
      */
     public function add($vars)
     {
