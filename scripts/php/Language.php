@@ -17,9 +17,6 @@ class Language
     /** @var array maps language codes to text */
     public $arrLang = array('de' => 'Deutsch', 'fr' => 'Français', 'it' => 'Italiano', 'en' => 'English');
 
-    /** @var string namespace for session to use */
-    private $namespace = __NAMESPACE__;
-
     /** @var null|string regular expression to match language from page naming */
     private $pagePattern = null;
 
@@ -48,14 +45,6 @@ class Language
     public function getAll()
     {
         return array_keys($this->arrLang);
-    }
-
-    /**
-     * @return string
-     */
-    public function getNamespace()
-    {
-        return $this->namespace;
     }
 
     /**
@@ -165,7 +154,7 @@ class Language
             $this->lang = $this->langDefault;
         }
 
-        $this->setCookie($this->lang);
+        setcookie('lang', $lang, time() + 3600 * 24 * 365, '/', $_SERVER['HTTP_HOST']);
     }
 
     /**
@@ -188,25 +177,14 @@ class Language
         $langHeader = $this->getLangFromHeader();
 
         // cookie?
-        if (isset($_COOKIE[$this->namespace]['lang'])) {
-            $lang = $_COOKIE[$this->namespace]['lang'];
+        if (isset($_COOKIE['lang'])) {
+            $lang = $_COOKIE['lang'];
         } // http language header
         elseif ($langHeader) {
             $lang = $langHeader;
         }
 
         return $lang;
-    }
-
-    /**
-     * Stores the lanuage in a cookie.
-     * @param $lang
-     */
-    public function setCookie($lang)
-    {
-        // remove subdomain www from host to prevent conflicting with cookies set in subdomain
-        $domain = str_replace('www.', '.', $_SERVER['HTTP_HOST']);
-        setcookie($this->namespace.'[lang]', $lang, time() + 3600 * 24 * 365, '/', $domain, false);
     }
 
     /**
