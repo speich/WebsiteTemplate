@@ -111,6 +111,36 @@ class Website
     }
 
     /**
+     * Save current url to a session variable.
+     * If argument $url is provided it is used instead of current url.
+     * @param string $url
+     */
+    public function setLastPage($url = null)
+    {
+        $url = $url === null ? $_SERVER['REQUEST_URI'] : $url;
+        setcookie('backPage', $url, 0, '/', $_SERVER['HTTP_HOST']);
+
+    }
+
+    /**
+     * Returns the page to go back to.
+     * @return null|string
+     */
+    public function getLastPage()
+    {
+        return isset($_COOKIE['backPage']) ? $_COOKIE['backPage'] : null;
+    }
+
+    /**
+     * Resets the saved url.
+     */
+    public function resetLastPage()
+    {
+        unset($_COOKIE['backPage']);
+        setcookie('backPage', '', 0, '/', $_SERVER['HTTP_HOST']);
+    }
+
+    /**
      * Returns the current protocol.
      * Returns the current protocol (only HTTP or HTTPS) from the requested page
      * including the colon and the double slashes e.g. <protocol>:// unless false is passed as the method argument.
