@@ -12,11 +12,11 @@ namespace WebsiteTemplate;
  */
 class Website
 {
-    /** @var string host e.g. www.lfi.ch */
-    public $host;
+    /** @var string host e.g. lfi.ch */
+    private $host;
 
     /** @var string */
-    public $protocol = 'http';
+    public $protocol = 'https';
 
     /** @var string current path from root including page, e.g. /scripts/php/inc_global.php */
     public $path;
@@ -45,13 +45,19 @@ class Website
     /** @var string name of index page */
     public $indexPage = 'index.php';
 
+    /** @var array whitelisted domains */
+    private $domains;
+
     /**
      * Creates a new instance of the class Web.
      */
-    public function __construct()
+    public function __construct($domains)
     {
-        $arrUrl = parse_url("http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
-        $this->host = $_SERVER['HTTP_HOST'];
+        $this->domains = $domains;
+        if (in_array($_SERVER['HTTP_HOST'], $this->domains, true)) {
+            $this->host = $_SERVER['HTTP_HOST'];
+        }
+        $arrUrl = parse_url($this->getProtocol().$this->host.$_SERVER['REQUEST_URI']);
         $this->query = isset($arrUrl['query']) ? $arrUrl['query'] : '';
         if (isset($arrUrl['path'])) {
             $this->path = $arrUrl['path'];
@@ -59,6 +65,22 @@ class Website
             $this->page = $arrPath['basename'];
             $this->dir = rtrim($arrPath['dirname'], DIRECTORY_SEPARATOR).'/';
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getHost()
+    {
+        return $this->host;
+    }
+
+    /**
+     * @param mixed $domains
+     */
+    public function setDomains($domains)
+    {
+        $this->domains = $domains;
     }
 
     /**
@@ -107,7 +129,7 @@ class Website
     {
         $fp = @fsockopen($host, $port, $errNo, $errStr, 2);
 
-        return $fp != false;
+        return $fp !== false;
     }
 
     /**
@@ -149,11 +171,8 @@ class Website
      */
     public function getProtocol($full = true)
     {
-        $this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https" : "http";
-        if ($full) {
-            return $this->protocol.'://';
-        } else {
-            return $this->protocol;
-        }
+        $this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (int)$_SERVER['SERVER_PORT'] === 443 ? "https" : "http";
+
+        return $full ? $this->protocol.'://' : $this->protocol;
     }
 }
