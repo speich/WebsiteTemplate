@@ -36,7 +36,7 @@ class Menu
     private $strMenu = '';
 
     /**
-     * All child menus are rendered by default
+     * All child menus are hidden by default
      * @var bool render children
      */
     public $allChildrenToBeRendered = false;
