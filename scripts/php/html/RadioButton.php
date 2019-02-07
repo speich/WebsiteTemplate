@@ -30,7 +30,7 @@ class RadioButton extends Form
      */
     public function setChecked($checked = true)
     {
-        // TODO: remove method use Checkbox::checked and SelectField. setSelcted instead
+        // TODO: remove method use Checkbox::checked and SelectField. setSelected instead
         $this->checked = (bool)$checked;
     }
 
@@ -68,7 +68,7 @@ class RadioButton extends Form
         if ($this->required === true) {
             $strHtml .= ' required="required"';
         }
-        $strHtml .= ">";
+        $strHtml .= '>';
         if ($this->labelPosition === Form::LABEL_AFTER) {
             $strHtml .= $strLabel;
         }

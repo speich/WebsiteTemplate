@@ -20,7 +20,7 @@ class Error
      * Stores error messages.
      * @var array $arrErr
      */
-    var $arrErr = array();
+    private $arrErr = array();
 
     /**
      * Constructs the error reporting class by setting the native set_error_handler function.

@@ -17,8 +17,8 @@ class Language
     /** @var array maps language codes to text */
     public $arrLang = array('de' => 'Deutsch', 'fr' => 'Français', 'it' => 'Italiano', 'en' => 'English');
 
-    /** @var null|string regular expression to match language from page naming */
-    private $pagePattern = null;
+    /** @var string regular expression to match language from page naming */
+    private $pagePattern;
 
     /**
      * Language constructor.
@@ -65,7 +65,7 @@ class Language
 
         if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
             // break up string into pieces (languages and q factors)
-            preg_match_all('/([a-z]{1,8}(-[a-z]{1,8})?)\s*(;\s*q\s*=\s*(1|0\.[0-9]+))?/i',
+            preg_match_all('/([a-z]{1,8}(-[a-z]{1,8})?)\s*(;\s*q\s*=\s*(1|0\.\d+))?/i',
                 $_SERVER['HTTP_ACCEPT_LANGUAGE'], $arrLang);
 
             if (count($arrLang[1]) > 0) {
@@ -142,7 +142,7 @@ class Language
         } // language by page url
         elseif (preg_match($this->pagePattern, $this->getPage(), $matches) === 1) {
             // note: default language 'de' is not part ot the page url, e.g. page-de.php does not exist
-            // will be set to 'de' below, e.g. using default lanuage
+            // will be set to 'de' below, e.g. using default language
             $this->lang = $matches[1];
         } // use default language
         else {
@@ -154,7 +154,7 @@ class Language
             $this->lang = $this->langDefault;
         }
 
-        setcookie('lang', $lang, time() + 3600 * 24 * 365, '/', $_SERVER['HTTP_HOST']);
+        $this->setCookie($this->lang);
     }
 
     /**
@@ -188,6 +188,17 @@ class Language
     }
 
     /**
+     * Stores the language in a cookie.
+     * @param $lang
+     */
+    public function setCookie($lang)
+    {
+        // remove subdomain www from host to prevent conflicting with cookies set in subdomain
+        $domain = str_replace('www.', '.', $_SERVER['HTTP_HOST']);
+        setcookie('lang', $lang, time() + 3600 * 24 * 365, '/', $domain);
+    }
+
+    /**
      * Modify a $page for language.
      * Inserts a minus character and the language abbreviation between page name and page extension except
      * for the default language, e.g.: mypage.php -> mypage-fr.php
@@ -199,7 +210,7 @@ class Language
     {
         $page = preg_replace('/\-[a-z]{2}\.(php|gif|jpg|pdf)$/', '.$1', $page);
 
-        if (is_null($lang)) {
+        if ($lang === null) {
             $lang = $this->get();
         }
 
@@ -208,7 +219,6 @@ class Language
         }
 
         if ($lang !== $this->langDefault) {
-            //$page = str_replace('.php', '-'.$lang.'.php', $page);
             $page = preg_replace('/\.(php|gif|jpg|pdf)$/', '-'.$lang.'.$1', $page);
         }
 

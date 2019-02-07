@@ -12,11 +12,11 @@ set_include_path($incPath);
 date_default_timezone_set('Europe/Zurich');
 
 
-$lang = new Language();
-$lang->set();
+$language = new Language();
+$language->set();
 
-$web = new Website();
-$web->lastUpdate = '27.02.2017';
+$web = new Website($language);
+$web->lastUpdate = '07.02.2019';
 $web->pageTitle = 'Website Template';
 
 require_once __DIR__ . '/layout/inc_nav.php';

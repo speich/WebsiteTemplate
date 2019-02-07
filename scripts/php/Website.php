@@ -50,6 +50,7 @@ class Website
 
     /**
      * Creates a new instance of the class Web.
+     * @param array $domains list of whitelisted domains
      */
     public function __construct($domains)
     {
@@ -171,7 +172,7 @@ class Website
      */
     public function getProtocol($full = true)
     {
-        $this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (int)$_SERVER['SERVER_PORT'] === 443 ? "https" : "http";
+        $this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (int)$_SERVER['SERVER_PORT'] === 443 ? 'https' : 'http';
 
         return $full ? $this->protocol.'://' : $this->protocol;
     }

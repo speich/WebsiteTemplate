@@ -14,11 +14,11 @@ namespace WebsiteTemplate;
 class MenuItem
 {
 
-    /**  @var null|string id */
-    public $id = null;
+    /**  @var string id */
+    public $id;
 
-    /** @var null|string parent id */
-    public $parentId = null;
+    /** @var string parent id */
+    public $parentId;
 
     /** @var string text of link */
     public $linkTxt = '';
@@ -26,8 +26,8 @@ class MenuItem
     /** @var string url of link */
     public $linkUrl = '';
 
-    /** @var null|string CSS class name */
-    private $cssClass = null;
+    /** @var string CSS class name */
+    private $cssClass;
 
     /** @var bool render children */
     private $childToBeRendered = false;
@@ -112,7 +112,7 @@ class MenuItem
      */
     public function addCssClass($name)
     {
-        if (!is_null($this->cssClass)) {
+        if ($this->cssClass !== null) {
             $this->cssClass .= ' ';    // multiple classes have to be separated by a space
         }
         $this->cssClass .= $name;

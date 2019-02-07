@@ -2,6 +2,11 @@
 
 namespace WebsiteTemplate\html;
 
+/**
+ * Class RadioGroup
+ * Creates HTMLRadioElements
+ * @package WebsiteTemplate\html
+ */
 class RadioGroup extends Form
 {
     const RENDER_HORIZONTALLY = 1;
@@ -27,7 +32,7 @@ class RadioGroup extends Form
         foreach ($values as $key => $value) {
             $radio = new RadioButton($name.(++$key), $value);
             $radio->setName($name);
-            array_push($this->radios, $radio);
+            $this->radios[] = $radio;
         }
     }
 
@@ -61,7 +66,7 @@ class RadioGroup extends Form
     public function setChecked($value) {
         foreach ($this->radios as $radio) {
             if ($radio->val === $value) {
-                $radio->setChecked(true);
+                $radio->setChecked();
             }
             else {
                 $radio->setChecked(false);
@@ -89,7 +94,7 @@ class RadioGroup extends Form
      */
     public function render($layout = RadioGroup::RENDER_HORIZONTALLY) {
         $this->setCssClass($this->cssClass);
-        if ($layout === RadioGroup::RENDER_VERTICALLY) {
+        if ($layout === self::RENDER_VERTICALLY) {
             $this->setCssClass($this->cssClassVertical);
         }
         $html = '<div'.($this->id ? ' id="'.$this->getId().'"' : '').$this->renderCssClass().'>';
