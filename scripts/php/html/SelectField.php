@@ -61,10 +61,10 @@ class SelectField extends Form
      */
     public function __construct($arrOption, $id = null)
     {
-        if (!is_null($id)) {
+        if ($id !== null) {
             $this->setId($id);
             $this->name = $id;
-        };
+        }
         $this->initOptions($arrOption);
     }
 
@@ -133,10 +133,10 @@ class SelectField extends Form
                 // deselect all
                 $option->selected = false;
             } else {
-                $testVal = $type === SelectField::SELECTED_BY_TEXT ? $option->text : $option->value;
+                $testVal = $type === self::SELECTED_BY_TEXT ? $option->text : $option->value;
                 if ($val === $testVal) {
                     $option->selected = true;
-                    array_push($this->selectedOptions, $option);
+                    $this->selectedOptions[] = $option;
                 }
             }
         }
@@ -151,7 +151,7 @@ class SelectField extends Form
     {
         foreach ($this->arrOption as $option) {
             if ($option->selected) {
-                return $type === SelectField::SELECTED_BY_TEXT ? $option->text : $option->value;
+                return $type === self::SELECTED_BY_TEXT ? $option->text : $option->value;
             }
         }
 
@@ -165,17 +165,6 @@ class SelectField extends Form
     public function getSelectedOptions()
     {
         return $this->selectedOptions;
-    }
-
-    /**
-     * Set the name attribute independent of the id attribute.
-     * If you use [] in you id or name attribute, then PHP makes it available as an array after posting.
-     * But [] is not valid as an id in JS and HTML.
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
     }
 
     /**
@@ -198,12 +187,12 @@ class SelectField extends Form
     public function render($type = SelectField::RENDER_ALL)
     {
         $strHtml = '';
-        if ($type === SelectField::RENDER_ALL) {
+        if ($type === self::RENDER_ALL) {
             $strHtml .= $this->labelPosition === Form::LABEL_BEFORE ? $this->renderLabel() : '';
             $strHtml .= $this->renderSelect();
         }
         $strHtml .= $this->renderOptions();
-        if ($type === SelectField::RENDER_ALL) {
+        if ($type === self::RENDER_ALL) {
             $strHtml .= '</select>';
             $strHtml .= $this->labelPosition === Form::LABEL_AFTER ? $this->renderLabel() : '';
         }
@@ -298,7 +287,7 @@ class SelectField extends Form
      */
     private function setAutoOptionTitle($option) {
         if ($this->autoOptionTitle !== false) {
-            $option->title = $this->autoOptionTitle === SelectField::OPTION_TITLE_FROM_TEXT ? $option->text : $option->value;
+            $option->title = $this->autoOptionTitle === self::OPTION_TITLE_FROM_TEXT ? $option->text : $option->value;
         }
     }
 }

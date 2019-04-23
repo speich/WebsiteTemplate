@@ -20,7 +20,7 @@ class Http
         $head = array(array_shift($lines));
         foreach ($lines as $line) {
             list($key, $val) = explode(':', $line, 2);
-            if ($key == 'Set-Cookie') {
+            if ($key === 'Set-Cookie') {
                 $head['Set-Cookie'][] = trim($val);
             } else {
                 $head[$key] = trim($val);
@@ -35,7 +35,7 @@ class Http
      * @param $str
      * @return string
      */
-    function decodeChunked($str)
+    public function decodeChunked($str)
     {
         // code by bsdnoobz http://stackoverflow.com/users/1396314/bsdnoobz
         for ($res = ''; !empty($str); $str = trim($str)) {

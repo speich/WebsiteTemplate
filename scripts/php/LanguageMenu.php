@@ -83,7 +83,7 @@ class LanguageMenu
             else {
                 $str .= '<li><a href="'.htmlspecialchars($url).'" title="'.$label.'">'.$text.'</a></li>';
             }
-            if ($this->delimiter != '' && $count < count($language->arrLang)) {
+            if ($this->delimiter !== '' && $count < count($language->arrLang)) {
                 $str .= '<li>'.$this->delimiter.'</li>';
             }
             $count++;

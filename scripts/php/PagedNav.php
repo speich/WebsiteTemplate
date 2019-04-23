@@ -88,15 +88,15 @@ class PagedNav
      * @param int $numRecPerPage number of records on a page
      * @param int|null $numLinks number of links to display in navigation
      */
-    function __construct($numRec = null, $numRecPerPage = null, $numLinks = null)
+    public function __construct($numRec = null, $numRecPerPage = null, $numLinks = null)
     {
-        if (!is_null($numRec) && is_numeric($numRec)) {
+        if ($numRec !== null && is_numeric($numRec)) {
             $this->setNumRec($numRec);
         }
-        if (!is_null($numRecPerPage) && is_numeric($numRecPerPage)) {    // do not overwrite default value with null
+        if ($numRecPerPage !== null && is_numeric($numRecPerPage)) {    // do not overwrite default value with null
             $this->setNumRecPerPage($numRecPerPage);
         }
-        if (!is_null($numLinks) && is_numeric($numLinks)) {    // do not overwrite default value with null
+        if ($numLinks !== null && is_numeric($numLinks)) {    // do not overwrite default value with null
             $this->numLinks = $numLinks ? $numLinks : $this->numLinks;
         }
     }
@@ -162,7 +162,7 @@ class PagedNav
      * @param int $curPage current page number
      * @return int
      */
-    function getLowerBoundary($curPage)
+    public function getLowerBoundary($curPage)
     {
         // special case when less pages than range (=numRecPerPage)
         if ($this->numPages <= $this->numLinks || $curPage <= floor($this->numLinks / 2)) {
@@ -179,7 +179,7 @@ class PagedNav
      * @param int $curPage current page number
      * @return int
      */
-    function getUpperBoundary($curPage)
+    public function getUpperBoundary($curPage)
     {
         // special case when less pages than range (=numRecPerPage)
         if ($this->numPages < $this->numLinks) {
@@ -200,12 +200,13 @@ class PagedNav
     /**
      * Print HTML navigation.
      * The parameter $curPage is 1-based.
-     * @param integer $curPage current page number
+     * @param integer|string $curPage current page number
      * @param Website $web
      * @return string HTML string to print
      */
-    function render($curPage, $web)
+    public function render($curPage, $web)
     {
+        $curPage = (int)$curPage;
         $query = new QueryString($this->whitelist);
         $lb = $this->getLowerBoundary($curPage);
         $ub = $this->getUpperBoundary($curPage);
@@ -213,9 +214,9 @@ class PagedNav
 
         if ($this->renderText) {
             $str .= '<div class="text">';
-            $str .= $this->i18n[$this->lang]['search result'].": ".$this->numRec." ";
+            $str .= $this->i18n[$this->lang]['search result'].': '.$this->numRec.' ';
             $str .= $this->numRec > 1 ? $this->i18n[$this->lang]['entries'] : $this->i18n[$this->lang]['entry'];
-            $str .= " ".$this->i18n[$this->lang]['on']." $this->numPages ";
+            $str .= ' '.$this->i18n[$this->lang]['on']." $this->numPages ";
             $str .= $this->numPages > 1 ? $this->i18n[$this->lang]['pages'] : $this->i18n[$this->lang]['page'];
             $str .= '</div>';
         }
@@ -232,7 +233,7 @@ class PagedNav
         // direct accessible pages
         for (; $lb <= $ub; $lb++) {
             if ($this->numPages > 1) {
-                if ($lb == $curPage) {
+                if ($lb === $curPage) {
                     $str .= '<span class="curPage">';
                 } else {
                     $str .= '<span class="page">';
@@ -252,7 +253,7 @@ class PagedNav
             $queryStr = $query->withString(array($this->queryVarName => $curPage + $this->stepSmall));
             $str .= '<span class="pageStepSmall nextPages"><a href="'.$web->page.$queryStr.'">';
             $str .= '[+'.$this->stepSmall.']';
-            $str .= "</a></span>";
+            $str .= '</a></span>';
         }
         $str .= '</div></div>';
 

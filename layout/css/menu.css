@@ -97,7 +97,7 @@ li.menuItemDisabled > a, li.menuItemDisabled > div {
 	top: -1px
 }
 
-/* add separator lines beteween specific menu items */
+/* add separator lines between specific menu items */
 .menu2 > li:nth-child(2) > ul > li:nth-child(1),
 .menu2 > li:nth-child(3) > ul > li:nth-child(1),
 .menu2 > li:nth-child(3) > ul ul > li:nth-child(2) {

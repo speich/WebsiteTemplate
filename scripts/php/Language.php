@@ -16,7 +16,7 @@ class Language
     /** @var array maps language codes to text */
     public $arrLang = array('de' => 'Deutsch', 'fr' => 'Français', 'it' => 'Italiano', 'en' => 'English');
 
-    /** @var null|string regular expression to match language from page naming */
+    /** @var string regular expression to match language from page naming */
     private $pagePattern;
 
     /**
@@ -64,7 +64,7 @@ class Language
 
         if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
             // break up string into pieces (languages and q factors)
-            preg_match_all('/([a-z]{1,8}(-[a-z]{1,8})?)\s*(;\s*q\s*=\s*(1|0\.[0-9]+))?/i',
+            preg_match_all('/([a-z]{1,8}(-[a-z]{1,8})?)\s*(;\s*q\s*=\s*(1|0\.\d+))?/i',
                 $_SERVER['HTTP_ACCEPT_LANGUAGE'], $arrLang);
 
             if (count($arrLang[1]) > 0) {
@@ -137,7 +137,7 @@ class Language
      * @param string $lang
      */
     public function save($lang) {
-        setcookie('lang', $lang, time() + 3600 * 24 * 365, '/', $_SERVER['HTTP_HOST']);
+        $this->setCookie($lang);
     }
 
     /**
@@ -184,6 +184,17 @@ class Language
         }
 
         return $this->isValid($lang) ? $lang : false;
+    }
+
+    /**
+     * Stores the language in a cookie.
+     * @param $lang
+     */
+    public function setCookie($lang)
+    {
+        // remove subdomain www from host to prevent conflicting with cookies set in subdomain
+        $domain = str_replace('www.', '.', $_SERVER['HTTP_HOST']);
+        setcookie('lang', $lang, time() + 3600 * 24 * 365, '/', $domain);
     }
 
     /**

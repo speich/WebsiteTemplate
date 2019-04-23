@@ -18,17 +18,17 @@ class Controller
 {
     public $err;
 
-    /** @var null|string http protocol */
-    private $protocol = null;
+    /** @var string http protocol */
+    private $protocol;
 
-    /** @var null|string http method */
-    private $method = null;
+    /** @var string http method */
+    private $method;
 
-    /** @var string|array|null array of path segments */
-    private $resources = null;
+    /** @var string|array array of path segments */
+    private $resources;
 
-    /** @var null|Header */
-    private $header = null;
+    /** @var Header */
+    private $header;
 
     /** @var bool respond with 404 resource not found */
     public $notFound = false;
@@ -44,12 +44,11 @@ class Controller
      * If you don't want the first path segment to be set as the controller, set $useController to false.
      * @param Header $header
      * @param Error $error
-     * @param Boolean $useController use first path segment as controller?
      */
-    public function __construct(Header $header, Error $error, $useController = true)
+    public function __construct(Header $header, Error $error)
     {
         $this->header = $header;
-        $this->protocol = $_SERVER["SERVER_PROTOCOL"];
+        $this->protocol = $_SERVER['SERVER_PROTOCOL'];
         $this->method = $_SERVER['REQUEST_METHOD'];
         $this->resources = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : $this->resources;
         $this->err = $error;
@@ -68,7 +67,7 @@ class Controller
                 if ($json) {
                     $arr = json_decode(file_get_contents('php://input'));
                 } else {
-                    // note: Make sure you set the correct Content-Type when doint a xhr POST
+                    // note: Make sure you set the correct Content-Type when doing a xhr POST
                     $arr = $_POST;
                 }
                 break;
@@ -126,7 +125,7 @@ class Controller
     public function getResource($asString = false)
     {
         $resources = $this->resources;
-        if (!is_null($resources) && $asString === false) {
+        if ($resources !== null && $asString === false) {
             $resources = trim($resources, '/');
             $resources = explode('/', $resources);
         }
@@ -164,7 +163,7 @@ class Controller
         elseif ($this->notFound) {
             header($this->getProtocol().' 404 Not Found');
         } // resource found and processed
-        elseif ($this->getMethod() === 'POST' && !array_key_exists('content-disposition', $headers)) {
+        elseif (!array_key_exists('content-disposition', $headers) && $this->getMethod() === 'POST') {
             // IE/Edge fail to download with status 201
             header($this->getProtocol().' 201 Created');
         } // range response
@@ -202,10 +201,8 @@ class Controller
                 echo $data;
             }
         } // no response, 200 ok only // TODO: should be 204 No Content
-        else {
-            if ($this->header->getContentType() === 'application/json') {
-                echo '{}';
-            }
+        elseif ($this->header->getContentType() === 'application/json') {
+            echo '{}';
         }
     }
 }

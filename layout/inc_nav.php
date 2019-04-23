@@ -29,7 +29,7 @@ $menu2 = new Menu(array(
 			array(10, 5, 'subany', $web->getWebRoot().'services/load.php'),
 			array(11, 5, 'subsome', $web->getWebRoot().'services/load.php'),
 			array(12, 5, 'submore', $web->getWebRoot().'services/load.php'),
-		array(6, 3, 'some', $web->getWebRoot().'servcies/save.php'),
+		array(6, 3, 'some', $web->getWebRoot().'services/save.php'),
 	array(7, 0, 'Contact', $web->getWebRoot().'contact.php')
 ));
 $menu2->allChildrenToBeRendered = true;
@@ -46,7 +46,7 @@ $menu3 = new Menu(array(
 		array(4, 3, 'more', $web->getWebRoot().'services/more.php'),
 		array(5, 3, 'any', $web->getWebRoot().'services/load.php'),
 			array(10, 5, 'subany', $web->getWebRoot().'services/load.php'),
-		array(6, 3, 'some', $web->getWebRoot().'servcies/save.php'),
+		array(6, 3, 'some', $web->getWebRoot().'services/save.php'),
 	array(7, 0, 'Contact', $web->getWebRoot().'contact.php')
 ));
 $menu3->setActive($web->getWebRoot().'services/services.php');
@@ -63,7 +63,7 @@ $menu4 = new Menu(array(
 		array(4, 3, 'more', $web->getWebRoot().'services/more.php'),
 		array(5, 3, 'any'),
 			array(10, 5, 'subany', $web->getWebRoot().'services/load.php'),
-		array(6, 3, 'some', $web->getWebRoot().'servcies/save.php'),
+		array(6, 3, 'some', $web->getWebRoot().'services/save.php'),
 	array(7, 0, 'Contact', $web->getWebRoot().'contact.php')
 ));
 $menu4->allChildrenToBeRendered = true;

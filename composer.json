@@ -4,5 +4,8 @@
     "psr-4": {
       "WebsiteTemplate\\": "../scripts/php"
     }
-  }
+  },
+    "require": {
+        "ext-json": "*"
+    }
 }

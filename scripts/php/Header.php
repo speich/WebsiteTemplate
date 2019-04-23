@@ -11,7 +11,7 @@ class Header
     /** @var string $contentType header default MIME type set to text/html */
     private $contentType = 'text/html';
 
-    /** @var string $charset default characterset set to utf-8 */
+    /** @var string $charset default character set set to utf-8 */
     private $charset = 'utf-8';
 
     /** @var array contains additional response headers */
@@ -59,9 +59,9 @@ class Header
             $arr = explode('-', substr($_SERVER['HTTP_RANGE'], 6)); // e.g. items=0-24
 
             return array('start' => $arr[0], 'end' => $arr[1]);
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**
@@ -111,7 +111,7 @@ class Header
         }, ARRAY_FILTER_USE_KEY);
         */
         $keys = array_keys($this->headers);
-        for ($i = 0; $i < count($this->headers); $i++) {
+        for ($i = 0, $iMax = count($this->headers); $i < $iMax; $i++) {
             if (strtolower($keys[$i]) === strtolower($name)) {
                 unset($this->headers[$keys[$i]]);
             }

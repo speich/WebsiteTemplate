@@ -6,7 +6,7 @@ namespace WebsiteTemplate;
 /**
  * Class QueryString
  * Class to work with query strings.
- * Reads the query string from the server. Allowd keys can be whitelisted.
+ * Reads the query string from the server. Allowed keys can be whitelisted.
  * All methods related to adding something expect the passed array to have keys and values. All methods removing something expect
  * the passed array only to contains values.
  * @package LFI
@@ -60,6 +60,10 @@ class QueryString
         $this->queryVars = array_merge($this->queryVars, $vars);
     }
 
+    /**
+     * Remove variables from the internal query string.
+     * @param null $arr
+     */
     public function remove($arr = null)
     {
         if ($arr === null) {
@@ -71,6 +75,10 @@ class QueryString
         }
     }
 
+    /**
+     * Returns an array with the whitelisted query variables
+     * @return array
+     */
     public function get()
     {
         return $this->queryVars;

@@ -60,8 +60,8 @@ class Menu
      */
     private $firstUl = true;
 
-    /**  @var null|string prefix for item id attribute */
-    public $itemIdPrefix = null;
+    /**  @var string prefix for item id attribute */
+    public $itemIdPrefix;
 
     /** @var string CSS class name of menu */
     public $cssClass = 'menu';
@@ -89,7 +89,7 @@ class Menu
      */
     public function __construct($arrItem = null)
     {
-        if (!is_null($arrItem)) {
+        if ($arrItem !== null) {
             foreach ($arrItem as $item) {
                 $this->arrItem[$item[0]] = new MenuItem($item[0], $item[1], $item[2],
                     (array_key_exists(3, $item) ? $item[3] : null));
@@ -192,25 +192,28 @@ class Menu
      */
     public function checkActive($item, $pattern = null)
     {
-        if (is_null($item->getActive())) {
+        if ($item->getActive() === null) {
             return false;    // item explicitly set to null = skip
-        } elseif ($item->getActive()) {
+        }
+
+        if ($item->getActive()) {
             return true; // item explicitly set to active
         }
+
         $url = $_SERVER['REQUEST_URI'];
         $arrUrlPage = parse_url($url);
         $arrUrlMenu = parse_url(html_entity_decode($item->linkUrl));
-        if (is_null($pattern)) {
+        if ($pattern === null) {
             $pattern = $this->getAutoActiveMatching();
         }
         switch ($pattern) {
             case 1:
-                if ($arrUrlPage['path'] == $arrUrlMenu['path']) {
+                if ($arrUrlPage['path'] === $arrUrlMenu['path']) {
                     return true;
                 }
                 break;
             case 2:
-                if ($arrUrlPage['path'].'?'.$arrUrlPage['query'] == $item->linkUrl) {
+                if ($arrUrlPage['path'].'?'.$arrUrlPage['query'] === $item->linkUrl) {
                     return true;
                 }
                 break;
@@ -221,17 +224,15 @@ class Menu
                     foreach ($arr as $var => $val) {
                         if (!array_key_exists($var, $_GET)) {
                             return false;
-                        } elseif ($_GET[$var] != $val) {
+                        }
+
+                        if ($_GET[$var] !== $val) {
                             return false;
                         }
                     }
                 }
                 // 2. check path
-                if ($arrUrlPage['path'] == $arrUrlMenu['path']) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return $arrUrlPage['path'] === $arrUrlMenu['path'];
                 break;
             default;
                 return false;
@@ -254,13 +255,15 @@ class Menu
             }
         }
         $num = count($arrActive);
-        if ($num == 0) {
+        if ($num === 0) {
             return false;
-        } elseif ($num == 1) {
-            return $arrActive[0];
-        } else {
-            return $arrActive;
         }
+
+        if ($num === 1) {
+            return $arrActive[0];
+        }
+
+        return $arrActive;
     }
 
     /**
@@ -273,7 +276,7 @@ class Menu
         $this->strMenu .= '<ul';
         if ($this->firstUl) {
             $this->strMenu .= ' class="'.$this->cssClass.'"';
-            if (!is_null($this->cssId)) {
+            if ($this->cssId !== null) {
                 $this->strMenu .= ' id="'.$this->cssId.'"';
             }
             $this->firstUl = false;
@@ -283,12 +286,12 @@ class Menu
         foreach ($this->arrItem as $item) {
             if ($item->parentId === $parentId) {
                 $this->setItemCssClass($item);
-                $itemIdPrefix = is_null($this->itemIdPrefix) ? '' : ' id="'.$this->itemIdPrefix.$item->id.'"';
-                $cssClass = is_null($item->getCssClass()) ? '' : ' class="'.$item->getCssClass().'"';
+                $itemIdPrefix = $this->itemIdPrefix === null ? '' : ' id="'.$this->itemIdPrefix.$item->id.'"';
+                $cssClass = $item->getCssClass() === null ? '' : ' class="'.$item->getCssClass().'"';
                 $this->strMenu .= '<li'.$itemIdPrefix.$cssClass.'>';
-                $tagName = is_null($item->linkUrl) ? 'div' : 'a';
+                $tagName = $item->linkUrl === null ? 'div' : 'a';
                 $this->strMenu .= '<'.$tagName;
-                if (!is_null($item->linkUrl)) {
+                if ($item->linkUrl !== null) {
                     $this->strMenu .= ' href="'.$item->linkUrl.'"'.($item->linkTarget === '' ? '' : ' target="'.$item->linkTarget.'"');
                 }
                 $this->strMenu .= '>';
@@ -336,7 +339,7 @@ class Menu
      */
     public function setActive($url = null)
     {
-        if (is_null($url)) {
+        if ($url === null) {
             foreach ($this->arrItem as $item) {
                 if ($this->checkActive($item)) {
                     $item->setActive();
@@ -363,7 +366,7 @@ class Menu
         } // match provided url
         else {
             foreach ($this->arrItem as $item) {
-                if ($item->linkUrl == $url) {
+                if ($item->linkUrl === $url) {
                     $item->setActive();
                     if ($this->allChildrenToBeRendered || $item->getActive()) {
                         // set also item's parents to active
@@ -409,9 +412,9 @@ class Menu
             $str = $this->createHtml(reset($this->arrItem)->parentId);
 
             return $str.'</ul>';
-        } else {
-            return '';
         }
+
+        return '';
     }
 
     /**

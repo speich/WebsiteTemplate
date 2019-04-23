@@ -93,9 +93,9 @@ class Form extends Html
     {
         if ($this->label) {
             return $this->labelName;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
