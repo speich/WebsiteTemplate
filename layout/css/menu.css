@@ -69,7 +69,6 @@ li.menuItemDisabled > a, li.menuItemDisabled > div {
 .menu2 li:hover > ul {
 	opacity: 1;
 	visibility: visible;
-
 }
 
 .menu2 a, .menu2 div {
