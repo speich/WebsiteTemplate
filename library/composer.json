@@ -1,8 +1,8 @@
 {
-  "name": "speich.net/WebsiteTemplate",
+  "name": "speich.net/websitetemplate",
   "autoload": {
     "psr-4": {
-      "WebsiteTemplate\\": "../scripts/php"
+      "websitetemplate\\": "../scripts/php"
     }
   },
     "require": {
