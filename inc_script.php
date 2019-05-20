@@ -13,7 +13,7 @@ date_default_timezone_set('Europe/Zurich');
 
 
 $language = new Language();
-$language->set();
+$language->autoDetect();
 
 $domains = array('websitetemplate');
 $web = new Website($domains);
