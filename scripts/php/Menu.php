@@ -29,6 +29,9 @@ class Menu
      */
     public $arrItem = array();
 
+    /** @var string $charset character set to use when creating and encoding html */
+    public $charset = 'utf-8';
+
     /**
      * Holds html string of created menu.
      * @var string menu string
@@ -292,7 +295,7 @@ class Menu
                 $tagName = $item->linkUrl === null ? 'div' : 'a';
                 $this->strMenu .= '<'.$tagName;
                 if ($item->linkUrl !== null) {
-                    $this->strMenu .= ' href="'.$item->linkUrl.'"'.($item->linkTarget === '' ? '' : ' target="'.$item->linkTarget.'"');
+                    $this->strMenu .= ' href="'.htmlspecialchars($item->linkUrl, ENT_QUOTES, $this->charset).'"'.($item->linkTarget === '' ? '' : ' target="'.$item->linkTarget.'"');
                 }
                 $this->strMenu .= '>';
                 $this->strMenu .= $item->linkTxt;
