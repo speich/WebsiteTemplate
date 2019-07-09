@@ -171,7 +171,7 @@ class PagedNav
             $i = $curPage - floor($this->numLinks / 2);
         }
 
-        return $i;
+        return (int)$i;
     }
 
     /**
@@ -194,7 +194,7 @@ class PagedNav
             $j = $curPage + $this->numLinks / 2;
         }
 
-        return $j;
+        return (int)$j;
     }
 
     /**
