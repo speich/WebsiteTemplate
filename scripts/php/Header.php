@@ -7,7 +7,6 @@ namespace WebsiteTemplate;
  */
 class Header
 {
-
     /** @var string $contentType header default MIME type set to text/html */
     private $contentType = 'text/html';
 
@@ -139,5 +138,27 @@ class Header
     public function get()
     {
         return $this->headers;
+    }
+
+    /**
+     * Enable CORS for the passed origins.
+     * Adds the Access-Control-Allow-Origin header to the response with the origin that matched the one in the request.
+     * @param array $origins
+     * @return string|null returns the matched origin or null
+     */
+    public function allowOrigins($origins)
+    {
+        $origin = null;
+        if (isset($_SERVER['HTTP_ORIGIN'])) {
+            foreach ($origins as $val) {
+                if ($_SERVER['HTTP_ORIGIN'] === $val) {
+                    $this->add('Access-Control-Allow-Origin', $val);
+
+                    return $val;
+                }
+            }
+        }
+
+        return $origin;
     }
 }
