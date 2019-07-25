@@ -148,17 +148,14 @@ class Header
      */
     public function allowOrigins($origins)
     {
-        $origin = null;
-        if (isset($_SERVER['HTTP_ORIGIN'])) {
-            foreach ($origins as $val) {
-                if ($_SERVER['HTTP_ORIGIN'] === $val) {
-                    $this->add('Access-Control-Allow-Origin', $val);
+        $val = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : null;
+        if (in_array($val, $origins, true)) {
+            $this->add('Access-Control-Allow-Origin', $val);
+            $this->add('Vary', 'Origin');
 
-                    return $val;
-                }
-            }
+            return $val;
         }
 
-        return $origin;
+        return null;
     }
 }
