@@ -39,8 +39,11 @@ class SelectField extends Form
     /** @var array contains the selected text and values */
     private $selectedOptions = array();
 
-    /** @var string first item in select field */
+    /** @var string text of first option */
     private $defaultText = 'Bitte auswählen';
+
+    /** @var string value of first option element  */
+    private $defaultValue = '';
 
     /** @var bool automatically set option title attribute from option text or value attribute */
     private $autoOptionTitle = false;
@@ -238,6 +241,7 @@ class SelectField extends Form
         if ($this->defaultText !== false) {
             $option = new OptionElement();
             $option->text = $this->defaultText;
+            $option->value = $this->defaultValue;
             $str .= $option->render();
         }
         foreach ($this->arrOption as $option) {
