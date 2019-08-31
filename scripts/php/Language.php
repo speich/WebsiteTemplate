@@ -19,12 +19,16 @@ class Language
     /** @var string regular expression to match language from page naming */
     private $pagePattern;
 
+    /** @var string regular expression to match language from directory naming */
+    private $dirPattern;
+
     /**
      * Language constructor.
      */
     public function __construct()
     {
         $this->pagePattern = '/-('.implode('|', $this->getAll()).')\.php/';
+        $this->dirPattern = '/\/('.implode('|', $this->getAll()).')\//';
     }
 
     /**
@@ -41,7 +45,7 @@ class Language
      * Returns all language codes
      * @return array
      */
-    public function getAll()
+    protected function getAll()
     {
         return array_keys($this->arrLang);
     }
@@ -168,10 +172,15 @@ class Language
      */
     public function autoDetect()
     {
-        // 1. from query string
+        // from query string
         if (isset($_GET['lang'])) {
             $lang = preg_replace('/\W/', '', $_GET['lang']);
-        } // 2. from page name
+        }
+        // from directory, e.g. /en/
+        elseif (preg_match($this->dirPattern, $_SERVER['REQUEST_URI'], $matches) === 1) {
+            $lang = $matches[1];
+        }
+        // from page name
         elseif (preg_match($this->pagePattern, $this->getPage(), $matches) === 1) {
             // note: default language is not part of the page name, e.g. page{-defaultLang}.php does not exist
             $lang = $matches[1];

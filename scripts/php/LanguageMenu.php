@@ -24,13 +24,13 @@ class LanguageMenu
 	public $redirect;
 
 	/** @var Website */
-    private $web;
+    protected $web;
 
     /** @var bool link text based on label instead of lang */
     public $useLabel = false;
 
     /** @var Language */
-    private $lang;
+    protected $lang;
 
     /** @var array keys that are allowed in the query string */
     private $whitelist = array();
