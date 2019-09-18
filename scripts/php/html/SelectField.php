@@ -226,7 +226,7 @@ class SelectField extends Form
         if ($this->required) {
             $str .= ' required="required"';
         }
-        $str .= ">\n";
+        $str .= '>';
 
         return $str;
     }

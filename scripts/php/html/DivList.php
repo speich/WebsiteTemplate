@@ -50,16 +50,16 @@ class DivList extends Html
     {
         $strHtml = '<div id="'.$this->getId().'"'.$this->renderCssClass().'>';
         if ($this->label) {
-            $strHtml .= '<div>'.$this->labelName."</div>\n";
+            $strHtml .= '<div>'.$this->labelName.'</div>';
         }
         foreach ($this->arrItem as $item) {
             if (is_array($item)) {
-                $strHtml .= '<div><a href="'.$item[0].'">'.$item[1]."</a></div>\n";
+                $strHtml .= '<div><a href="'.$item[0].'">'.$item[1].'</a></div>';
             } else {
-                $strHtml .= '<div>'.$item.'</div>'."\n";
+                $strHtml .= '<div>'.$item.'</div>';
             }
         }
-        $strHtml .= "</div>\n";
+        $strHtml .= '</div>';
 
         return $strHtml;
 

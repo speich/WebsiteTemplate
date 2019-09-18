@@ -46,7 +46,7 @@ class CheckBox extends Form
 
         $strLabel = '';
         if ($this->label) {
-            $strLabel .= '<label for="'.$this->getId().'"'.$css.'>'.$this->getLabel()."</label>\n";
+            $strLabel .= '<label for="'.$this->getId().'"'.$css.'>'.$this->getLabel().'</label>';
         }
         if ($this->labelPosition === Form::LABEL_BEFORE) {
             $strHtml .= $strLabel;
