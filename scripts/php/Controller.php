@@ -41,7 +41,6 @@ class Controller
 
     /**
      * Constructs the controller instance.
-     * If you don't want the first path segment to be set as the controller, set $useController to false.
      * @param Header $header
      * @param Error $error
      */
@@ -62,39 +61,43 @@ class Controller
      */
     public function getDataAsObject($json = false)
     {
+        // Note on types when using json_decode():
+        // Values true, false and null are returned as TRUE, FALSE and NULL respectively.
+        // NULL is returned if the json cannot be decoded or if the encoded data is deeper than the recursion limit
+        $data = null;
         switch ($this->method) {
             case 'POST':
                 if ($json) {
-                    $arr = json_decode(file_get_contents('php://input'));
+                    $data = json_decode(file_get_contents('php://input'), false);
                 } else {
                     // note: Make sure you set the correct Content-Type when doing a xhr POST
-                    $arr = $_POST;
+                    $data = $_POST;
                 }
                 break;
             case 'PUT':
-                $data = file_get_contents('php://input');
+                $input = file_get_contents('php://input');
                 if ($json) {
-                    $arr = json_decode($data);
+                    $data = json_decode($input, false);
                 } else {
-                    parse_str($data, $arr);
+                    parse_str($input, $data);
                 }
                 break;
             case 'GET':
-                $arr = $_GET;
+                $data = $_GET;
                 break;
             case 'DELETE':
                 if ($_SERVER['QUERY_STRING'] !== '') {
                     // Delete has no body, but a query string is possible
-                    parse_str($_SERVER['QUERY_STRING'], $arr);
-                } else {
-                    $arr = array();
+                    parse_str($_SERVER['QUERY_STRING'], $data);
                 }
                 break;
-            default:
-                $arr = array();
         }
 
-        return count($arr) > 0 ? (object)$arr : null;
+        if (is_array($data)) {
+            $data =  count($data) > 0 ? (object)$data : null;
+        }
+
+        return $data;
     }
 
     /**
