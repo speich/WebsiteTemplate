@@ -7,6 +7,10 @@
 
 namespace WebsiteTemplate;
 
+use DateTime;
+use Exception;
+
+
 /**
  * Simple helper class to manage websites.
  */
@@ -15,7 +19,7 @@ class Website
     /** @var string host e.g. lfi.ch */
     private $host;
 
-    /** @var string */
+    /** @var string http protocol */
     public $protocol = 'https';
 
     /** @var string current path from root including page, e.g. /scripts/php/inc_global.php */
@@ -39,8 +43,8 @@ class Website
     /** @var string character set */
     public $charset = 'utf-8';
 
-    /** @var string date of last update */
-    public $lastUpdate = '';
+    /** @var DateTime date of last update */
+    private static $lastUpdate;
 
     /** @var string name of index page */
     public $indexPage = 'index.php';
@@ -69,6 +73,33 @@ class Website
     }
 
     /**
+     * Returns the date of the last update.
+     * Returns the date either as a DateTime instance or a string formatted according to
+     * @param string $format
+     * @return DateTime|string
+     */
+    public function getLastUpdate($format = null)
+    {
+        return $format === null ? self::$lastUpdate : self::$lastUpdate->format($format);
+    }
+
+    /**
+     * Set the date of last update of the website.
+     * A date/time string. Valid formats are explained in https://www.php.net/manual/en/datetime.formats.php
+     * @param string $lastUpdate
+     */
+    public function setLastUpdate($lastUpdate)
+    {
+        try {
+            self::$lastUpdate = new DateTime($lastUpdate);
+        }
+        catch (Exception $err) {
+            self::$lastUpdate = null;
+        }
+    }
+
+    /**
+     * Returns the host
      * @return string
      */
     public function getHost()
@@ -77,7 +108,8 @@ class Website
     }
 
     /**
-     * @param mixed $domains
+     * List of domain names the website runs on
+     * @param array $domains
      */
     public function setDomains($domains)
     {
