@@ -3,7 +3,7 @@
 use WebsiteTemplate\Language;
 use WebsiteTemplate\Website;
 
-require_once 'library/vendor/autoload.php';
+require_once 'vendor/autoload.php';
 
 
 $path = __DIR__ . '/';
