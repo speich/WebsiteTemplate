@@ -1,5 +1,5 @@
 {
-  "name": "speich.net/websitetemplate",
+  "name": "speich/websitetemplate",
   "description": "A simple template for your website project when using PHP and JavaScript",
   "license": "GPL-3.0-or-later",
   "autoload": {
