@@ -4,7 +4,7 @@
   "license": "GPL-3.0-or-later",
   "autoload": {
     "psr-4": {
-      "speich.net\\WebsiteTemplate\\": "scripts/php"
+      "WebsiteTemplate\\": "scripts/php"
     }
   },
   "require": {
