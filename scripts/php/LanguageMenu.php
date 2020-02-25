@@ -9,10 +9,10 @@ namespace WebsiteTemplate;
 class LanguageMenu
 {
     /** @var string id attribute of HTMLUListElement */
-	public $ulId = 'navLang';
+	public $cssId;
 
 	/** @var string class attribute of HTMLUListElement */
-	public $ulClass = 'nav';
+	public $cssClass = 'nav';
 
 	/** @var string class attribute of HTMLLIElement */
 	public $liClassActive = 'navActive';
@@ -67,7 +67,8 @@ class LanguageMenu
         $query = new QueryString($this->whitelist);
         $count = 0;
         $str = '';
-        $str .= '<ul id="'.$this->ulId.'" class="'.$this->ulClass.'">';
+        $cssId = $this->cssId === null ? '' : ' id="'.$this->cssId.'"';
+        $str .= '<ul'.$cssId.' class="'.$this->cssClass.'">';
         foreach ($language->arrLang as $lang => $label) {
             $page = $this->lang->createPage($this->web->page, $lang);
             $path = $this->web->getDir();
