@@ -3,7 +3,7 @@
 use WebsiteTemplate\Language;
 use WebsiteTemplate\Website;
 
-require_once 'library/vendor/autoload.php';
+require_once 'vendor/autoload.php';
 
 
 $path = __DIR__ . '/';
@@ -17,7 +17,7 @@ $language->autoDetect();
 
 $domains = array('websitetemplate');
 $web = new Website($domains);
-$web->lastUpdate = '07.02.2019';
+$web->setLastUpdate('07.02.2019');
 $web->pageTitle = 'Website Template';
 
 require_once __DIR__ . '/layout/inc_nav.php';
