@@ -17,9 +17,6 @@ class LanguageMenu
 	/** @var string class attribute of HTMLLIElement */
 	public $liClassActive = 'navActive';
 
-	/** @var string character to display between language labels */
-	public $delimiter = '';
-
 	/** @var string url to redirect to if page does not exists in that language */
 	public $redirect;
 
@@ -65,7 +62,6 @@ class LanguageMenu
     {
         $language = $this->lang;
         $query = new QueryString($this->whitelist);
-        $count = 0;
         $str = '';
         $cssId = $this->cssId === null ? '' : ' id="'.$this->cssId.'"';
         $str .= '<ul'.$cssId.' class="'.$this->cssClass.'">';
@@ -84,10 +80,6 @@ class LanguageMenu
             else {
                 $str .= '<li><a href="'.htmlspecialchars($url).'" title="'.$label.'">'.$text.'</a></li>';
             }
-            if ($this->delimiter !== '' && $count < count($language->arrLang)) {
-                $str .= '<li>'.$this->delimiter.'</li>';
-            }
-            $count++;
         }
         $str .= '</ul>';
 
