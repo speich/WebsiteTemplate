@@ -1,8 +1,13 @@
 {
-  "name": "speich.net/WebsiteTemplate",
+  "name": "speich/websitetemplate",
+  "description": "A simple template for your website project when using PHP and JavaScript",
+  "license": "GPL-3.0-or-later",
   "autoload": {
     "psr-4": {
-      "WebsiteTemplate\\": "../scripts/php"
+      "WebsiteTemplate\\": "scripts/php"
     }
+  },
+  "require": {
+    "ext-json": "*"
   }
 }

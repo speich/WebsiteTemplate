@@ -39,8 +39,11 @@ class SelectField extends Form
     /** @var array contains the selected text and values */
     private $selectedOptions = array();
 
-    /** @var string first item in select field */
+    /** @var string text of first option */
     private $defaultText = 'Bitte auswählen';
+
+    /** @var string value of first option element  */
+    private $defaultValue = '';
 
     /** @var bool automatically set option title attribute from option text or value attribute */
     private $autoOptionTitle = false;
@@ -61,18 +64,18 @@ class SelectField extends Form
      */
     public function __construct($arrOption, $id = null)
     {
-        if (!is_null($id)) {
+        if ($id !== null) {
             $this->setId($id);
             $this->name = $id;
-        };
+        }
         $this->initOptions($arrOption);
     }
 
     /**
      * Create array of option elements
-     * If argument $options is a 1-dim array: use created index as value attribute
-     * If arguments $options is a 2-dim array: use first index as value attribute, but only
-     * if autoOptionValues is true, otherwise no value attibute is set.
+     * If argument $options is a 1-dim array: created value attribute if autoOptionValues is true, otherwise no value attribute is set.
+     * If arguments $options is a 2-dim array: use first index as value attribute, second as text
+     *
      * @param array $options
      */
     private function initOptions($options)
@@ -133,10 +136,10 @@ class SelectField extends Form
                 // deselect all
                 $option->selected = false;
             } else {
-                $testVal = $type === SelectField::SELECTED_BY_TEXT ? $option->text : $option->value;
+                $testVal = $type === self::SELECTED_BY_TEXT ? $option->text : $option->value;
                 if ($val === $testVal) {
                     $option->selected = true;
-                    array_push($this->selectedOptions, $option);
+                    $this->selectedOptions[] = $option;
                 }
             }
         }
@@ -151,7 +154,7 @@ class SelectField extends Form
     {
         foreach ($this->arrOption as $option) {
             if ($option->selected) {
-                return $type === SelectField::SELECTED_BY_TEXT ? $option->text : $option->value;
+                return $type === self::SELECTED_BY_TEXT ? $option->text : $option->value;
             }
         }
 
@@ -165,17 +168,6 @@ class SelectField extends Form
     public function getSelectedOptions()
     {
         return $this->selectedOptions;
-    }
-
-    /**
-     * Set the name attribute independent of the id attribute.
-     * If you use [] in you id or name attribute, then PHP makes it available as an array after posting.
-     * But [] is not valid as an id in JS and HTML.
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
     }
 
     /**
@@ -198,12 +190,12 @@ class SelectField extends Form
     public function render($type = SelectField::RENDER_ALL)
     {
         $strHtml = '';
-        if ($type === SelectField::RENDER_ALL) {
+        if ($type === self::RENDER_ALL) {
             $strHtml .= $this->labelPosition === Form::LABEL_BEFORE ? $this->renderLabel() : '';
             $strHtml .= $this->renderSelect();
         }
         $strHtml .= $this->renderOptions();
-        if ($type === SelectField::RENDER_ALL) {
+        if ($type === self::RENDER_ALL) {
             $strHtml .= '</select>';
             $strHtml .= $this->labelPosition === Form::LABEL_AFTER ? $this->renderLabel() : '';
         }
@@ -234,7 +226,7 @@ class SelectField extends Form
         if ($this->required) {
             $str .= ' required="required"';
         }
-        $str .= ">\n";
+        $str .= '>';
 
         return $str;
     }
@@ -249,6 +241,7 @@ class SelectField extends Form
         if ($this->defaultText !== false) {
             $option = new OptionElement();
             $option->text = $this->defaultText;
+            $option->value = $this->defaultValue;
             $str .= $option->render();
         }
         foreach ($this->arrOption as $option) {
@@ -294,11 +287,11 @@ class SelectField extends Form
 
     /**
      * Set the title attribute automatically.
-     * @param $option
+     * @param OptionElement $option
      */
     private function setAutoOptionTitle($option) {
         if ($this->autoOptionTitle !== false) {
-            $option->title = $this->autoOptionTitle === SelectField::OPTION_TITLE_FROM_TEXT ? $option->text : $option->value;
+            $option->title = $this->autoOptionTitle === self::OPTION_TITLE_FROM_TEXT ? $option->text : $option->value;
         }
     }
 }

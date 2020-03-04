@@ -20,6 +20,9 @@ abstract class Html
     /** @var string title attribute */
     protected $title = '';
 
+    /** @var string style attribute */
+    protected $cssStyle;
+
     /**
      * Set the id attribute of a HTMLElement.
      * @param string $id
@@ -37,9 +40,9 @@ abstract class Html
     {
         if ($this->id) {
             return $this->id;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**

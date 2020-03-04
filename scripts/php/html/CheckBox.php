@@ -30,7 +30,7 @@ class CheckBox extends Form
      */
     public function setChecked($checked = true)
     {
-        // TODO: remove method use Checkbox::checked and SelectField. setSelcted instead
+        // TODO: remove method use Checkbox::checked and SelectField. setSelected instead
         $this->checked = (bool)$checked;
     }
 
@@ -46,7 +46,7 @@ class CheckBox extends Form
 
         $strLabel = '';
         if ($this->label) {
-            $strLabel .= '<label for="'.$this->getId().'"'.$css.'>'.$this->getLabel()."</label>\n";
+            $strLabel .= '<label for="'.$this->getId().'"'.$css.'>'.$this->getLabel().'</label>';
         }
         if ($this->labelPosition === Form::LABEL_BEFORE) {
             $strHtml .= $strLabel;
@@ -57,7 +57,7 @@ class CheckBox extends Form
         if ($this->checked === true) {
             $strHtml .= ' checked="checked"';
         }
-        if ($this->disabled == true) {
+        if ($this->disabled === true) {
             $strHtml .= ' disabled="disabled"';
         }
         if ($this->tabIndex) {
@@ -67,7 +67,7 @@ class CheckBox extends Form
         if ($this->required === true) {
             $strHtml .= ' required="required"';
         }
-        $strHtml .= ">";
+        $strHtml .= '>';
         if ($this->labelPosition === Form::LABEL_AFTER) {
             $strHtml .= $strLabel;
         }

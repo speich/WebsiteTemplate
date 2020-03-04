@@ -10,10 +10,13 @@ class OptionElement
 {
     public $selected = false;
 
-    public $value = null;
+    /** @var string value attribute */
+    public $value;
 
-    public $title = null;
+    /** @var string title attribute */
+    public $title;
 
+    /** @var string text of option */
     public $text = '';
 
     /**

@@ -2,15 +2,11 @@
 
 namespace WebsiteTemplate;
 
-use stdClass;
-
-
 /**
  * Helper class which allows website to be multi language.
  */
 class Language
 {
-
     /** @var string current language code */
     private $lang = '';
 
@@ -20,11 +16,11 @@ class Language
     /** @var array maps language codes to text */
     public $arrLang = array('de' => 'Deutsch', 'fr' => 'Français', 'it' => 'Italiano', 'en' => 'English');
 
-    /** @var string namespace for session to use */
-    private $namespace = __NAMESPACE__;
+    /** @var string regular expression to match language from page naming */
+    private $pagePattern;
 
-    /** @var null|string regular expression to match language from page naming */
-    private $pagePattern = null;
+    /** @var string regular expression to match language from directory naming */
+    private $dirPattern;
 
     /**
      * Language constructor.
@@ -32,6 +28,7 @@ class Language
     public function __construct()
     {
         $this->pagePattern = '/-('.implode('|', $this->getAll()).')\.php/';
+        $this->dirPattern = '/\/('.implode('|', $this->getAll()).')\//';
     }
 
     /**
@@ -48,17 +45,9 @@ class Language
      * Returns all language codes
      * @return array
      */
-    public function getAll()
+    protected function getAll()
     {
         return array_keys($this->arrLang);
-    }
-
-    /**
-     * @return string
-     */
-    public function getNamespace()
-    {
-        return $this->namespace;
     }
 
     /**
@@ -79,7 +68,7 @@ class Language
 
         if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
             // break up string into pieces (languages and q factors)
-            preg_match_all('/([a-z]{1,8}(-[a-z]{1,8})?)\s*(;\s*q\s*=\s*(1|0\.[0-9]+))?/i',
+            preg_match_all('/([a-z]{1,8}(-[a-z]{1,8})?)\s*(;\s*q\s*=\s*(1|0\.\d+))?/i',
                 $_SERVER['HTTP_ACCEPT_LANGUAGE'], $arrLang);
 
             if (count($arrLang[1]) > 0) {
@@ -104,7 +93,7 @@ class Language
      * Return language string extracted from HTTP header.
      * @return bool|string
      */
-    public function getLangFromHeader()
+    public function fromHeader()
     {
         $arr = $this->getHeaderLanguages();
 
@@ -120,6 +109,8 @@ class Language
     }
 
     /**
+     * Sets the page pattern
+     * Regular expression pattern to get the language from the page name.
      * @param null|string $pagePattern
      */
     public function setPagePattern($pagePattern)
@@ -138,82 +129,99 @@ class Language
 
     /**
      * Sets the language code.
-     * Sets the language property either explicitly by passing it or detects it automatically either using the query string
-     * or the lanuage contained in the page url.
      * @param null|string $lang
      */
-    public function set($lang = null)
+    public function set($lang)
     {
-        // Note: do not read session or cookies to switch language here, otherwise accessing the webite
-        // directly from a link might messup languages. Use cookie or session to read language only on index page
-
-        // set explicitly, override all
-        if (isset($lang)) {
-            $this->lang = $lang;
-        } // query string ? (e.g. switch to different language)?
-        else if (isset($_GET['lang'])) {
-            $this->lang = preg_replace('/\W/', '', $_GET['lang']);
-        } // language by page url
-        else if (preg_match($this->pagePattern, $this->getPage(), $matches) === 1) {
-            // note: default language 'de' is not part ot the page url, e.g. page-de.php does not exist
-            // will be set to 'de' bewlow, e.g. using default lanuage
-            $this->lang = $matches[1];
-        } // use default language
-        else {
-            $this->lang = $this->langDefault;
-        }
-
-        // check that lang property only contains valid content
-        if (!array_key_exists($this->lang, $this->arrLang)) {
-            $this->lang = $this->langDefault;
-        }
-
-        $this->setCookie($this->lang);
+        $this->lang = $lang;
     }
 
     /**
+     * Save the language code to a cookie.
+     * @param string $lang
+     */
+    public function save($lang) {
+        $this->setCookie($lang);
+    }
+
+    /**
+     * Checks if the language is valid.
+     * Checks the language against the list of available languages, e.g. from Language::arrLang
+     * @param string $lang
+     * @return bool
+     */
+    public function isValid($lang)
+    {
+        return array_key_exists($lang, $this->arrLang);
+    }
+
+    /**
+     * Returns the default language.
      * @return string
      */
-    public function getLangDefault()
+    public function getDefault()
     {
         return $this->langDefault;
     }
 
     /**
-     * Returns the language detected from a previously set cookie or from the http header.
-     * @return string
+     * Tries to detect the language automatically.
+     * Detects the language in the following order: from the query string, from the page name, from the cookie or
+     * from the http header.
+     * @return string|false
      */
-    public function getAutoDefault()
+    public function autoDetect()
     {
-        $lang = $this->langDefault;
-
-        // if there is no previously set language, e.g. (session or cooky) use browser http header
-        $langHeader = $this->getLangFromHeader();
-
-        // cookie?
-        if (isset($_COOKIE[$this->namespace]['lang'])) {
-            $lang = $_COOKIE[$this->namespace]['lang'];
-        } // http language header
-        else if ($langHeader) {
-            $lang = $langHeader;
+        // from query string
+        if (isset($_GET['lang'])) {
+            $lang = preg_replace('/\W/', '', $_GET['lang']);
+        }
+        // from directory, e.g. /en/
+        elseif (preg_match($this->dirPattern, $_SERVER['REQUEST_URI'], $matches) === 1) {
+            $lang = $matches[1];
+        }
+        // from page name
+        elseif (preg_match($this->pagePattern, $this->getPage(), $matches) === 1) {
+            // note: default language is not part of the page name, e.g. page{-defaultLang}.php does not exist
+            $lang = $matches[1];
+        } // cookie?
+        elseif (isset($_COOKIE['lang'])) {
+            $lang = $_COOKIE['lang'];
+        } // http language header or false
+        else {
+            $lang = $this->fromHeader();
         }
 
-        return $lang;
+        return $this->isValid($lang) ? $lang : false;
     }
 
     /**
-     * Stores the lanuage in a cookie.
+     * Stores the language in a cookie.
      * @param $lang
      */
     public function setCookie($lang)
     {
         // remove subdomain www from host to prevent conflicting with cookies set in subdomain
         $domain = str_replace('www.', '.', $_SERVER['HTTP_HOST']);
-        setcookie($this->namespace.'[lang]', $lang, time() + 3600 * 24 * 365, '/', $domain, false);
+        setcookie('lang', $lang, time() + 3600 * 24 * 365, '/', $domain);
     }
 
     /**
-     * Modify a $page for language.
+     * Automatically detect and set the language.
+     * @param bool $save save to cookie?
+     * @see Language::autoDetect()
+     */
+    public function autoSet($save = true) {
+        $lang = $this->autoDetect();
+
+        $this->lang = $lang === false ? $this->getDefault() : $lang;
+        if ($save === true) {
+            $this->save($lang);
+        }
+    }
+
+    /**
+     * Modify the name of page to match the current language.
      * Inserts a minus character and the language abbreviation between page name and page extension except
      * for the default language, e.g.: mypage.php -> mypage-fr.php
      * @param string $page page only
@@ -224,16 +232,11 @@ class Language
     {
         $page = preg_replace('/\-[a-z]{2}\.(php|gif|jpg|pdf)$/', '.$1', $page);
 
-        if (is_null($lang)) {
+        if ($lang === null) {
             $lang = $this->get();
         }
 
-        if ($lang === '') {
-            $lang = $this->langDefault;
-        }
-
         if ($lang !== $this->langDefault) {
-            //$page = str_replace('.php', '-'.$lang.'.php', $page);
             $page = preg_replace('/\.(php|gif|jpg|pdf)$/', '-'.$lang.'.$1', $page);
         }
 

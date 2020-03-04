@@ -7,11 +7,10 @@ namespace WebsiteTemplate;
  */
 class Header
 {
-
     /** @var string $contentType header default MIME type set to text/html */
     private $contentType = 'text/html';
 
-    /** @var string $charset default characterset set to utf-8 */
+    /** @var string $charset default character set set to utf-8 */
     private $charset = 'utf-8';
 
     /** @var array contains additional response headers */
@@ -59,20 +58,24 @@ class Header
             $arr = explode('-', substr($_SERVER['HTTP_RANGE'], 6)); // e.g. items=0-24
 
             return array('start' => $arr[0], 'end' => $arr[1]);
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**
-     * Creates the range header string.
+     * Creates the range header.
+     * Returns an array where the first item ist the name of the range header and second the value.
+     * Note: Uses items instead of bytes as the ranges-specifier to work with dstore
      * @param array $arrRange array containing start and end
      * @param int $numRec total number of items
-     * @return string
+     * @return array
      */
     public function createRange($arrRange, $numRec)
     {
-        return 'Content-Range: items '.$arrRange['start'].'-'.$arrRange['end'].'/'.$numRec;
+        $end = $arrRange['end'] > $numRec ? $numRec : $arrRange['end'];
+
+        return array('Content-Range', 'items='.$arrRange['start'].'-'.$end.'/'.$numRec);
     }
 
     /**
@@ -94,11 +97,25 @@ class Header
 
     /**
      * Add a header to the headers array.
-     * @param {String} $header header string
+     * Note: Header with same name will be overwritten no matter its case
+     * @param $name
+     * @param $value
      */
-    public function add($header)
+    public function add($name, $value)
     {
-        array_push($this->headers, $header);
+        // ARRAY_FILTER_USE_KEY is only available in php5.6+
+        /*
+        $this->headers = array_filter($this->headers, function ($key, $name) {
+            return strtolower($key) !== strtolower($name);
+        }, ARRAY_FILTER_USE_KEY);
+        */
+        $keys = array_keys($this->headers);
+        for ($i = 0, $iMax = count($this->headers); $i < $iMax; $i++) {
+            if (strtolower($keys[$i]) === strtolower($name)) {
+                unset($this->headers[$keys[$i]]);
+            }
+        }
+        $this->headers[$name] = $value;
     }
 
     /**
@@ -109,9 +126,9 @@ class Header
      */
     public function addDownload($fileName, $fileExtension)
     {
-        $this->add('Expires: 0');
-        $this->add('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-        $this->add('Content-Disposition: attachment; filename="'.$fileName.'.'.$fileExtension.'"');
+        $this->add('Expires', 0);
+        $this->add('Cache-Control', 'must-revalidate, post-check=0, pre-check=0');
+        $this->add('Content-Disposition', 'attachment; filename="'.$fileName.'.'.$fileExtension.'"');
     }
 
     /**
@@ -121,5 +138,24 @@ class Header
     public function get()
     {
         return $this->headers;
+    }
+
+    /**
+     * Enable CORS for the passed origins.
+     * Adds the Access-Control-Allow-Origin header to the response with the origin that matched the one in the request.
+     * @param array $origins
+     * @return string|null returns the matched origin or null
+     */
+    public function allowOrigins($origins)
+    {
+        $val = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : null;
+        if (in_array($val, $origins, true)) {
+            $this->add('Access-Control-Allow-Origin', $val);
+            $this->add('Vary', 'Origin');
+
+            return $val;
+        }
+
+        return null;
     }
 }

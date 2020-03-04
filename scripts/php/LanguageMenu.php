@@ -9,28 +9,25 @@ namespace WebsiteTemplate;
 class LanguageMenu
 {
     /** @var string id attribute of HTMLUListElement */
-	public $ulId = 'navLang';
+	public $cssId;
 
 	/** @var string class attribute of HTMLUListElement */
-	public $ulClass = 'nav';
+	public $cssClass = 'nav';
 
 	/** @var string class attribute of HTMLLIElement */
 	public $liClassActive = 'navActive';
-
-	/** @var string character to display between language labels */
-	public $delimiter = '';
 
 	/** @var string url to redirect to if page does not exists in that language */
 	public $redirect;
 
 	/** @var Website */
-    private $web;
+    protected $web;
 
     /** @var bool link text based on label instead of lang */
     public $useLabel = false;
 
     /** @var Language */
-    private $lang;
+    protected $lang;
 
     /** @var array keys that are allowed in the query string */
     private $whitelist = array();
@@ -59,16 +56,15 @@ class LanguageMenu
      * Returns a HTML string with links to the current page in all available languages.
      * Method checks if the page exist for each language. If it doesn't, the link will point to a language switcher page,
      * which is referenced with the property LanguageMenu::redirect
-     * @param Website $web
      * @return string html
      */
     public function render()
     {
         $language = $this->lang;
         $query = new QueryString($this->whitelist);
-        $count = 0;
         $str = '';
-        $str .= '<ul id="'.$this->ulId.'" class="'.$this->ulClass.'">';
+        $cssId = $this->cssId === null ? '' : ' id="'.$this->cssId.'"';
+        $str .= '<ul'.$cssId.' class="'.$this->cssClass.'">';
         foreach ($language->arrLang as $lang => $label) {
             $page = $this->lang->createPage($this->web->page, $lang);
             $path = $this->web->getDir();
@@ -82,12 +78,8 @@ class LanguageMenu
                 $str .= '<li class="'.$this->liClassActive.'">'.$text.'</li>';
             }
             else {
-                $str .= '<li><a href="'.$url.'" title="'.$label.'">'.$text.'</a></li>';
+                $str .= '<li><a href="'.htmlspecialchars($url).'" title="'.$label.'">'.$text.'</a></li>';
             }
-            if ($this->delimiter != '' && $count < count($language->arrLang)) {
-                $str .= '<li>'.$this->delimiter.'</li>';
-            }
-            $count++;
         }
         $str .= '</ul>';
 

@@ -53,7 +53,7 @@ define(function() {
 		 */
 		getPlaces: function(num) {
 			var integ, obj, len, str, ch, count = 0;
-			
+
 			obj = {
 				places: 0,
 				decimals: 0,
@@ -62,9 +62,9 @@ define(function() {
 
 			num = Number(num);
 
-			integ = num > 0 ? Math.floor(num) : Math.ceil(num);
+			integ = num > 0 ? Math.floor(num): Math.ceil(num);
 			len = Math.abs(integ).toString().length; // use absolute to deal with negative numbers
-			obj.places = integ === 0 ? 0 : len;
+			obj.places = integ === 0 ? 0: len;
 
 			if (num === integ) {  // no decimal places
 				obj.decimals = 0;
