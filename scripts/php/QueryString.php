@@ -40,7 +40,7 @@ class QueryString
      */
     private function intersect($queries, $whitelist) {
         // can't use array_intersect_keys() would remove duplicate keys, which are perfectly fine in a query string
-        $arr = array();
+        $arr = [];
         foreach ($whitelist as $key) {
             if (array_key_exists($key, $queries)) {
                 $arr[$key] = $queries[$key];
@@ -67,7 +67,7 @@ class QueryString
     public function remove($arr = null)
     {
         if ($arr === null) {
-            $this->queryVars = array();
+            $this->queryVars = [];
         }
         else {
             $keys = array_fill_keys($arr, null);

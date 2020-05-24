@@ -15,7 +15,7 @@ abstract class Html
     protected $id = false;
 
     /** @var array html class attribute */
-    private $cssClass = array();
+    private $cssClass = [];
 
     /** @var string title attribute */
     protected $title = '';

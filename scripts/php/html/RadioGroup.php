@@ -18,7 +18,7 @@ class RadioGroup extends Form
     public $cssClassVertical = 'layout-vertical';
 
     /** @var RadioButton[] */
-    public $radios = array();
+    public $radios = [];
 
     /**
      * RadioGroup constructor.

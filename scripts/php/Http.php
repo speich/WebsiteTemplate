@@ -17,9 +17,9 @@ class Http
     {
         // code by bsdnoobz http://stackoverflow.com/users/1396314/bsdnoobz
         $lines = explode("\r\n", $str);
-        $head = array(array_shift($lines));
+        $head = [array_shift($lines)];
         foreach ($lines as $line) {
-            list($key, $val) = explode(':', $line, 2);
+            [$key, $val] = explode(':', $line, 2);
             if ($key === 'Set-Cookie') {
                 $head['Set-Cookie'][] = trim($val);
             } else {
@@ -57,9 +57,9 @@ class Http
     {
         $pos = strpos($str, "\r\n\r\n");
 
-        return array(
+        return [
             'header' => substr($str, 0, $pos),
             'body' => substr($str, $pos + 2),
-        );
+        ];
     }
 }

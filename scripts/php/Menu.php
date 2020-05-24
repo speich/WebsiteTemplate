@@ -27,7 +27,7 @@ class Menu
      * Holds array of menu items.
      * @var MenuItem[] menu items
      */
-    public $arrItem = array();
+    public $arrItem = [];
 
     /** @var string $charset character set to use when creating and encoding html */
     public $charset = 'utf-8';
@@ -129,7 +129,7 @@ class Menu
             // note: array_splice would reindex keys
             $arrBefore = array_slice($this->arrItem, 0, $i, $preserve_keys = true);
             $arrAfter = array_slice($this->arrItem, $i, null, $preserve_keys = true);
-            $this->arrItem = $arrBefore + array($newItem) + $arrAfter;
+            $this->arrItem = $arrBefore + [$newItem] + $arrAfter;
         }
     }
 
@@ -251,7 +251,7 @@ class Menu
      */
     public function getActive()
     {
-        $arrActive = array();
+        $arrActive = [];
         foreach ($this->arrItem as $item) {
             if ($item->getActive()) {
                 $arrActive[] = $item->id;

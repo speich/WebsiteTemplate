@@ -27,7 +27,7 @@ class SelectField extends Form
     const RENDER_OPTION_ONLY = 2;
 
     /** @var OptionElement[] array holding option elements */
-    public $arrOption = array();
+    public $arrOption = [];
 
     /** @var bool multiple attribute */
     private $multiple = false;
@@ -37,7 +37,7 @@ class SelectField extends Form
     private $size = 1;
 
     /** @var array contains the selected text and values */
-    private $selectedOptions = array();
+    private $selectedOptions = [];
 
     /** @var string text of first option */
     private $defaultText = 'Bitte auswählen';
@@ -128,7 +128,7 @@ class SelectField extends Form
     {
         $deselect = $val === false || $val === null;
         if ($deselect) {
-            $this->selectedOptions = array();
+            $this->selectedOptions = [];
         }
 
         foreach ($this->arrOption as $option) {

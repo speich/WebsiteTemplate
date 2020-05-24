@@ -29,7 +29,7 @@ class PagedNav
     public $queryVarName = 'pg';
 
     /** @var array keys that are allowed in the query string */
-    private $whitelist = array();
+    private $whitelist = [];
 
     /** @var int small forward-backward link, e.g. [-10] [+10] */
     public $stepSmall = 10;
@@ -41,40 +41,40 @@ class PagedNav
     public $cssClass = 'pgNav';
 
     /** @var array translations for internationalization */
-    public $i18n = array(
-        'de' => array(
+    public $i18n = [
+        'de' => [
             'entries' => 'Einträge',
             'entry' => 'Eintrag',
             'pages' => 'Seiten',
             'page' => 'Seite',
             'search result' => 'Suchergebnis',
             'on' => 'auf',
-        ),
-        'fr' => array(
+        ],
+        'fr' => [
             'entries' => 'inscriptions',
             'entry' => 'inscription',
             'pages' => 'pages',
             'page' => 'page',
             'search result' => 'Résultat de la recherche',
             'on' => '',
-        ),
-        'it' => array(
+        ],
+        'it' => [
             'entries' => 'iscrizioni',
             'entry' => 'inscriptione',
             'pages' => 'pagine',
             'page' => 'pagina',
             'search result' => 'Risultato della ricerca',
             'on' => '',
-        ),
-        'en' => array(
+        ],
+        'en' => [
             'entries' => 'entries',
             'entry' => 'entry',
             'pages' => 'pages',
             'page' => 'page',
             'search result' => 'search result',
             'on' => 'on',
-        ),
-    );
+        ],
+    ];
 
     /** @var string Language */
     public $lang = 'en';
@@ -225,7 +225,7 @@ class PagedNav
         // link jump back small
         if ($lb > $this->numLinks / 2) {
             // reuse existing query string in navigation links
-            $queryStr = $query->withString(array($this->queryVarName => $curPage - $this->stepSmall));
+            $queryStr = $query->withString([$this->queryVarName => $curPage - $this->stepSmall]);
             $str .= '<span class="pageStepSmall prevPages"><a href="'.$web->page.$queryStr.'">';
             $str .= '[-'.$this->stepSmall.']';
             $str .= '</a></span>';
@@ -237,7 +237,7 @@ class PagedNav
                     $str .= '<span class="curPage">';
                 } else {
                     $str .= '<span class="page">';
-                    $queryStr = $query->withString(array($this->queryVarName => $lb));
+                    $queryStr = $query->withString([$this->queryVarName => $lb]);
                     $str .= '<a href="'.$web->page.$queryStr.'">';
                 }
                 $str .= $lb;
@@ -250,7 +250,7 @@ class PagedNav
         // link jump forward small
         if ($ub <= $this->numPages - $this->numLinks / 2) {
             // reuse query string
-            $queryStr = $query->withString(array($this->queryVarName => $curPage + $this->stepSmall));
+            $queryStr = $query->withString([$this->queryVarName => $curPage + $this->stepSmall]);
             $str .= '<span class="pageStepSmall nextPages"><a href="'.$web->page.$queryStr.'">';
             $str .= '[+'.$this->stepSmall.']';
             $str .= '</a></span>';

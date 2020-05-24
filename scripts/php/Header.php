@@ -57,7 +57,7 @@ class Header
         if (isset($_SERVER['HTTP_RANGE'])) {
             $arr = explode('-', substr($_SERVER['HTTP_RANGE'], 6)); // e.g. items=0-24
 
-            return array('start' => $arr[0], 'end' => $arr[1]);
+            return ['start' => $arr[0], 'end' => $arr[1]];
         }
 
         return null;

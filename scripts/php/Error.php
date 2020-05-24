@@ -20,7 +20,7 @@ class Error
      * Stores error messages.
      * @var array $arrErr
      */
-    private $arrErr = array();
+    private $arrErr = [];
 
     /**
      * Constructs the error reporting class by setting the native set_error_handler function.
@@ -30,7 +30,7 @@ class Error
     {
         // set_error_handler() does not catch fatal errors such as exceeding the allowed memory size
         // -> use register_shutdown_function() in addition
-        set_error_handler(array($this, 'set'), E_ALL);
+        set_error_handler([$this, 'set'], E_ALL);
     }
 
     /**
@@ -43,7 +43,7 @@ class Error
      */
     public function set($errNo, $errMsg, $errFile = '', $errLine = 0)
     {
-        $this->arrErr[] = array('code' => $errNo, 'msg' => $errMsg, 'file' => $errFile, 'line' => $errLine);
+        $this->arrErr[] = ['code' => $errNo, 'msg' => $errMsg, 'file' => $errFile, 'line' => $errLine];
     }
 
     /**
@@ -60,7 +60,7 @@ class Error
      */
     public function reset()
     {
-        $this->arrErr = array();
+        $this->arrErr = [];
     }
 
     /**
@@ -77,7 +77,7 @@ class Error
             if ($err['line'] > 0) {
                 $msg .= ' in '.$err['file'].' on line '.$err['line'];
             }
-            $json .= json_encode(array('msg' => $msg));
+            $json .= json_encode(['msg' => $msg]);
             if ($key < count($errs) - 1) {
                 $json .= ',';
             }

@@ -15,7 +15,7 @@ date_default_timezone_set('Europe/Zurich');
 $language = new Language();
 $language->autoDetect();
 
-$domains = array('websitetemplate');
+$domains = ['websitetemplate'];
 $web = new Website($domains);
 $web->setLastUpdate('07.02.2019');
 $web->pageTitle = 'Website Template';

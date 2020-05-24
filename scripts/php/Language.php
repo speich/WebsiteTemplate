@@ -14,7 +14,7 @@ class Language
 	private $langDefault = 'de';
 
 	/** @var array maps language codes to text */
-	public $arrLang = array('de' => 'Deutsch', 'fr' => 'Français', 'it' => 'Italiano', 'en' => 'English');
+	public $arrLang = ['de' => 'Deutsch', 'fr' => 'Français', 'it' => 'Italiano', 'en' => 'English'];
 
 	/** @var string regular expression to match language from page naming */
 	private $pagePattern;
@@ -64,7 +64,7 @@ class Language
 	 */
 	public function getHeaderLanguages()
 	{
-		$arr = array();
+		$arr = [];
 
 		if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
 			// break up string into pieces (languages and q factors)
