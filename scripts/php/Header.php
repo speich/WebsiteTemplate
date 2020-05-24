@@ -14,17 +14,17 @@ class Header
     private $charset = 'utf-8';
 
     /** @var array contains additional response headers */
-    private $headers = array();
+    private $headers = [];
 
     /** @var array $contentTypes MIME types lookup */
-    private $contentTypes = array(
+    private $contentTypes = [
         'text' => 'text/plain',
         'csv' => 'text/csv',
         'json' => 'application/json',
         'pdf' => 'application/pdf',
         'html' => 'text/html',
         'svg' => 'image/svg+xml',
-    );
+    ];
 
     /**
      * Set the MIME type of the header.
@@ -75,7 +75,7 @@ class Header
     {
         $end = $arrRange['end'] > $numRec ? $numRec : $arrRange['end'];
 
-        return array('Content-Range', 'items='.$arrRange['start'].'-'.$end.'/'.$numRec);
+        return ['Content-Range', 'items='.$arrRange['start'].'-'.$end.'/'.$numRec];
     }
 
     /**
