@@ -173,8 +173,15 @@ class Website
     public function setLastPage($url = null)
     {
         $url = $url === null ? $_SERVER['REQUEST_URI'] : $url;
-        setcookie('backPage', $url, 0, '/', $_SERVER['HTTP_HOST']);
-
+        $options = [
+            'expires' => 0,
+            'path' => '/',
+            'domain' => str_replace('www.', '.', $_SERVER['HTTP_HOST']),
+            'secure' => false,
+            'httponly' => true,
+            'samesite' => 'Strict'
+        ];
+        setcookie('backPage', $url, $options);
     }
 
     /**
@@ -192,7 +199,15 @@ class Website
     public function resetLastPage()
     {
         unset($_COOKIE['backPage']);
-        setcookie('backPage', '', 0, '/', $_SERVER['HTTP_HOST']);
+        $options = [
+            'expires' => 0,
+            'path' => '/',
+            'domain' => str_replace('www.', '.', $_SERVER['HTTP_HOST']),
+            'secure' => false,
+            'httponly' => true,
+            'samesite' => 'Strict'
+        ];
+        setcookie('backPage', '', $options);
     }
 
     /**
