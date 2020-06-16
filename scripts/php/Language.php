@@ -36,8 +36,8 @@ class Language
 	 * Gets the language short code by order of precedence of query string, session, cookie or http header.
 	 * @return string
 	 */
-	public function get()
-	{
+	public function get(): string
+    {
 		return $this->lang;
 	}
 
@@ -45,8 +45,8 @@ class Language
 	 * Returns all language codes
 	 * @return array
 	 */
-	protected function getAll()
-	{
+	public function getAll(): array
+    {
 		return array_keys($this->arrLang);
 	}
 
@@ -62,8 +62,8 @@ class Language
 	 * @see http://www.thefutureoftheweb.com/blog/use-accept-language-header
 	 * @return array
 	 */
-	public function getHeaderLanguages()
-	{
+	public function getHeaderLanguages(): array
+    {
 		$arr = [];
 
 		if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
@@ -113,8 +113,8 @@ class Language
 	 * Regular expression pattern to get the language from the page name.
 	 * @param null|string $pagePattern
 	 */
-	public function setPagePattern($pagePattern)
-	{
+	public function setPagePattern($pagePattern): void
+    {
 		$this->pagePattern = $pagePattern;
 	}
 
@@ -122,8 +122,8 @@ class Language
 	 * Returns the page (filename) of the current url
 	 * @return string
 	 */
-	public function getPage()
-	{
+	public function getPage(): string
+    {
 		return pathinfo($_SERVER['REQUEST_URI'], PATHINFO_BASENAME);
 	}
 
@@ -131,8 +131,8 @@ class Language
 	 * Sets the language code.
 	 * @param null|string $lang
 	 */
-	public function set($lang)
-	{
+	public function set($lang): void
+    {
 		$this->lang = $lang;
 	}
 
@@ -140,8 +140,8 @@ class Language
 	 * Save the language code to a cookie.
 	 * @param string $lang
 	 */
-	public function save($lang)
-	{
+	public function save($lang): void
+    {
 		$this->setCookie($lang);
 	}
 
@@ -151,8 +151,8 @@ class Language
 	 * @param string $lang
 	 * @return bool
 	 */
-	public function isValid($lang)
-	{
+	public function isValid($lang): bool
+    {
 		return array_key_exists($lang, $this->arrLang);
 	}
 
@@ -160,8 +160,8 @@ class Language
 	 * Returns the default language.
 	 * @return string
 	 */
-	public function getDefault()
-	{
+	public function getDefault(): string
+    {
 		return $this->langDefault;
 	}
 
@@ -198,8 +198,8 @@ class Language
 	 * Stores the language in a cookie.
 	 * @param $lang
 	 */
-	public function setCookie($lang)
-	{
+	public function setCookie($lang): void
+    {
 		// remove subdomain www from host to prevent conflicting with cookies set in subdomain
 		$options = [
 			'expires' => time() + 3600 * 24 * 365,
@@ -217,8 +217,8 @@ class Language
 	 * @param bool $save save to cookie?
 	 * @see Language::autoDetect()
 	 */
-	public function autoSet($save = true)
-	{
+	public function autoSet($save = true): void
+    {
 		$lang = $this->autoDetect();
 
 		$this->lang = $lang === false ? $this->getDefault() : $lang;
@@ -235,8 +235,8 @@ class Language
 	 * @param string|null $lang
 	 * @return string
 	 */
-	public function createPage($page, $lang = null)
-	{
+	public function createPage($page, $lang = null): string
+    {
 		$page = preg_replace('/\-[a-z]{2}\.(php|gif|jpg|pdf)$/', '.$1', $page);
 
 		if ($lang === null) {
