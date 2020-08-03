@@ -28,24 +28,24 @@ class RadioButton extends Form
      * Set the checked attribute to checked.
      * @param bool $checked
      */
-    public function setChecked($checked = true)
+    public function setChecked(?bool $checked = null): void
     {
         // TODO: remove method use Checkbox::checked and SelectField. setSelected instead
-        $this->checked = (bool)$checked;
+        $this->checked = $checked ?? true;;
     }
 
     /**
      * Print out the HTML radio button.
      * @return string Html
      */
-    public function render()
+    public function render(): string
     {
         $strHtml = '';
         $css = $this->renderCssClass();
 
         $strLabel = '';
         if ($this->label) {
-            $strLabel .= '<label for="'.$this->getId().'"'.$css.'>'.$this->getLabel().'</label>';
+            $strLabel .= '<label for="'.$this->getId().'" '.$css.'>'.$this->getLabel().'</label>';
         }
         if ($this->labelPosition === Form::LABEL_BEFORE) {
             $strHtml .= $strLabel;

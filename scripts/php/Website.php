@@ -59,7 +59,7 @@ class Website
     public function __construct($domains)
     {
         $this->domains = $domains;
-        if (in_array($_SERVER['HTTP_HOST'], $this->domains, true)) {
+        if (\in_array($_SERVER['HTTP_HOST'], $this->domains, true)) {
             $this->host = $_SERVER['HTTP_HOST'];
         }
         $arrUrl = parse_url($this->getProtocol().$this->host.$_SERVER['REQUEST_URI']);
@@ -75,7 +75,7 @@ class Website
     /**
      * Returns the date of the last update.
      * Returns the date either as a DateTime instance or a string formatted according to
-     * @param string $format
+     * @param ?string $format
      * @return DateTime|string
      */
     public function getLastUpdate($format = null)
@@ -92,8 +92,7 @@ class Website
     {
         try {
             self::$lastUpdate = new DateTime($lastUpdate);
-        }
-        catch (Exception $err) {
+        } catch (Exception $err) {
             self::$lastUpdate = null;
         }
     }
@@ -155,7 +154,7 @@ class Website
     /**
      * Implements a ping to check if a host is available.
      * @param string $host
-     * @param integer $port
+     * @param ?int $port
      * @return bool
      */
     public function checkHost($host, $port = null): bool
@@ -168,7 +167,7 @@ class Website
     /**
      * Save current url to a session variable.
      * If argument $url is provided it is used instead of current url.
-     * @param string $url
+     * @param ?string $url
      */
     public function setLastPage($url = null): void
     {
@@ -217,10 +216,11 @@ class Website
      * @param bool $full return additional characters ?
      * @return string
      */
-    public function getProtocol($full = true): string
+    public function getProtocol(?bool $full = null): string
     {
-        $this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (int)$_SERVER['SERVER_PORT'] === 443 ? 'https' : 'http';
+        $this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
+            (int)$_SERVER['SERVER_PORT'] === 443 ? 'https' : 'http';
 
-        return $full ? $this->protocol.'://' : $this->protocol;
+        return $full === true ? $this->protocol.'://' : $this->protocol;
     }
 }

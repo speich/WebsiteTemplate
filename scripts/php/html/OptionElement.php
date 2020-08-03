@@ -23,7 +23,7 @@ class OptionElement
      * Render HTML option element.
      * @return string HTML
      */
-    public function render()
+    public function render(): string
     {
         $value = $this->value === null ? '' : ' value="'.$this->value.'"';
         $sel = $this->selected ? ' selected="selected"' : '';

@@ -36,7 +36,7 @@ class DivList extends Html
      * Label the list of div elements.
      * @param string $label
      */
-    public function setLabel($label)
+    public function setLabel($label): void
     {
         $this->labelName = $label;
         $this->label = true;
@@ -46,7 +46,7 @@ class DivList extends Html
      * Print the HTML list of div elements.
      * @return string Html
      */
-    public function render()
+    public function render(): string
     {
         $strHtml = '<div id="'.$this->getId().'"'.$this->renderCssClass().'>';
         if ($this->label) {
