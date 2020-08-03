@@ -27,7 +27,7 @@ abstract class Html
      * Set the id attribute of a HTMLElement.
      * @param string $id
      */
-    public function setId($id)
+    public function setId($id): void
     {
         $this->id = $id;
     }
@@ -46,14 +46,13 @@ abstract class Html
     }
 
     /**
-     * Set the class attribute of a HTMLElement.
-     * Note: Always overwrites existing classes.
-     * TODO: allow to append
-     * @param string $class
+     * Add one or severall css classes.
+     * Adds one or more classes to the css attribute. Existing classes with the same name are overwritten.
+     * @param string ...$name
      */
-    public function setCssClass($class)
+    public function addCssClass(...$name): void
     {
-        $this->cssClass = array_unique(array_merge($this->cssClass, (array)$class));
+        $this->cssClass = array_unique(array_merge($this->cssClass, $name));
     }
 
     /**
@@ -61,7 +60,7 @@ abstract class Html
      * Returns the
      * @return string html class attribute string
      */
-    public function renderCssClass()
+    public function renderCssClass(): string
     {
         $str = implode(' ', $this->cssClass);
 
@@ -72,7 +71,7 @@ abstract class Html
      * Set the style attribute of a HTMLElement.
      * @param string $style
      */
-    public function setCssStyle($style)
+    public function setCssStyle($style): void
     {
         $this->cssStyle = $style;
     }
@@ -81,7 +80,7 @@ abstract class Html
      * Get the title attribute.
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -90,9 +89,8 @@ abstract class Html
      * Set the title attribute
      * @param string $title
      */
-    public function setTitle($title)
+    public function setTitle($title): void
     {
         $this->title = $title;
     }
-
 }
