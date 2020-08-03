@@ -48,7 +48,8 @@ class LanguageMenu
      * Set the allowed keys in the query string.
      * @param array $whitelist
      */
-    public function setWhitelist($whitelist) {
+    public function setWhitelist($whitelist): void
+    {
         $this->whitelist = $whitelist;
     }
 
@@ -58,7 +59,7 @@ class LanguageMenu
      * which is referenced with the property LanguageMenu::redirect
      * @return string html
      */
-    public function render()
+    public function render(): string
     {
         $language = $this->lang;
         $query = new QueryString($this->whitelist);

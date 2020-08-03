@@ -46,7 +46,7 @@ class MenuItem
      * @param integer|string $id unique id
      * @param integer|string $parentId id of parent item
      * @param string $linkTxt link text
-     * @param string [$linkUrl] link url
+     * @param ?string [$linkUrl] link url
      */
     public function __construct($id, $parentId, $linkTxt, $linkUrl = null)
     {
@@ -57,7 +57,7 @@ class MenuItem
     }
 
     /** Get item property if children will be rendered */
-    public function getChildToBeRendered()
+    public function getChildToBeRendered(): bool
     {
         return $this->childToBeRendered;
     }
@@ -66,7 +66,7 @@ class MenuItem
      * Set item property if children will be rendered.
      * @param bool [$ChildToBeRendered]
      */
-    public function setChildToBeRendered($childrenToBeRendered = true)
+    public function setChildToBeRendered($childrenToBeRendered = true): void
     {
         $this->childToBeRendered = $childrenToBeRendered;
     }
@@ -75,7 +75,7 @@ class MenuItem
      * Set item to be active.
      * @param bool [$active]
      */
-    public function setActive($active = true)
+    public function setActive($active = true): void
     {
         $this->active = $active;
     }
@@ -84,7 +84,7 @@ class MenuItem
      * Get item active status.
      * @return bool
      */
-    public function getActive()
+    public function getActive(): bool
     {
         return $this->active;
     }
@@ -92,7 +92,7 @@ class MenuItem
     /**
      * @param boolean $hasActiveChild
      */
-    public function setHasActiveChild($hasActiveChild)
+    public function setHasActiveChild($hasActiveChild): void
     {
         $this->hasActiveChild = $hasActiveChild;
     }
@@ -100,7 +100,7 @@ class MenuItem
     /**
      * @return boolean
      */
-    public function getHasActiveChild()
+    public function getHasActiveChild(): bool
     {
         return $this->hasActiveChild;
     }
@@ -110,7 +110,7 @@ class MenuItem
      * Allows to have multiple CSS classes per item.
      * @param string $name CSS class name
      */
-    public function addCssClass($name)
+    public function addCssClass($name): void
     {
         if ($this->cssClass !== null) {
             $this->cssClass .= ' ';    // multiple classes have to be separated by a space
@@ -122,7 +122,7 @@ class MenuItem
      * Returns the css class string
      * @return string
      */
-    public function getCssClass()
+    public function getCssClass(): string
     {
         return $this->cssClass;
     }
@@ -131,7 +131,7 @@ class MenuItem
      * Sets the css class string.
      * @param null|string $cssClass
      */
-    public function setCssClass($cssClass)
+    public function setCssClass($cssClass): void
     {
         $this->cssClass = $cssClass;
     }

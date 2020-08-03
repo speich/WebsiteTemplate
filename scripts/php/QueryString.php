@@ -38,7 +38,8 @@ class QueryString
      * @param array $whitelist keys to be allowed
      * @return array
      */
-    private function intersect($queries, $whitelist) {
+    private function intersect($queries, $whitelist): array
+    {
         // can't use array_intersect_keys() would remove duplicate keys, which are perfectly fine in a query string
         $arr = [];
         foreach ($whitelist as $key) {
@@ -55,7 +56,7 @@ class QueryString
      * $vars is expected to be a associative array with key values.
      * @param array $vars
      */
-    public function add($vars)
+    public function add($vars): void
     {
         $this->queryVars = array_merge($this->queryVars, $vars);
     }
@@ -64,7 +65,7 @@ class QueryString
      * Remove variables from the internal query string.
      * @param null $arr
      */
-    public function remove($arr = null)
+    public function remove($arr = null): void
     {
         if ($arr === null) {
             $this->queryVars = [];
@@ -79,7 +80,7 @@ class QueryString
      * Returns an array with the whitelisted query variables
      * @return array
      */
-    public function get()
+    public function get(): array
     {
         return $this->queryVars;
     }
@@ -90,7 +91,8 @@ class QueryString
      * @param int $encType
      * @return string
      */
-    public function getString($encType = PHP_QUERY_RFC1738) {
+    public function getString($encType = PHP_QUERY_RFC1738): string
+    {
         $str = http_build_query($this->queryVars, $encType);
 
         return $str === '' ? '' : '?'.$str;
@@ -108,7 +110,7 @@ class QueryString
      * @param null|array $arrRemove keys to remove
      * @return array
      */
-    public function with($arrAdd = null, $arrRemove = null)
+    public function with($arrAdd = null, $arrRemove = null): array
     {
         $vars = $this->queryVars;
         if ($arrAdd !== null) {
@@ -136,7 +138,8 @@ class QueryString
      * @param int $encType
      * @return string
      */
-    public function withString($arrInc = null, $arrExl = null, $encType = PHP_QUERY_RFC1738) {
+    public function withString($arrInc = null, $arrExl = null, $encType = PHP_QUERY_RFC1738): string
+    {
         $str = http_build_query($this->with($arrInc, $arrExl), $encType);
 
         return $str === '' ? '' : '?'.$str;

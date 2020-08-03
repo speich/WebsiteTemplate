@@ -63,7 +63,7 @@ class Website
             $this->host = $_SERVER['HTTP_HOST'];
         }
         $arrUrl = parse_url($this->getProtocol().$this->host.$_SERVER['REQUEST_URI']);
-        $this->query = isset($arrUrl['query']) ? $arrUrl['query'] : '';
+        $this->query = $arrUrl['query'] ?? '';
         if (isset($arrUrl['path'])) {
             $this->path = $arrUrl['path'];
             $arrPath = pathinfo($this->path);
@@ -88,7 +88,7 @@ class Website
      * A date/time string. Valid formats are explained in https://www.php.net/manual/en/datetime.formats.php
      * @param string $lastUpdate
      */
-    public function setLastUpdate($lastUpdate)
+    public function setLastUpdate($lastUpdate): void
     {
         try {
             self::$lastUpdate = new DateTime($lastUpdate);
@@ -102,7 +102,7 @@ class Website
      * Returns the host
      * @return string
      */
-    public function getHost()
+    public function getHost(): string
     {
         return $this->host;
     }
@@ -111,7 +111,7 @@ class Website
      * List of domain names the website runs on
      * @param array $domains
      */
-    public function setDomains($domains)
+    public function setDomains($domains): void
     {
         $this->domains = $domains;
     }
@@ -120,7 +120,7 @@ class Website
      * Returns the document root always with a trailing slash.
      * @return string
      */
-    public function getDocRoot()
+    public function getDocRoot(): string
     {
         return rtrim($_SERVER['DOCUMENT_ROOT'], DIRECTORY_SEPARATOR).'/';
     }
@@ -129,7 +129,7 @@ class Website
      * Returns the web root always with a trailing slash.
      * @return string
      */
-    public function getWebRoot()
+    public function getWebRoot(): string
     {
         return rtrim($this->webroot, '/').'/';
     }
@@ -138,7 +138,7 @@ class Website
      * Set the web root.
      * @param string $webroot
      */
-    public function setWebroot($webroot)
+    public function setWebroot($webroot): void
     {
         $this->webroot = $webroot;
     }
@@ -147,7 +147,7 @@ class Website
      * Returns the path always with trailing slash.
      * @return string
      */
-    public function getDir()
+    public function getDir(): string
     {
         return $this->dir;
     }
@@ -158,7 +158,7 @@ class Website
      * @param integer $port
      * @return bool
      */
-    public function checkHost($host, $port = null)
+    public function checkHost($host, $port = null): bool
     {
         $fp = @fsockopen($host, $port, $errNo, $errStr, 2);
 
@@ -170,9 +170,9 @@ class Website
      * If argument $url is provided it is used instead of current url.
      * @param string $url
      */
-    public function setLastPage($url = null)
+    public function setLastPage($url = null): void
     {
-        $url = $url === null ? $_SERVER['REQUEST_URI'] : $url;
+        $url = $url ?? $_SERVER['REQUEST_URI'];
         $options = [
             'expires' => 0,
             'path' => '/',
@@ -188,15 +188,15 @@ class Website
      * Returns the page to go back to.
      * @return null|string
      */
-    public function getLastPage()
+    public function getLastPage(): ?string
     {
-        return isset($_COOKIE['backPage']) ? $_COOKIE['backPage'] : null;
+        return $_COOKIE['backPage'] ?? null;
     }
 
     /**
      * Resets the saved url.
      */
-    public function resetLastPage()
+    public function resetLastPage(): void
     {
         unset($_COOKIE['backPage']);
         $options = [
@@ -217,7 +217,7 @@ class Website
      * @param bool $full return additional characters ?
      * @return string
      */
-    public function getProtocol($full = true)
+    public function getProtocol($full = true): string
     {
         $this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (int)$_SERVER['SERVER_PORT'] === 443 ? 'https' : 'http';
 

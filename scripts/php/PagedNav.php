@@ -84,9 +84,9 @@ class PagedNav
 
     /**
      * Construct instance of PageNav.
-     * @param int $numRec total number of records
-     * @param int $numRecPerPage number of records on a page
-     * @param int|null $numLinks number of links to display in navigation
+     * @param ?int $numRec total number of records
+     * @param ?int $numRecPerPage number of records on a page
+     * @param ?int $numLinks number of links to display in navigation
      */
     public function __construct($numRec = null, $numRecPerPage = null, $numLinks = null)
     {
@@ -105,7 +105,8 @@ class PagedNav
      * Set the allowed keys in the query string.
      * @param array $whitelist
      */
-    public function setWhitelist($whitelist) {
+    public function setWhitelist($whitelist): void
+    {
         $this->whitelist = $whitelist;
     }
 
@@ -113,7 +114,7 @@ class PagedNav
      * Set total number of records
      * @param int $numRec number of records
      */
-    public function setNumRec($numRec)
+    public function setNumRec($numRec): void
     {
         $this->numRec = $numRec;
         $this->updateNumPages();
@@ -123,7 +124,7 @@ class PagedNav
      * Set number of records to display per page.
      * @param int $numRecPerPage
      */
-    public function setNumRecPerPage($numRecPerPage)
+    public function setNumRecPerPage($numRecPerPage): void
     {
         $this->numRecPerPage = $numRecPerPage;
         if (isset($this->numRec)) {
@@ -135,7 +136,7 @@ class PagedNav
      * Update the number of pages.
      * Sets the total number of pages based on total number of records and number of records per page.
      */
-    private function updateNumPages()
+    private function updateNumPages(): void
     {
         $this->numPages = ceil($this->numRec / $this->numRecPerPage);
     }
@@ -144,7 +145,7 @@ class PagedNav
      * Get the total number of records
      * @return int
      */
-    public function getNumRec()
+    public function getNumRec(): int
     {
         return $this->numRec;
     }
@@ -152,7 +153,7 @@ class PagedNav
     /**
      * @return int
      */
-    public function getNumRecPerPage()
+    public function getNumRecPerPage(): int
     {
         return $this->numRecPerPage;
     }
@@ -162,7 +163,7 @@ class PagedNav
      * @param int $curPage current page number
      * @return int
      */
-    public function getLowerBoundary($curPage)
+    public function getLowerBoundary($curPage): int
     {
         // special case when less pages than range (=numRecPerPage)
         if ($this->numPages <= $this->numLinks || $curPage <= floor($this->numLinks / 2)) {
@@ -179,7 +180,7 @@ class PagedNav
      * @param int $curPage current page number
      * @return int
      */
-    public function getUpperBoundary($curPage)
+    public function getUpperBoundary($curPage): int
     {
         // special case when less pages than range (=numRecPerPage)
         if ($this->numPages < $this->numLinks) {
@@ -204,7 +205,7 @@ class PagedNav
      * @param Website $web
      * @return string HTML string to print
      */
-    public function render($curPage, $web)
+    public function render($curPage, $web): string
     {
         $curPage = (int)$curPage;
         $query = new QueryString($this->whitelist);

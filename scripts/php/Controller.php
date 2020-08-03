@@ -49,7 +49,7 @@ class Controller
         $this->header = $header;
         $this->protocol = $_SERVER['SERVER_PROTOCOL'];
         $this->method = $_SERVER['REQUEST_METHOD'];
-        $this->resources = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : $this->resources;
+        $this->resources = $_SERVER['PATH_INFO'] ?? $this->resources;
         $this->err = $error;
     }
 
@@ -104,16 +104,16 @@ class Controller
      * Returns the http method, e.g. GET, POST, PUT or DELETE
      * @return null|string
      */
-    public function getMethod()
+    public function getMethod(): ?string
     {
         return $this->method;
     }
 
     /**
-     * Returns the currently used http protocol.
+     * Returns the currently used http protocol./
      * @return null|string
      */
-    public function getProtocol()
+    public function getProtocol(): ?string
     {
         return $this->protocol;
     }
@@ -140,7 +140,7 @@ class Controller
      * Prints the header section of the HTTP response.
      * Sets the Status Code, Content-Type and additional headers set optionally.
      */
-    public function printHeader()
+    public function printHeader(): void
     {
         $this->printStatus();
         $headers = $this->header->get();
@@ -154,7 +154,7 @@ class Controller
     /**
      * Sets HTTP header status code
      */
-    public function printStatus()
+    public function printStatus(): void
     {
         $headers = $this->header->get();
         $headers = array_change_key_case($headers);
@@ -180,9 +180,9 @@ class Controller
     /**
      * Prints the body section of the HTTP response.
      * Prints the body in chunks if outputChunked is set to true.
-     * @param string $data response body
+     * @param string|null $data response body
      */
-    public function printBody($data = null)
+    public function printBody($data = null): void
     {
         // an error occurred
         if (count($this->err->get()) > 0) {

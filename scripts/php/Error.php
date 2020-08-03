@@ -41,7 +41,7 @@ class Error
      * @param string $errFile
      * @param integer $errLine
      */
-    public function set($errNo, $errMsg, $errFile = '', $errLine = 0)
+    public function set($errNo, $errMsg, $errFile = '', $errLine = 0): void
     {
         $this->arrErr[] = ['code' => $errNo, 'msg' => $errMsg, 'file' => $errFile, 'line' => $errLine];
     }
@@ -50,7 +50,7 @@ class Error
      * Returns all errors.
      * @return array
      */
-    public function get()
+    public function get(): array
     {
         return $this->arrErr;
     }
@@ -58,7 +58,7 @@ class Error
     /**
      * Resets all errors.
      */
-    public function reset()
+    public function reset(): void
     {
         $this->arrErr = [];
     }
@@ -67,7 +67,7 @@ class Error
      * Returns all errors as a json array.
      * @return string json
      */
-    public function getAsJson()
+    public function getAsJson(): string
     {
         $errs = $this->get();
         $json = '[';
@@ -91,7 +91,7 @@ class Error
      * Returns all errors as a string.
      * @return string
      */
-    public function getAsString()
+    public function getAsString(): string
     {
         $str = '';
         $errs = $this->get();
