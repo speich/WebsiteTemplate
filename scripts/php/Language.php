@@ -71,7 +71,7 @@ class Language
 			preg_match_all('/([a-z]{1,8}(-[a-z]{1,8})?)\s*(;\s*q\s*=\s*(1|0\.\d+))?/i',
 				$_SERVER['HTTP_ACCEPT_LANGUAGE'], $arrLang);
 
-			if (count($arrLang[1]) > 0) {
+			if (\count($arrLang[1]) > 0) {
 				// create a list like "en" => 0.8
 				$arr = array_combine($arrLang[1], $arrLang[4]);
 
@@ -100,7 +100,7 @@ class Language
 		// look through sorted list and use first one that matches our languages
 		foreach ($arr as $lang => $val) {
 			$lang = explode('-', $lang);
-			if (array_key_exists($lang[0], $this->arrLang)) {
+			if (\array_key_exists($lang[0], $this->arrLang)) {
 				return $lang[0];
 			}
 		}
@@ -153,7 +153,7 @@ class Language
 	 */
 	public function isValid($lang): bool
     {
-		return array_key_exists($lang, $this->arrLang);
+		return \array_key_exists($lang, $this->arrLang);
 	}
 
 	/**
@@ -214,15 +214,14 @@ class Language
 
 	/**
 	 * Automatically detect and set the language.
-	 * @param bool $save save to cookie?
+	 * @param ?bool $save save to cookie?
 	 * @see Language::autoDetect()
 	 */
-	public function autoSet($save = true): void
+	public function autoSet($save = null): void
     {
 		$lang = $this->autoDetect();
-
 		$this->lang = $lang === false ? $this->getDefault() : $lang;
-		if ($save === true) {
+		if ($save !== false) {
 			$this->save($lang);
 		}
 	}

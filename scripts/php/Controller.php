@@ -93,8 +93,8 @@ class Controller
                 break;
         }
 
-        if (is_array($data)) {
-            $data =  count($data) > 0 ? (object)$data : null;
+        if (\is_array($data)) {
+            $data = \count($data) > 0 ? (object)$data : null;
         }
 
         return $data;
@@ -122,10 +122,10 @@ class Controller
      * Returns the path split into segments.
      * Contains any client-provided pathname information trailing the actual script filename but preceding the query string.
      * Returns null, if no path information is available. If path is only a slash and $asString is false, an array with and empty string is returned.
-     * @param bool $asString return a string instead of an array
+     * @param ?bool $asString return a string instead of an array
      * @return array|string|null
      */
-    public function getResource($asString = false)
+    public function getResource(?bool $asString = null)
     {
         $resources = $this->resources;
         if ($resources !== null && $asString === false) {
@@ -160,17 +160,17 @@ class Controller
         $headers = array_change_key_case($headers);
 
         // server error
-        if (count($this->err->get()) > 0) {
+        if (\count($this->err->get()) > 0) {
             header($this->getProtocol().' 500 Internal Server Error');
         } // resource not found
         elseif ($this->notFound) {
             header($this->getProtocol().' 404 Not Found');
         } // resource found and processed
-        elseif (!array_key_exists('content-disposition', $headers) && $this->getMethod() === 'POST') {
+        elseif (!\array_key_exists('content-disposition', $headers) && $this->getMethod() === 'POST') {
             // IE/Edge fail to download with status 201
             header($this->getProtocol().' 201 Created');
         } // range response
-        elseif (array_key_exists('content-range', $headers)) {
+        elseif (\array_key_exists('content-range', $headers)) {
             header($this->getProtocol().' 206 Partial Content');
         } else {
             header($this->getProtocol().' 200 OK');
@@ -185,7 +185,7 @@ class Controller
     public function printBody($data = null): void
     {
         // an error occurred
-        if (count($this->err->get()) > 0) {
+        if (\count($this->err->get()) > 0) {
             if ($this->header->getContentType() === 'application/json') {
                 echo $this->err->getAsJson();
             } else {

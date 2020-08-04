@@ -26,7 +26,7 @@ class QueryString
     public function __construct($whitelist = null)
     {
         parse_str($_SERVER['QUERY_STRING'], $queries);
-        if (is_array($whitelist)) {
+        if (\is_array($whitelist)) {
             $queries = $this->intersect($queries, $whitelist);
         }
         $this->queryVars = $queries;
@@ -43,7 +43,7 @@ class QueryString
         // can't use array_intersect_keys() would remove duplicate keys, which are perfectly fine in a query string
         $arr = [];
         foreach ($whitelist as $key) {
-            if (array_key_exists($key, $queries)) {
+            if (\array_key_exists($key, $queries)) {
                 $arr[$key] = $queries[$key];
             }
         }
@@ -88,11 +88,12 @@ class QueryString
     /**
      * Returns the query string.
      * Returns the urlencoded string prefixed with a question mark. If there is no query an empty string is returned.
-     * @param int $encType
+     * @param ?int $encType by default PHP_QUERY_RFC1738
      * @return string
      */
-    public function getString($encType = PHP_QUERY_RFC1738): string
+    public function getString($encType = null): string
     {
+        $encType = $encType ?? PHP_QUERY_RFC1738;
         $str = http_build_query($this->queryVars, $encType);
 
         return $str === '' ? '' : '?'.$str;
@@ -133,13 +134,14 @@ class QueryString
      * With the argument $arrExcl variables can be excluded from the returned query string without changing the internally
      * stored original query string read from the server. The array should consist only of the variable names as the array values.
      * @see http_build_query()
-     * @param null|array $arrInc variables and values to add
-     * @param null|array $arrExl variables to remove
-     * @param int $encType
+     * @param ?array $arrInc variables and values to add
+     * @param ?array $arrExl variables to remove
+     * @param ?int $encType by default PHP_QUERY_RFC1738
      * @return string
      */
-    public function withString($arrInc = null, $arrExl = null, $encType = PHP_QUERY_RFC1738): string
+    public function withString($arrInc = null, $arrExl = null, $encType = null): string
     {
+        $encType = $encType ?? PHP_QUERY_RFC1738;
         $str = http_build_query($this->with($arrInc, $arrExl), $encType);
 
         return $str === '' ? '' : '?'.$str;

@@ -186,10 +186,10 @@ class PagedNav
         if ($this->numPages < $this->numLinks) {
             $j = $this->numPages;
         } // last range
-        else if ($curPage + floor($this->numLinks / 2) > $this->numPages) {
+        elseif ($curPage + floor($this->numLinks / 2) > $this->numPages) {
             $j = $this->numPages;
         } // first range
-        else if ($curPage < ($this->numLinks / 2)) {
+        elseif ($curPage < ($this->numLinks / 2)) {
             $j = $this->numLinks;
         } else {
             $j = $curPage + $this->numLinks / 2;
@@ -201,13 +201,12 @@ class PagedNav
     /**
      * Print HTML navigation.
      * The parameter $curPage is 1-based.
-     * @param integer|string $curPage current page number
+     * @param int|string $curPage current page number
      * @param Website $web
      * @return string HTML string to print
      */
-    public function render($curPage, $web): string
+    public function render(int $curPage, $web): string
     {
-        $curPage = (int)$curPage;
         $query = new QueryString($this->whitelist);
         $lb = $this->getLowerBoundary($curPage);
         $ub = $this->getUpperBoundary($curPage);

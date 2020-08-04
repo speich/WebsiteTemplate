@@ -218,8 +218,7 @@ class Website
      */
     public function getProtocol(?bool $full = null): string
     {
-        $this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
-            (int)$_SERVER['SERVER_PORT'] === 443 ? 'https' : 'http';
+        $this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] === 443 ? 'https' : 'http';
 
         return $full === true ? $this->protocol.'://' : $this->protocol;
     }

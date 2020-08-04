@@ -36,13 +36,15 @@ class Error
     /**
      * Custom PHP error handling function.
      * @see http://www.php.net/set_error_handler
-     * @param integer $errNo
+     * @param int $errNo
      * @param string $errMsg
-     * @param string $errFile
-     * @param integer $errLine
+     * @param ?string $errFile
+     * @param ?int $errLine
      */
-    public function set($errNo, $errMsg, $errFile = '', $errLine = 0): void
+    public function set(int $errNo, string $errMsg, ?string $errFile = null, ?int $errLine = null): void
     {
+        $errFile = $errFile ?? '';
+        $errLine = $errLine ?? 0;
         $this->arrErr[] = ['code' => $errNo, 'msg' => $errMsg, 'file' => $errFile, 'line' => $errLine];
     }
 
@@ -78,7 +80,7 @@ class Error
                 $msg .= ' in '.$err['file'].' on line '.$err['line'];
             }
             $json .= json_encode(['msg' => $msg]);
-            if ($key < count($errs) - 1) {
+            if ($key < \count($errs) - 1) {
                 $json .= ',';
             }
         }
@@ -101,7 +103,7 @@ class Error
                 $str .= ' in '.$err['file'].' on line '.$err['line'];
             }
             $str .= addslashes($str);
-            if ($key < count($errs) - 1) {
+            if ($key < \count($errs) - 1) {
                 $str .= '<br>';
             }
         }

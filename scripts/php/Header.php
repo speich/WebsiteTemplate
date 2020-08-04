@@ -33,8 +33,7 @@ class Header
      */
     public function setContentType($contentType): void
     {
-        $contentType = array_key_exists($contentType,
-            $this->contentTypes) ? $this->contentTypes[$contentType] : $contentType;
+        $contentType = \array_key_exists($contentType, $this->contentTypes) ? $this->contentTypes[$contentType] : $contentType;
         $this->contentType = $contentType;
     }
 
@@ -110,7 +109,7 @@ class Header
         }, ARRAY_FILTER_USE_KEY);
         */
         $keys = array_keys($this->headers);
-        for ($i = 0, $iMax = count($this->headers); $i < $iMax; $i++) {
+        for ($i = 0, $iMax = \count($this->headers); $i < $iMax; $i++) {
             if (strtolower($keys[$i]) === strtolower($name)) {
                 unset($this->headers[$keys[$i]]);
             }
@@ -149,7 +148,7 @@ class Header
     public function allowOrigins($origins): ?string
     {
         $val = $_SERVER['HTTP_ORIGIN'] ?? null;
-        if (in_array($val, $origins, true)) {
+        if (\in_array($val, $origins, true)) {
             $this->add('Access-Control-Allow-Origin', $val);
             $this->add('Vary', 'Origin');
 
