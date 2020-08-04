@@ -286,7 +286,7 @@ class Menu
             if ($item->parentId === $parentId) {
                 $this->setItemCssClass($item);
                 $itemIdPrefix = $this->itemIdPrefix === null ? '' : ' id="'.$this->itemIdPrefix.$item->id.'"';
-                $cssClass = $item->getCssClass() === null ? '' : ' class="'.$item->getCssClass().'"';
+                $cssClass = $item->getCssClass() === '' ? '' : ' class="'.$item->getCssClass().'"';
                 $this->strMenu .= '<li'.$itemIdPrefix.$cssClass.'>';
                 $tagName = $item->linkUrl === null ? 'div' : 'a';
                 $this->strMenu .= '<'.$tagName;

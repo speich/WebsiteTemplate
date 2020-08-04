@@ -13,7 +13,6 @@ namespace WebsiteTemplate;
  */
 class MenuItem
 {
-
     /**  @var string id */
     public $id;
 
@@ -27,7 +26,7 @@ class MenuItem
     public $linkUrl = '';
 
     /** @var string CSS class name */
-    private $cssClass;
+    private $cssClass = '';
 
     /** @var bool render children */
     private $childToBeRendered = false;
@@ -106,13 +105,14 @@ class MenuItem
     }
 
     /**
-     * Add one or severall css classes.
+     * Add one or several css classes.
      * Adds one or more classes to the css attribute. Existing classes with the same name are overwritten.
      * @param string ...$name
      */
     public function addCssClass(...$name): void
     {
-        $this->cssClass = array_unique(array_merge($this->cssClass, $name));
+        $arr = explode(' ', $this->cssClass);
+        $this->cssClass = implode(' ', array_unique(array_merge($arr, $name)));
     }
 
     /**
