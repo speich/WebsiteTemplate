@@ -128,7 +128,7 @@ class Controller
     public function getResource(?bool $asString = null)
     {
         $resources = $this->resources;
-        if ($resources !== null && $asString === false) {
+        if ($resources !== null && $asString !== true) {
             $resources = trim($resources, '/');
             $resources = explode('/', $resources);
         }
