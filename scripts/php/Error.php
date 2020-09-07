@@ -102,7 +102,6 @@ class Error
             if ($err['line'] > 0) {
                 $str .= ' in '.$err['file'].' on line '.$err['line'];
             }
-            $str .= addslashes($str);
             if ($key < \count($errs) - 1) {
                 $str .= '<br>';
             }
