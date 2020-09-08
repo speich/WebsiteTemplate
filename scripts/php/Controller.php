@@ -75,26 +75,40 @@ class Controller
                 }
                 break;
             case 'PUT':
-                $input = file_get_contents('php://input');
-                if ($json) {
-                    $data = json_decode($input, false);
-                } else {
-                    parse_str($input, $data);
-                }
+                $data = $this->getInput($data);
                 break;
             case 'GET':
                 $data = $_GET;
                 break;
             case 'DELETE':
                 if ($_SERVER['QUERY_STRING'] !== '') {
-                    // Delete has no body, but a query string is possible
                     parse_str($_SERVER['QUERY_STRING'], $data);
+                }
+                else {
+                    $data = $this->getInput($data);
                 }
                 break;
         }
 
         if (\is_array($data)) {
             $data = \count($data) > 0 ? (object)$data : null;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Read php input stream
+     * @param bool $json
+     * @return object|string mixed
+     */
+    private function getInput(bool $json)
+    {
+        $input = file_get_contents('php://input');
+        if ($json) {
+            $data = json_decode($input, false);
+        } else {
+            parse_str($input, $data);
         }
 
         return $data;
