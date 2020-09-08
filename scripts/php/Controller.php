@@ -75,7 +75,7 @@ class Controller
                 }
                 break;
             case 'PUT':
-                $data = $this->getInput($data);
+                $data = $this->getInput($json);
                 break;
             case 'GET':
                 $data = $_GET;
@@ -85,7 +85,7 @@ class Controller
                     parse_str($_SERVER['QUERY_STRING'], $data);
                 }
                 else {
-                    $data = $this->getInput($data);
+                    $data = $this->getInput($json);
                 }
                 break;
         }
