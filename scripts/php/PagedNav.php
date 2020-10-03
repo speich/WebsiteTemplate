@@ -29,7 +29,7 @@ class PagedNav
     public $queryVarName = 'pg';
 
     /** @var array keys that are allowed in the query string */
-    private $whitelist = array();
+    private $whitelist = [];
 
     /** @var int small forward-backward link, e.g. [-10] [+10] */
     public $stepSmall = 10;
@@ -41,40 +41,40 @@ class PagedNav
     public $cssClass = 'pgNav';
 
     /** @var array translations for internationalization */
-    public $i18n = array(
-        'de' => array(
+    public $i18n = [
+        'de' => [
             'entries' => 'Einträge',
             'entry' => 'Eintrag',
             'pages' => 'Seiten',
             'page' => 'Seite',
             'search result' => 'Suchergebnis',
             'on' => 'auf',
-        ),
-        'fr' => array(
+        ],
+        'fr' => [
             'entries' => 'inscriptions',
             'entry' => 'inscription',
             'pages' => 'pages',
             'page' => 'page',
             'search result' => 'Résultat de la recherche',
             'on' => '',
-        ),
-        'it' => array(
+        ],
+        'it' => [
             'entries' => 'iscrizioni',
             'entry' => 'inscriptione',
             'pages' => 'pagine',
             'page' => 'pagina',
             'search result' => 'Risultato della ricerca',
             'on' => '',
-        ),
-        'en' => array(
+        ],
+        'en' => [
             'entries' => 'entries',
             'entry' => 'entry',
             'pages' => 'pages',
             'page' => 'page',
             'search result' => 'search result',
             'on' => 'on',
-        ),
-    );
+        ],
+    ];
 
     /** @var string Language */
     public $lang = 'en';
@@ -84,9 +84,9 @@ class PagedNav
 
     /**
      * Construct instance of PageNav.
-     * @param int $numRec total number of records
-     * @param int $numRecPerPage number of records on a page
-     * @param int|null $numLinks number of links to display in navigation
+     * @param ?int $numRec total number of records
+     * @param ?int $numRecPerPage number of records on a page
+     * @param ?int $numLinks number of links to display in navigation
      */
     public function __construct($numRec = null, $numRecPerPage = null, $numLinks = null)
     {
@@ -105,7 +105,8 @@ class PagedNav
      * Set the allowed keys in the query string.
      * @param array $whitelist
      */
-    public function setWhitelist($whitelist) {
+    public function setWhitelist($whitelist): void
+    {
         $this->whitelist = $whitelist;
     }
 
@@ -113,7 +114,7 @@ class PagedNav
      * Set total number of records
      * @param int $numRec number of records
      */
-    public function setNumRec($numRec)
+    public function setNumRec($numRec): void
     {
         $this->numRec = $numRec;
         $this->updateNumPages();
@@ -123,7 +124,7 @@ class PagedNav
      * Set number of records to display per page.
      * @param int $numRecPerPage
      */
-    public function setNumRecPerPage($numRecPerPage)
+    public function setNumRecPerPage($numRecPerPage): void
     {
         $this->numRecPerPage = $numRecPerPage;
         if (isset($this->numRec)) {
@@ -135,7 +136,7 @@ class PagedNav
      * Update the number of pages.
      * Sets the total number of pages based on total number of records and number of records per page.
      */
-    private function updateNumPages()
+    private function updateNumPages(): void
     {
         $this->numPages = ceil($this->numRec / $this->numRecPerPage);
     }
@@ -144,7 +145,7 @@ class PagedNav
      * Get the total number of records
      * @return int
      */
-    public function getNumRec()
+    public function getNumRec(): int
     {
         return $this->numRec;
     }
@@ -152,7 +153,7 @@ class PagedNav
     /**
      * @return int
      */
-    public function getNumRecPerPage()
+    public function getNumRecPerPage(): int
     {
         return $this->numRecPerPage;
     }
@@ -162,7 +163,7 @@ class PagedNav
      * @param int $curPage current page number
      * @return int
      */
-    public function getLowerBoundary($curPage)
+    public function getLowerBoundary($curPage): int
     {
         // special case when less pages than range (=numRecPerPage)
         if ($this->numPages <= $this->numLinks || $curPage <= floor($this->numLinks / 2)) {
@@ -179,16 +180,16 @@ class PagedNav
      * @param int $curPage current page number
      * @return int
      */
-    public function getUpperBoundary($curPage)
+    public function getUpperBoundary($curPage): int
     {
         // special case when less pages than range (=numRecPerPage)
         if ($this->numPages < $this->numLinks) {
             $j = $this->numPages;
         } // last range
-        else if ($curPage + floor($this->numLinks / 2) > $this->numPages) {
+        elseif ($curPage + floor($this->numLinks / 2) > $this->numPages) {
             $j = $this->numPages;
         } // first range
-        else if ($curPage < ($this->numLinks / 2)) {
+        elseif ($curPage < ($this->numLinks / 2)) {
             $j = $this->numLinks;
         } else {
             $j = $curPage + $this->numLinks / 2;
@@ -200,13 +201,12 @@ class PagedNav
     /**
      * Print HTML navigation.
      * The parameter $curPage is 1-based.
-     * @param integer|string $curPage current page number
+     * @param int|string $curPage current page number
      * @param Website $web
      * @return string HTML string to print
      */
-    public function render($curPage, $web)
+    public function render(int $curPage, $web): string
     {
-        $curPage = (int)$curPage;
         $query = new QueryString($this->whitelist);
         $lb = $this->getLowerBoundary($curPage);
         $ub = $this->getUpperBoundary($curPage);
@@ -225,7 +225,7 @@ class PagedNav
         // link jump back small
         if ($lb > $this->numLinks / 2) {
             // reuse existing query string in navigation links
-            $queryStr = $query->withString(array($this->queryVarName => $curPage - $this->stepSmall));
+            $queryStr = $query->withString([$this->queryVarName => $curPage - $this->stepSmall]);
             $str .= '<span class="pageStepSmall prevPages"><a href="'.$web->page.$queryStr.'">';
             $str .= '[-'.$this->stepSmall.']';
             $str .= '</a></span>';
@@ -237,7 +237,7 @@ class PagedNav
                     $str .= '<span class="curPage">';
                 } else {
                     $str .= '<span class="page">';
-                    $queryStr = $query->withString(array($this->queryVarName => $lb));
+                    $queryStr = $query->withString([$this->queryVarName => $lb]);
                     $str .= '<a href="'.$web->page.$queryStr.'">';
                 }
                 $str .= $lb;
@@ -250,7 +250,7 @@ class PagedNav
         // link jump forward small
         if ($ub <= $this->numPages - $this->numLinks / 2) {
             // reuse query string
-            $queryStr = $query->withString(array($this->queryVarName => $curPage + $this->stepSmall));
+            $queryStr = $query->withString([$this->queryVarName => $curPage + $this->stepSmall]);
             $str .= '<span class="pageStepSmall nextPages"><a href="'.$web->page.$queryStr.'">';
             $str .= '[+'.$this->stepSmall.']';
             $str .= '</a></span>';

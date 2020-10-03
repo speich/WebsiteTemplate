@@ -11,12 +11,11 @@ namespace WebsiteTemplate\html;
  */
 class Form extends Html
 {
-
     /** Render the label before the form element */
-    const LABEL_BEFORE = 1;
+    public const LABEL_BEFORE = 1;
 
     /** Render the label after the form element */
-    const LABEL_AFTER = 2;
+    public const LABEL_AFTER = 2;
 
     /** @var bool renderAsHtml label attribute */
     protected $label = false;
@@ -36,7 +35,7 @@ class Form extends Html
     /** @var bool|string required attribute */
     protected $required = false;
 
-    /** @var bool|integer tab index attribute */
+    /** @var bool|int tab index attribute */
     protected $tabIndex = false;
 
     /** @var bool|string name attribute */
@@ -44,9 +43,9 @@ class Form extends Html
 
     /**
      * Set the element's tab index
-     * @param integer $index
+     * @param int $index
      */
-    public function setTabIndex($index)
+    public function setTabIndex($index): void
     {
         $this->tabIndex = $index;
     }
@@ -57,9 +56,9 @@ class Form extends Html
      * and the element is disabled by the browser.
      * @param bool $bool
      */
-    public function setDisabled($bool = true)
+    public function setDisabled(?bool $bool = null): void
     {
-        $this->disabled = $bool;
+        $this->disabled = $bool ?? true;
     }
 
     /**
@@ -67,19 +66,19 @@ class Form extends Html
      * If set then the label attribute is rendered. The position can be set to before or after with the constants
      * HTML_LABEL_BEFORE and HTML_LABEL_AFTER.
      * @param string $label label
-     * @param int $position position of label
+     * @param ?int $position position of label
      */
-    public function setLabel($label, $position = Form::LABEL_BEFORE)
+    public function setLabel($label, $position = null): void
     {
         $this->labelName = $label;
         $this->label = true;
-        $this->labelPosition = $position;
+        $this->labelPosition = $position ?? self::LABEL_BEFORE;
     }
 
     /**
      * Remove form element label.
      */
-    public function removeLabel()
+    public function removeLabel(): void
     {
         $this->labelName = null;
         $this->label = false;
@@ -102,16 +101,16 @@ class Form extends Html
      * Set HTMLAttribute required to true or false.
      * @param $bool
      */
-    public function setRequired($bool = true)
+    public function setRequired(?bool $bool = null): void
     {
-        $this->required = $bool;
+        $this->required = $bool ?? true;
     }
 
     /**
      * Set the name attribute of the element
      * @param bool|string $name
      */
-    public function setName($name)
+    public function setName($name): void
     {
         $this->name = $name;
     }

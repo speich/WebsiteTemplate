@@ -20,7 +20,7 @@ class Error
      * Stores error messages.
      * @var array $arrErr
      */
-    private $arrErr = array();
+    private $arrErr = [];
 
     /**
      * Constructs the error reporting class by setting the native set_error_handler function.
@@ -30,27 +30,29 @@ class Error
     {
         // set_error_handler() does not catch fatal errors such as exceeding the allowed memory size
         // -> use register_shutdown_function() in addition
-        set_error_handler(array($this, 'set'), E_ALL);
+        set_error_handler([$this, 'set'], E_ALL);
     }
 
     /**
      * Custom PHP error handling function.
      * @see http://www.php.net/set_error_handler
-     * @param integer $errNo
+     * @param int $errNo
      * @param string $errMsg
-     * @param string $errFile
-     * @param integer $errLine
+     * @param ?string $errFile
+     * @param ?int $errLine
      */
-    public function set($errNo, $errMsg, $errFile = '', $errLine = 0)
+    public function set(int $errNo, string $errMsg, ?string $errFile = null, ?int $errLine = null): void
     {
-        $this->arrErr[] = array('code' => $errNo, 'msg' => $errMsg, 'file' => $errFile, 'line' => $errLine);
+        $errFile = $errFile ?? '';
+        $errLine = $errLine ?? 0;
+        $this->arrErr[] = ['code' => $errNo, 'msg' => $errMsg, 'file' => $errFile, 'line' => $errLine];
     }
 
     /**
      * Returns all errors.
      * @return array
      */
-    public function get()
+    public function get(): array
     {
         return $this->arrErr;
     }
@@ -58,16 +60,16 @@ class Error
     /**
      * Resets all errors.
      */
-    public function reset()
+    public function reset(): void
     {
-        $this->arrErr = array();
+        $this->arrErr = [];
     }
 
     /**
      * Returns all errors as a json array.
      * @return string json
      */
-    public function getAsJson()
+    public function getAsJson(): string
     {
         $errs = $this->get();
         $json = '[';
@@ -77,8 +79,8 @@ class Error
             if ($err['line'] > 0) {
                 $msg .= ' in '.$err['file'].' on line '.$err['line'];
             }
-            $json .= json_encode(array('msg' => $msg));
-            if ($key < count($errs) - 1) {
+            $json .= json_encode(['msg' => $msg]);
+            if ($key < \count($errs) - 1) {
                 $json .= ',';
             }
         }
@@ -91,7 +93,7 @@ class Error
      * Returns all errors as a string.
      * @return string
      */
-    public function getAsString()
+    public function getAsString(): string
     {
         $str = '';
         $errs = $this->get();
@@ -100,8 +102,7 @@ class Error
             if ($err['line'] > 0) {
                 $str .= ' in '.$err['file'].' on line '.$err['line'];
             }
-            $str .= addslashes($str);
-            if ($key < count($errs) - 1) {
+            if ($key < \count($errs) - 1) {
                 $str .= '<br>';
             }
         }

@@ -28,10 +28,10 @@ class CheckBox extends Form
      * If set then the HTMLFormElement is rendered selected.
      * @param bool $checked
      */
-    public function setChecked($checked = true)
+    public function setChecked(?bool $checked = null): void
     {
         // TODO: remove method use Checkbox::checked and SelectField. setSelected instead
-        $this->checked = (bool)$checked;
+        $this->checked = $checked ?? true;
     }
 
 
@@ -39,14 +39,14 @@ class CheckBox extends Form
      * Print the HTMLCheckboxElement.
      * @return string Html
      */
-    public function render()
+    public function render(): string
     {
         $css = $this->renderCssClass();
         $strHtml = '';
 
         $strLabel = '';
         if ($this->label) {
-            $strLabel .= '<label for="'.$this->getId().'"'.$css.'>'.$this->getLabel().'</label>';
+            $strLabel .= '<label for="'.$this->getId().'" '.$css.'>'.$this->getLabel().'</label>';
         }
         if ($this->labelPosition === Form::LABEL_BEFORE) {
             $strHtml .= $strLabel;

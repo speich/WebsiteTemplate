@@ -15,9 +15,9 @@ date_default_timezone_set('Europe/Zurich');
 $language = new Language();
 $language->autoDetect();
 
-$domains = array('websitetemplate');
+$domains = ['websitetemplate'];
 $web = new Website($domains);
-$web->setLastUpdate('07.02.2019');
+$web->setLastUpdate('03.08.2020');
 $web->pageTitle = 'Website Template';
 
 require_once __DIR__ . '/layout/inc_nav.php';

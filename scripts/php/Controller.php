@@ -49,7 +49,7 @@ class Controller
         $this->header = $header;
         $this->protocol = $_SERVER['SERVER_PROTOCOL'];
         $this->method = $_SERVER['REQUEST_METHOD'];
-        $this->resources = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : $this->resources;
+        $this->resources = $_SERVER['PATH_INFO'] ?? $this->resources;
         $this->err = $error;
     }
 
@@ -75,26 +75,40 @@ class Controller
                 }
                 break;
             case 'PUT':
-                $input = file_get_contents('php://input');
-                if ($json) {
-                    $data = json_decode($input, false);
-                } else {
-                    parse_str($input, $data);
-                }
+                $data = $this->getInput($json);
                 break;
             case 'GET':
                 $data = $_GET;
                 break;
             case 'DELETE':
                 if ($_SERVER['QUERY_STRING'] !== '') {
-                    // Delete has no body, but a query string is possible
                     parse_str($_SERVER['QUERY_STRING'], $data);
+                }
+                else {
+                    $data = $this->getInput($json);
                 }
                 break;
         }
 
-        if (is_array($data)) {
-            $data =  count($data) > 0 ? (object)$data : null;
+        if (\is_array($data)) {
+            $data = \count($data) > 0 ? (object)$data : null;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Read php input stream
+     * @param bool $json
+     * @return object|string mixed
+     */
+    private function getInput(bool $json)
+    {
+        $input = file_get_contents('php://input');
+        if ($json) {
+            $data = json_decode($input, false);
+        } else {
+            parse_str($input, $data);
         }
 
         return $data;
@@ -104,16 +118,16 @@ class Controller
      * Returns the http method, e.g. GET, POST, PUT or DELETE
      * @return null|string
      */
-    public function getMethod()
+    public function getMethod(): ?string
     {
         return $this->method;
     }
 
     /**
-     * Returns the currently used http protocol.
+     * Returns the currently used http protocol./
      * @return null|string
      */
-    public function getProtocol()
+    public function getProtocol(): ?string
     {
         return $this->protocol;
     }
@@ -122,13 +136,13 @@ class Controller
      * Returns the path split into segments.
      * Contains any client-provided pathname information trailing the actual script filename but preceding the query string.
      * Returns null, if no path information is available. If path is only a slash and $asString is false, an array with and empty string is returned.
-     * @param bool $asString return a string instead of an array
+     * @param ?bool $asString return a string instead of an array
      * @return array|string|null
      */
-    public function getResource($asString = false)
+    public function getResource(?bool $asString = null)
     {
         $resources = $this->resources;
-        if ($resources !== null && $asString === false) {
+        if ($resources !== null && $asString !== true) {
             $resources = trim($resources, '/');
             $resources = explode('/', $resources);
         }
@@ -140,7 +154,7 @@ class Controller
      * Prints the header section of the HTTP response.
      * Sets the Status Code, Content-Type and additional headers set optionally.
      */
-    public function printHeader()
+    public function printHeader(): void
     {
         $this->printStatus();
         $headers = $this->header->get();
@@ -154,23 +168,23 @@ class Controller
     /**
      * Sets HTTP header status code
      */
-    public function printStatus()
+    public function printStatus(): void
     {
         $headers = $this->header->get();
         $headers = array_change_key_case($headers);
 
         // server error
-        if (count($this->err->get()) > 0) {
+        if (\count($this->err->get()) > 0) {
             header($this->getProtocol().' 500 Internal Server Error');
         } // resource not found
         elseif ($this->notFound) {
             header($this->getProtocol().' 404 Not Found');
         } // resource found and processed
-        elseif (!array_key_exists('content-disposition', $headers) && $this->getMethod() === 'POST') {
+        elseif (!\array_key_exists('content-disposition', $headers) && $this->getMethod() === 'POST') {
             // IE/Edge fail to download with status 201
             header($this->getProtocol().' 201 Created');
         } // range response
-        elseif (array_key_exists('content-range', $headers)) {
+        elseif (\array_key_exists('content-range', $headers)) {
             header($this->getProtocol().' 206 Partial Content');
         } else {
             header($this->getProtocol().' 200 OK');
@@ -180,12 +194,12 @@ class Controller
     /**
      * Prints the body section of the HTTP response.
      * Prints the body in chunks if outputChunked is set to true.
-     * @param string $data response body
+     * @param string|null $data response body
      */
-    public function printBody($data = null)
+    public function printBody($data = null): void
     {
         // an error occurred
-        if (count($this->err->get()) > 0) {
+        if (\count($this->err->get()) > 0) {
             if ($this->header->getContentType() === 'application/json') {
                 echo $this->err->getAsJson();
             } else {

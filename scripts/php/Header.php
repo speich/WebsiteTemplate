@@ -14,27 +14,26 @@ class Header
     private $charset = 'utf-8';
 
     /** @var array contains additional response headers */
-    private $headers = array();
+    private $headers = [];
 
     /** @var array $contentTypes MIME types lookup */
-    private $contentTypes = array(
+    private $contentTypes = [
         'text' => 'text/plain',
         'csv' => 'text/csv',
         'json' => 'application/json',
         'pdf' => 'application/pdf',
         'html' => 'text/html',
         'svg' => 'image/svg+xml',
-    );
+    ];
 
     /**
      * Set the MIME type of the header.
      * Abbreviations can be used instead of full MIME type for some content types.
      * @param string $contentType
      */
-    public function setContentType($contentType)
+    public function setContentType($contentType): void
     {
-        $contentType = array_key_exists($contentType,
-            $this->contentTypes) ? $this->contentTypes[$contentType] : $contentType;
+        $contentType = \array_key_exists($contentType, $this->contentTypes) ? $this->contentTypes[$contentType] : $contentType;
         $this->contentType = $contentType;
     }
 
@@ -42,7 +41,7 @@ class Header
      * Returns the content type (MIME type).
      * @return string
      */
-    public function getContentType()
+    public function getContentType(): string
     {
         return $this->contentType;
     }
@@ -52,12 +51,12 @@ class Header
      * Returns an array with start and end key or null if range header is not sent.
      * @return array|null
      */
-    public function getRange()
+    public function getRange(): ?array
     {
         if (isset($_SERVER['HTTP_RANGE'])) {
             $arr = explode('-', substr($_SERVER['HTTP_RANGE'], 6)); // e.g. items=0-24
 
-            return array('start' => $arr[0], 'end' => $arr[1]);
+            return ['start' => $arr[0], 'end' => $arr[1]];
         }
 
         return null;
@@ -71,18 +70,18 @@ class Header
      * @param int $numRec total number of items
      * @return array
      */
-    public function createRange($arrRange, $numRec)
+    public function createRange($arrRange, $numRec): array
     {
         $end = $arrRange['end'] > $numRec ? $numRec : $arrRange['end'];
 
-        return array('Content-Range', 'items='.$arrRange['start'].'-'.$end.'/'.$numRec);
+        return ['Content-Range', 'items='.$arrRange['start'].'-'.$end.'/'.$numRec];
     }
 
     /**
      * Returns the character set
      * @return string
      */
-    public function getCharset()
+    public function getCharset(): string
     {
         return $this->charset;
     }
@@ -90,7 +89,7 @@ class Header
     /**
      * @param string $charset
      */
-    public function setCharset($charset)
+    public function setCharset($charset): void
     {
         $this->charset = $charset;
     }
@@ -101,7 +100,7 @@ class Header
      * @param $name
      * @param $value
      */
-    public function add($name, $value)
+    public function add($name, $value): void
     {
         // ARRAY_FILTER_USE_KEY is only available in php5.6+
         /*
@@ -110,7 +109,7 @@ class Header
         }, ARRAY_FILTER_USE_KEY);
         */
         $keys = array_keys($this->headers);
-        for ($i = 0, $iMax = count($this->headers); $i < $iMax; $i++) {
+        for ($i = 0, $iMax = \count($this->headers); $i < $iMax; $i++) {
             if (strtolower($keys[$i]) === strtolower($name)) {
                 unset($this->headers[$keys[$i]]);
             }
@@ -124,7 +123,7 @@ class Header
      * @param string $fileName file path
      * @param string $fileExtension
      */
-    public function addDownload($fileName, $fileExtension)
+    public function addDownload($fileName, $fileExtension): void
     {
         $this->add('Expires', 0);
         $this->add('Cache-Control', 'must-revalidate, post-check=0, pre-check=0');
@@ -135,7 +134,7 @@ class Header
      * Returns the array containing the headers.
      * @return array
      */
-    public function get()
+    public function get(): array
     {
         return $this->headers;
     }
@@ -146,10 +145,10 @@ class Header
      * @param array $origins
      * @return string|null returns the matched origin or null
      */
-    public function allowOrigins($origins)
+    public function allowOrigins($origins): ?string
     {
-        $val = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : null;
-        if (in_array($val, $origins, true)) {
+        $val = $_SERVER['HTTP_ORIGIN'] ?? null;
+        if (\in_array($val, $origins, true)) {
             $this->add('Access-Control-Allow-Origin', $val);
             $this->add('Vary', 'Origin');
 

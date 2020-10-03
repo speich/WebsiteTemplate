@@ -26,7 +26,7 @@ class QueryString
     public function __construct($whitelist = null)
     {
         parse_str($_SERVER['QUERY_STRING'], $queries);
-        if (is_array($whitelist)) {
+        if (\is_array($whitelist)) {
             $queries = $this->intersect($queries, $whitelist);
         }
         $this->queryVars = $queries;
@@ -38,11 +38,12 @@ class QueryString
      * @param array $whitelist keys to be allowed
      * @return array
      */
-    private function intersect($queries, $whitelist) {
+    private function intersect($queries, $whitelist): array
+    {
         // can't use array_intersect_keys() would remove duplicate keys, which are perfectly fine in a query string
-        $arr = array();
+        $arr = [];
         foreach ($whitelist as $key) {
-            if (array_key_exists($key, $queries)) {
+            if (\array_key_exists($key, $queries)) {
                 $arr[$key] = $queries[$key];
             }
         }
@@ -55,7 +56,7 @@ class QueryString
      * $vars is expected to be a associative array with key values.
      * @param array $vars
      */
-    public function add($vars)
+    public function add($vars): void
     {
         $this->queryVars = array_merge($this->queryVars, $vars);
     }
@@ -64,10 +65,10 @@ class QueryString
      * Remove variables from the internal query string.
      * @param null $arr
      */
-    public function remove($arr = null)
+    public function remove($arr = null): void
     {
         if ($arr === null) {
-            $this->queryVars = array();
+            $this->queryVars = [];
         }
         else {
             $keys = array_fill_keys($arr, null);
@@ -79,7 +80,7 @@ class QueryString
      * Returns an array with the whitelisted query variables
      * @return array
      */
-    public function get()
+    public function get(): array
     {
         return $this->queryVars;
     }
@@ -87,10 +88,12 @@ class QueryString
     /**
      * Returns the query string.
      * Returns the urlencoded string prefixed with a question mark. If there is no query an empty string is returned.
-     * @param int $encType
+     * @param ?int $encType by default PHP_QUERY_RFC1738
      * @return string
      */
-    public function getString($encType = PHP_QUERY_RFC1738) {
+    public function getString($encType = null): string
+    {
+        $encType = $encType ?? PHP_QUERY_RFC1738;
         $str = http_build_query($this->queryVars, $encType);
 
         return $str === '' ? '' : '?'.$str;
@@ -108,7 +111,7 @@ class QueryString
      * @param null|array $arrRemove keys to remove
      * @return array
      */
-    public function with($arrAdd = null, $arrRemove = null)
+    public function with($arrAdd = null, $arrRemove = null): array
     {
         $vars = $this->queryVars;
         if ($arrAdd !== null) {
@@ -131,12 +134,14 @@ class QueryString
      * With the argument $arrExcl variables can be excluded from the returned query string without changing the internally
      * stored original query string read from the server. The array should consist only of the variable names as the array values.
      * @see http_build_query()
-     * @param null|array $arrInc variables and values to add
-     * @param null|array $arrExl variables to remove
-     * @param int $encType
+     * @param ?array $arrInc variables and values to add
+     * @param ?array $arrExl variables to remove
+     * @param ?int $encType by default PHP_QUERY_RFC1738
      * @return string
      */
-    public function withString($arrInc = null, $arrExl = null, $encType = PHP_QUERY_RFC1738) {
+    public function withString($arrInc = null, $arrExl = null, $encType = null): string
+    {
+        $encType = $encType ?? PHP_QUERY_RFC1738;
         $str = http_build_query($this->with($arrInc, $arrExl), $encType);
 
         return $str === '' ? '' : '?'.$str;

@@ -30,7 +30,7 @@ class LanguageMenu
     protected $lang;
 
     /** @var array keys that are allowed in the query string */
-    private $whitelist = array();
+    private $whitelist = [];
 
     /**
      * LanguageMenu constructor.
@@ -48,7 +48,8 @@ class LanguageMenu
      * Set the allowed keys in the query string.
      * @param array $whitelist
      */
-    public function setWhitelist($whitelist) {
+    public function setWhitelist($whitelist): void
+    {
         $this->whitelist = $whitelist;
     }
 
@@ -58,7 +59,7 @@ class LanguageMenu
      * which is referenced with the property LanguageMenu::redirect
      * @return string html
      */
-    public function render()
+    public function render(): string
     {
         $language = $this->lang;
         $query = new QueryString($this->whitelist);
@@ -70,9 +71,9 @@ class LanguageMenu
             $path = $this->web->getDir();
             $text = $this->useLabel ? $label : strtoupper($lang);
             if (file_exists($this->web->getDocRoot().$path.$page)) {
-                $url = $path.$page.$query->withString(array('lang' => $lang));
+                $url = $path.$page.$query->withString(['lang' => $lang]);
             } else {
-                $url = $this->redirect.$query->withString(array('lang' => $lang, 'url' => $path.$page));
+                $url = $this->redirect.$query->withString(['lang' => $lang, 'url' => $path.$page]);
             }
             if ($lang === $language->get()) {
                 $str .= '<li class="'.$this->liClassActive.'">'.$text.'</li>';

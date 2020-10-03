@@ -27,7 +27,7 @@ class Menu
      * Holds array of menu items.
      * @var MenuItem[] menu items
      */
-    public $arrItem = array();
+    public $arrItem = [];
 
     /** @var string $charset character set to use when creating and encoding html */
     public $charset = 'utf-8';
@@ -88,14 +88,13 @@ class Menu
      * Constructs the menu.
      * You can provide a 2-dim array with all menu items.
      * or use the add method for each item singly.
-     * @param array [$arrItem] array with menu items
+     * @param array|null [$arrItem] array with menu items
      */
     public function __construct($arrItem = null)
     {
         if ($arrItem !== null) {
             foreach ($arrItem as $item) {
-                $this->arrItem[$item[0]] = new MenuItem($item[0], $item[1], $item[2],
-                    (array_key_exists(3, $item) ? $item[3] : null));
+                $this->arrItem[$item[0]] = new MenuItem($item[0], $item[1], $item[2], $item[3] ?? null);
             }
         }
     }
@@ -108,16 +107,15 @@ class Menu
      * @param array $arr menu item
      * @param null $idAfter id of item to insert new item after
      */
-    public function add($arr, $idAfter = null)
+    public function add($arr, $idAfter = null): void
     {
         // note: for position we can not just use the index. The index is dynamic depending on the number of items, which
         // can be added or removed (e.g. when logged in a different number of items is rendered)
         // -> we need to use the actual id of the item to insert after
-        $newItem = new MenuItem($arr[0], $arr[1], $arr[2], array_key_exists(3, $arr) ? $arr[3] : null);
+        $newItem = new MenuItem($arr[0], $arr[1], $arr[2], $arr[3] ?? null);
         if ($idAfter === null) {
             $this->arrItem[$arr[0]] = $newItem;
-        }
-        else {
+        } else {
             // note: arrItem is an associative array where key and index are not the same
             $i = 0;
             foreach ($this->arrItem as $index => $item) {
@@ -127,18 +125,18 @@ class Menu
                 $i++;
             }
             // note: array_splice would reindex keys
-            $arrBefore = array_slice($this->arrItem, 0, $i, $preserve_keys = true);
-            $arrAfter = array_slice($this->arrItem, $i, null, $preserve_keys = true);
-            $this->arrItem = $arrBefore + array($newItem) + $arrAfter;
+            $arrBefore = \array_slice($this->arrItem, 0, $i, $preserveKeys = true);
+            $arrAfter = \array_slice($this->arrItem, $i, null, $preserveKeys = true);
+            $this->arrItem = $arrBefore + [$newItem] + $arrAfter;
         }
     }
 
     /**
      * Check if menu item has at least one child menu.
-     * @return bool
      * @param string|integer $id item id
+     * @return bool
      */
-    private function checkChildExists($id)
+    private function checkChildExists($id): bool
     {
         $found = false;
         foreach ($this->arrItem as $item) {
@@ -159,16 +157,16 @@ class Menu
      * 4 = item url matches match path + item query
      * @param int $type
      */
-    public function setAutoActiveMatching($type)
+    public function setAutoActiveMatching($type): void
     {
         $this->autoActiveMatching = $type;
     }
 
     /**
      * Returns the url matching pattern of $autoActive property.
-     * @return integer
+     * @return int
      */
-    public function getAutoActiveMatching()
+    public function getAutoActiveMatching(): int
     {
         return $this->autoActiveMatching;
     }
@@ -190,11 +188,12 @@ class Menu
      * If item's active property is set to null it is not considered in active check.
      *
      * @param MenuItem $item
-     * @param integer $pattern
+     * @param ?int $pattern
      * @return bool
      */
-    public function checkActive($item, $pattern = null)
+    public function checkActive($item, $pattern = null): bool
     {
+        // TODO: reduce complexity
         if ($item->getActive() === null) {
             return false;    // item explicitly set to null = skip
         }
@@ -221,11 +220,11 @@ class Menu
                 }
                 break;
             case 3:
-                if (array_key_exists('query', $arrUrlMenu)) {
+                if (\array_key_exists('query', $arrUrlMenu)) {
                     parse_str($arrUrlMenu['query'], $arr);
                     // 1. check query vars
                     foreach ($arr as $var => $val) {
-                        if (!array_key_exists($var, $_GET)) {
+                        if (!\array_key_exists($var, $_GET)) {
                             return false;
                         }
 
@@ -236,7 +235,6 @@ class Menu
                 }
                 // 2. check path
                 return $arrUrlPage['path'] === $arrUrlMenu['path'];
-                break;
             default;
                 return false;
         }
@@ -251,30 +249,28 @@ class Menu
      */
     public function getActive()
     {
-        $arrActive = array();
+        $activeIds = [];
         foreach ($this->arrItem as $item) {
             if ($item->getActive()) {
-                $arrActive[] = $item->id;
+                $activeIds[] = $item->id;
             }
         }
-        $num = count($arrActive);
+        $num = \count($activeIds);
         if ($num === 0) {
-            return false;
+            $activeIds = false;
+        } elseif ($num === 1) {
+            $activeIds = $activeIds[0];
         }
 
-        if ($num === 1) {
-            return $arrActive[0];
-        }
-
-        return $arrActive;
+        return $activeIds;
     }
 
     /**
      * Creates the menu Html string recursively.
+     * @param string|int $parentId seed
      * @return string
-     * @param string|integer $parentId seed
      */
-    private function createHtml($parentId)
+    private function createHtml($parentId): string
     {
         $this->strMenu .= '<ul';
         if ($this->firstUl) {
@@ -290,12 +286,13 @@ class Menu
             if ($item->parentId === $parentId) {
                 $this->setItemCssClass($item);
                 $itemIdPrefix = $this->itemIdPrefix === null ? '' : ' id="'.$this->itemIdPrefix.$item->id.'"';
-                $cssClass = $item->getCssClass() === null ? '' : ' class="'.$item->getCssClass().'"';
+                $cssClass = $item->getCssClass() === '' ? '' : ' class="'.$item->getCssClass().'"';
                 $this->strMenu .= '<li'.$itemIdPrefix.$cssClass.'>';
                 $tagName = $item->linkUrl === null ? 'div' : 'a';
                 $this->strMenu .= '<'.$tagName;
                 if ($item->linkUrl !== null) {
-                    $this->strMenu .= ' href="'.htmlspecialchars($item->linkUrl, ENT_QUOTES, $this->charset).'"'.($item->linkTarget === '' ? '' : ' target="'.$item->linkTarget.'"');
+                    $this->strMenu .= ' href="'.htmlspecialchars($item->linkUrl, ENT_QUOTES,
+                            $this->charset).'"'.($item->linkTarget === '' ? '' : ' target="'.$item->linkTarget.'"');
                 }
                 $this->strMenu .= '>';
                 $this->strMenu .= $item->linkTxt;
@@ -315,7 +312,7 @@ class Menu
      * Sets the CSS class string of the item depending on it's status
      * @param MenuItem $item
      */
-    protected function setItemCssClass($item)
+    protected function setItemCssClass($item): void
     {
         $hasChild = $this->checkChildExists($item->id);
         if ($hasChild) {
@@ -338,9 +335,9 @@ class Menu
      * or by explicitly setting item to active.
      * Should be called before rendering if AutoInit is set to false;
      * When argument $url is provided then the item with matching url is set to active.
-     * @param string $url [optional]
+     * @param ?string $url
      */
-    public function setActive($url = null)
+    public function setActive($url = null): void
     {
         if ($url === null) {
             foreach ($this->arrItem as $item) {
@@ -351,7 +348,7 @@ class Menu
                 // set also the parent items to render
                 if ($this->allChildrenToBeRendered) {
                     $parentId = $item->parentId;
-                    while (array_key_exists($parentId, $this->arrItem)) {
+                    while (\array_key_exists($parentId, $this->arrItem)) {
                         $this->arrItem[$parentId]->setChildToBeRendered();
                         $parentId = $this->arrItem[$parentId]->parentId;
                     }
@@ -360,7 +357,7 @@ class Menu
                 if ($item->getActive()) {
                     // set also all item's parents
                     $parentId = $item->parentId;
-                    while (array_key_exists($parentId, $this->arrItem)) {
+                    while (\array_key_exists($parentId, $this->arrItem)) {
                         $this->arrItem[$parentId]->setActive();
                         $parentId = $this->arrItem[$parentId]->parentId;
                     }
@@ -374,7 +371,7 @@ class Menu
                     if ($this->allChildrenToBeRendered || $item->getActive()) {
                         // set also item's parents to active
                         $parentId = $item->parentId;
-                        while (array_key_exists($parentId, $this->arrItem)) {
+                        while (\array_key_exists($parentId, $this->arrItem)) {
                             $this->arrItem[$parentId]->setChildToBeRendered();
                             $this->arrItem[$parentId]->setActive();
                             $parentId = $this->arrItem[$parentId]->parentId;
@@ -388,7 +385,7 @@ class Menu
     /**
      * Set hasActiveChild property for all items if they have at least an active child.
      */
-    public function setHasActiveChildren()
+    public function setHasActiveChildren(): void
     {
         foreach ($this->arrItem as $item) {
             foreach ($this->arrItem as $child) {
@@ -404,13 +401,13 @@ class Menu
      * Call init method first.
      * @return string
      */
-    public function render()
+    public function render(): string
     {
         $this->reset();
         if ($this->autoActive) {
             $this->setActive();
         }
-        if (count($this->arrItem) > 0) {
+        if (\count($this->arrItem) > 0) {
             $this->setHasActiveChildren();
             $str = $this->createHtml(reset($this->arrItem)->parentId);
 
@@ -423,7 +420,7 @@ class Menu
     /**
      * Reset menu
      */
-    public function reset()
+    public function reset(): void
     {
         $this->firstUl = true;
         $this->strMenu = '';

@@ -9,16 +9,16 @@ namespace WebsiteTemplate\html;
  */
 class RadioGroup extends Form
 {
-    const RENDER_HORIZONTALLY = 1;
+    public const RENDER_HORIZONTALLY = 1;
 
-    const RENDER_VERTICALLY = 2;
+    public const RENDER_VERTICALLY = 2;
 
-    public $cssClass = 'radiogroup';
+    public $cssClassMain = 'radiogroup';
 
     public $cssClassVertical = 'layout-vertical';
 
     /** @var RadioButton[] */
-    public $radios = array();
+    public $radios = [];
 
     /**
      * RadioGroup constructor.
@@ -38,10 +38,11 @@ class RadioGroup extends Form
 
     /**
      * @param array $labels
-     * @param int $position
+     * @param ?int $position
      */
-    public function setLabels($labels, $position = Form::LABEL_BEFORE)
+    public function setLabels($labels, $position = null): void
     {
+        $position = $position ?? Form::LABEL_BEFORE;
         foreach ($labels as $key => $label) {
             $this->radios[$key]->setLabel($label, $position);
         }
@@ -50,7 +51,7 @@ class RadioGroup extends Form
     /**
      * @param $indices
      */
-    public function setTabIndices($indices)
+    public function setTabIndices($indices): void
     {
         foreach ($indices as $key => $index) {
             $this->radios[$key]->setTabIndex($index);
@@ -63,7 +64,8 @@ class RadioGroup extends Form
      * Note: uses strict comparison
      * @param string $value value to set checked
      */
-    public function setChecked($value) {
+    public function setChecked($value): void
+    {
         foreach ($this->radios as $radio) {
             if ($radio->val === $value) {
                 $radio->setChecked();
@@ -80,7 +82,7 @@ class RadioGroup extends Form
      * and the element is disabled by the browser.
      * @param bool $bool
      */
-    public function setDisabled($bool = true)
+    public function setDisabled(?bool $bool = null): void
     {
         foreach ($this->radios as $radio) {
             $radio->setDisabled($bool);
@@ -88,14 +90,16 @@ class RadioGroup extends Form
     }
 
     /**
-     * Render the radio button group as html
-     * @param int $layout
+     * Render the radio button group as html.
+     * Sets a css class which renders the group horizontally.
+     * @param ?int $layout self::RENDER_VERTICALLY or self::RENDER_HORIZONTALLY
      * @return string html
      */
-    public function render($layout = RadioGroup::RENDER_HORIZONTALLY) {
-        $this->setCssClass($this->cssClass);
+    public function render($layout = null): string
+    {
+        $this->addCssClass($this->cssClassMain);
         if ($layout === self::RENDER_VERTICALLY) {
-            $this->setCssClass($this->cssClassVertical);
+            $this->addCssClass($this->cssClassVertical);
         }
         $html = '<div'.($this->id ? ' id="'.$this->getId().'"' : '').$this->renderCssClass().'>';
         foreach ($this->radios as $radio) {

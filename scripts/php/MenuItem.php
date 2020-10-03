@@ -13,7 +13,6 @@ namespace WebsiteTemplate;
  */
 class MenuItem
 {
-
     /**  @var string id */
     public $id;
 
@@ -27,7 +26,7 @@ class MenuItem
     public $linkUrl = '';
 
     /** @var string CSS class name */
-    private $cssClass;
+    private $cssClass = '';
 
     /** @var bool render children */
     private $childToBeRendered = false;
@@ -43,10 +42,10 @@ class MenuItem
 
     /**
      * Constructs the menu item.
-     * @param integer|string $id unique id
-     * @param integer|string $parentId id of parent item
+     * @param int|string $id unique id
+     * @param int|string $parentId id of parent item
      * @param string $linkTxt link text
-     * @param string [$linkUrl] link url
+     * @param ?string $linkUrl link url
      */
     public function __construct($id, $parentId, $linkTxt, $linkUrl = null)
     {
@@ -57,82 +56,71 @@ class MenuItem
     }
 
     /** Get item property if children will be rendered */
-    public function getChildToBeRendered()
+    public function getChildToBeRendered(): bool
     {
         return $this->childToBeRendered;
     }
 
     /**
      * Set item property if children will be rendered.
-     * @param bool [$ChildToBeRendered]
+     * @param bool $childrenToBeRendered
      */
-    public function setChildToBeRendered($childrenToBeRendered = true)
+    public function setChildToBeRendered(?bool $childrenToBeRendered = null): void
     {
-        $this->childToBeRendered = $childrenToBeRendered;
+        $this->childToBeRendered = $childrenToBeRendered ?? true;
     }
 
     /**
      * Set item to be active.
-     * @param bool [$active]
+     * @param bool $active
      */
-    public function setActive($active = true)
+    public function setActive(?bool $active = null): void
     {
-        $this->active = $active;
+        $this->active = $active ?? true;
     }
 
     /**
      * Get item active status.
      * @return bool
      */
-    public function getActive()
+    public function getActive(): bool
     {
         return $this->active;
     }
 
     /**
-     * @param boolean $hasActiveChild
+     * @param bool $hasActiveChild
      */
-    public function setHasActiveChild($hasActiveChild)
+    public function setHasActiveChild($hasActiveChild): void
     {
         $this->hasActiveChild = $hasActiveChild;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
-    public function getHasActiveChild()
+    public function getHasActiveChild(): bool
     {
         return $this->hasActiveChild;
     }
 
     /**
-     * Adds a css class to the item.
-     * Allows to have multiple CSS classes per item.
-     * @param string $name CSS class name
+     * Add one or several css classes.
+     * Adds one or more classes to the css attribute. Existing classes with the same name are overwritten.
+     * @param string ...$name
      */
-    public function addCssClass($name)
+    public function addCssClass(...$name): void
     {
-        if ($this->cssClass !== null) {
-            $this->cssClass .= ' ';    // multiple classes have to be separated by a space
-        }
-        $this->cssClass .= $name;
+        $arr = explode(' ', $this->cssClass);
+        $this->cssClass = implode(' ', array_unique(array_merge($arr, $name)));
     }
 
     /**
      * Returns the css class string
      * @return string
      */
-    public function getCssClass()
+    public function getCssClass(): string
     {
         return $this->cssClass;
-    }
-
-    /**
-     * Sets the css class string.
-     * @param null|string $cssClass
-     */
-    public function setCssClass($cssClass)
-    {
-        $this->cssClass = $cssClass;
     }
 }
