@@ -68,13 +68,13 @@ class Menu
     private bool $firstUl = true;
 
     /**  @var ?string prefix for item id attribute */
-    public ?string $itemIdPrefix;
+    public ?string $itemIdPrefix = null;
 
     /** @var string CSS class name of menu */
     public string $cssClass = 'menu';
 
     /** @var ?string CSS id of menu */
-    public ?string $cssId;
+    public ?string $cssId = null;
 
     /** @var string CSS class name, when item has at least one child */
     public string $cssItemHasChildren = 'menuHasChild';

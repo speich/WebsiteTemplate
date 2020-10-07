@@ -9,18 +9,18 @@ namespace WebsiteTemplate;
 class LanguageMenu
 {
     /** @var ?string id attribute of HTMLUListElement */
-    public ?string $cssId;
+    public ?string $cssId = null;
 
-	/** @var string class attribute of HTMLUListElement */
+    /** @var string class attribute of HTMLUListElement */
     public string $cssClass = 'nav';
 
-	/** @var string class attribute of HTMLLIElement */
+    /** @var string class attribute of HTMLLIElement */
     public string $liClassActive = 'navActive';
 
-	/** @var string url to redirect to if page does not exists in that language */
+    /** @var string url to redirect to if page does not exists in that language */
     public string $redirect;
 
-	/** @var Website */
+    /** @var Website */
     protected Website $web;
 
     /** @var bool link text based on label instead of lang */
@@ -37,7 +37,7 @@ class LanguageMenu
      * @param Language $lang
      * @param Website $web
      */
-	public function __construct(Language $lang, Website $web)
+    public function __construct(Language $lang, Website $web)
     {
         $this->lang = $lang;
         $this->web = $web;
@@ -48,7 +48,7 @@ class LanguageMenu
      * Set the allowed keys in the query string.
      * @param array $whitelist
      */
-    public function setWhitelist($whitelist): void
+    public function setWhitelist(array $whitelist): void
     {
         $this->whitelist = $whitelist;
     }
@@ -77,8 +77,7 @@ class LanguageMenu
             }
             if ($lang === $language->get()) {
                 $str .= '<li class="'.$this->liClassActive.'">'.$text.'</li>';
-            }
-            else {
+            } else {
                 $str .= '<li><a href="'.htmlspecialchars($url).'" title="'.$label.'">'.$text.'</a></li>';
             }
         }
