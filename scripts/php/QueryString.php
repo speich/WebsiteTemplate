@@ -14,9 +14,9 @@ namespace WebsiteTemplate;
 class QueryString
 {
     /** @var array query string names and values */
-    private $queryVars;
+    private array $queryVars;
 
-    public $charset = 'UTF-8';
+    public string $charset = 'UTF-8';
 
     /**
      * QueryString constructor.

@@ -20,25 +20,25 @@ class MenuItem
     public $parentId;
 
     /** @var string text of link */
-    public $linkTxt = '';
+    public string $linkTxt = '';
 
-    /** @var string url of link */
-    public $linkUrl = '';
+    /** @var ?string url of link */
+    public ?string $linkUrl = '';
 
     /** @var string CSS class name */
-    private $cssClass = '';
+    private string $cssClass = '';
 
     /** @var bool render children */
-    private $childToBeRendered = false;
+    private bool $childToBeRendered = false;
 
     /** @var bool is item active */
-    private $active = false;
+    private bool $active = false;
 
     /** @var bool has item an active child */
-    private $hasActiveChild = false;
+    private bool $hasActiveChild = false;
 
     /** @var string link target */
-    public $linkTarget = '';
+    public string $linkTarget = '';
 
     /**
      * Constructs the menu item.
@@ -91,7 +91,7 @@ class MenuItem
     /**
      * @param bool $hasActiveChild
      */
-    public function setHasActiveChild($hasActiveChild): void
+    public function setHasActiveChild(bool $hasActiveChild): void
     {
         $this->hasActiveChild = $hasActiveChild;
     }

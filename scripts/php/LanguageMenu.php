@@ -8,29 +8,29 @@ namespace WebsiteTemplate;
  */
 class LanguageMenu
 {
-    /** @var string id attribute of HTMLUListElement */
-	public $cssId;
+    /** @var ?string id attribute of HTMLUListElement */
+    public ?string $cssId;
 
 	/** @var string class attribute of HTMLUListElement */
-	public $cssClass = 'nav';
+    public string $cssClass = 'nav';
 
 	/** @var string class attribute of HTMLLIElement */
-	public $liClassActive = 'navActive';
+    public string $liClassActive = 'navActive';
 
 	/** @var string url to redirect to if page does not exists in that language */
-	public $redirect;
+    public string $redirect;
 
 	/** @var Website */
-    protected $web;
+    protected Website $web;
 
     /** @var bool link text based on label instead of lang */
-    public $useLabel = false;
+    public bool $useLabel = false;
 
     /** @var Language */
-    protected $lang;
+    protected Language $lang;
 
     /** @var array keys that are allowed in the query string */
-    private $whitelist = [];
+    private array $whitelist = [];
 
     /**
      * LanguageMenu constructor.

@@ -9,6 +9,7 @@ namespace WebsiteTemplate;
 
 use DateTime;
 use Exception;
+use function in_array;
 
 
 /**
@@ -20,7 +21,7 @@ class Website
     private $host;
 
     /** @var string http protocol */
-    public $protocol = 'https';
+    public string $protocol = 'https';
 
     /** @var string current path from root including page, e.g. /scripts/php/inc_global.php */
     public $path;
@@ -29,37 +30,37 @@ class Website
     public $page;
 
     /** @var string current path without page, e.g. /library */
-    private $dir;
+    private string $dir;
 
     /** @var string query string without leading question mark */
     public $query = '';
 
     /** @var string default page title */
-    public $pageTitle = '';
+    public string $pageTitle = '';
 
     /** @var string web root directory on web server */
-    private $webroot = '/';
+    private string $webroot = '/';
 
     /** @var string character set */
-    public $charset = 'utf-8';
+    public string $charset = 'utf-8';
 
-    /** @var DateTime date of last update */
-    private static $lastUpdate;
+    /** @var ?DateTime date of last update */
+    private static ?DateTime $lastUpdate;
 
     /** @var string name of index page */
-    public $indexPage = 'index.php';
+    public string $indexPage = 'index.php';
 
     /** @var array whitelisted domains */
-    private $domains;
+    private array $domains;
 
     /**
      * Creates a new instance of the class Web.
      * @param array $domains list of whitelisted domains
      */
-    public function __construct($domains)
+    public function __construct(array $domains)
     {
         $this->domains = $domains;
-        if (\in_array($_SERVER['HTTP_HOST'], $this->domains, true)) {
+        if (in_array($_SERVER['HTTP_HOST'], $this->domains, true)) {
             $this->host = $_SERVER['HTTP_HOST'];
         }
         $arrUrl = parse_url($this->getProtocol().$this->host.$_SERVER['REQUEST_URI']);
@@ -88,7 +89,7 @@ class Website
      * A date/time string. Valid formats are explained in https://www.php.net/manual/en/datetime.formats.php
      * @param string $lastUpdate
      */
-    public function setLastUpdate($lastUpdate): void
+    public function setLastUpdate(string $lastUpdate): void
     {
         try {
             self::$lastUpdate = new DateTime($lastUpdate);
@@ -110,7 +111,7 @@ class Website
      * List of domain names the website runs on
      * @param array $domains
      */
-    public function setDomains($domains): void
+    public function setDomains(array $domains): void
     {
         $this->domains = $domains;
     }
@@ -137,7 +138,7 @@ class Website
      * Set the web root.
      * @param string $webroot
      */
-    public function setWebroot($webroot): void
+    public function setWebroot(string $webroot): void
     {
         $this->webroot = $webroot;
     }
@@ -157,7 +158,7 @@ class Website
      * @param ?int $port
      * @return bool
      */
-    public function checkHost($host, $port = null): bool
+    public function checkHost(string $host, ?int $port = null): bool
     {
         $fp = @fsockopen($host, $port, $errNo, $errStr, 2);
 
@@ -169,7 +170,7 @@ class Website
      * If argument $url is provided it is used instead of current url.
      * @param ?string $url
      */
-    public function setLastPage($url = null): void
+    public function setLastPage(?string $url = null): void
     {
         $url = $url ?? $_SERVER['REQUEST_URI'];
         $options = [

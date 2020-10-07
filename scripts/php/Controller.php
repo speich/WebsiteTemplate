@@ -16,7 +16,7 @@ use stdClass;
  */
 class Controller
 {
-    public $err;
+    public Error $err;
 
     /** @var string http protocol */
     private $protocol;
@@ -28,16 +28,16 @@ class Controller
     private $resources;
 
     /** @var Header */
-    private $header;
+    private Header $header;
 
     /** @var bool respond with 404 resource not found */
-    public $notFound = false;
+    public bool $notFound = false;
 
     /** @var bool flush buffer every bytes */
-    public $outputChunked = false;
+    public bool $outputChunked = false;
 
     /** @var int chunk size for flushing */
-    public $chunkSize = 4096;    // = 1 KB
+    public int $chunkSize = 4096;    // = 1 KB
 
     /**
      * Constructs the controller instance.

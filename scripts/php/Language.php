@@ -2,25 +2,28 @@
 
 namespace WebsiteTemplate;
 
+use function array_key_exists;
+use function count;
+
 /**
  * Helper class which allows website to be multi language.
  */
 class Language
 {
 	/** @var string current language code */
-	private $lang = '';
+    private string $lang = '';
 
 	/** @var string default language code */
-	private $langDefault = 'de';
+    private string $langDefault = 'de';
 
 	/** @var array maps language codes to text */
-	public $arrLang = ['de' => 'Deutsch', 'fr' => 'Français', 'it' => 'Italiano', 'en' => 'English'];
+    public array $arrLang = ['de' => 'Deutsch', 'fr' => 'Français', 'it' => 'Italiano', 'en' => 'English'];
 
 	/** @var string regular expression to match language from page naming */
-	private $pagePattern;
+    private string $pagePattern;
 
 	/** @var string regular expression to match language from directory naming */
-	private $dirPattern;
+    private string $dirPattern;
 
 	/**
 	 * Language constructor.
@@ -71,7 +74,7 @@ class Language
 			preg_match_all('/([a-z]{1,8}(-[a-z]{1,8})?)\s*(;\s*q\s*=\s*(1|0\.\d+))?/i',
 				$_SERVER['HTTP_ACCEPT_LANGUAGE'], $arrLang);
 
-			if (\count($arrLang[1]) > 0) {
+			if (count($arrLang[1]) > 0) {
 				// create a list like "en" => 0.8
 				$arr = array_combine($arrLang[1], $arrLang[4]);
 
@@ -100,7 +103,7 @@ class Language
 		// look through sorted list and use first one that matches our languages
 		foreach ($arr as $lang => $val) {
 			$lang = explode('-', $lang);
-			if (\array_key_exists($lang[0], $this->arrLang)) {
+			if (array_key_exists($lang[0], $this->arrLang)) {
 				return $lang[0];
 			}
 		}
@@ -136,24 +139,24 @@ class Language
 		$this->lang = $lang;
 	}
 
-	/**
-	 * Save the language code to a cookie.
-	 * @param string $lang
-	 */
-	public function save($lang): void
+    /**
+     * Save the language code to a cookie.
+     * @param string $lang
+     */
+	public function save(string $lang): void
     {
 		$this->setCookie($lang);
 	}
 
-	/**
-	 * Checks if the language is valid.
-	 * Checks the language against the list of available languages, e.g. from Language::arrLang
-	 * @param string $lang
-	 * @return bool
-	 */
-	public function isValid($lang): bool
+    /**
+     * Checks if the language is valid.
+     * Checks the language against the list of available languages, e.g. from Language::arrLang
+     * @param string $lang
+     * @return bool
+     */
+	public function isValid(string $lang): bool
     {
-		return \array_key_exists($lang, $this->arrLang);
+		return array_key_exists($lang, $this->arrLang);
 	}
 
 	/**
@@ -226,17 +229,17 @@ class Language
 		}
 	}
 
-	/**
-	 * Modify the name of page to match the current language.
-	 * Inserts a minus character and the language abbreviation between page name and page extension except
-	 * for the default language, e.g.: mypage.php -> mypage-fr.php
-	 * @param string $page page only
-	 * @param string|null $lang
-	 * @return string
-	 */
-	public function createPage($page, $lang = null): string
+    /**
+     * Modify the name of page to match the current language.
+     * Inserts a minus character and the language abbreviation between page name and page extension except
+     * for the default language, e.g.: mypage.php -> mypage-fr.php
+     * @param string $page page only
+     * @param string|null $lang
+     * @return string
+     */
+	public function createPage(string $page, ?string $lang = null): string
     {
-		$page = preg_replace('/\-[a-z]{2}\.(php|gif|jpg|pdf)$/', '.$1', $page);
+		$page = preg_replace('/-[a-z]{2}\.(php|gif|jpg|pdf)$/', '.$1', $page);
 
 		if ($lang === null) {
 			$lang = $this->get();

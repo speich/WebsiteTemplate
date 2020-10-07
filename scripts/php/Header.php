@@ -2,22 +2,26 @@
 
 namespace WebsiteTemplate;
 
+use function array_key_exists;
+use function count;
+use function in_array;
+
 /**
  * Helper class to work with HTTP headers.
  */
 class Header
 {
     /** @var string $contentType header default MIME type set to text/html */
-    private $contentType = 'text/html';
+    private string $contentType = 'text/html';
 
     /** @var string $charset default character set set to utf-8 */
-    private $charset = 'utf-8';
+    private string $charset = 'utf-8';
 
     /** @var array contains additional response headers */
-    private $headers = [];
+    private array $headers = [];
 
     /** @var array $contentTypes MIME types lookup */
-    private $contentTypes = [
+    private array $contentTypes = [
         'text' => 'text/plain',
         'csv' => 'text/csv',
         'json' => 'application/json',
@@ -33,7 +37,7 @@ class Header
      */
     public function setContentType($contentType): void
     {
-        $contentType = \array_key_exists($contentType, $this->contentTypes) ? $this->contentTypes[$contentType] : $contentType;
+        $contentType = array_key_exists($contentType, $this->contentTypes) ? $this->contentTypes[$contentType] : $contentType;
         $this->contentType = $contentType;
     }
 
@@ -70,7 +74,7 @@ class Header
      * @param int $numRec total number of items
      * @return array
      */
-    public function createRange($arrRange, $numRec): array
+    public function createRange(array $arrRange, $numRec): array
     {
         $end = $arrRange['end'] > $numRec ? $numRec : $arrRange['end'];
 
@@ -89,7 +93,7 @@ class Header
     /**
      * @param string $charset
      */
-    public function setCharset($charset): void
+    public function setCharset(string $charset): void
     {
         $this->charset = $charset;
     }
@@ -97,10 +101,10 @@ class Header
     /**
      * Add a header to the headers array.
      * Note: Header with same name will be overwritten no matter its case
-     * @param $name
-     * @param $value
+     * @param string $name
+     * @param string $value
      */
-    public function add($name, $value): void
+    public function add(string $name, string $value): void
     {
         // ARRAY_FILTER_USE_KEY is only available in php5.6+
         /*
@@ -109,7 +113,7 @@ class Header
         }, ARRAY_FILTER_USE_KEY);
         */
         $keys = array_keys($this->headers);
-        for ($i = 0, $iMax = \count($this->headers); $i < $iMax; $i++) {
+        for ($i = 0, $iMax = count($this->headers); $i < $iMax; $i++) {
             if (strtolower($keys[$i]) === strtolower($name)) {
                 unset($this->headers[$keys[$i]]);
             }
@@ -123,7 +127,7 @@ class Header
      * @param string $fileName file path
      * @param string $fileExtension
      */
-    public function addDownload($fileName, $fileExtension): void
+    public function addDownload(string $fileName, string $fileExtension): void
     {
         $this->add('Expires', 0);
         $this->add('Cache-Control', 'must-revalidate, post-check=0, pre-check=0');
@@ -145,10 +149,10 @@ class Header
      * @param array $origins
      * @return string|null returns the matched origin or null
      */
-    public function allowOrigins($origins): ?string
+    public function allowOrigins(array $origins): ?string
     {
         $val = $_SERVER['HTTP_ORIGIN'] ?? null;
-        if (\in_array($val, $origins, true)) {
+        if (in_array($val, $origins, true)) {
             $this->add('Access-Control-Allow-Origin', $val);
             $this->add('Vary', 'Origin');
 

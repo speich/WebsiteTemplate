@@ -13,7 +13,7 @@ class Http
      * @param string $str http response
      * @return array
      */
-    public function parseHeader($str): array
+    public function parseHeader(string $str): array
     {
         // code by bsdnoobz http://stackoverflow.com/users/1396314/bsdnoobz
         $lines = explode("\r\n", $str);
@@ -32,10 +32,10 @@ class Http
 
     /**
      * Decode the chunked-encoded string.
-     * @param $str
+     * @param string $str
      * @return string
      */
-    public function decodeChunked($str): string
+    public function decodeChunked(string $str): string
     {
         // code by bsdnoobz http://stackoverflow.com/users/1396314/bsdnoobz
         for ($res = ''; !empty($str); $str = trim($str)) {
@@ -53,7 +53,7 @@ class Http
      * @param string $str http response
      * @return array
      */
-    public function getHeaderAndBody($str): array
+    public function getHeaderAndBody(string $str): array
     {
         $pos = strpos($str, "\r\n\r\n");
 
