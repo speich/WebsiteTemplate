@@ -26,7 +26,7 @@ class DivList extends Html
      * @param string $id Id of container element
      * @param array $arrItem Array of elements
      */
-    public function __construct($id, $arrItem)
+    public function __construct(string $id, array $arrItem)
     {
         $this->setId($id);
         $this->arrItem = $arrItem;
@@ -36,7 +36,7 @@ class DivList extends Html
      * Label the list of div elements.
      * @param string $label
      */
-    public function setLabel($label): void
+    public function setLabel(string $label): void
     {
         $this->labelName = $label;
         $this->label = true;
@@ -62,6 +62,5 @@ class DivList extends Html
         $strHtml .= '</div>';
 
         return $strHtml;
-
     }
 }

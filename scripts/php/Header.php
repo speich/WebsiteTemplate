@@ -12,16 +12,16 @@ use function in_array;
 class Header
 {
     /** @var string $contentType header default MIME type set to text/html */
-    private string $contentType = 'text/html';
+    private $contentType = 'text/html';
 
     /** @var string $charset default character set set to utf-8 */
-    private string $charset = 'utf-8';
+    private $charset = 'utf-8';
 
     /** @var array contains additional response headers */
-    private array $headers = [];
+    private $headers = [];
 
     /** @var array $contentTypes MIME types lookup */
-    private array $contentTypes = [
+    private $contentTypes = [
         'text' => 'text/plain',
         'csv' => 'text/csv',
         'json' => 'application/json',
@@ -35,7 +35,7 @@ class Header
      * Abbreviations can be used instead of full MIME type for some content types.
      * @param string $contentType
      */
-    public function setContentType($contentType): void
+    public function setContentType(string $contentType): void
     {
         $contentType = array_key_exists($contentType, $this->contentTypes) ? $this->contentTypes[$contentType] : $contentType;
         $this->contentType = $contentType;
@@ -74,7 +74,7 @@ class Header
      * @param int $numRec total number of items
      * @return array
      */
-    public function createRange(array $arrRange, $numRec): array
+    public function createRange(array $arrRange, int $numRec): array
     {
         $end = $arrRange['end'] > $numRec ? $numRec : $arrRange['end'];
 

@@ -16,7 +16,7 @@ class CheckBox extends Form
      * @param string $id
      * @param string $val
      */
-    public function __construct($id, $val)
+    public function __construct(string $id, string $val)
     {
         $this->setId($id);
         $this->val = $val;

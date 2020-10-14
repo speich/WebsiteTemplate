@@ -18,7 +18,7 @@ class RadioButton extends Form
      * @param string $id HTMLAttribute id
      * @param string $val HTMLAttribute value
      */
-    public function __construct($id, $val)
+    public function __construct(string $id, string $val)
     {
         $this->setId($id);
         $this->val = $val;

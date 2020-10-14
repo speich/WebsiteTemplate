@@ -45,7 +45,7 @@ class Form extends Html
      * Set the element's tab index
      * @param int $index
      */
-    public function setTabIndex($index): void
+    public function setTabIndex(int $index): void
     {
         $this->tabIndex = $index;
     }
@@ -68,7 +68,7 @@ class Form extends Html
      * @param string $label label
      * @param ?int $position position of label
      */
-    public function setLabel($label, $position = null): void
+    public function setLabel(string $label, $position = null): void
     {
         $this->labelName = $label;
         $this->label = true;

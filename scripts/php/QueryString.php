@@ -3,6 +3,10 @@
 namespace WebsiteTemplate;
 
 
+use function array_key_exists;
+use function is_array;
+
+
 /**
  * Class QueryString
  * Class to work with query strings.
@@ -14,9 +18,9 @@ namespace WebsiteTemplate;
 class QueryString
 {
     /** @var array query string names and values */
-    private array $queryVars;
+    private $queryVars;
 
-    public string $charset = 'UTF-8';
+    public $charset = 'UTF-8';
 
     /**
      * QueryString constructor.
@@ -26,7 +30,7 @@ class QueryString
     public function __construct($whitelist = null)
     {
         parse_str($_SERVER['QUERY_STRING'], $queries);
-        if (\is_array($whitelist)) {
+        if (is_array($whitelist)) {
             $queries = $this->intersect($queries, $whitelist);
         }
         $this->queryVars = $queries;
@@ -43,7 +47,7 @@ class QueryString
         // can't use array_intersect_keys() would remove duplicate keys, which are perfectly fine in a query string
         $arr = [];
         foreach ($whitelist as $key) {
-            if (\array_key_exists($key, $queries)) {
+            if (array_key_exists($key, $queries)) {
                 $arr[$key] = $queries[$key];
             }
         }
@@ -56,7 +60,7 @@ class QueryString
      * $vars is expected to be a associative array with key values.
      * @param array $vars
      */
-    public function add($vars): void
+    public function add(array $vars): void
     {
         $this->queryVars = array_merge($this->queryVars, $vars);
     }

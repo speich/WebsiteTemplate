@@ -14,34 +14,34 @@ class PagedNav
     // Note: numRec and numRecPerPage are private to force setting either through constructor or setter setProps
 
     /** @var int total number of records with current query */
-    private int $numRec;
+    private $numRec;
 
     /** @var int number of records to display per page */
-    private int $numRecPerPage = 10;
+    private $numRecPerPage = 10;
 
     /** @var int number of pages */
-    private int $numPages;
+    private $numPages;
 
     /** @var int even number of links to display */
     public $numLinks = 10;
 
     /** @var string name of query variable to pass current page */
-    public string $queryVarName = 'pg';
+    public $queryVarName = 'pg';
 
     /** @var array keys that are allowed in the query string */
-    private array $whitelist = [];
+    private $whitelist = [];
 
     /** @var int small forward-backward link, e.g. [-10] [+10] */
-    public int $stepSmall = 10;
+    public $stepSmall = 10;
 
     /** @var int large forward-backward link, e.g. [-50] [+50] */
-    public int $stepBig = 50;
+    public $stepBig = 50;
 
     /** @var string name of CSS class of container element */
-    public string $cssClass = 'pgNav';
+    public $cssClass = 'pgNav';
 
     /** @var array translations for internationalization */
-    public array $i18n = [
+    public $i18n = [
         'de' => [
             'entries' => 'Einträge',
             'entry' => 'Eintrag',
@@ -77,10 +77,10 @@ class PagedNav
     ];
 
     /** @var string Language */
-    public string $lang = 'en';
+    public $lang = 'en';
 
     /** @var bool render text */
-    public bool $renderText = true;
+    public $renderText = true;
 
     /**
      * Construct instance of PageNav.
@@ -97,7 +97,7 @@ class PagedNav
             $this->setNumRecPerPage($numRecPerPage);
         }
         if ($numLinks !== null && is_numeric($numLinks)) {    // do not overwrite default value with null
-            $this->numLinks = $numLinks ? $numLinks : $this->numLinks;
+            $this->numLinks = $numLinks ?: $this->numLinks;
         }
     }
 
@@ -105,7 +105,7 @@ class PagedNav
      * Set the allowed keys in the query string.
      * @param array $whitelist
      */
-    public function setWhitelist($whitelist): void
+    public function setWhitelist(array $whitelist): void
     {
         $this->whitelist = $whitelist;
     }
@@ -114,7 +114,7 @@ class PagedNav
      * Set total number of records
      * @param int $numRec number of records
      */
-    public function setNumRec($numRec): void
+    public function setNumRec(int $numRec): void
     {
         $this->numRec = $numRec;
         $this->updateNumPages();
@@ -124,7 +124,7 @@ class PagedNav
      * Set number of records to display per page.
      * @param int $numRecPerPage
      */
-    public function setNumRecPerPage($numRecPerPage): void
+    public function setNumRecPerPage(int $numRecPerPage): void
     {
         $this->numRecPerPage = $numRecPerPage;
         if (isset($this->numRec)) {
@@ -163,7 +163,7 @@ class PagedNav
      * @param int $curPage current page number
      * @return int
      */
-    public function getLowerBoundary($curPage): int
+    public function getLowerBoundary(int $curPage): int
     {
         // special case when less pages than range (=numRecPerPage)
         if ($this->numPages <= $this->numLinks || $curPage <= floor($this->numLinks / 2)) {
@@ -180,7 +180,7 @@ class PagedNav
      * @param int $curPage current page number
      * @return int
      */
-    public function getUpperBoundary($curPage): int
+    public function getUpperBoundary(int $curPage): int
     {
         // special case when less pages than range (=numRecPerPage)
         if ($this->numPages < $this->numLinks) {

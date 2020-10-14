@@ -31,62 +31,62 @@ class Menu
      * Holds array of menu items.
      * @var MenuItem[] menu items
      */
-    public array $arrItem = [];
+    public $arrItem = [];
 
     /** @var string $charset character set to use when creating and encoding html */
-    public string $charset = 'utf-8';
+    public $charset = 'utf-8';
 
     /**
      * Holds html string of created menu.
      * @var string menu string
      */
-    private string $strMenu = '';
+    private $strMenu = '';
 
     /**
      * All child menus are hidden by default
      * @var bool render children
      */
-    public bool $allChildrenToBeRendered = false;
+    public $allChildrenToBeRendered = false;
 
     /**
      * Automatically set item and all its parents active, if url is same as of current page.
      * @var bool set item active
      */
-    public bool $autoActive = true;
+    public $autoActive = true;
 
     /**
      * Sets the url matching pattern of $autoActive property.
      * 1 = item url matches path only, 2 = item url patches path + query, 3 item url matches any part of path + query
      * @var integer
      */
-    private int $autoActiveMatching = 1;
+    private $autoActiveMatching = 1;
 
     /**
      * Flag to mark first ul tag in recursion when rendering HTML.
      * @var bool is first HTMLULElement
      */
-    private bool $firstUl = true;
+    private $firstUl = true;
 
     /**  @var ?string prefix for item id attribute */
-    public ?string $itemIdPrefix = null;
+    public $itemIdPrefix = null;
 
     /** @var string CSS class name of menu */
-    public string $cssClass = 'menu';
+    public $cssClass = 'menu';
 
     /** @var ?string CSS id of menu */
-    public ?string $cssId = null;
+    public $cssId = null;
 
     /** @var string CSS class name, when item has at least one child */
-    public string $cssItemHasChildren = 'menuHasChild';
+    public $cssItemHasChildren = 'menuHasChild';
 
     /** @var string CSS class name, when item is active */
-    public string $cssItemActive = 'menuActive';
+    public $cssItemActive = 'menuActive';
 
     /** @var string CSS class name, when menu is open. */
-    public string $cssItemOpen = 'menuOpen';
+    public $cssItemOpen = 'menuOpen';
 
     /** @var string CSS class name, when item hast at least one active child */
-    public string $cssItemActiveChild = 'menuHasActiveChild';
+    public $cssItemActiveChild = 'menuHasActiveChild';
 
     /**
      * Constructs the menu.
@@ -195,7 +195,7 @@ class Menu
      * @param ?int $pattern
      * @return bool
      */
-    public function checkActive($item, $pattern = null): bool
+    public function checkActive(MenuItem $item, ?int $pattern = null): bool
     {
         // TODO: reduce complexity
         if ($item->getActive() === null) {

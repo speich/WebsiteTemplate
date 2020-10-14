@@ -21,7 +21,7 @@ class Website
     private $host;
 
     /** @var string http protocol */
-    public string $protocol = 'https';
+    public $protocol = 'https';
 
     /** @var string current path from root including page, e.g. /scripts/php/inc_global.php */
     public $path;
@@ -30,28 +30,28 @@ class Website
     public $page;
 
     /** @var string current path without page, e.g. /library */
-    private string $dir;
+    private $dir;
 
     /** @var string query string without leading question mark */
     public $query = '';
 
     /** @var string default page title */
-    public string $pageTitle = '';
+    public $pageTitle = '';
 
     /** @var string web root directory on web server */
-    private string $webroot = '/';
+    private $webroot = '/';
 
     /** @var string character set */
-    public string $charset = 'utf-8';
+    public $charset = 'utf-8';
 
     /** @var ?DateTime date of last update */
-    private static ?DateTime $lastUpdate;
+    private static $lastUpdate;
 
     /** @var string name of index page */
-    public string $indexPage = 'index.php';
+    public $indexPage = 'index.php';
 
     /** @var array whitelisted domains */
-    private array $domains;
+    private $domains;
 
     /**
      * Creates a new instance of the class Web.

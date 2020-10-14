@@ -27,7 +27,7 @@ class RadioGroup extends Form
      * @param string $name
      * @param array $values
      */
-    public function __construct($name, $values)
+    public function __construct(string $name, array $values)
     {
         foreach ($values as $key => $value) {
             $radio = new RadioButton($name.(++$key), $value);
@@ -40,7 +40,7 @@ class RadioGroup extends Form
      * @param array $labels
      * @param ?int $position
      */
-    public function setLabels($labels, $position = null): void
+    public function setLabels(array $labels, ?int $position = null): void
     {
         $position = $position ?? Form::LABEL_BEFORE;
         foreach ($labels as $key => $label) {
@@ -49,9 +49,9 @@ class RadioGroup extends Form
     }
 
     /**
-     * @param $indices
+     * @param array $indices
      */
-    public function setTabIndices($indices): void
+    public function setTabIndices(array $indices): void
     {
         foreach ($indices as $key => $index) {
             $this->radios[$key]->setTabIndex($index);
@@ -64,7 +64,7 @@ class RadioGroup extends Form
      * Note: uses strict comparison
      * @param string $value value to set checked
      */
-    public function setChecked($value): void
+    public function setChecked(string $value): void
     {
         foreach ($this->radios as $radio) {
             if ($radio->val === $value) {

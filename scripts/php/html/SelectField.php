@@ -2,6 +2,9 @@
 
 namespace WebsiteTemplate\html;
 
+use function count;
+
+
 /**
  * This class creates a HtmlSelectElement.
  */
@@ -62,7 +65,7 @@ class SelectField extends Form
      * @param array $arrOption text and value data
      * @param string|null $id
      */
-    public function __construct($arrOption, $id = null)
+    public function __construct(array $arrOption, ?string $id = null)
     {
         if ($id !== null) {
             $this->setId($id);
@@ -78,12 +81,12 @@ class SelectField extends Form
      *
      * @param array $options
      */
-    private function initOptions($options): void
+    private function initOptions(array $options): void
     {
         $i = 0;
         foreach ($options as $key => $row) {
             $option = new OptionElement();
-            if (\count($row) > 1) {
+            if (count($row) > 1) {
                 $option->value = $row[0];
                 $option->text = $row[1];
             } else {
@@ -109,9 +112,9 @@ class SelectField extends Form
     /**
      * Set the number of visible rows.
      * Note: this is independent of multiple attribute
-     * @param $size
+     * @param int $size
      */
-    public function setSize($size): void
+    public function setSize(int $size): void
     {
         $this->size = $size;
     }
@@ -124,7 +127,7 @@ class SelectField extends Form
      * @param string|bool|null $val
      * @param ?int $type SelectField::SELECTED_BY_VALUE | SelectField::SELECTED_BY_TEXT
      */
-    public function setSelected($val = null, $type = null): void
+    public function setSelected($val = null, ?int $type = null): void
     {
         $val = $val ?? false;
         $deselect = $val === false;
@@ -149,10 +152,10 @@ class SelectField extends Form
 
     /**
      * Returns the first selected value or text
-     * @param null $type SelectField::SELECTED_BY_VALUE | SelectField::SELECTED_BY_TEXT
+     * @param int|null $type SelectField::SELECTED_BY_VALUE | SelectField::SELECTED_BY_TEXT
      * @return bool|string
      */
-    public function getSelected($type = null)
+    public function getSelected(?int $type = null)
     {
         foreach ($this->arrOption as $option) {
             if ($option->selected) {
@@ -207,7 +210,7 @@ class SelectField extends Form
     }
 
     /**
-     *  Render HTML select element.
+     * Render HTML select element.
      * @return string
      */
     private function renderSelect(): string
@@ -283,7 +286,7 @@ class SelectField extends Form
      * Title can be set from the option text or option value attribute.
      * @param ?int $type SelectField::OPTION_TITLE_FROM_TEXT | SelectField::OPTION_TITLE_FROM_VALUE
      */
-    public function setOptionTitleAuto($type = null): void
+    public function setOptionTitleAuto(?int $type = null): void
     {
         $this->autoOptionTitle = $type ?? self::OPTION_TITLE_FROM_TEXT;
     }
@@ -292,7 +295,7 @@ class SelectField extends Form
      * Set the title attribute automatically.
      * @param OptionElement $option
      */
-    private function setAutoOptionTitle($option): void
+    private function setAutoOptionTitle(OptionElement $option): void
     {
         if ($this->autoOptionTitle !== false) {
             $option->title = $this->autoOptionTitle === self::OPTION_TITLE_FROM_TEXT ? $option->text : $option->value;

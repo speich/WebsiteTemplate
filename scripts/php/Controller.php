@@ -6,6 +6,9 @@
 namespace WebsiteTemplate;
 
 use stdClass;
+use function array_key_exists;
+use function count;
+use function is_array;
 
 
 /**
@@ -16,7 +19,7 @@ use stdClass;
  */
 class Controller
 {
-    public Error $err;
+    public $err;
 
     /** @var string http protocol */
     private $protocol;
@@ -28,16 +31,16 @@ class Controller
     private $resources;
 
     /** @var Header */
-    private Header $header;
+    private $header;
 
     /** @var bool respond with 404 resource not found */
-    public bool $notFound = false;
+    public $notFound = false;
 
     /** @var bool flush buffer every bytes */
-    public bool $outputChunked = false;
+    public $outputChunked = false;
 
     /** @var int chunk size for flushing */
-    public int $chunkSize = 4096;    // = 1 KB
+    public $chunkSize = 4096;    // = 1 KB
 
     /**
      * Constructs the controller instance.
@@ -90,8 +93,8 @@ class Controller
                 break;
         }
 
-        if (\is_array($data)) {
-            $data = \count($data) > 0 ? (object)$data : null;
+        if (is_array($data)) {
+            $data = count($data) > 0 ? (object)$data : null;
         }
 
         return $data;
@@ -174,17 +177,17 @@ class Controller
         $headers = array_change_key_case($headers);
 
         // server error
-        if (\count($this->err->get()) > 0) {
+        if (count($this->err->get()) > 0) {
             header($this->getProtocol().' 500 Internal Server Error');
         } // resource not found
         elseif ($this->notFound) {
             header($this->getProtocol().' 404 Not Found');
         } // resource found and processed
-        elseif (!\array_key_exists('content-disposition', $headers) && $this->getMethod() === 'POST') {
+        elseif (!array_key_exists('content-disposition', $headers) && $this->getMethod() === 'POST') {
             // IE/Edge fail to download with status 201
             header($this->getProtocol().' 201 Created');
         } // range response
-        elseif (\array_key_exists('content-range', $headers)) {
+        elseif (array_key_exists('content-range', $headers)) {
             header($this->getProtocol().' 206 Partial Content');
         } else {
             header($this->getProtocol().' 200 OK');
@@ -199,7 +202,7 @@ class Controller
     public function printBody($data = null): void
     {
         // an error occurred
-        if (\count($this->err->get()) > 0) {
+        if (count($this->err->get()) > 0) {
             if ($this->header->getContentType() === 'application/json') {
                 echo $this->err->getAsJson();
             } else {

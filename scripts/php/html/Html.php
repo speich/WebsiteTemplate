@@ -25,7 +25,7 @@ abstract class Html
 
     /**
      * Set the id attribute of a HTMLElement.
-     * @param string $id
+     * @param int|string $id
      */
     public function setId($id): void
     {
@@ -66,12 +66,11 @@ abstract class Html
         return $this->cssClass === '' ? '' : ' class="'.$this->cssClass.'"';
     }
 
-
     /**
      * Set the style attribute of a HTMLElement.
      * @param string $style
      */
-    public function setCssStyle($style): void
+    public function setCssStyle(string $style): void
     {
         $this->cssStyle = $style;
     }
@@ -89,7 +88,7 @@ abstract class Html
      * Set the title attribute
      * @param string $title
      */
-    public function setTitle($title): void
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }

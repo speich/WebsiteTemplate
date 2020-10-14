@@ -11,19 +11,19 @@ use function count;
 class Language
 {
 	/** @var string current language code */
-    private string $lang = '';
+    private $lang = '';
 
 	/** @var string default language code */
-    private string $langDefault = 'de';
+    private $langDefault = 'de';
 
 	/** @var array maps language codes to text */
-    public array $arrLang = ['de' => 'Deutsch', 'fr' => 'Français', 'it' => 'Italiano', 'en' => 'English'];
+    public $arrLang = ['de' => 'Deutsch', 'fr' => 'Français', 'it' => 'Italiano', 'en' => 'English'];
 
 	/** @var string regular expression to match language from page naming */
-    private string $pagePattern;
+    private $pagePattern;
 
 	/** @var string regular expression to match language from directory naming */
-    private string $dirPattern;
+    private $dirPattern;
 
 	/**
 	 * Language constructor.
@@ -111,12 +111,12 @@ class Language
 		return false;
 	}
 
-	/**
-	 * Sets the page pattern
-	 * Regular expression pattern to get the language from the page name.
-	 * @param null|string $pagePattern
-	 */
-	public function setPagePattern($pagePattern): void
+    /**
+     * Sets the page pattern
+     * Regular expression pattern to get the language from the page name.
+     * @param null|string $pagePattern
+     */
+	public function setPagePattern(?string $pagePattern): void
     {
 		$this->pagePattern = $pagePattern;
 	}
@@ -130,11 +130,11 @@ class Language
 		return pathinfo($_SERVER['REQUEST_URI'], PATHINFO_BASENAME);
 	}
 
-	/**
-	 * Sets the language code.
-	 * @param null|string $lang
-	 */
-	public function set($lang): void
+    /**
+     * Sets the language code.
+     * @param null|string $lang
+     */
+	public function set(?string $lang): void
     {
 		$this->lang = $lang;
 	}
@@ -197,11 +197,11 @@ class Language
 		return $this->isValid($lang) ? $lang : false;
 	}
 
-	/**
-	 * Stores the language in a cookie.
-	 * @param $lang
-	 */
-	public function setCookie($lang): void
+    /**
+     * Stores the language in a cookie.
+     * @param string $lang
+     */
+	public function setCookie(string $lang): void
     {
 		// remove subdomain www from host to prevent conflicting with cookies set in subdomain
 		$options = [
@@ -220,7 +220,7 @@ class Language
 	 * @param ?bool $save save to cookie?
 	 * @see Language::autoDetect()
 	 */
-	public function autoSet($save = null): void
+	public function autoSet(?bool $save = null): void
     {
 		$lang = $this->autoDetect();
 		$this->lang = $lang === false ? $this->getDefault() : $lang;

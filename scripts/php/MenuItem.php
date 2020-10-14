@@ -20,25 +20,25 @@ class MenuItem
     public $parentId;
 
     /** @var string text of link */
-    public string $linkTxt = '';
+    public $linkTxt = '';
 
     /** @var ?string url of link */
-    public ?string $linkUrl = '';
+    public $linkUrl = '';
 
     /** @var string CSS class name */
-    private string $cssClass = '';
+    private $cssClass = '';
 
     /** @var bool render children */
-    private bool $childToBeRendered = false;
+    private $childToBeRendered = false;
 
     /** @var bool is item active */
-    private bool $active = false;
+    private $active = false;
 
     /** @var bool has item an active child */
-    private bool $hasActiveChild = false;
+    private $hasActiveChild = false;
 
     /** @var string link target */
-    public string $linkTarget = '';
+    public $linkTarget = '';
 
     /**
      * Constructs the menu item.

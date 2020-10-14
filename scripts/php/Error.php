@@ -6,6 +6,9 @@
 
 namespace WebsiteTemplate;
 
+use function count;
+
+
 /**
  * Class to work with PHP error messages.
  * All native PHP errors (except fatal errors) are caught and logged to an array by using the native set_error_handler function.
@@ -20,7 +23,7 @@ class Error
      * Stores error messages.
      * @var array $arrErr
      */
-    private array $arrErr = [];
+    private $arrErr = [];
 
     /**
      * Constructs the error reporting class by setting the native set_error_handler function.
@@ -80,7 +83,7 @@ class Error
                 $msg .= ' in '.$err['file'].' on line '.$err['line'];
             }
             $json .= json_encode(['msg' => $msg]);
-            if ($key < \count($errs) - 1) {
+            if ($key < count($errs) - 1) {
                 $json .= ',';
             }
         }
@@ -102,7 +105,7 @@ class Error
             if ($err['line'] > 0) {
                 $str .= ' in '.$err['file'].' on line '.$err['line'];
             }
-            if ($key < \count($errs) - 1) {
+            if ($key < count($errs) - 1) {
                 $str .= '<br>';
             }
         }
