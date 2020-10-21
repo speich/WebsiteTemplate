@@ -145,12 +145,14 @@ class Header
 
     /**
      * Enable CORS for the passed origins.
-     * Adds the Access-Control-Allow-Origin header to the response with the origin that matched the one in the request.
+     * Adds the Access-Control-Allow-Origin header to the response only when
+     * the origin header is present in the request and the origin is whitelisted.
      * @param array $origins
      * @return string|null returns the matched origin or null
      */
     public function allowOrigins(array $origins): ?string
     {
+        // note: the origin header is only sent, when browser is doing a cross doing request
         $val = $_SERVER['HTTP_ORIGIN'] ?? null;
         if (in_array($val, $origins, true)) {
             $this->add('Access-Control-Allow-Origin', $val);
@@ -160,5 +162,14 @@ class Header
         }
 
         return null;
+    }
+
+    /**
+     * Enable CORS for everyone.
+     * Adds the Access-Control-Allow-Origin with asterix as a wildcard.
+     */
+    public function allowOriginsAll(): void
+    {
+        $this->add('Access-Control-Allow-Origin', '*');
     }
 }
