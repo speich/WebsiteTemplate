@@ -63,7 +63,7 @@ class Website
         if (in_array($_SERVER['HTTP_HOST'], $this->domains, true)) {
             $this->host = $_SERVER['HTTP_HOST'];
         }
-        $arrUrl = parse_url($this->getProtocol(true).$this->host.$_SERVER['REQUEST_URI']);
+        $arrUrl = parse_url($this->getProtocol().$this->host.$_SERVER['REQUEST_URI']);
         $this->query = $arrUrl['query'] ?? '';
         if (isset($arrUrl['path'])) {
             $this->path = $arrUrl['path'];
@@ -212,8 +212,8 @@ class Website
 
     /**
      * Returns the current protocol.
-     * Returns the current protocol (only HTTP or HTTPS) from the requested page
-     * including the colon and the double slashes e.g. <protocol>:// unless false is passed as the method argument.
+     * Returns the current protocol from the requested page (only HTTP or HTTPS).
+     * Includes the colon and the double slashes, e.g. '<protocol>://' unless false is passed as the method argument.
      * @param bool $full return additional characters ?
      * @return string
      */
@@ -221,6 +221,6 @@ class Website
     {
         $this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] === 443 ? 'https' : 'http';
 
-        return $full === true ? $this->protocol.'://' : $this->protocol;
+        return $full === false ? $this->protocol : $this->protocol.'://';
     }
 }
