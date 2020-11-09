@@ -9,6 +9,7 @@ namespace WebsiteTemplate;
 
 use DateTime;
 use Exception;
+use function array_key_exists;
 use function in_array;
 
 
@@ -60,11 +61,8 @@ class Website
     public function __construct(array $domains)
     {
         $this->domains = $domains;
-        $url = parse_url($_SERVER['HTTP_HOST']);
-        if (in_array($url['host'], $this->domains, true)) {
-            $this->host = $url['host'];
-        }
-        else {
+        $this->host = $this->isWhitelisted();
+        if ($this->host === false) {
             exit('not a whitelisted domain');
         }
         $arrUrl = parse_url($this->getProtocol(true).$this->host.$_SERVER['REQUEST_URI']);
@@ -75,6 +73,21 @@ class Website
             $this->page = $arrPath['basename'];
             $this->dir = rtrim($arrPath['dirname'], DIRECTORY_SEPARATOR).'/';
         }
+    }
+
+    /**
+     * Check if current host ins whitelisted.
+     * @return false|string
+     */
+    protected function isWhitelisted()
+    {
+        $url = parse_url($_SERVER['HTTP_HOST']);
+        if ((array_key_exists('host', $url) && in_array($url['host'], $this->domains, true))
+            || in_array($_SERVER['HTTP_HOST'], $this->domains, true)) {
+            return $url['host'];
+        }
+
+        return false;
     }
 
     /**
