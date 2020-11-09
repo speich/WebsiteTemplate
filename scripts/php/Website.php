@@ -60,10 +60,14 @@ class Website
     public function __construct(array $domains)
     {
         $this->domains = $domains;
-        if (in_array($_SERVER['HTTP_HOST'], $this->domains, true)) {
-            $this->host = $_SERVER['HTTP_HOST'];
+        $url = parse_url($_SERVER['HTTP_HOST']);
+        if (in_array($url['host'], $this->domains, true)) {
+            $this->host = $url['host'];
         }
-        $arrUrl = parse_url($this->getProtocol().$this->host.$_SERVER['REQUEST_URI']);
+        else {
+            exit('not a whitelisted domain');
+        }
+        $arrUrl = parse_url($this->getProtocol(true).$this->host.$_SERVER['REQUEST_URI']);
         $this->query = $arrUrl['query'] ?? '';
         if (isset($arrUrl['path'])) {
             $this->path = $arrUrl['path'];
