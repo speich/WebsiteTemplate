@@ -82,12 +82,12 @@ class Website
     protected function isWhitelisted()
     {
         $url = parse_url($_SERVER['HTTP_HOST']);
-        if ((array_key_exists('host', $url) && in_array($url['host'], $this->domains, true))
-            || in_array($_SERVER['HTTP_HOST'], $this->domains, true)) {
+        if (array_key_exists('host', $url) && in_array($url['host'], $this->domains, true)) {
+
             return $url['host'];
         }
 
-        return false;
+        return in_array($_SERVER['HTTP_HOST'], $this->domains, true);
     }
 
     /**
