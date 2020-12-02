@@ -19,19 +19,15 @@ class Language
 	/** @var array maps language codes to text */
     public $arrLang = ['de' => 'Deutsch', 'fr' => 'Français', 'it' => 'Italiano', 'en' => 'English'];
 
-	/** @var string regular expression to match language from page naming */
-    private $pagePattern;
-
-	/** @var string regular expression to match language from directory naming */
-    private $dirPattern;
+    /** @var string regular expression capturing group for language codes */
+    private $langCaptureGroup;
 
 	/**
 	 * Language constructor.
 	 */
 	public function __construct()
 	{
-		$this->pagePattern = '/-(' . implode('|', $this->getAll()) . ')\.php/';
-		$this->dirPattern = '/\/(' . implode('|', $this->getAll()) . ')\//';
+		$this->langCaptureGroup = '(' . implode('|', $this->getAll()) . ')';
 	}
 
 	/**
@@ -118,7 +114,7 @@ class Language
      */
 	public function setPagePattern(?string $pagePattern): void
     {
-		$this->pagePattern = $pagePattern;
+		$this->langCaptureGroup = $pagePattern;
 	}
 
 	/**
@@ -180,10 +176,10 @@ class Language
 		if (isset($_GET['lang'])) {
 			$lang = preg_replace('/\W/', '', $_GET['lang']);
 		} // from directory, e.g. /en/
-		elseif (preg_match($this->dirPattern, $_SERVER['REQUEST_URI'], $matches) === 1) {
+		elseif (preg_match('/\/'.$this->langCaptureGroup.'\//', $_SERVER['REQUEST_URI'], $matches) === 1) {
 			$lang = $matches[1];
 		} // from page name
-		elseif (preg_match($this->pagePattern, $this->getPage(), $matches) === 1) {
+		elseif (preg_match('/-'.$this->langCaptureGroup.'\.php/', $this->getPage(), $matches) === 1) {
 			// note: default language is not part of the page name, e.g. page{-defaultLang}.php does not exist
 			$lang = $matches[1];
 		} // cookie?
@@ -239,16 +235,18 @@ class Language
      */
 	public function createPage(string $page, ?string $lang = null): string
     {
-		$page = preg_replace('/-[a-z]{2}\.(php|gif|jpg|pdf)$/', '.$1', $page);
-
 		if ($lang === null) {
 			$lang = $this->get();
 		}
 
+        // remove language postfix
+		$page = preg_replace('/-'.$this->langCaptureGroup.'\.([a-z]+)$/', '.$2', $page);
+
+		// add new language postfix
 		if ($lang !== $this->langDefault) {
-			$page = preg_replace('/\.(php|gif|jpg|pdf)$/', '-' . $lang . '.$1', $page);
+			$page = preg_replace('/\.([a-z]+)$/', '-' . $lang . '.$1', $page);
 		}
 
 		return $page;
 	}
-} 
+}
