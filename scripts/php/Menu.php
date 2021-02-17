@@ -43,10 +43,13 @@ class Menu
     private $strMenu = '';
 
     /**
-     * All child menus are hidden by default
+     * Render all menu items.
      * @var bool render children
      */
-    public $allChildrenToBeRendered = false;
+    public $allItemsRendered = false;
+
+    /** @var bool render all items open. */
+    public $allItemsOpen = false;
 
     /**
      * Automatically set item and all its parents active, if url is same as of current page.
@@ -301,7 +304,7 @@ class Menu
                 $this->strMenu .= '>';
                 $this->strMenu .= $item->linkTxt;
                 $this->strMenu .= '</'.$tagName.'>';
-                if ($this->checkChildExists($item->id) && ($item->getActive() || $this->allChildrenToBeRendered)) {
+                if ($this->checkChildExists($item->id) && ($item->getActive() || $this->allItemsRendered)) {
                     $this->createHtml($item->id);
                     $this->strMenu .= '</ul>';
                 }
@@ -321,7 +324,7 @@ class Menu
         $hasChild = $this->checkChildExists($item->id);
         if ($hasChild) {
             $item->addCssClass($this->cssItemHasChildren);
-            if ($this->allChildrenToBeRendered || $item->getActive()) {
+            if ($this->allItemsOpen || $item->getActive()) {
                 // children can be open even when nothing is active
                 $item->addCssClass($this->cssItemOpen);
             }
@@ -350,7 +353,7 @@ class Menu
                 }
 
                 // set also the parent items to render
-                if ($this->allChildrenToBeRendered) {
+                if ($this->allItemsRendered) {
                     $parentId = $item->parentId;
                     while (array_key_exists($parentId, $this->arrItem)) {
                         $this->arrItem[$parentId]->setChildToBeRendered();
@@ -372,7 +375,7 @@ class Menu
             foreach ($this->arrItem as $item) {
                 if ($item->linkUrl === $url) {
                     $item->setActive();
-                    if ($this->allChildrenToBeRendered || $item->getActive()) {
+                    if ($this->allItemsRendered || $item->getActive()) {
                         // set also item's parents to active
                         $parentId = $item->parentId;
                         while (array_key_exists($parentId, $this->arrItem)) {
