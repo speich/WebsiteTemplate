@@ -9,6 +9,7 @@ namespace WebsiteTemplate;
 
 use DateTime;
 use Exception;
+use function array_key_exists;
 use function in_array;
 
 
@@ -60,8 +61,9 @@ class Website
     public function __construct(array $domains)
     {
         $this->domains = $domains;
-        if (in_array($_SERVER['HTTP_HOST'], $this->domains, true)) {
-            $this->host = $_SERVER['HTTP_HOST'];
+        $this->host = $this->isWhitelisted();
+        if ($this->host === false) {
+            exit('not a whitelisted domain');
         }
         $arrUrl = parse_url($this->getProtocol(true).$this->host.$_SERVER['REQUEST_URI']);
         $this->query = $arrUrl['query'] ?? '';
@@ -71,6 +73,20 @@ class Website
             $this->page = $arrPath['basename'];
             $this->dir = rtrim($arrPath['dirname'], DIRECTORY_SEPARATOR).'/';
         }
+    }
+
+    /**
+     * Check if current host (and port) is whitelisted.
+     * @return false|string
+     */
+    protected function isWhitelisted()
+    {
+        if (in_array($_SERVER['HTTP_HOST'], $this->domains, true)) {
+
+            return $_SERVER['HTTP_HOST'];
+        }
+
+        return false;
     }
 
     /**
@@ -212,8 +228,8 @@ class Website
 
     /**
      * Returns the current protocol.
-     * Returns the current protocol (only HTTP or HTTPS) from the requested page
-     * including the colon and the double slashes e.g. <protocol>:// unless false is passed as the method argument.
+     * Returns the current protocol from the requested page (only HTTP or HTTPS).
+     * Includes the colon and the double slashes, e.g. '<protocol>://' unless false is passed as the method argument.
      * @param bool $full return additional characters ?
      * @return string
      */
@@ -221,6 +237,6 @@ class Website
     {
         $this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] === 443 ? 'https' : 'http';
 
-        return $full === true ? $this->protocol.'://' : $this->protocol;
+        return $full === false ? $this->protocol : $this->protocol.'://';
     }
 }

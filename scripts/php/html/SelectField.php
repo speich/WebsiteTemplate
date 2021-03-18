@@ -62,10 +62,10 @@ class SelectField extends Form
      * array values are used as the text of the HTMLOptionElements. Otherwise the first dimension
      * is used as the value, and the second as the text.
      *
-     * @param array $arrOption text and value data
+     * @param iterable $arrOption text and value data
      * @param string|null $id
      */
-    public function __construct(array $arrOption, ?string $id = null)
+    public function __construct(iterable $arrOption, ?string $id = null)
     {
         if ($id !== null) {
             $this->setId($id);
@@ -79,9 +79,9 @@ class SelectField extends Form
      * If argument $options is a 1-dim array: created value attribute if autoOptionValues is true, otherwise no value attribute is set.
      * If arguments $options is a 2-dim array: use first index as value attribute, second as text
      *
-     * @param array $options
+     * @param iterable $options
      */
-    private function initOptions(array $options): void
+    private function initOptions(iterable $options): void
     {
         $i = 0;
         foreach ($options as $key => $row) {

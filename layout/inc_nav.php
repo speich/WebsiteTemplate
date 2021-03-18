@@ -32,7 +32,7 @@ $menu2 = new Menu([
 		[6, 3, 'some', $web->getWebRoot().'services/save.php'],
 	[7, 0, 'Contact', $web->getWebRoot().'contact.php']
 ]);
-$menu2->allChildrenToBeRendered = true;
+$menu2->allChildrenRendered = true;
 $menu2->setActive($web->getWebRoot().'services/more.php');
 $menu2->cssClass = 'menu menu2';
 
@@ -66,6 +66,6 @@ $menu4 = new Menu([
 		[6, 3, 'some', $web->getWebRoot().'services/save.php'],
 	[7, 0, 'Contact', $web->getWebRoot().'contact.php']
 ]);
-$menu4->allChildrenToBeRendered = true;
+$menu4->allChildrenRendered = true;
 $menu4->setActive($web->getWebRoot().'services/load.php');
 $menu4->cssClass = 'menu menu4';
