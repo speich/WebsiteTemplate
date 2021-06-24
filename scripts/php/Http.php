@@ -2,6 +2,9 @@
 
 namespace WebsiteTemplate;
 
+use function is_array;
+
+
 /**
  * Helper class to parse HTTP responses.
  */
@@ -9,15 +12,17 @@ class Http
 {
 
     /**
-     * Extract the http response header into array.
-     * @param string $str http response
+     * Extract the http response header into an associative array.
+     * @param array|string $header http raw response or array $http_response_header
      * @return array
      */
-    public function parseHeader(string $str): array
+    public function parseHeader($header): array
     {
         // code by bsdnoobz http://stackoverflow.com/users/1396314/bsdnoobz
-        $lines = explode("\r\n", $str);
-        $head = [array_shift($lines)];
+        $lines = is_array($header) ? $header : explode("\r\n", $header);
+        $head[0] = array_shift($lines);  // message is always first line in header
+        preg_match("/HTTP\/[0-9\.]+\s+([0-9]+)/", $head[0], $code);
+        $head[1] = (int)$code[1];
         foreach ($lines as $line) {
             [$key, $val] = explode(':', $line, 2);
             if ($key === 'Set-Cookie') {
@@ -51,7 +56,7 @@ class Http
     /**
      * Splits the http response into header and body.
      * @param string $str http response
-     * @return array
+     * @return array array with keys header and body
      */
     public function getHeaderAndBody(string $str): array
     {
