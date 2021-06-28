@@ -24,7 +24,9 @@ class Http
         preg_match("/HTTP\/[0-9\.]+\s+([0-9]+)/", $head[0], $code);
         $head[1] = (int)$code[1];
         foreach ($lines as $line) {
-            [$key, $val] = explode(':', $line, 2);
+            $arr = explode(':', $line, 2);
+            $key = $arr[0];
+            $val = count($arr) > 1 ? $arr[1] : '';  // in case of a redirect, a second http message is present
             if ($key === 'Set-Cookie') {
                 $head['Set-Cookie'][] = trim($val);
             } else {
