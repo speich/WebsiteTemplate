@@ -13,6 +13,8 @@ class Http
 
     /**
      * Extract the http response header into an associative array.
+     * Adds the http message (first line in header) as the first item with key = 0 and the code with key = 1. All
+     * other headers have their name as the key, e.g. 'Content-Type'.
      * @param array|string $header http raw response or array $http_response_header
      * @return array
      */
