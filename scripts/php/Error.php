@@ -69,7 +69,18 @@ class Error
     }
 
     /**
+     * Has at least one error occurred?
+     * Returns true if at least one error was stored in the internal error array.
+     * @return bool
+     */
+    public function has(): bool
+    {
+        return count($this->arrErr) > 0;
+    }
+
+    /**
      * Returns all errors as a json array.
+     * Returns '[]' when there are no errors
      * @return string json
      */
     public function getAsJson(): string
@@ -94,6 +105,7 @@ class Error
 
     /**
      * Returns all errors as a string.
+     * Returns an empty string if there are no errors.
      * @return string
      */
     public function getAsString(): string
