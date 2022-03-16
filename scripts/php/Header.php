@@ -152,7 +152,7 @@ class Header
      */
     public function allowOrigins(array $origins): ?string
     {
-        // note: the origin header is only sent, when browser is doing a cross doing request
+        // note: the origin header is only sent, when browser is doing a cross-domain request
         $val = $_SERVER['HTTP_ORIGIN'] ?? null;
         if (in_array($val, $origins, true)) {
             $this->add('Access-Control-Allow-Origin', $val);

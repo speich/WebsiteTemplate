@@ -228,15 +228,21 @@ class Website
 
     /**
      * Returns the current protocol.
-     * Returns the current protocol from the requested page (only HTTP or HTTPS).
-     * Includes the colon and the double slashes, e.g. '<protocol>://' unless false is passed as the method argument.
+     * Returns the current protocol (only http or https) from the requested page
+     * including the colon and the double slashes e.g. <protocol>:// unless false is passed as the method argument.
      * @param bool $full return additional characters ?
      * @return string
      */
     public function getProtocol(?bool $full = null): string
     {
-        $this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] === 443 ? 'https' : 'http';
-
+        if ((!empty($_SERVER['SERVER_PROTOCOL']) && $_SERVER['SERVER_PROTOCOL'] === 'HTTP/2.0') ||
+            (!empty($_SERVER['HTTP2']) && $_SERVER['HTTP2'] === 'on') ||
+            (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
+            (!empty($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] === 443)) {
+            $this->protocol = 'https';
+        } else {
+            $this->protocol = 'http';
+        }
         return $full === false ? $this->protocol : $this->protocol.'://';
     }
 }
