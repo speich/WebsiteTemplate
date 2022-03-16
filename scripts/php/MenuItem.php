@@ -13,32 +13,36 @@ namespace WebsiteTemplate;
  */
 class MenuItem
 {
-    /**  @var string id */
-    public $id;
+    /**  @var string|int id */
+    public string|int $id;
 
-    /** @var string parent id */
-    public $parentId;
+    /** @var string|int parent id */
+    public string|int $parentId;
 
-    /** @var string text of link */
-    public $linkTxt = '';
+    /** @var string text of the link */
+    public string $linkTxt;
 
-    /** @var ?string url of link */
-    public $linkUrl = '';
+    /** @var ?string url of the link */
+    public ?string $linkUrl;
 
     /** @var string CSS class name */
-    private $cssClass = '';
+    private string $cssClass = '';
 
     /** @var bool render children */
-    private $childToBeRendered = false;
+    private bool $childToBeRendered = false;
 
-    /** @var bool is item active */
-    private $active = false;
+    /**
+     * Note: When this property is null, the css active state is set automatically by Menu::setActive() depending
+     * on the current url.
+     * @var ?bool is item active
+     */
+    private ?bool $active = null;
 
-    /** @var bool has item an active child */
-    private $hasActiveChild = false;
+    /** @var bool has item an active child ? */
+    private bool $hasActiveChild = false;
 
-    /** @var string link target */
-    public $linkTarget = '';
+    /** @var ?string link target */
+    public ?string $linkTarget = null;
 
     /**
      * Constructs the menu item.
@@ -81,9 +85,9 @@ class MenuItem
 
     /**
      * Get item active status.
-     * @return bool
+     * @return ?bool
      */
-    public function getActive(): bool
+    public function getActive(): ?bool
     {
         return $this->active;
     }

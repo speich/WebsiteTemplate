@@ -2,7 +2,7 @@
 <project version="4">
   <component name="MessDetector">
     <phpmd_settings>
-      <MessDetectorConfiguration tool_path="C:/Program Files (x86)/PHP/phpmd" />
+      <MessDetectorConfiguration tool_path="$PROJECT_DIR$/../../../../Program Files (x86)/PHP/phpmd" />
     </phpmd_settings>
   </component>
   <component name="PhpCodeSniffer">
@@ -18,5 +18,5 @@
       <path value="$PROJECT_DIR$/library" />
     </include_path>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.0" />
 </project>

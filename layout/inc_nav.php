@@ -18,19 +18,19 @@ $menu1->cssClass = 'menu menu1';
 
 /* Advanced animated horizontal menu with submenus */
 $menu2 = new Menu([
-	[1, 0, 'Home', $web->getWebRoot().'index.php'],
-	[2, 0, 'About'],
-		[8, 2, 'Me...'],
-			[9, 8, 'You', $web->getWebRoot().'about.php'],
-		[13, 2, 'CV', $web->getWebRoot().'cv.php'],
-	[3, 0, 'Services'],
-		[4, 3, 'more', $web->getWebRoot().'services/more.php'],
-		[5, 3, 'any...'],
-			[10, 5, 'subany', $web->getWebRoot().'services/load.php'],
-			[11, 5, 'subsome', $web->getWebRoot().'services/load.php'],
-			[12, 5, 'submore', $web->getWebRoot().'services/load.php'],
-		[6, 3, 'some', $web->getWebRoot().'services/save.php'],
-	[7, 0, 'Contact', $web->getWebRoot().'contact.php']
+    [1, 0, 'Home', $web->getWebRoot().'index.php'],
+    [2, 0, 'About'],
+        [8, 2, 'Me...'],
+            [9, 8, 'You', $web->getWebRoot().'about.php'],
+    [13, 2, 'CV', $web->getWebRoot().'cv.php'],
+    [3, 0, 'Services'],
+    [4, 3, 'more', $web->getWebRoot().'services/more.php'],
+    [5, 3, 'any...'],
+    [10, 5, 'subany', $web->getWebRoot().'services/load.php'],
+    [11, 5, 'subsome', $web->getWebRoot().'services/load.php'],
+    [12, 5, 'submore', $web->getWebRoot().'services/load.php'],
+    [6, 3, 'some', $web->getWebRoot().'services/save.php'],
+    [7, 0, 'Contact', $web->getWebRoot().'contact.php']
 ]);
 $menu2->allChildrenRendered = true;
 $menu2->setActive($web->getWebRoot().'services/more.php');
