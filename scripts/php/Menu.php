@@ -201,12 +201,12 @@ class Menu
     public function checkActive(MenuItem $item, ?int $pattern = null): bool
     {
         // TODO: reduce complexity
-        if ($item->getActive() === null) {
-            return false;    // item explicitly set to null = skip
+        if ($item->getActive() === false) {
+            return false;
         }
 
-        if ($item->getActive()) {
-            return true; // item explicitly set to active
+        if ($item->getActive() === true)  {
+            return true;
         }
 
         $url = $_SERVER['REQUEST_URI'];
