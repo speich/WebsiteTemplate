@@ -348,7 +348,7 @@ class Menu
     {
         if ($url === null) {
             foreach ($this->arrItem as $item) {
-                if ($this->checkActive($item)) {
+                if ($item->linkUrl !== null && $this->checkActive($item)) {
                     $item->setActive();
                 }
 
