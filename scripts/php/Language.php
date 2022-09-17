@@ -11,16 +11,16 @@ use function count;
 class Language
 {
     /** @var string current language code */
-    private $lang = '';
+    private string $lang = '';
 
     /** @var string default language code */
-    private $langDefault = 'de';
+    private string $langDefault = 'de';
 
     /** @var array maps language codes to text */
-    public $arrLang = ['de' => 'Deutsch', 'fr' => 'Français', 'it' => 'Italiano', 'en' => 'English'];
+    public array $arrLang = ['de' => 'Deutsch', 'fr' => 'Français', 'it' => 'Italiano', 'en' => 'English'];
 
     /** @var string regular expression capturing group for language codes */
-    private $langCaptureGroup;
+    private string $langCaptureGroup;
 
     /**
      * Language constructor.
@@ -92,7 +92,7 @@ class Language
      * Return language string extracted from HTTP header.
      * @return bool|string
      */
-    public function fromHeader()
+    public function fromHeader(): bool|string
     {
         $arr = $this->getHeaderLanguages();
 
@@ -170,7 +170,7 @@ class Language
      * from the http header.
      * @return string|false
      */
-    public function autoDetect()
+    public function autoDetect(): bool|string
     {
         // from query string
         if (isset($_GET['lang'])) {
