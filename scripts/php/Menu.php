@@ -128,9 +128,9 @@ class Menu
      *  [4, 0, 'item 9']
      * ]
      * or use the add method for each item individually.
-     * @param MenuItem[]|null menu items
+     * @param MenuItem[]|null $arrItem menu items
      */
-    public function __construct($arrItem = null)
+    public function __construct(?Array $arrItem = null)
     {
         if ($arrItem !== null) {
             foreach ($arrItem as $item) {
