@@ -304,16 +304,12 @@ class Menu
                 // 1. check path
                 $autoActive = $arrUrlPage['path'] === $arrUrlMenu['path'];
                 // 2. if we have a path match, also check the query params, if any.
-
-                // TODO: check if key and value exist and set autoActive correctly
                 if ($autoActive === true && array_key_exists('query', $arrUrlMenu)) {
                     parse_str($arrUrlMenu['query'], $arr);
                     foreach ($arr as $var => $val) {
                         if (!array_key_exists($var, $_GET)) {
                             $autoActive = false;
-                        }
-
-                        if ($_GET[$var] !== $val) {
+                        } elseif ($_GET[$var] !== $val) {
                             $autoActive = false;
                         }
                     }
