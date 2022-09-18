@@ -17,17 +17,15 @@ use function is_array;
  */
 class QueryString
 {
-    /** @var array query string names and values */
-    private $queryVars;
-
-    public $charset = 'UTF-8';
+    /** @var array names and values of the query string */
+    private array $queryVars;
 
     /**
      * QueryString constructor.
-     * By default the query string only contains keys that are whitelisted.
+     * By default, the query string only contains keys that are whitelisted.
      * @param array|null $whitelist allowed keys in the query string
      */
-    public function __construct($whitelist = null)
+    public function __construct(?array $whitelist = null)
     {
         parse_str($_SERVER['QUERY_STRING'], $queries);
         if (is_array($whitelist)) {
@@ -42,7 +40,7 @@ class QueryString
      * @param array $whitelist keys to be allowed
      * @return array
      */
-    private function intersect($queries, $whitelist): array
+    private function intersect(array $queries, array $whitelist): array
     {
         // can't use array_intersect_keys() would remove duplicate keys, which are perfectly fine in a query string
         $arr = [];
@@ -56,9 +54,9 @@ class QueryString
     }
 
     /**
-     * Add query variables to the query string
+     * Add query variables to the query string.
      * $vars is expected to be a associative array with key values.
-     * @param array $vars
+     * @param array $vars keys and values
      */
     public function add(array $vars): void
     {
@@ -73,8 +71,7 @@ class QueryString
     {
         if ($arr === null) {
             $this->queryVars = [];
-        }
-        else {
+        } else {
             $keys = array_fill_keys($arr, null);
             $this->queryVars = array_diff_key($this->queryVars, $keys);
         }
@@ -95,7 +92,7 @@ class QueryString
      * @param ?int $encType by default PHP_QUERY_RFC1738
      * @return string
      */
-    public function getString($encType = null): string
+    public function getString(?int $encType = null): string
     {
         $encType = $encType ?? PHP_QUERY_RFC1738;
         $str = http_build_query($this->queryVars, $encType);
@@ -104,18 +101,40 @@ class QueryString
     }
 
     /**
+     * Returns the URL-encoded query string.
+     * Returns the string prefixed with a question mark. If there is no query an empty string is returned.
+     * With the argument $arrInc variables and values can be included to the returned query string without changing the internally
+     * stored original query string read from the server. The variable names should used as the keys of the array and the
+     * values as the array values.
+     * With the argument $arrExcl variables can be excluded from the returned query string without changing the internally
+     * stored original query string read from the server. The array should consist only of the variable names as the array values.
+     * @param ?array $arrInc variables and values to add
+     * @param ?array $arrExl variables to remove
+     * @param ?int $encType by default PHP_QUERY_RFC1738
+     * @return string
+     * @see http_build_query()
+     */
+    public function withString(array $arrInc = null, array $arrExl = null, int $encType = null): string
+    {
+        $encType = $encType ?? PHP_QUERY_RFC1738;
+        $str = http_build_query($this->with($arrInc, $arrExl), $encType);
+
+        return $str === '' ? '' : '?'.$str;
+    }
+
+    /**
      * Returns the variables and values of the query string as an array.
      *
      * With the argument $arrAdd variables and values can be added to the returned array without changing the internally
-     * stored original query string read from the server. The variable names should used as the keys of the array and the
+     * stored original query string read from the server. The variable names should be used as the keys of the array and the
      * values as the array values.
-     * With the argument $arrRemove variables can be removed from the returned array without changing the internally
+     * With the argument $arrRemove, variables can be removed from the returned array without changing the internally
      * stored original query string read from the server. The array should consist only of the variable names as the array values.
-     * @param null|array $arrAdd keys and values to add
-     * @param null|array $arrRemove keys to remove
+     * @param array|null $arrAdd keys and values to add
+     * @param array|null $arrRemove keys to remove
      * @return array
      */
-    public function with($arrAdd = null, $arrRemove = null): array
+    public function with(array $arrAdd = null, array $arrRemove = null): array
     {
         $vars = $this->queryVars;
         if ($arrAdd !== null) {
@@ -130,24 +149,30 @@ class QueryString
     }
 
     /**
-     * Returns the URL-encoded query string.
-     * Returns the string prefixed with a question mark. If there is no query an empty string is returned.
-     * With the argument $arrInc variables and values can be included to the returned query string without changing the internally
-     * stored original query string read from the server. The variable names should used as the keys of the array and the
-     * values as the array values.
-     * With the argument $arrExcl variables can be excluded from the returned query string without changing the internally
-     * stored original query string read from the server. The array should consist only of the variable names as the array values.
-     * @see http_build_query()
-     * @param ?array $arrInc variables and values to add
-     * @param ?array $arrExl variables to remove
-     * @param ?int $encType by default PHP_QUERY_RFC1738
-     * @return string
+     * Test if all key and values provided, exist in the query string.
+     * If $vars contains keys and values, they are tested against the query variables and values.
+     * If $vars contains only values, the values are tested against the query variables.
+     * @param array $vars
+     * @return bool
      */
-    public function withString($arrInc = null, $arrExl = null, $encType = null): string
+    public function in(array $vars): bool
     {
-        $encType = $encType ?? PHP_QUERY_RFC1738;
-        $str = http_build_query($this->with($arrInc, $arrExl), $encType);
+        if (isset($vars[0])) {  // simplified and opinionated check if array is not an associative
+            foreach ($vars as $val) {
+                if (!array_key_exists($val, $this->queryVars)) {
 
-        return $str === '' ? '' : '?'.$str;
+                    return false;
+                }
+            }
+        } else {
+            foreach ($vars as $key => $val) {
+                if (!array_key_exists($key, $this->queryVars) || $this->queryVars[$key] !== $val) {
+
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 }

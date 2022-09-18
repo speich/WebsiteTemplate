@@ -29,23 +29,24 @@ use function count;
 class Menu
 {
     /**
-     * Match path of url when setting item active automatically
+     * Item url should match only the path of the page url when setting item to active automatically.
      * @var int
      */
     public const MATCH_PATH = 1;
 
     /**
-     * Match path and query string of url when setting item active automatically
+     * Item url should match both path and query string of page url when setting item to active automatically.
+     * All query string variables and values of the item url have to occur also in the query string of the page url.
      * @var int
      */
     public const MATCH_FULL = 2;
 
     /**
-     * Match path of url and at least one of the query parameters when setting item active automatically.
-     * Note: Query variable and value have to match.
+     * Item url should match path and partially the query string of page url when setting item to active automatically.
+     * Only all query string variables but not the query values of the item url have to occur also in the query string of the page url.
      * @var int
      */
-    public const MATCH_QUERY_ANY = 3;
+    public const MATCH_QUERY_VARS = 3;
 
     /**
      * Hold menu items.
@@ -285,38 +286,31 @@ class Menu
         return $activeIds;
     }
 
+    /**
+     * Check if menu item should be set to active.
+     * @param MenuItem $item
+     * @param int|null $type
+     * @return bool
+     */
     protected function checkAutoActive(MenuItem $item, ?int $type = null): bool
     {
         $url = $_SERVER['REQUEST_URI'];
-        $arrUrlPage = parse_url($url);
-        $arrUrlMenu = parse_url(html_entity_decode($item->linkUrl));
+        $urlPage = parse_url($url);
+        $urlItem = parse_url(html_entity_decode($item->linkUrl));
         if ($type === null) {
             $type = $this->getAutoActiveMatching();
         }
-        switch ($type) {
-            case 1:
-                $autoActive = $arrUrlPage['path'] === $arrUrlMenu['path'];
-                break;
-            case 2:
-                $autoActive = $arrUrlPage['path'].'?'.$arrUrlPage['query'] === $item->linkUrl;
-                break;
-            case 3:
-                // 1. check path
-                $autoActive = $arrUrlPage['path'] === $arrUrlMenu['path'];
-                // 2. if we have a path match, also check the query params, if any.
-                if ($autoActive === true && array_key_exists('query', $arrUrlMenu)) {
-                    parse_str($arrUrlMenu['query'], $arr);
-                    foreach ($arr as $var => $val) {
-                        if (!array_key_exists($var, $_GET)) {
-                            $autoActive = false;
-                        } elseif ($_GET[$var] !== $val) {
-                            $autoActive = false;
-                        }
-                    }
-                }
-                break;
-            default:
-                $autoActive = false;
+
+        $autoActive = $urlPage['path'] === $urlItem['path'];    // handles case MATCH_PATH_ONLY
+        if ($autoActive) {
+            $query = new QueryString();
+            parse_str($urlItem['query'], $arr);
+            if ($type === Menu::MATCH_FULL) {
+                $autoActive = $query->in($arr);
+            } elseif ($type === Menu::MATCH_QUERY_VARS) {
+                $keys = array_keys($arr);
+                $autoActive = $query->in($keys);
+            }
         }
 
         return $autoActive;
