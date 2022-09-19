@@ -57,16 +57,19 @@ class Menu
 
     /** @var string $charset character set to use when creating and encoding html */
     public string $charset = 'utf-8';
+
     /**
      * Render all children, no matter if the parent item is open or closed.
      * @var bool render all children
      */
     public bool $allChildrenRendered = false;
+
     /**
      * Set the css state of all parent items to open.
      * @var bool
      */
     public bool $allChildrenOpen = false;
+
     /**
      * Automatically set the css state to active, if url is same as of current page.
      * @var bool
@@ -117,16 +120,22 @@ class Menu
      *  [4, 0, 'item 9']
      * ]
      * or use the add method for each item individually.
-     * @param <Array<MenuItem>>|null $arrItem menu items
+     * @param array|null $arrItem menu items
      */
-    public function __construct($arrItem = null)
+    public function __construct(array $arrItem = null)
     {
         if ($arrItem !== null) {
             $this->addAll($arrItem);
         }
     }
 
-    private function itemFromArray($item) {
+    /**
+     * Create a menu item from an array.
+     * @param array $item
+     * @return MenuItem
+     */
+    private function itemFromArray(array $item): MenuItem
+    {
         return new MenuItem($item[0], $item[1], $item[2], $item[3] ?? null);
     }
 
@@ -143,10 +152,6 @@ class Menu
             $newItem = $this->itemFromArray($newItem);
         }
 
-        // note: for position we can not just use the index. The index is dynamic depending on the number of items, which
-        // can be added or removed (e.g. when logged in a different number of items is rendered)
-        // -> we need to use the actual id of the item to insert after
-
         if ($idAfter === null) {
             $this->arrItem[$newItem->id] = $newItem;
         } else {
@@ -155,24 +160,34 @@ class Menu
         }
     }
 
-    private function insert($newItem, $idAfter) {
-        $i = 0;
-        foreach ($this->arrItem as $item) { // TODO: array_search?
-            if ($item->id === $idAfter) {
-                break;
-            }
-            $i++;
+    /**
+     * Add all items to the menu.
+     * @param array $items
+     * @return void
+     */
+    public function addAll(array $items): void
+    {
+        foreach ($items as $item) {
+            $this->arrItem[$item[0]] = $this->itemFromArray($item);
         }
-        // note: array_splice would reindex keys
-        $arrBefore = array_slice($this->arrItem, 0, $i, true);
-        $arrAfter = array_slice($this->arrItem, $i, null, true);
-        $this->arrItem = $arrBefore + [$newItem] + $arrAfter;
     }
 
-    public function addAll($items) {
-        foreach ($items as $item) {
-            $this->arrItem[$item[0]] = $this->itemFromArray($arrItem);
-        }
+    /**
+     * Insert an item after the given id.
+     * @param MenuItem $newItem
+     * @param int|string $idAfter
+     * @return void
+     */
+    private function insert(MenuItem $newItem, int|string $idAfter): void
+    {
+        // note: for position we can not just use the index. The index is dynamic depending on the number of items, which
+        // can be added or removed (e.g. when logged in a different number of items is rendered)
+        // -> we need to use the actual id of the item to insert after
+        // note: array_splice would reindex keys
+        $idx = array_search($idAfter, $this->arrItem);
+        $arrBefore = array_slice($this->arrItem, 0, $idx, true);
+        $arrAfter = array_slice($this->arrItem, $idx, null, true);
+        $this->arrItem = $arrBefore + [$newItem] + $arrAfter;
     }
 
     /**
