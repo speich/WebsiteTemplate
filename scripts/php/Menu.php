@@ -9,12 +9,13 @@ namespace WebsiteTemplate;
 use function array_key_exists;
 use function array_slice;
 use function count;
+use function is_array;
 
 /**
  * Simple recursive menu with unlimited levels which creates an unordered list based on an array.
  * Ids of the menu items have to be unique. By default, menu items are set to active
  * when the current path of the page url matches the path of the item url. This can be changed with the
- * method setAutoActiveMatching(MATCH_FULL | MATCH_QUERY_ANY).
+ * method setAutoActiveMatching(Menu::MATCH_FULL | MATCH_QUERY_VARS).
  * Notes:
  *    To increase performance only open menus are used in recursion unless you set
  *    the whole menu to be open by setting the property AutoOpen = true;
@@ -116,26 +117,32 @@ class Menu
      *  [4, 0, 'item 9']
      * ]
      * or use the add method for each item individually.
-     * @param MenuItem[]|null $arrItem menu items
+     * @param <Array<MenuItem>>|null $arrItem menu items
      */
-    public function __construct(?array $arrItem = null)
+    public function __construct($arrItem = null)
     {
         if ($arrItem !== null) {
-            foreach ($arrItem as $item) {
-                $this->arrItem[$item[0]] = new MenuItem($item[0], $item[1], $item[2], $item[3] ?? null);
-            }
+            $this->addAll($arrItem);
         }
+    }
+
+    private function itemFromArray($item) {
+        return new MenuItem($item[0], $item[1], $item[2], $item[3] ?? null);
     }
 
     /**
      * Add a new menu item.
      * If $idAfter is null, the new item will be appended.
      * Note: New items can only be added as long as the render method has not been called yet.
-     * @param MenuItem $newItem item to add
+     * @param MenuItem|array $newItem item to add
      * @param int|string|null $idAfter id of item to insert new item after
      */
-    public function add(MenuItem $newItem, int|string|null $idAfter = null): void
+    public function add(MenuItem|array$newItem, int|string|null $idAfter = null): void
     {
+        if (is_array($newItem)) {
+            $newItem = $this->itemFromArray($newItem);
+        }
+
         // note: for position we can not just use the index. The index is dynamic depending on the number of items, which
         // can be added or removed (e.g. when logged in a different number of items is rendered)
         // -> we need to use the actual id of the item to insert after
@@ -144,17 +151,27 @@ class Menu
             $this->arrItem[$newItem->id] = $newItem;
         } else {
             // note: arrItem is an associative array where key and index are not the same
-            $i = 0;
-            foreach ($this->arrItem as $item) {
-                if ($item->id === $idAfter) {
-                    break;
-                }
-                $i++;
+            $this->insert($newItem, $idAfter);
+        }
+    }
+
+    private function insert($newItem, $idAfter) {
+        $i = 0;
+        foreach ($this->arrItem as $item) { // TODO: array_search?
+            if ($item->id === $idAfter) {
+                break;
             }
-            // note: array_splice would reindex keys
-            $arrBefore = array_slice($this->arrItem, 0, $i, true);
-            $arrAfter = array_slice($this->arrItem, $i, null, true);
-            $this->arrItem = $arrBefore + [$newItem] + $arrAfter;
+            $i++;
+        }
+        // note: array_splice would reindex keys
+        $arrBefore = array_slice($this->arrItem, 0, $i, true);
+        $arrAfter = array_slice($this->arrItem, $i, null, true);
+        $this->arrItem = $arrBefore + [$newItem] + $arrAfter;
+    }
+
+    public function addAll($items) {
+        foreach ($items as $item) {
+            $this->arrItem[$item[0]] = $this->itemFromArray($arrItem);
         }
     }
 
@@ -302,7 +319,7 @@ class Menu
         }
 
         $autoActive = $urlPage['path'] === $urlItem['path'];    // handles case MATCH_PATH_ONLY
-        if ($autoActive) {
+        if ($type !== self::MATCH_PATH && $autoActive && array_key_exists('query', $urlItem)) {
             $query = new QueryString();
             parse_str($urlItem['query'], $arr);
             if ($type === Menu::MATCH_FULL) {
