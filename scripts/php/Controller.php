@@ -89,8 +89,7 @@ class Controller
                 if ($_SERVER['QUERY_STRING'] !== '') {
                     $data = [];
                     parse_str($_SERVER['QUERY_STRING'], $data);
-                }
-                else {
+                } else {
                     $data = $this->getInput($json);
                 }
                 break;
@@ -165,7 +164,6 @@ class Controller
     {
         $this->printStatus();
         $headers = $this->header->get();
-        $contentType = $this->notFound ? 'text/html' : $this->header->getContentType();
         header('Content-Type: '.$contentType.'; '.$this->header->getCharset());
         foreach ($headers as $key => $value) {
             header($key.': '.$value);
