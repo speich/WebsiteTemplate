@@ -9,12 +9,13 @@ namespace WebsiteTemplate;
 use function array_key_exists;
 use function array_slice;
 use function count;
+use function is_array;
 
 /**
  * Simple recursive menu with unlimited levels which creates an unordered list based on an array.
  * Ids of the menu items have to be unique. By default, menu items are set to active
  * when the current path of the page url matches the path of the item url. This can be changed with the
- * method setAutoActiveMatching(MATCH_FULL | MATCH_QUERY_ANY).
+ * method setAutoActiveMatching(Menu::MATCH_FULL | MATCH_QUERY_VARS).
  * Notes:
  *    To increase performance only open menus are used in recursion unless you set
  *    the whole menu to be open by setting the property AutoOpen = true;
@@ -29,23 +30,24 @@ use function count;
 class Menu
 {
     /**
-     * Match path of url when setting item active automatically
+     * Item url should match only the path of the page url when setting item to active automatically.
      * @var int
      */
     public const MATCH_PATH = 1;
 
     /**
-     * Match path and query string of url when setting item active automatically
+     * Item url should match both path and query string of page url when setting item to active automatically.
+     * All query string variables and values of the item url have to occur also in the query string of the page url.
      * @var int
      */
     public const MATCH_FULL = 2;
 
     /**
-     * Match path of url and at least one of the query parameters when setting item active automatically.
-     * Note: Query variable and value have to match.
+     * Item url should match path and partially the query string of page url when setting item to active automatically.
+     * Only all query string variables but not the query values of the item url have to occur also in the query string of the page url.
      * @var int
      */
-    public const MATCH_QUERY_ANY = 3;
+    public const MATCH_QUERY_VARS = 3;
 
     /**
      * Hold menu items.
@@ -55,12 +57,6 @@ class Menu
 
     /** @var string $charset character set to use when creating and encoding html */
     public string $charset = 'utf-8';
-
-    /**
-     * The html of the created menu.
-     * @var string rendered html
-     */
-    private string $html = '';
 
     /**
      * Render all children, no matter if the parent item is open or closed.
@@ -79,39 +75,35 @@ class Menu
      * @var bool
      */
     public bool $autoActive = true;
-
+    /**  @var ?string prefix for item id attribute */
+    public ?string $itemIdPrefix = null;
+    /** @var string CSS class name of menu */
+    public string $cssClass = 'menu';
+    /** @var ?string CSS id of menu */
+    public ?string $cssId = null;
+    /** @var string CSS class name, when item has at least one child */
+    public string $cssItemHasChildren = 'menuHasChild';
+    /** @var string CSS class name, when item is active */
+    public string $cssItemActive = 'menuActive';
+    /** @var string CSS class name, when menu is open. */
+    public string $cssItemOpen = 'menuOpen';
+    /** @var string CSS class name, when item hast at least one active child */
+    public string $cssItemActiveChild = 'menuHasActiveChild';
+    /**
+     * The html of the created menu.
+     * @var string rendered html
+     */
+    private string $html = '';
     /**
      * Sets the url matching pattern of $autoActive property.
      * @var int
      */
     private int $autoActiveMatching = Menu::MATCH_PATH;
-
     /**
      * Flag to mark first ul tag in recursion when rendering HTML.
      * @var bool is first HTMLULElement
      */
     private bool $firstUl = true;
-
-    /**  @var ?string prefix for item id attribute */
-    public ?string $itemIdPrefix = null;
-
-    /** @var string CSS class name of menu */
-    public string $cssClass = 'menu';
-
-    /** @var ?string CSS id of menu */
-    public ?string $cssId = null;
-
-    /** @var string CSS class name, when item has at least one child */
-    public string $cssItemHasChildren = 'menuHasChild';
-
-    /** @var string CSS class name, when item is active */
-    public string $cssItemActive = 'menuActive';
-
-    /** @var string CSS class name, when menu is open. */
-    public string $cssItemOpen = 'menuOpen';
-
-    /** @var string CSS class name, when item hast at least one active child */
-    public string $cssItemActiveChild = 'menuHasActiveChild';
 
     /**
      * Constructs the menu.
@@ -128,90 +120,156 @@ class Menu
      *  [4, 0, 'item 9']
      * ]
      * or use the add method for each item individually.
-     * @param MenuItem[]|null menu items
+     * @param array|null $arrItem menu items
      */
-    public function __construct($arrItem = null)
+    public function __construct(array $arrItem = null)
     {
         if ($arrItem !== null) {
-            foreach ($arrItem as $item) {
-                $this->arrItem[$item[0]] = new MenuItem($item[0], $item[1], $item[2], $item[3] ?? null);
-            }
+            $this->addAll($arrItem);
         }
+    }
+
+    /**
+     * Create a menu item from an array.
+     * @param array $item
+     * @return MenuItem
+     */
+    private function itemFromArray(array $item): MenuItem
+    {
+        return new MenuItem($item[0], $item[1], $item[2], $item[3] ?? null);
     }
 
     /**
      * Add a new menu item.
      * If $idAfter is null, the new item will be appended.
      * Note: New items can only be added as long as the render method has not been called yet.
-     * @param MenuItem $newItem item to add
+     * @param MenuItem|array $newItem item to add
      * @param int|string|null $idAfter id of item to insert new item after
      */
-    public function add(MenuItem $newItem, int|string|null $idAfter = null): void
+    public function add(MenuItem|array$newItem, int|string|null $idAfter = null): void
     {
-        // note: for position we can not just use the index. The index is dynamic depending on the number of items, which
-        // can be added or removed (e.g. when logged in a different number of items is rendered)
-        // -> we need to use the actual id of the item to insert after
+        if (is_array($newItem)) {
+            $newItem = $this->itemFromArray($newItem);
+        }
 
         if ($idAfter === null) {
             $this->arrItem[$newItem->id] = $newItem;
         } else {
             // note: arrItem is an associative array where key and index are not the same
-            $i = 0;
+            $this->insert($newItem, $idAfter);
+        }
+    }
+
+    /**
+     * Add all items to the menu.
+     * @param array $items
+     * @return void
+     */
+    public function addAll(array $items): void
+    {
+        foreach ($items as $item) {
+            $this->arrItem[$item[0]] = $this->itemFromArray($item);
+        }
+    }
+
+    /**
+     * Insert an item after the given id.
+     * @param MenuItem $newItem
+     * @param int|string $idAfter
+     * @return void
+     */
+    private function insert(MenuItem $newItem, int|string $idAfter): void
+    {
+        // note: for position we can not just use the index. The index is dynamic depending on the number of items, which
+        // can be added or removed (e.g. when logged in a different number of items is rendered)
+        // -> we need to use the actual id of the item to insert after
+        // note: array_splice would reindex keys
+        $idx = array_search($idAfter, $this->arrItem);
+        $arrBefore = array_slice($this->arrItem, 0, $idx, true);
+        $arrAfter = array_slice($this->arrItem, $idx, null, true);
+        $this->arrItem = $arrBefore + [$newItem] + $arrAfter;
+    }
+
+    /**
+     * Returns a HTML string of the menu.
+     * Call init method first.
+     * @return string
+     */
+    public function render(): string
+    {
+        $this->reset();
+        if ($this->autoActive) {
+            $this->setActive();
+        }
+        if (count($this->arrItem) > 0) {
+            $this->setHasActiveChildren();
+            $str = $this->createHtml(reset($this->arrItem)->parentId);
+
+            return $str.'</ul>';
+        }
+
+        return '';
+    }
+
+    /**
+     * Reset menu
+     */
+    public function reset(): void
+    {
+        $this->firstUl = true;
+        $this->html = '';
+    }
+
+    /**
+     * Sets child/parent items to render and/or active according to URL matching scheme
+     * or by explicitly setting item to active.
+     * Should be called before rendering if AutoInit is set to false;
+     * When argument $url is provided then the item with matching url is set to active.
+     * @param ?string $url
+     */
+    public function setActive(string $url = null): void
+    {
+        if ($url === null) {
             foreach ($this->arrItem as $item) {
-                if ($item->id === $idAfter) {
-                    break;
+                if ($this->checkActive($item)) {
+                    $item->setActive();
                 }
-                $i++;
+
+                // set also the parent items to render
+                if ($this->allChildrenRendered) {
+                    $parentId = $item->parentId;
+                    while (array_key_exists($parentId, $this->arrItem)) {
+                        $this->arrItem[$parentId]->setChildToBeRendered();
+                        $parentId = $this->arrItem[$parentId]->parentId;
+                    }
+                }
+                // set also the parent items to active
+                if ($item->getActive()) {
+                    // set also all item's parents
+                    $parentId = $item->parentId;
+                    while (array_key_exists($parentId, $this->arrItem)) {
+                        $this->arrItem[$parentId]->setActive();
+                        $parentId = $this->arrItem[$parentId]->parentId;
+                    }
+                }
             }
-            // note: array_splice would reindex keys
-            $arrBefore = array_slice($this->arrItem, 0, $i, true);
-            $arrAfter = array_slice($this->arrItem, $i, null, true);
-            $this->arrItem = $arrBefore + [$newItem] + $arrAfter;
-        }
-    }
-
-    /**
-     * Check if menu item has at least one child menu.
-     * @param int|string $id item id
-     * @return bool
-     */
-    private function checkChildExists(int|string $id): bool
-    {
-        $found = false;
-        foreach ($this->arrItem as $item) {
-            if ($item->parentId === $id) {
-                $found = true;
-                break;
+        } // match provided url
+        else {
+            foreach ($this->arrItem as $item) {
+                if ($item->linkUrl === $url) {
+                    $item->setActive();
+                    if ($this->allChildrenRendered || $item->getActive()) {
+                        // set also item's parents to active
+                        $parentId = $item->parentId;
+                        while (array_key_exists($parentId, $this->arrItem)) {
+                            $this->arrItem[$parentId]->setChildToBeRendered();
+                            $this->arrItem[$parentId]->setActive();
+                            $parentId = $this->arrItem[$parentId]->parentId;
+                        }
+                    }
+                }
             }
         }
-
-        return $found;
-    }
-
-    /**
-     * Set the url matching pattern
-     * Set the matching pattern to use when automatically setting the item to active.
-     * The pattern is used to compare the current page url with the item url.
-     * Menu::MATCH_PATH = 1 = item url matches path only (default)
-     * Menu::MATCH_FULL = 2 = item url matches path + all query variables,
-     * Menu::MATCH_QUERY_ANY = 3 = item url matches path and at least on of the query parameters (name and value)
-     * @param int $type
-     */
-    public function setAutoActiveMatching(int $type): void
-    {
-        $this->autoActiveMatching = $type;
-    }
-
-    /**
-     * Return the url matching pattern.
-     * Returns the matching pattern used when automatically setting the item to active.
-     * The pattern is used to compare the current page url with the item url.
-     * @return int
-     * @see Menu::setAutoActiveMatching()
-     */
-    public function getAutoActiveMatching(): int
-    {
-        return $this->autoActiveMatching;
     }
 
     /**
@@ -237,47 +295,6 @@ class Menu
         return $state ?? $this->checkAutoActive($item, $type);
     }
 
-    protected function checkAutoActive(MenuItem $item, ?int $type = null): bool
-    {
-        $url = $_SERVER['REQUEST_URI'];
-        $arrUrlPage = parse_url($url);
-        $arrUrlMenu = parse_url(html_entity_decode($item->linkUrl));
-        if ($type === null) {
-            $type = $this->getAutoActiveMatching();
-        }
-        switch ($type) {
-            case 1:
-                $autoActive = $arrUrlPage['path'] === $arrUrlMenu['path'];
-                break;
-            case 2:
-                $autoActive = $arrUrlPage['path'].'?'.$arrUrlPage['query'] === $item->linkUrl;
-                break;
-            case 3:
-                // 1. check path
-                $autoActive = $arrUrlPage['path'] === $arrUrlMenu['path'];
-                // 2. if we have a path match, also check the query params, if any.
-
-            // TODO: check if key and value exist and set autoActive correctly
-                if ($autoActive === true && array_key_exists('query', $arrUrlMenu)) {
-                    parse_str($arrUrlMenu['query'], $arr);
-                    foreach ($arr as $var => $val) {
-                        if (!array_key_exists($var, $_GET)) {
-                            $autoActive = false;
-                        }
-
-                        if ($_GET[$var] !== $val) {
-                            $autoActive = false;
-                        }
-                    }
-                }
-                break;
-            default:
-                $autoActive = false;
-        }
-
-        return $autoActive;
-    }
-
     /**
      * Returns id of every item that is active.
      * Returns a string if only one item is active, an array if there are several items active or false if none is active.
@@ -299,6 +316,76 @@ class Menu
         }
 
         return $activeIds;
+    }
+
+    /**
+     * Check if menu item should be set to active.
+     * @param MenuItem $item
+     * @param int|null $type
+     * @return bool
+     */
+    protected function checkAutoActive(MenuItem $item, ?int $type = null): bool
+    {
+        $url = $_SERVER['REQUEST_URI'];
+        $urlPage = parse_url($url);
+        $urlItem = parse_url(html_entity_decode($item->linkUrl));
+        if ($type === null) {
+            $type = $this->getAutoActiveMatching();
+        }
+
+        $autoActive = $urlPage['path'] === $urlItem['path'];    // handles case MATCH_PATH_ONLY
+        if ($type !== self::MATCH_PATH && $autoActive && array_key_exists('query', $urlItem)) {
+            $query = new QueryString();
+            parse_str($urlItem['query'], $arr);
+            if ($type === Menu::MATCH_FULL) {
+                $autoActive = $query->in($arr);
+            } elseif ($type === Menu::MATCH_QUERY_VARS) {
+                $keys = array_keys($arr);
+                $autoActive = $query->in($keys);
+            }
+        }
+
+        return $autoActive;
+    }
+
+    /**
+     * Return the url matching pattern.
+     * Returns the matching pattern used when automatically setting the item to active.
+     * The pattern is used to compare the current page url with the item url.
+     * @return int
+     * @see Menu::setAutoActiveMatching()
+     */
+    public function getAutoActiveMatching(): int
+    {
+        return $this->autoActiveMatching;
+    }
+
+    /**
+     * Set the url matching pattern
+     * Set the matching pattern to use when automatically setting the item to active.
+     * The pattern is used to compare the current page url with the item url.
+     * Menu::MATCH_PATH = 1 = item url matches path only (default)
+     * Menu::MATCH_FULL = 2 = item url matches path + all query variables,
+     * Menu::MATCH_QUERY_ANY = 3 = item url matches path and at least on of the query parameters (name and value)
+     * @param int $type
+     */
+    public function setAutoActiveMatching(int $type): void
+    {
+        $this->autoActiveMatching = $type;
+    }
+
+    /**
+     * Set hasActiveChild property for all items if they have at least an active child.
+     */
+    public function setHasActiveChildren(): void
+    {
+        foreach ($this->arrItem as $item) {
+            foreach ($this->arrItem as $child) {
+                if ($item->id === $child->parentId && $child->getActive()) {
+                    $item->setHasActiveChild(true);
+                }
+            }
+        }
     }
 
     /**
@@ -348,7 +435,7 @@ class Menu
      * Sets the CSS class string of the item depending on it's status
      * @param MenuItem $item
      */
-    protected    function setItemCssClass(MenuItem $item): void
+    protected function setItemCssClass(MenuItem $item): void
     {
         $hasChild = $this->checkChildExists($item->id);
         if ($hasChild) {
@@ -367,102 +454,20 @@ class Menu
     }
 
     /**
-     * Sets child/parent items to render and/or active according to URL matching scheme
-     * or by explicitly setting item to active.
-     * Should be called before rendering if AutoInit is set to false;
-     * When argument $url is provided then the item with matching url is set to active.
-     * @param ?string $url
+     * Check if menu item has at least one child menu.
+     * @param int|string $id item id
+     * @return bool
      */
-    public
-    function setActive($url = null): void
+    private function checkChildExists(int|string $id): bool
     {
-        if ($url === null) {
-            foreach ($this->arrItem as $item) {
-                if ($this->checkActive($item)) {
-                    $item->setActive();
-                }
-
-                // set also the parent items to render
-                if ($this->allChildrenRendered) {
-                    $parentId = $item->parentId;
-                    while (array_key_exists($parentId, $this->arrItem)) {
-                        $this->arrItem[$parentId]->setChildToBeRendered();
-                        $parentId = $this->arrItem[$parentId]->parentId;
-                    }
-                }
-                // set also the parent items to active
-                if ($item->getActive()) {
-                    // set also all item's parents
-                    $parentId = $item->parentId;
-                    while (array_key_exists($parentId, $this->arrItem)) {
-                        $this->arrItem[$parentId]->setActive();
-                        $parentId = $this->arrItem[$parentId]->parentId;
-                    }
-                }
-            }
-        } // match provided url
-        else {
-            foreach ($this->arrItem as $item) {
-                if ($item->linkUrl === $url) {
-                    $item->setActive();
-                    if ($this->allChildrenRendered || $item->getActive()) {
-                        // set also item's parents to active
-                        $parentId = $item->parentId;
-                        while (array_key_exists($parentId, $this->arrItem)) {
-                            $this->arrItem[$parentId]->setChildToBeRendered();
-                            $this->arrItem[$parentId]->setActive();
-                            $parentId = $this->arrItem[$parentId]->parentId;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * Set hasActiveChild property for all items if they have at least an active child.
-     */
-    public
-    function setHasActiveChildren(): void
-    {
+        $found = false;
         foreach ($this->arrItem as $item) {
-            foreach ($this->arrItem as $child) {
-                if ($item->id === $child->parentId && $child->getActive()) {
-                    $item->setHasActiveChild(true);
-                }
+            if ($item->parentId === $id) {
+                $found = true;
+                break;
             }
         }
-    }
 
-    /**
-     * Returns a HTML string of the menu.
-     * Call init method first.
-     * @return string
-     */
-    public
-    function render(): string
-    {
-        $this->reset();
-        if ($this->autoActive) {
-            $this->setActive();
-        }
-        if (count($this->arrItem) > 0) {
-            $this->setHasActiveChildren();
-            $str = $this->createHtml(reset($this->arrItem)->parentId);
-
-            return $str.'</ul>';
-        }
-
-        return '';
-    }
-
-    /**
-     * Reset menu
-     */
-    public
-    function reset(): void
-    {
-        $this->firstUl = true;
-        $this->html = '';
+        return $found;
     }
 }
