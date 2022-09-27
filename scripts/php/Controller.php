@@ -164,7 +164,7 @@ class Controller
     {
         $this->printStatus();
         $headers = $this->header->get();
-        header('Content-Type: '.$contentType.'; '.$this->header->getCharset());
+        header('Content-Type: '.$this->header->getContentType().'; '.$this->header->getCharset());
         foreach ($headers as $key => $value) {
             header($key.': '.$value);
         }
