@@ -12,16 +12,16 @@ use function in_array;
 class Header
 {
     /** @var string $contentType header default MIME type set to text/html */
-    private $contentType = 'text/html';
+    private string $contentType = 'text/html';
 
-    /** @var string $charset default character set set to utf-8 */
-    private $charset = 'utf-8';
+    /** @var string $charset default character set to utf-8 */
+    private string $charset = 'utf-8';
 
     /** @var array contains additional response headers */
-    private $headers = [];
+    private array $headers = [];
 
     /** @var array $contentTypes MIME types lookup */
-    private $contentTypes = [
+    private array $contentTypes = [
         'text' => 'text/plain',
         'csv' => 'text/csv',
         'json' => 'application/json',
