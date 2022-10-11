@@ -11,14 +11,13 @@ use function is_array;
  */
 class Http
 {
-
     /**
      * Extract the http response header into an associative array.
      * Returns headers with upper case of fir
      * @param array|string $header http raw response or array $http_response_header
      * @return array
      */
-    public function parseHeader($header): array
+    public function parseHeader(array|string $header): array
     {
         // code adapted from by bsdnoobz http://stackoverflow.com/users/1396314/bsdnoobz
         $lines = is_array($header) ? $header : explode("\r\n", $header);
