@@ -51,7 +51,7 @@ class MenuItem
      * @param string $linkTxt link text
      * @param ?string $linkUrl link url
      */
-    public function __construct($id, $parentId, $linkTxt, $linkUrl = null)
+    public function __construct(int|string $id, int|string $parentId, string $linkTxt, string $linkUrl = null)
     {
         $this->id = $id;
         $this->parentId = $parentId;
