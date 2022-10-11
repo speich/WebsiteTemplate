@@ -42,8 +42,8 @@ class SelectField extends Form
     /** @var array contains the selected text and values */
     private array $selectedOptions = [];
 
-    /** @var string text of first option */
-    private string $defaultText = 'Bitte auswählen';
+    /** @var string|bool text of first option */
+    private string|bool $defaultText = 'Bitte auswählen';
 
     /** @var string value of first option element  */
     private string $defaultValue = '';
