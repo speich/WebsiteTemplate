@@ -18,12 +18,11 @@ use function count;
  */
 class Error
 {
-
     /**
      * Stores error messages.
      * @var array $arrErr
      */
-    private $arrErr = [];
+    private array $arrErr = [];
 
     /**
      * Constructs the error reporting class by setting the native set_error_handler function.
