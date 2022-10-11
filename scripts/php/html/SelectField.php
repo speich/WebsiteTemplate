@@ -30,29 +30,29 @@ class SelectField extends Form
     public const RENDER_OPTION_ONLY = 2;
 
     /** @var OptionElement[] array holding option elements */
-    public $arrOption = [];
+    public array $arrOption = [];
 
     /** @var bool multiple attribute */
-    private $multiple = false;
+    private bool $multiple = false;
 
     /** @var int number of visible rows */
     // note: this should be set to at least 2, when you want to use css height and not have multiple = true
-    private $size = 1;
+    private int $size = 1;
 
     /** @var array contains the selected text and values */
-    private $selectedOptions = [];
+    private array $selectedOptions = [];
 
     /** @var string text of first option */
-    private $defaultText = 'Bitte auswählen';
+    private string $defaultText = 'Bitte auswählen';
 
     /** @var string value of first option element  */
-    private $defaultValue = '';
+    private string $defaultValue = '';
 
     /** @var bool automatically set option title attribute from option text or value attribute */
-    private $autoOptionTitle = false;
+    private bool $autoOptionTitle = false;
 
     /** @var bool automatically index option values if passed $arrOption is a 1-dim array */
-    public $autoOptionValues = true;
+    public bool $autoOptionValues = true;
 
     /**
      * Construct a SelectFld object.
@@ -84,7 +84,7 @@ class SelectField extends Form
     private function initOptions(iterable $options): void
     {
         $i = 0;
-        foreach ($options as $key => $row) {
+        foreach ($options as $row) {
             $option = new OptionElement();
             if (count($row) > 1) {
                 $option->value = $row[0];
@@ -124,10 +124,10 @@ class SelectField extends Form
      * Passing false or null deselects everything.
      * If no type is given, the value attribute is used to set item selected. If type = HTML_OPTION_TEXT then
      * the option text is used to set selected.
-     * @param string|bool|null $val
+     * @param bool|string|null $val
      * @param ?int $type SelectField::SELECTED_BY_VALUE | SelectField::SELECTED_BY_TEXT
      */
-    public function setSelected($val = null, ?int $type = null): void
+    public function setSelected(bool|string $val = null, ?int $type = null): void
     {
         $val = $val ?? false;
         $deselect = $val === false;
@@ -155,7 +155,7 @@ class SelectField extends Form
      * @param int|null $type SelectField::SELECTED_BY_VALUE | SelectField::SELECTED_BY_TEXT
      * @return bool|string
      */
-    public function getSelected(?int $type = null)
+    public function getSelected(?int $type = null): bool|string
     {
         foreach ($this->arrOption as $option) {
             if ($option->selected) {
@@ -180,9 +180,9 @@ class SelectField extends Form
      * Default text value is 'Bitte auswählen'.
      * Set to false if no default item (first item in the list) should be displayed.
      *
-     * @param string|bool $txt
+     * @param bool|string $txt
      */
-    public function setDefaultVal($txt): void
+    public function setDefaultVal(bool|string $txt): void
     {
         $this->defaultText = $txt;
     }
@@ -192,7 +192,7 @@ class SelectField extends Form
      * @param ?int $type render all elements or specific elements only
      * @return string Html
      */
-    public function render($type = null): string
+    public function render(int $type = null): string
     {
         $type = $type ?? self::RENDER_ALL;
         $strHtml = '';
@@ -274,9 +274,9 @@ class SelectField extends Form
 
     /**
      * Return default text of first unselected option.
-     * @return string|bool
+     * @return string
      */
-    public function getDefaultVal()
+    public function getDefaultVal(): string
     {
         return $this->defaultText;
     }
