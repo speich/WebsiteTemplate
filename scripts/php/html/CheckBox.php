@@ -8,7 +8,7 @@ namespace WebsiteTemplate\html;
 class CheckBox extends Form
 {
     /** @var string value attribute */
-    public $val;
+    public string $val;
 
     /**
      * Construct a CheckBox object.
