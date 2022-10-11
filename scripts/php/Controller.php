@@ -108,7 +108,7 @@ class Controller
      * @return object|string mixed
      * @throws JsonException
      */
-    private function getInput(bool $json): object|string
+    private function getInput(bool $json): object|array
     {
         $input = file_get_contents('php://input');
         if ($json) {
