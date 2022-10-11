@@ -2,6 +2,8 @@
 
 namespace WebsiteTemplate\html;
 
+use PDOStatement;
+
 /**
  * Class to create HTMLFormElements.
  *
@@ -23,8 +25,8 @@ class Form extends Html
     /** @var string label */
     protected string $labelName = '';
 
-    /** @var string|int position of label in relation to element */
-    protected string|int $labelPosition = Form::LABEL_BEFORE;
+    /** @var string|int|PDOStatement position of label in relation to element */
+    protected string|int|PDOStatement $labelPosition = Form::LABEL_BEFORE;
 
     /** @var bool|string disabled attribute */
     protected string|bool $disabled = false;
@@ -66,9 +68,9 @@ class Form extends Html
      * If set then the label attribute is rendered. The position can be set to before or after with the constants
      * HTML_LABEL_BEFORE and HTML_LABEL_AFTER.
      * @param string $label label
-     * @param ?int $position position of label
+     * @param int|null|PDOStatement $position position of label
      */
-    public function setLabel(string $label, int $position = null): void
+    public function setLabel(string $label, int|null|PDOStatement $position = null): void
     {
         $this->labelName = $label;
         $this->label = true;
