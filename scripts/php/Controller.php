@@ -28,8 +28,8 @@ class Controller
     /** @var string http method */
     private mixed $method;
 
-    /** @var string|array array of path segments */
-    private mixed $resources;
+    /** @var string|null trailing path information from $_SERVER['PATH_INFO'] */
+    private string|null $resources;
 
     /** @var Header */
     private Header $header;
@@ -53,7 +53,7 @@ class Controller
         $this->header = $header;
         $this->protocol = $_SERVER['SERVER_PROTOCOL'];
         $this->method = $_SERVER['REQUEST_METHOD'];
-        $this->resources = $_SERVER['PATH_INFO'] ?? $this->resources;
+        $this->resources = $_SERVER['PATH_INFO'] ?? null;
         $this->err = $error;
     }
 
