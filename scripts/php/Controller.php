@@ -5,6 +5,7 @@
 
 namespace WebsiteTemplate;
 
+use JsonException;
 use stdClass;
 use function array_key_exists;
 use function count;
@@ -19,28 +20,28 @@ use function is_array;
  */
 class Controller
 {
-    public $err;
+    public Error $err;
 
     /** @var string http protocol */
-    private $protocol;
+    private mixed $protocol;
 
     /** @var string http method */
-    private $method;
+    private mixed $method;
 
-    /** @var string|array array of path segments */
-    private $resources;
+    /** @var string|null trailing path information from $_SERVER['PATH_INFO'] */
+    private string|null $resources;
 
     /** @var Header */
-    private $header;
+    private Header $header;
 
     /** @var bool respond with 404 resource not found */
-    public $notFound = false;
+    public bool $notFound = false;
 
-    /** @var bool flush buffer every bytes */
-    public $outputChunked = false;
+    /** @var bool flush buffer after every $chunkSize bytes */
+    public bool $outputChunked = false;
 
     /** @var int chunk size for flushing */
-    public $chunkSize = 4096;    // = 1 KB
+    public int $chunkSize = 4096;    // = 1 KB
 
     /**
      * Constructs the controller instance.
@@ -52,17 +53,18 @@ class Controller
         $this->header = $header;
         $this->protocol = $_SERVER['SERVER_PROTOCOL'];
         $this->method = $_SERVER['REQUEST_METHOD'];
-        $this->resources = $_SERVER['PATH_INFO'] ?? $this->resources;
+        $this->resources = $_SERVER['PATH_INFO'] ?? null;
         $this->err = $error;
     }
 
     /**
-     * Converts PHP input parameters to an object
-     * Object properties correspond with request data
+     * Converts PHP input parameters to an object.
+     * Object properties correspond with request data.
      * @param bool $json handle post data as json
-     * @return stdClass |null
+     * @return stdClass|null
+     * @throws JsonException
      */
-    public function getDataAsObject($json = false)
+    public function getDataAsObject(bool $json = false): stdClass|null
     {
         // Note on types when using json_decode():
         // Values true, false and null are returned as TRUE, FALSE and NULL respectively.
@@ -71,7 +73,7 @@ class Controller
         switch ($this->method) {
             case 'POST':
                 if ($json) {
-                    $data = json_decode(file_get_contents('php://input'), false);
+                    $data = json_decode(file_get_contents('php://input'), false, 512, JSON_THROW_ON_ERROR);
                 } else {
                     // note: Make sure you set the correct Content-Type when doing a xhr POST
                     $data = $_POST;
@@ -85,9 +87,9 @@ class Controller
                 break;
             case 'DELETE':
                 if ($_SERVER['QUERY_STRING'] !== '') {
+                    $data = [];
                     parse_str($_SERVER['QUERY_STRING'], $data);
-                }
-                else {
+                } else {
                     $data = $this->getInput($json);
                 }
                 break;
@@ -104,12 +106,13 @@ class Controller
      * Read php input stream
      * @param bool $json
      * @return object|string mixed
+     * @throws JsonException
      */
-    private function getInput(bool $json)
+    private function getInput(bool $json): object|array
     {
         $input = file_get_contents('php://input');
         if ($json) {
-            $data = json_decode($input, false);
+            $data = json_decode($input, false, 512, JSON_THROW_ON_ERROR);
         } else {
             parse_str($input, $data);
         }
@@ -142,7 +145,7 @@ class Controller
      * @param ?bool $asString return a string instead of an array
      * @return array|string|null
      */
-    public function getResource(?bool $asString = null)
+    public function getResource(?bool $asString = null): array|string|null
     {
         $resources = $this->resources;
         if ($resources !== null && $asString !== true) {
@@ -161,8 +164,7 @@ class Controller
     {
         $this->printStatus();
         $headers = $this->header->get();
-        $contentType = $this->notFound ? 'text/html' : $this->header->getContentType();
-        header('Content-Type: '.$contentType.'; '.$this->header->getCharset());
+        header('Content-Type: '.$this->header->getContentType().'; '.$this->header->getCharset());
         foreach ($headers as $key => $value) {
             header($key.': '.$value);
         }
@@ -199,7 +201,7 @@ class Controller
      * Prints the body in chunks if outputChunked is set to true.
      * @param string|null $data response body
      */
-    public function printBody($data = null): void
+    public function printBody(string $data = null): void
     {
         // an error occurred
         if (count($this->err->get()) > 0) {

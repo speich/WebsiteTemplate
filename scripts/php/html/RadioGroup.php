@@ -13,12 +13,12 @@ class RadioGroup extends Form
 
     public const RENDER_VERTICALLY = 2;
 
-    public $cssClassMain = 'radiogroup';
+    public string $cssClassMain = 'radiogroup';
 
-    public $cssClassVertical = 'layout-vertical';
+    public string $cssClassVertical = 'layout-vertical';
 
     /** @var RadioButton[] */
-    public $radios = [];
+    public array $radios = [];
 
     /**
      * RadioGroup constructor.
@@ -95,7 +95,7 @@ class RadioGroup extends Form
      * @param ?int $layout self::RENDER_VERTICALLY or self::RENDER_HORIZONTALLY
      * @return string html
      */
-    public function render($layout = null): string
+    public function render(int $layout = null): string
     {
         $this->addCssClass($this->cssClassMain);
         if ($layout === self::RENDER_VERTICALLY) {

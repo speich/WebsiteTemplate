@@ -9,7 +9,6 @@ namespace WebsiteTemplate;
 
 use DateTime;
 use Exception;
-use function array_key_exists;
 use function in_array;
 
 
@@ -19,40 +18,40 @@ use function in_array;
 class Website
 {
     /** @var string host e.g. lfi.ch */
-    private $host;
+    private string $host;
 
     /** @var string http protocol */
-    public $protocol = 'https';
+    public string $protocol = 'https';
 
     /** @var string current path from root including page, e.g. /scripts/php/inc_global.php */
-    public $path;
+    public mixed $path;
 
     /** @var string current page without path, e.g. inc_global.php */
-    public $page;
+    public mixed $page;
 
     /** @var string current path without page, e.g. /library */
-    private $dir;
+    private string $dir;
 
     /** @var string query string without leading question mark */
-    public $query = '';
+    public mixed $query = '';
 
     /** @var string default page title */
-    public $pageTitle = '';
+    public string $pageTitle = '';
 
     /** @var string web root directory on web server */
-    private $webroot = '/';
+    private string $webroot = '/';
 
     /** @var string character set */
-    public $charset = 'utf-8';
+    public string $charset = 'utf-8';
 
     /** @var ?DateTime date of last update */
-    private static $lastUpdate;
+    private static ?DateTime $lastUpdate;
 
     /** @var string name of index page */
-    public $indexPage = 'index.php';
+    public string $indexPage = 'index.php';
 
     /** @var array whitelisted domains */
-    private $domains;
+    private array $domains;
 
     /**
      * Creates a new instance of the class Web.
@@ -79,7 +78,7 @@ class Website
      * Check if current host (and port) is whitelisted.
      * @return false|string
      */
-    protected function isWhitelisted()
+    protected function isWhitelisted(): bool|string
     {
         if (in_array($_SERVER['HTTP_HOST'], $this->domains, true)) {
 
@@ -93,9 +92,9 @@ class Website
      * Returns the date of the last update.
      * Returns the date either as a DateTime instance or a string formatted according to
      * @param ?string $format
-     * @return DateTime|string
+     * @return DateTime|string|null
      */
-    public function getLastUpdate($format = null)
+    public function getLastUpdate(string $format = null): DateTime|string|null
     {
         return $format === null ? self::$lastUpdate : self::$lastUpdate->format($format);
     }

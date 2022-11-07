@@ -13,13 +13,13 @@ class DivList extends Html
 {
 
     /** @var array list of items */
-    public $arrItem;
+    public array $arrItem;
 
     /** @var bool renderAsHtml label attribute */
-    private $label = false;
+    private bool $label = false;
 
     /** @var string label for list */
-    private $labelName;
+    private string $labelName;
 
     /**
      * Construct a HtmlDivList object.

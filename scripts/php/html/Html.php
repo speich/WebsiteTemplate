@@ -12,22 +12,22 @@ namespace WebsiteTemplate\html;
 abstract class Html
 {
     /** @var bool|string html id attribute */
-    protected $id = false;
+    protected string|bool $id = false;
 
     /** @var string html class attribute */
-    private $cssClass = '';
+    private string $cssClass = '';
 
     /** @var string title attribute */
-    protected $title = '';
+    protected string $title = '';
 
     /** @var string style attribute */
-    protected $cssStyle;
+    protected string $cssStyle;
 
     /**
      * Set the id attribute of a HTMLElement.
      * @param int|string $id
      */
-    public function setId($id): void
+    public function setId(int|string $id): void
     {
         $this->id = $id;
     }
@@ -36,7 +36,7 @@ abstract class Html
      * Return the id attribute of a HTMLElement.
      * @return string|bool id or false
      */
-    public function getId()
+    public function getId(): bool|string
     {
         if ($this->id) {
             return $this->id;

@@ -8,16 +8,16 @@ namespace WebsiteTemplate\html;
  */
 class OptionElement
 {
-    public $selected = false;
+    public bool $selected = false;
 
-    /** @var string value attribute */
-    public $value;
+    /** @var ?string value attribute */
+    public ?string $value = null;
 
-    /** @var string title attribute */
-    public $title;
+    /** @var ?string title attribute */
+    public ?string $title = null;
 
     /** @var string text of option */
-    public $text = '';
+    public string $text = '';
 
     /**
      * Render HTML option element.
