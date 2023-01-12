@@ -284,7 +284,7 @@ class Menu
      * If item's active property is set to null it is not considered in active check.
      *
      * @param MenuItem $item
-     * @param ?int $type Menu::MATCH_PATH | Menu::MATCH_FULL | Menu::MATCH_QUERY_ANY
+     * @param ?int $type Menu::MATCH_PATH | Menu::MATCH_FULL | Menu::MATCH_QUERY_VARS
      * @return bool
      * @see Menu::setAutoActiveMatching()
      */
