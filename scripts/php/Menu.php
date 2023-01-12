@@ -231,7 +231,7 @@ class Menu
     {
         if ($url === null) {
             foreach ($this->arrItem as $item) {
-                if ($this->checkActive($item)) {
+                if ($item->linkUrl !== null && $this->checkActive($item)) {
                     $item->setActive();
                 }
 
@@ -328,7 +328,7 @@ class Menu
     {
         $url = $_SERVER['REQUEST_URI'];
         $urlPage = parse_url($url);
-        $urlItem = parse_url(html_entity_decode($item->linkUrl));
+        $urlItem = parse_url(html_entity_decode($item->linkUrl ?? ''));
         if ($type === null) {
             $type = $this->getAutoActiveMatching();
         }

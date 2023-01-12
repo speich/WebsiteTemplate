@@ -14,34 +14,34 @@ class PagedNav
     // Note: numRec and numRecPerPage are private to force setting either through constructor or setter setProps
 
     /** @var int total number of records with current query */
-    private $numRec;
+    private int $numRec;
 
     /** @var int number of records to display per page */
-    private $numRecPerPage = 10;
+    private int $numRecPerPage = 10;
 
     /** @var int number of pages */
-    private $numPages;
+    private int $numPages;
 
-    /** @var int even number of links to display */
-    public $numLinks = 10;
+    /** @var string|int|float even number of links to display */
+    public string|int|float $numLinks = 10;
 
     /** @var string name of query variable to pass current page */
-    public $queryVarName = 'pg';
+    public string $queryVarName = 'pg';
 
     /** @var array keys that are allowed in the query string */
-    private $whitelist = [];
+    private array $whitelist = [];
 
     /** @var int small forward-backward link, e.g. [-10] [+10] */
-    public $stepSmall = 10;
+    public int $stepSmall = 10;
 
     /** @var int large forward-backward link, e.g. [-50] [+50] */
-    public $stepBig = 50;
+    public int $stepBig = 50;
 
     /** @var string name of CSS class of container element */
-    public $cssClass = 'pgNav';
+    public string $cssClass = 'pgNav';
 
     /** @var array translations for internationalization */
-    public $i18n = [
+    public array $i18n = [
         'de' => [
             'entries' => 'Einträge',
             'entry' => 'Eintrag',
@@ -77,10 +77,10 @@ class PagedNav
     ];
 
     /** @var string Language */
-    public $lang = 'en';
+    public string $lang = 'en';
 
     /** @var bool render text */
-    public $renderText = true;
+    public bool $renderText = true;
 
     /**
      * Construct instance of PageNav.
@@ -88,7 +88,7 @@ class PagedNav
      * @param ?int $numRecPerPage number of records on a page
      * @param ?int $numLinks number of links to display in navigation
      */
-    public function __construct($numRec = null, $numRecPerPage = null, $numLinks = null)
+    public function __construct(int $numRec = null, int $numRecPerPage = null, int $numLinks = null)
     {
         if ($numRec !== null && is_numeric($numRec)) {
             $this->setNumRec($numRec);
@@ -201,11 +201,11 @@ class PagedNav
     /**
      * Print HTML navigation.
      * The parameter $curPage is 1-based.
-     * @param int|string $curPage current page number
+     * @param int $curPage current page number
      * @param Website $web
      * @return string HTML string to print
      */
-    public function render(int $curPage, $web): string
+    public function render(int $curPage, Website $web): string
     {
         $query = new QueryString($this->whitelist);
         $lb = $this->getLowerBoundary($curPage);

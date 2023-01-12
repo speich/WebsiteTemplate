@@ -2,6 +2,8 @@
 
 namespace WebsiteTemplate\html;
 
+use PDOStatement;
+
 /**
  * Class to create HTMLFormElements.
  *
@@ -18,28 +20,28 @@ class Form extends Html
     public const LABEL_AFTER = 2;
 
     /** @var bool renderAsHtml label attribute */
-    protected $label = false;
+    protected bool $label = false;
 
     /** @var string label */
-    protected $labelName = '';
+    protected string $labelName = '';
 
-    /** @var string position of label in relation to element */
-    protected $labelPosition = Form::LABEL_BEFORE;
+    /** @var string|int|PDOStatement position of label in relation to element */
+    protected string|int|PDOStatement $labelPosition = Form::LABEL_BEFORE;
 
     /** @var bool|string disabled attribute */
-    protected $disabled = false;
+    protected string|bool $disabled = false;
 
     /** @var bool|string selected attribute */
-    protected $checked = false;
+    protected string|bool $checked = false;
 
     /** @var bool|string required attribute */
-    protected $required = false;
+    protected string|bool $required = false;
 
     /** @var bool|int tab index attribute */
-    protected $tabIndex = false;
+    protected int|bool $tabIndex = false;
 
     /** @var bool|string name attribute */
-    protected $name = false;
+    protected string|bool $name = false;
 
     /**
      * Set the element's tab index
@@ -66,9 +68,9 @@ class Form extends Html
      * If set then the label attribute is rendered. The position can be set to before or after with the constants
      * HTML_LABEL_BEFORE and HTML_LABEL_AFTER.
      * @param string $label label
-     * @param ?int $position position of label
+     * @param int|null|PDOStatement $position position of label
      */
-    public function setLabel(string $label, $position = null): void
+    public function setLabel(string $label, int|null|PDOStatement $position = null): void
     {
         $this->labelName = $label;
         $this->label = true;
@@ -88,7 +90,7 @@ class Form extends Html
      * Return the label of the HTMLFormElement.
      * @return string|bool label or false
      */
-    public function getLabel()
+    public function getLabel(): bool|string
     {
         if ($this->label) {
             return $this->labelName;
@@ -99,7 +101,7 @@ class Form extends Html
 
     /**
      * Set HTMLAttribute required to true or false.
-     * @param $bool
+     * @param bool $bool
      */
     public function setRequired(?bool $bool = null): void
     {
@@ -110,7 +112,7 @@ class Form extends Html
      * Set the name attribute of the element
      * @param bool|string $name
      */
-    public function setName($name): void
+    public function setName(bool|string $name): void
     {
         $this->name = $name;
     }

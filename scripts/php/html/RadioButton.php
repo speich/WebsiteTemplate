@@ -10,7 +10,7 @@ namespace WebsiteTemplate\html;
 class RadioButton extends Form
 {
     /** @var string value attribute */
-    public $val;
+    public string $val;
 
     /**
      * Construct a HtmlRadioButton object.
@@ -31,7 +31,7 @@ class RadioButton extends Form
     public function setChecked(?bool $checked = null): void
     {
         // TODO: remove method use Checkbox::checked and SelectField. setSelected instead
-        $this->checked = $checked ?? true;;
+        $this->checked = $checked ?? true;
     }
 
     /**

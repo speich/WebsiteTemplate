@@ -124,7 +124,7 @@
       </interpreter>
     </phpInfoCache>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="8.0" />
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
   <component name="PhpUnit">
     <phpunit_settings>
       <phpunit_by_interpreter interpreter_id="6a2fa8f1-5d67-472c-b43b-b9cb7d1214a3" custom_loader_path="/var/www/html/WebsiteTemplate/vendor/autoload.php" phpunit_phar_path="" />
