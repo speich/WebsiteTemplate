@@ -189,12 +189,11 @@ class Website
     {
         $url = $url ?? $_SERVER['REQUEST_URI'];
         $options = [
-            'expires' => 0,
-            'path' => '/',
-            'domain' => str_replace('www.', '.', $_SERVER['HTTP_HOST']),
-            'secure' => false,
-            'httponly' => true,
-            'samesite' => 'Strict'
+            'Path' => '/',
+            'Domain' => str_replace('www.', '.', $_SERVER['HTTP_HOST']),
+            'Secure' => false,
+            'HttpOnly' => true,
+            'SameSite' => 'Strict'
         ];
         setcookie('backPage', $url, $options);
     }
