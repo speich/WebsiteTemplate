@@ -117,6 +117,7 @@ class MenuItem
     {
         $arr = explode(' ', $this->cssClass);
         $this->cssClass = implode(' ', array_unique(array_merge($arr, $name)));
+        $this->cssClass = trim($this->cssClass);
     }
 
     /**
