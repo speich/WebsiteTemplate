@@ -189,12 +189,11 @@ class Website
     {
         $url = $url ?? $_SERVER['REQUEST_URI'];
         $options = [
-            'expires' => 0,
-            'path' => '/',
-            'domain' => str_replace('www.', '.', $_SERVER['HTTP_HOST']),
-            'secure' => false,
-            'httponly' => true,
-            'samesite' => 'Strict'
+            'Path' => '/',
+            'Domain' => str_replace('www.', '.', $_SERVER['HTTP_HOST']),
+            'Secure' => false,
+            'HttpOnly' => true,
+            'SameSite' => 'Strict'
         ];
         setcookie('backPage', $url, $options);
     }
@@ -215,12 +214,12 @@ class Website
     {
         unset($_COOKIE['backPage']);
         $options = [
-            'expires' => 0,
-            'path' => '/',
-            'domain' => str_replace('www.', '.', $_SERVER['HTTP_HOST']),
-            'secure' => false,
-            'httponly' => true,
-            'samesite' => 'Strict'
+            'Expires' => 0,
+            'Path' => '/',
+            'Domain' => str_replace('www.', '.', $_SERVER['HTTP_HOST']),
+            'Secure' => false,
+            'HttpOnly' => true,
+            'SameSite' => 'Strict'
         ];
         setcookie('backPage', '', $options);
     }

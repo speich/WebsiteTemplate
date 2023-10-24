@@ -201,12 +201,12 @@ class Language
     {
         // remove subdomain www from host to prevent conflicting with cookies set in subdomain
         $options = [
-            'expires' => time() + 3600 * 24 * 365,
-            'path' => '/',
-            'domain' => str_replace('www.', '.', $_SERVER['HTTP_HOST']),
-            'secure' => false,
-            'httponly' => true,
-            'samesite' => 'Strict'
+            'Expires' => time() + 3600 * 24 * 365,
+            'Path' => '/',
+            'Domain' => str_replace('www.', '.', $_SERVER['HTTP_HOST']),
+            'Secure' => false,
+            'HttpOnly' => true,
+            'SameSite' => 'Strict'
         ];
         setcookie('lang', $lang, $options);
     }
@@ -246,7 +246,7 @@ class Language
         // add new language postfix
         if ($lang !== $this->langDefault) {
             $prefixed = preg_replace('/\.([a-z]+)$/', '-'.$lang.'.$1', $page);
-            $page = $prefixed ?? $page;
+            $page = is_string($prefixed) ? $prefixed : $page;
         }
 
         return $page;
