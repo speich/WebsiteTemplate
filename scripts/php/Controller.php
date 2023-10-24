@@ -111,7 +111,7 @@ class Controller
     private function getInput(bool $json): object|array
     {
         $input = file_get_contents('php://input');
-        if ($json) {
+        if ($input !== '' && $json === true) {
             $data = json_decode($input, false, 512, JSON_THROW_ON_ERROR);
         } else {
             parse_str($input, $data);
