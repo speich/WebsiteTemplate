@@ -123,7 +123,7 @@ class Language
      */
     public function getPage(): string
     {
-        return pathinfo($_SERVER['REQUEST_URI'], PATHINFO_BASENAME);
+        return basename($_SERVER['SCRIPT_NAME']);
     }
 
     /**
