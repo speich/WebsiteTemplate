@@ -5,6 +5,15 @@
       <MessDetectorConfiguration tool_path="$PROJECT_DIR$/../../../../Program Files (x86)/PHP/phpmd" />
     </phpmd_settings>
   </component>
+  <component name="MessDetectorOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PHPCSFixerOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PHPCodeSnifferOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
   <component name="PhpCodeSniffer">
     <phpcs_settings>
       <PhpCSConfiguration tool_path="/usr/bin/phpcs" />
@@ -48,8 +57,8 @@
   </component>
   <component name="PhpInterpreters">
     <interpreters>
-      <interpreter id="6a2fa8f1-5d67-472c-b43b-b9cb7d1214a3" name="developer@192.168.1.52:22 password" home="sshConfig://DATA" debugger_id="php.debugger.XDebug">
-        <remote_data INTERPRETER_PATH="/usr/bin/php" HELPERS_PATH="/home/developer/.phpstorm_helpers" INITIALIZED="false" VALID="true" RUN_AS_ROOT_VIA_SUDO="false" SSH_CONFIG_ID="b7cc8855-b38f-4212-ae25-7ddf91b280fb" SSH_CONFIG_NAME="developer@192.168.1.52:22 password" SSH_CREDENTIALS_ID="sshConfig://developer@192.168.1.52:22 password" />
+      <interpreter id="6a2fa8f1-5d67-472c-b43b-b9cb7d1214a3" name="developer@192.168.1.52:22 password" home="sshConfig://DATA" auto="false" debugger_id="php.debugger.XDebug">
+        <remote_data INTERPRETER_PATH="/usr/bin/php" HELPERS_PATH="/home/developer/.phpstorm_helpers" VALID="true" RUN_AS_ROOT_VIA_SUDO="false" SSH_CONFIG_ID="b7cc8855-b38f-4212-ae25-7ddf91b280fb" SSH_CONFIG_NAME="developer@192.168.1.52:22 password" SSH_CREDENTIALS_ID="sshConfig://developer@192.168.1.52:22 password" />
       </interpreter>
     </interpreters>
   </component>
@@ -124,10 +133,17 @@
       </interpreter>
     </phpInfoCache>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.0" />
+  <component name="PhpStanOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
   <component name="PhpUnit">
     <phpunit_settings>
       <phpunit_by_interpreter interpreter_id="6a2fa8f1-5d67-472c-b43b-b9cb7d1214a3" custom_loader_path="/var/www/html/WebsiteTemplate/vendor/autoload.php" phpunit_phar_path="" />
+      <PhpUnitSettings custom_loader_path="$PROJECT_DIR$/vendor/autoload.php" />
     </phpunit_settings>
+  </component>
+  <component name="PsalmOptionsConfiguration">
+    <option name="transferred" value="true" />
   </component>
 </project>
