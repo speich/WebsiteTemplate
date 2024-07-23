@@ -94,7 +94,7 @@ class Website
      * @param ?string $format
      * @return DateTime|string|null
      */
-    public function getLastUpdate(string $format = null): DateTime|string|null
+    public static function getLastUpdate(string $format = null): DateTime|string|null
     {
         return $format === null ? self::$lastUpdate : self::$lastUpdate->format($format);
     }
@@ -104,7 +104,7 @@ class Website
      * A date/time string. Valid formats are explained in https://www.php.net/manual/en/datetime.formats.php
      * @param string $lastUpdate
      */
-    public function setLastUpdate(string $lastUpdate): void
+    public static function setLastUpdate(string $lastUpdate): void
     {
         try {
             self::$lastUpdate = new DateTime($lastUpdate);
@@ -173,7 +173,7 @@ class Website
      * @param ?int $port
      * @return bool
      */
-    public function checkHost(string $host, ?int $port = null): bool
+    public static function checkHost(string $host, ?int $port = null): bool
     {
         $fp = @fsockopen($host, $port, $errNo, $errStr, 2);
 
