@@ -96,6 +96,8 @@ class QueryString
     {
         $encType = $encType ?? PHP_QUERY_RFC1738;
         $str = http_build_query($this->queryVars, $encType);
+        // http_build_query returns &myVar[] as &myVar[0]
+        $str = preg_replace('/\%5B\d+\%5D/', '%5B%5D', $str);
 
         return $str === '' ? '' : '?'.$str;
     }
@@ -118,6 +120,8 @@ class QueryString
     {
         $encType = $encType ?? PHP_QUERY_RFC1738;
         $str = http_build_query($this->with($arrInc, $arrExl), $encType);
+        // http_build_query returns &myVar[] as &myVar[0]
+        $str = preg_replace('/\%5B\d+\%5D/', '%5B%5D', $str);
 
         return $str === '' ? '' : '?'.$str;
     }
