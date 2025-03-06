@@ -1,12 +1,12 @@
 <?php
 
-namespace WebsiteTemplate\html;
+namespace WebsiteTemplate\Html;
 
 use function count;
 
 
 /**
- * This class creates a HtmlSelectElement.
+ * This class creates an HtmlSelectElement.
  */
 class SelectField extends Form
 {
@@ -17,7 +17,7 @@ class SelectField extends Form
     /** use the option value to set the option title attribute */
     public const OPTION_TITLE_FROM_VALUE = 2;
 
-    /** Use the value attribute to set HTMLOptionElement to selected. */
+    /** Use the value attribute to set the HTMLOptionElement to selected. */
     public const SELECTED_BY_VALUE = 1;
 
     /** Use the child text to set HTMLOptionElement to selected. */
@@ -35,20 +35,22 @@ class SelectField extends Form
     /** @var bool multiple attribute */
     private bool $multiple = false;
 
-    /** @var int number of visible rows */
-    // note: this should be set to at least 2, when you want to use css height and not have multiple = true
+    /**
+     * Note: this should be set to at least 2, when you want to use css height and not have multiple = true
+     * @var int number of visible rows
+     */
     private int $size = 1;
 
     /** @var array contains the selected text and values */
     private array $selectedOptions = [];
 
-    /** @var string|bool text of first option */
+    /** @var false|string text of the first option */
     private string|bool $defaultText = 'Bitte auswählen';
 
-    /** @var string value of first option element  */
+    /** @var string value of the first option element  */
     private string $defaultValue = '';
 
-    /** @var bool automatically set option title attribute from option text or value attribute */
+    /** @var bool automatically set the option title attribute from option text or value attribute */
     private bool $autoOptionTitle = false;
 
     /** @var bool automatically index option values if passed $arrOption is a 1-dim array */
@@ -57,10 +59,10 @@ class SelectField extends Form
     /**
      * Construct a SelectFld object.
      *
-     * The constructor accepts either a one or a two dimensional array. In case of a
-     * 1-dim array, a new, zero-based index is created to use as the HTMLValueAttribute and the
-     * array values are used as the text of the HTMLOptionElements. Otherwise the first dimension
-     * is used as the value, and the second as the text.
+     * The constructor accepts either a one or a two-dimensional array.
+     * In the case of a 1-dim array, a new, zero-based index is created to use as the HTMLValueAttribute and the
+     * array values are used as the text of the HTMLOptionElements.
+     * Otherwise, the first dimension is used as the value, and the second as the text.
      *
      * @param iterable $arrOption text and value data
      * @param string|null $id
@@ -75,9 +77,9 @@ class SelectField extends Form
     }
 
     /**
-     * Create array of option elements
+     * Create an array of option elements
      * If argument $options is a 1-dim array: created value attribute if autoOptionValues is true, otherwise no value attribute is set.
-     * If arguments $options is a 2-dim array: use first index as value attribute, second as text
+     * If arguments $options is a 2-dim array: use the first index as the value attribute, the second as text.
      *
      * @param iterable $options
      */
@@ -180,9 +182,9 @@ class SelectField extends Form
      * Default text value is 'Bitte auswählen'.
      * Set to false if no default item (first item in the list) should be displayed.
      *
-     * @param bool|string $txt
+     * @param false|string $txt
      */
-    public function setDefaultVal(bool|string $txt): void
+    public function setDefaultText(false|string $txt): void
     {
         $this->defaultText = $txt;
     }
@@ -274,9 +276,9 @@ class SelectField extends Form
 
     /**
      * Return default text of first unselected option.
-     * @return string
+     * @return false|string
      */
-    public function getDefaultVal(): string
+    public function getDefaultText(): false|string
     {
         return $this->defaultText;
     }
