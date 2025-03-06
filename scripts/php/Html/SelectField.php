@@ -73,6 +73,7 @@ class SelectField extends Form
             $this->setId($id);
             $this->name = $id;
         }
+        // already initializing here instead of only when rendering, allows setting an option selected.
         $this->initOptions($arrOption);
     }
 
@@ -83,7 +84,7 @@ class SelectField extends Form
      *
      * @param iterable $options
      */
-    private function initOptions(iterable $options): void
+    protected function initOptions(iterable $options): void
     {
         $i = 0;
         foreach ($options as $row) {
