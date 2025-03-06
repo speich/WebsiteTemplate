@@ -50,8 +50,8 @@ class SelectField extends Form
     /** @var string value of the first option element  */
     private string $defaultValue = '';
 
-    /** @var bool automatically set the option title attribute from option text or value attribute */
-    private bool $autoOptionTitle = false;
+    /** @var false|int automatically set the option title attribute from option text or value attribute */
+    private false|int $autoOptionTitle = false;
 
     /** @var bool automatically index option values if passed $arrOption is a 1-dim array */
     public bool $autoOptionValues = true;
@@ -286,18 +286,18 @@ class SelectField extends Form
     /**
      * Enable setting the title attribute on the option element automatically.
      * Title can be set from the option text or option value attribute.
-     * @param ?int $type SelectField::OPTION_TITLE_FROM_TEXT | SelectField::OPTION_TITLE_FROM_VALUE
+     * @param int $type SelectField::OPTION_TITLE_FROM_TEXT | SelectField::OPTION_TITLE_FROM_VALUE
      */
-    public function setOptionTitleAuto(?int $type = null): void
+    public function setOptionTitleAuto(int $type = self::OPTION_TITLE_FROM_TEXT): void
     {
-        $this->autoOptionTitle = $type ?? self::OPTION_TITLE_FROM_TEXT;
+        $this->autoOptionTitle = $type;
     }
 
     /**
      * Set the title attribute automatically.
      * @param OptionElement $option
      */
-    private function setAutoOptionTitle(OptionElement $option): void
+    protected function setAutoOptionTitle(OptionElement $option): void
     {
         if ($this->autoOptionTitle !== false) {
             $option->title = $this->autoOptionTitle === self::OPTION_TITLE_FROM_TEXT ? $option->text : $option->value;

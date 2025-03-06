@@ -4,17 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="remove dependency of the class Website on the render method">
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+    <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="-property type was used inconsistently&#10;-rename method to be more sensible">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/html/CheckBox.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/Html/CheckBox.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/html/DivList.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/Html/DivList.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/html/Form.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/Html/Form.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/html/Html.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/Html/Html.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/html/OptionElement.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/Html/OptionElement.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/html/RadioButton.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/Html/RadioButton.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/html/RadioGroup.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/Html/RadioGroup.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/html/SelectField.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/Html/SelectField.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/Html/SelectField.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/Html/SelectField.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -266,7 +258,7 @@
       <workItem from="1721745507742" duration="3051000" />
       <workItem from="1722954326123" duration="1108000" />
       <workItem from="1739352129609" duration="933000" />
-      <workItem from="1741252312480" duration="480000" />
+      <workItem from="1741252312480" duration="1676000" />
     </task>
     <task id="LOCAL-00018" summary="handle case when input stream returns an emtpy string">
       <option name="closed" value="true" />
@@ -324,7 +316,23 @@
       <option name="project" value="LOCAL" />
       <updated>1739352998219</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="change folder case to CamelCase">
+      <option name="closed" value="true" />
+      <created>1741253128676</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1741253128676</updated>
+    </task>
+    <task id="LOCAL-00026" summary="-property type was used inconsistently&#10;-rename method to be more sensible">
+      <option name="closed" value="true" />
+      <created>1741253193218</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1741253193219</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -371,6 +379,8 @@
     <MESSAGE value="update phpstorm settings" />
     <MESSAGE value="remove keys from http_build_query" />
     <MESSAGE value="remove dependency of the class Website on the render method" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove dependency of the class Website on the render method" />
+    <MESSAGE value="change folder case to CamelCase" />
+    <MESSAGE value="-property type was used inconsistently&#10;-rename method to be more sensible" />
+    <option name="LAST_COMMIT_MESSAGE" value="-property type was used inconsistently&#10;-rename method to be more sensible" />
   </component>
 </project>
