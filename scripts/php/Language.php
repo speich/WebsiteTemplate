@@ -176,7 +176,7 @@ class Language
         if (isset($_GET['lang'])) {
             $lang = preg_replace('/\W/', '', $_GET['lang']);
         } // from directory, e.g. /en/
-        elseif (preg_match('/\/'.$this->langCaptureGroup.'\//', $_SERVER['REQUEST_URI'], $matches) === 1) {
+        elseif (preg_match('/\/'.$this->langCaptureGroup.'(\/|$)/', $_SERVER['REQUEST_URI'], $matches) === 1) {
             $lang = $matches[1];
         } // from page name
         elseif (preg_match('/-'.$this->langCaptureGroup.'\.php/', $this->getPage(), $matches) === 1) {
