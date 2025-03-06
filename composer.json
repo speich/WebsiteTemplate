@@ -9,7 +9,8 @@
   },
   "require": {
     "php": ">=8.0",
-    "ext-json": "*"
+    "ext-json": "*",
+    "ext-pdo": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "^9.5.24"
