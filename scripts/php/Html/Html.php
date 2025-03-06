@@ -1,6 +1,6 @@
 <?php
 
-namespace WebsiteTemplate\html;
+namespace WebsiteTemplate\Html;
 
 /**
  * Base class to create HTML snippets.

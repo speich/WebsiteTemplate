@@ -1,31 +1,31 @@
 <?php
 
-namespace WebsiteTemplate\html;
+namespace WebsiteTemplate\Html;
 
 /**
- * Create a HTMLSelectElement.
+ * Class to create a HTMLRadioElement.
+ * Often radio buttons occur in group with the same name. Use the setGroup method.
+ * @see setGroup() method
  */
-class CheckBox extends Form
+class RadioButton extends Form
 {
     /** @var string value attribute */
     public string $val;
 
     /**
-     * Construct a CheckBox object.
-     * Sets the id attribute and the value attribute.
-     * @param string $id
-     * @param string $val
+     * Construct a HtmlRadioButton object.
+     * The constructor sets the id and value attribute of the HTMLRadioElement.
+     * @param string $id HTMLAttribute id
+     * @param string $val HTMLAttribute value
      */
     public function __construct(string $id, string $val)
     {
         $this->setId($id);
         $this->val = $val;
-        $this->name = $id;
     }
 
     /**
-     * Set the form element or item to be selected.
-     * If set then the HTMLFormElement is rendered selected.
+     * Set the checked attribute to checked.
      * @param bool $checked
      */
     public function setChecked(?bool $checked = null): void
@@ -34,15 +34,14 @@ class CheckBox extends Form
         $this->checked = $checked ?? true;
     }
 
-
     /**
-     * Print the HTMLCheckboxElement.
+     * Print out the HTML radio button.
      * @return string Html
      */
     public function render(): string
     {
-        $css = $this->renderCssClass();
         $strHtml = '';
+        $css = $this->renderCssClass();
 
         $strLabel = '';
         if ($this->label) {
@@ -51,9 +50,11 @@ class CheckBox extends Form
         if ($this->labelPosition === Form::LABEL_BEFORE) {
             $strHtml .= $strLabel;
         }
-
-        $strHtml .= '<input id="'.$this->getId().'" name="'.$this->name.'"';
-        $strHtml .= ' type="checkbox" value="'.$this->val.'"';
+        $strHtml .= '<input id="'.$this->getId().'"';
+        if ($this->name !== false) {
+            $strHtml .= ' name="'.$this->name.'"';
+        }
+        $strHtml .= ' type="radio" value="'.$this->val.'"';
         if ($this->checked === true) {
             $strHtml .= ' checked="checked"';
         }
