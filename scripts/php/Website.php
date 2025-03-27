@@ -53,6 +53,13 @@ class Website
     /** @var array whitelisted domains */
     private array $domains;
 
+    public static array $pageCookieDefaultOptions = [
+        'Path' => '/',
+        'Secure' => false,
+        'HttpOnly' => true,
+        'SameSite' => 'Strict'
+    ];
+
     /**
      * Creates a new instance of the class Web.
      * @param array $domains list of whitelisted domains
@@ -72,6 +79,7 @@ class Website
             $this->page = $arrPath['basename'];
             $this->dir = rtrim($arrPath['dirname'], DIRECTORY_SEPARATOR).'/';
         }
+        self::$pageCookieDefaultOptions['Domain'] = str_replace('www.', '.', $_SERVER['HTTP_HOST']);
     }
 
     /**
@@ -100,7 +108,7 @@ class Website
     }
 
     /**
-     * Set the date of last update of the website.
+     * Set the date of the last update of the website.
      * A date/time string. Valid formats are explained in https://www.php.net/manual/en/datetime.formats.php
      * @param string $lastUpdate
      */
@@ -185,24 +193,18 @@ class Website
      * If the argument $url is provided, it is used instead of the current url.
      * @param ?string $url
      */
-    public function setLastPage(?string $url = null): void
+    public static function setLastPage(?string $url = null): void
     {
         $url = $url ?? $_SERVER['REQUEST_URI'];
-        $options = [
-            'Path' => '/',
-            'Domain' => str_replace('www.', '.', $_SERVER['HTTP_HOST']),
-            'Secure' => false,
-            'HttpOnly' => true,
-            'SameSite' => 'Strict'
-        ];
-        setcookie('backPage', $url, $options);
+
+        setcookie('backPage', $url, self::$pageCookieDefaultOptions);
     }
 
     /**
      * Returns the page to go back to.
      * @return null|string
      */
-    public function getLastPage(): ?string
+    public static function getLastPage(): ?string
     {
         return $_COOKIE['backPage'] ?? null;
     }
@@ -210,25 +212,22 @@ class Website
     /**
      * Resets the saved url.
      */
-    public function resetLastPage(): void
+    public static function resetLastPage(): void
     {
         unset($_COOKIE['backPage']);
         $options = [
+            ...self::$pageCookieDefaultOptions,
             'Expires' => 0,
-            'Path' => '/',
-            'Domain' => str_replace('www.', '.', $_SERVER['HTTP_HOST']),
-            'Secure' => false,
-            'HttpOnly' => true,
-            'SameSite' => 'Strict'
+
         ];
         setcookie('backPage', '', $options);
     }
 
     /**
      * Returns the current protocol.
-     * Returns the current protocol (only http or https) from the requested page
+     * Returns the current protocol (only http or https) from the requested page.
      * including the colon and the double slashes e.g. <protocol>:// unless false is passed as the method argument.
-     * @param bool $full return additional characters ?
+     * @param bool $full return additional characters?
      * @return string
      */
     public function getProtocol(?bool $full = null): string
