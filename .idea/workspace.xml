@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="-property type was used inconsistently&#10;-rename method to be more sensible">
+    <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="whitelisting was ignored when null was passed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/Html/SelectField.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/Html/SelectField.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,20 +106,22 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/speich/Websites/WebsiteTemplate/scripts/php/Html/SelectField.php&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode&quot;,
+    &quot;two.files.diff.last.used.file&quot;: &quot;C:/Users/speich/Websites/WebsiteTemplate/scripts/php/Html/SelectField.php&quot;
   }
 }</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-PS-243.25659.45" />
-        <option value="bundled-php-predefined-a98d8de5180a-1ec7b7818973-com.jetbrains.php.sharedIndexes-PS-243.25659.45" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-PS-243.26053.13" />
+        <option value="bundled-php-predefined-a98d8de5180a-1ec7b7818973-com.jetbrains.php.sharedIndexes-PS-243.26053.13" />
       </set>
     </attachedChunks>
   </component>
@@ -258,7 +259,9 @@
       <workItem from="1721745507742" duration="3051000" />
       <workItem from="1722954326123" duration="1108000" />
       <workItem from="1739352129609" duration="933000" />
-      <workItem from="1741252312480" duration="1676000" />
+      <workItem from="1741252312480" duration="4067000" />
+      <workItem from="1741261754439" duration="13000" />
+      <workItem from="1743075698688" duration="1226000" />
     </task>
     <task id="LOCAL-00018" summary="handle case when input stream returns an emtpy string">
       <option name="closed" value="true" />
@@ -332,7 +335,39 @@
       <option name="project" value="LOCAL" />
       <updated>1741253193219</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="-property types were used inconsistently.&#10;-rename method to be more sensible.">
+      <option name="closed" value="true" />
+      <created>1741254093655</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1741254093655</updated>
+    </task>
+    <task id="LOCAL-00028" summary="change visibility of member">
+      <option name="closed" value="true" />
+      <created>1741261686673</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1741261686673</updated>
+    </task>
+    <task id="LOCAL-00029" summary="add missing php extension to composer">
+      <option name="closed" value="true" />
+      <created>1741261723750</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1741261723750</updated>
+    </task>
+    <task id="LOCAL-00030" summary="whitelisting was ignored when null was passed">
+      <option name="closed" value="true" />
+      <created>1743076896369</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1743076896369</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -356,10 +391,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="phpstorm settings" />
-    <MESSAGE value="update Website.php" />
-    <MESSAGE value="phpstorm setting" />
-    <MESSAGE value="update Error.php" />
     <MESSAGE value="update Http.php" />
     <MESSAGE value="update LanguageMenu.php" />
     <MESSAGE value="update MenuItem.php" />
@@ -381,6 +412,10 @@
     <MESSAGE value="remove dependency of the class Website on the render method" />
     <MESSAGE value="change folder case to CamelCase" />
     <MESSAGE value="-property type was used inconsistently&#10;-rename method to be more sensible" />
-    <option name="LAST_COMMIT_MESSAGE" value="-property type was used inconsistently&#10;-rename method to be more sensible" />
+    <MESSAGE value="-property types were used inconsistently.&#10;-rename method to be more sensible." />
+    <MESSAGE value="change visibility of member" />
+    <MESSAGE value="add missing php extension to composer" />
+    <MESSAGE value="whitelisting was ignored when null was passed" />
+    <option name="LAST_COMMIT_MESSAGE" value="whitelisting was ignored when null was passed" />
   </component>
 </project>

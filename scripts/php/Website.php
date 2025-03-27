@@ -181,8 +181,8 @@ class Website
     }
 
     /**
-     * Save current url to a session variable.
-     * If argument $url is provided it is used instead of current url.
+     * Save the current url to a cookie.
+     * If the argument $url is provided, it is used instead of the current url.
      * @param ?string $url
      */
     public function setLastPage(?string $url = null): void
