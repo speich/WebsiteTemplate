@@ -23,9 +23,9 @@ class QueryString
     /**
      * QueryString constructor.
      * By default, the query string only contains keys that are whitelisted.
-     * @param array|null $whitelist allowed keys in the query string
+     * @param array $whitelist allowed keys in the query string
      */
-    public function __construct(?array $whitelist = null)
+    public function __construct(array $whitelist = [])
     {
         parse_str($_SERVER['QUERY_STRING'], $queries);
         if (is_array($whitelist)) {
