@@ -83,7 +83,7 @@ class Website
     }
 
     /**
-     * Check if current host (and port) is whitelisted.
+     * Check if the current host (and port) is whitelisted.
      * @return false|string
      */
     protected function isWhitelisted(): bool|string
