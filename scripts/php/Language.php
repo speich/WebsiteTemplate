@@ -203,7 +203,7 @@ class Language
         $options = [
             'Expires' => time() + 3600 * 24 * 365,
             'Path' => '/',
-            'Domain' => str_replace('www.', '.', $_SERVER['HTTP_HOST']),
+            'Domain' => str_replace('www.', '', $_SERVER['HTTP_HOST']),
             'Secure' => false,
             'HttpOnly' => true,
             'SameSite' => 'Strict'
