@@ -199,14 +199,9 @@ class Language
      */
     public function setCookie(string $lang): void
     {
-        // remove subdomain www from host to prevent conflicting with cookies set in subdomain
         $options = [
+            ...Website::$pageCookieDefaultOptions,
             'Expires' => time() + 3600 * 24 * 365,
-            'Path' => '/',
-            'Domain' => str_replace('www.', '', $_SERVER['HTTP_HOST']),
-            'Secure' => false,
-            'HttpOnly' => true,
-            'SameSite' => 'Strict'
         ];
         setcookie('lang', $lang, $options);
     }
