@@ -53,6 +53,15 @@ class Website
     /** @var array whitelisted domains */
     private array $domains;
 
+    /*
+        A note on leading dots in domain attributes:
+        In the early RFC 2109, only domains with a leading dot (domain=.example.com)
+        could be used across subdomains. But this could not be shared with the top-level domain.
+
+        However, the newer specification RFC 6265 ignores any leading dot, meaning you can use the cookie
+        on subdomains as well as the top-level domain. Some browsers will show a leading dot in developer tools
+        to differentiate between host-only cookies and other cookies, but this is for display purposes only.
+    */
     public static array $pageCookieDefaultOptions = [
         'Path' => '/',
         'Secure' => true,
@@ -79,14 +88,6 @@ class Website
             $this->page = $arrPath['basename'];
             $this->dir = rtrim($arrPath['dirname'], DIRECTORY_SEPARATOR).'/';
         }
-        /* A note on leading dots in domain attributes:
-            In the early RFC 2109, only domains with a leading dot (domain=.example.com)
-            could be used across subdomains. But this could not be shared with the top-level domain.
-
-            However, the newer specification RFC 6265 ignores any leading dot, meaning you can use the cookie
-            on subdomains as well as the top-level domain. Some browsers will show a leading dot in developer tools
-            to differentiate between host-only cookies and other cookies, but this is for display purposes only. */
-        self::$pageCookieDefaultOptions['Domain'] = str_replace('www.', '', $this->host);    // note: do not rely on $_SERVER['SERVER_NAME'] or even worse 'HTTP_HOST'
     }
 
     /**
@@ -203,8 +204,13 @@ class Website
     public static function setLastPage(?string $url = null): void
     {
         $url = $url ?? $_SERVER['REQUEST_URI'];
+        $options = [
+            ...self::$pageCookieDefaultOptions,
+            // note: we can't do this in the constructor, because it is used statically.
+            'Domain' => str_replace('www.', '', $_SERVER['HTTP_HOST']),
+        ];
 
-        setcookie('backPage', $url, self::$pageCookieDefaultOptions);
+        setcookie('backPage', $url, $options);
     }
 
     /**
@@ -224,6 +230,8 @@ class Website
         unset($_COOKIE['backPage']);
         $options = [
             ...self::$pageCookieDefaultOptions,
+            // note: we can't do this in the constructor, because it is used statically.
+            'Domain' => str_replace('www.', '', $_SERVER['HTTP_HOST']),
             'Expires' => 0,
 
         ];

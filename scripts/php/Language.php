@@ -201,6 +201,7 @@ class Language
     {
         $options = [
             ...Website::$pageCookieDefaultOptions,
+            // note: we can't do this in the constructor, because it is used statically.
             'Domain' => str_replace('www.', '', $_SERVER['HTTP_HOST']),
             'Expires' => time() + 3600 * 24 * 365,
         ];
