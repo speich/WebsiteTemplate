@@ -1,7 +1,6 @@
 <?php
 /**
  * This file contains the class to create a navigation menu.
- * @author Simon Speich
  */
 
 namespace WebsiteTemplate;
@@ -12,12 +11,12 @@ use function count;
 use function is_array;
 
 /**
- * Simple recursive menu with unlimited levels which creates an unordered list based on an array.
+ * Simple recursive menu with unlimited levels, which creates an unordered list based on an array.
  * Ids of the menu items have to be unique. By default, menu items are set to active
  * when the current path of the page url matches the path of the item url. This can be changed with the
  * method setAutoActiveMatching(Menu::MATCH_FULL | MATCH_QUERY_VARS).
  * Notes:
- *    To increase performance only open menus are used in recursion unless you set
+ *    To increase performance, only open menus are used in the recursion, unless you set
  *    the whole menu to be open by setting the property AutoOpen = true;
  *
  *    A menu can be open without being active, when $allChildrenToBeRendered is set to true.
@@ -55,7 +54,7 @@ class Menu
      */
     public array $arrItem = [];
 
-    /** @var string $charset character set to use when creating and encoding html */
+    /** @var string $charset character set to use when creating and encoding HTML */
     public string $charset = 'utf-8';
 
     /**
@@ -65,29 +64,29 @@ class Menu
     public bool $allChildrenRendered = false;
 
     /**
-     * Set the css state of all parent items to open.
+     * Set the CSS state of all parent items to open.
      * @var bool
      */
     public bool $allChildrenOpen = false;
 
     /**
-     * Automatically set the css state to active, if url is same as of current page.
+     * Automatically set the CSS state to active if url is the same as of the current page.
      * @var bool
      */
     public bool $autoActive = true;
-    /**  @var ?string prefix for item id attribute */
+    /**  @var ?string prefix for item ID attribute */
     public ?string $itemIdPrefix = null;
-    /** @var string CSS class name of menu */
+    /** @var string CSS class name of the menu */
     public string $cssClass = 'menu';
-    /** @var ?string CSS id of menu */
+    /** @var ?string CSS ID of the menu */
     public ?string $cssId = null;
     /** @var string CSS class name, when item has at least one child */
     public string $cssItemHasChildren = 'menuHasChild';
     /** @var string CSS class name, when item is active */
     public string $cssItemActive = 'menuActive';
-    /** @var string CSS class name, when menu is open. */
+    /** @var string CSS class name, when the menu is open. */
     public string $cssItemOpen = 'menuOpen';
-    /** @var string CSS class name, when item hast at least one active child */
+    /** @var string CSS class name, when item hast at least one active child. */
     public string $cssItemActiveChild = 'menuHasActiveChild';
     /**
      * The html of the created menu.
@@ -155,7 +154,7 @@ class Menu
         if ($idAfter === null) {
             $this->arrItem[$newItem->id] = $newItem;
         } else {
-            // note: arrItem is an associative array where key and index are not the same
+            // note: arrItem is an associative array where key and index are not the same.
             $this->insert($newItem, $idAfter);
         }
     }
@@ -173,25 +172,25 @@ class Menu
     }
 
     /**
-     * Insert an item after the given id.
+     * Insert an item after the given ID.
      * @param MenuItem $newItem
      * @param int|string $idAfter
      * @return void
      */
     private function insert(MenuItem $newItem, int|string $idAfter): void
     {
-        // note: for position we can not just use the index. The index is dynamic depending on the number of items, which
-        // can be added or removed (e.g. when logged in a different number of items is rendered)
-        // -> we need to use the actual id of the item to insert after
-        // note: array_splice would reindex keys
-        $idx = array_search($idAfter, $this->arrItem);
+        // Note: for position we cannot just use the index. The index is dynamic depending on the number of items, which
+        // can be added or removed (e.g., when logged in a different number of items is rendered)
+        // -> we need to use the actual ID of the item to insert after
+        // note: array_splice would reindex keys.
+        $idx = array_search($idAfter, $this->arrItem, true);
         $arrBefore = array_slice($this->arrItem, 0, $idx, true);
         $arrAfter = array_slice($this->arrItem, $idx, null, true);
         $this->arrItem = $arrBefore + [$newItem] + $arrAfter;
     }
 
     /**
-     * Returns a HTML string of the menu.
+     * Returns an HTML string of the menu.
      * Call init method first.
      * @return string
      */
@@ -224,7 +223,7 @@ class Menu
      * Sets child/parent items to render and/or active according to URL matching scheme
      * or by explicitly setting item to active.
      * Should be called before rendering if AutoInit is set to false;
-     * When argument $url is provided then the item with matching url is set to active.
+     * When argument $url is provided, then the item with matching url is set to active.
      * @param ?string $url
      */
     public function setActive(string $url = null): void
@@ -274,14 +273,14 @@ class Menu
 
     /**
      * Checks if a menu item should be set to active if the item url matches the pattern.
-     * The matching pattern can also be set globally through Menu::setAutoActiveMatching(); By default only the path
-     * of the url is matched.
-     * Returns boolean (match no match) or the number of matched directories.
-     * This function may return Boolean TRUE OR FALSE, but may also return a non-Boolean value
+     * The matching pattern can also be set globally through Menu::setAutoActiveMatching();
+     * By default, only the path of the url is matched.
+     * Returns boolean (match no match), or the number of matched directories.
+     * This function may return Boolean TRUE OR FALSE, but may also return a non-Boolean value,
      * which evaluates to FALSE, such as 0 or 1 to TRUE. Use the === operator for testing
      * the return value of this function.
      *
-     * If item's active property is set to null it is not considered in active check.
+     * If the item's active property is set to null, it is not considered in active check.
      *
      * @param MenuItem $item
      * @param ?int $type Menu::MATCH_PATH | Menu::MATCH_FULL | Menu::MATCH_QUERY_VARS
@@ -296,7 +295,7 @@ class Menu
     }
 
     /**
-     * Returns id of every item that is active.
+     * Returns ID of every item that is active.
      * Returns a string if only one item is active, an array if there are several items active or false if none is active.
      * @return int|string|array|false id
      */
@@ -337,9 +336,9 @@ class Menu
         if ($type !== self::MATCH_PATH && $autoActive && array_key_exists('query', $urlItem)) {
             $query = new QueryString();
             parse_str($urlItem['query'], $arr);
-            if ($type === Menu::MATCH_FULL) {
+            if ($type === self::MATCH_FULL) {
                 $autoActive = $query->in($arr);
-            } elseif ($type === Menu::MATCH_QUERY_VARS) {
+            } elseif ($type === self::MATCH_QUERY_VARS) {
                 $keys = array_keys($arr);
                 $autoActive = $query->in($keys);
             }
@@ -361,7 +360,7 @@ class Menu
     }
 
     /**
-     * Set the url matching pattern
+     * Set the url matching pattern.
      * Set the matching pattern to use when automatically setting the item to active.
      * The pattern is used to compare the current page url with the item url.
      * Menu::MATCH_PATH = 1 = item url matches path only (default)
@@ -389,7 +388,7 @@ class Menu
     }
 
     /**
-     * Creates the menu Html string recursively.
+     * Creates the menu HTML string recursively.
      * @param int|string $parentId seed
      * @return string html
      */
@@ -432,7 +431,7 @@ class Menu
     }
 
     /**
-     * Sets the CSS class string of the item depending on it's status
+     * Sets the CSS class string of the item depending on it's status.
      * @param MenuItem $item
      */
     protected function setItemCssClass(MenuItem $item): void
