@@ -79,7 +79,14 @@ class Website
             $this->page = $arrPath['basename'];
             $this->dir = rtrim($arrPath['dirname'], DIRECTORY_SEPARATOR).'/';
         }
-        self::$pageCookieDefaultOptions['Domain'] = str_replace('www.', '.', $_SERVER['HTTP_HOST']);
+        /* A note on leading dots in domain attributes:
+            In the early RFC 2109, only domains with a leading dot (domain=.example.com)
+            could be used across subdomains. But this could not be shared with the top-level domain.
+
+            However, the newer specification RFC 6265 ignores any leading dot, meaning you can use the cookie
+            on subdomains as well as the top-level domain. Some browsers will show a leading dot in developer tools
+            to differentiate between host-only cookies and other cookies, but this is for display purposes only. */
+        self::$pageCookieDefaultOptions['Domain'] = $this->host;    // note: do not rely on $_SERVER['SERVER_NAME'] or even worse 'HTTP_HOST'
     }
 
     /**
