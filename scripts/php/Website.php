@@ -55,7 +55,7 @@ class Website
 
     public static array $pageCookieDefaultOptions = [
         'Path' => '/',
-        'Secure' => false,
+        'Secure' => true,
         'HttpOnly' => true,
         'SameSite' => 'Strict'
     ];
