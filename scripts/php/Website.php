@@ -86,7 +86,7 @@ class Website
             However, the newer specification RFC 6265 ignores any leading dot, meaning you can use the cookie
             on subdomains as well as the top-level domain. Some browsers will show a leading dot in developer tools
             to differentiate between host-only cookies and other cookies, but this is for display purposes only. */
-        self::$pageCookieDefaultOptions['Domain'] = $this->host;    // note: do not rely on $_SERVER['SERVER_NAME'] or even worse 'HTTP_HOST'
+        self::$pageCookieDefaultOptions['Domain'] = str_replace('www.', '', $this->host);    // note: do not rely on $_SERVER['SERVER_NAME'] or even worse 'HTTP_HOST'
     }
 
     /**
