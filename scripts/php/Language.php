@@ -201,6 +201,7 @@ class Language
     {
         $options = [
             ...Website::$pageCookieDefaultOptions,
+            'Domain' => str_replace('www.', '', $_SERVER['HTTP_HOST']),
             'Expires' => time() + 3600 * 24 * 365,
         ];
         setcookie('lang', $lang, $options);
