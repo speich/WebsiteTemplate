@@ -81,14 +81,16 @@ class PagedNav
 
     /** @var bool render text */
     public bool $renderText = true;
+    private ?string $path;
 
     /**
      * Construct instance of PageNav.
+     * @param string $path url of the navigation link
      * @param ?int $numRec total number of records
      * @param ?int $numRecPerPage number of records on a page
      * @param ?int $numLinks number of links to display in navigation
      */
-    public function __construct(?string $path = null, ?int $numRec = null, ?int $numRecPerPage = null, ?int $numLinks = null)
+    public function __construct(string $path, ?int $numRec = null, ?int $numRecPerPage = null, ?int $numLinks = null)
     {
         $this->path = $path;
         if (is_numeric($numRec)) {
