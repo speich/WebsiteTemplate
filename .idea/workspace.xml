@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="whitelisting was ignored when null was passed">
+    <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="fix property created dynamically">
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/remote-mappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/remote-mappings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/Menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/Menu.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,7 +23,9 @@
   </component>
   <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution />
+    <execution>
+      <executable path="composer" />
+    </execution>
   </component>
   <component name="Git.Settings">
     <option name="PUSH_TAGS">
@@ -44,7 +50,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/speich/WebsiteTemplate.git&quot;,
-    &quot;accountId&quot;: &quot;5f020f11-7c99-4119-826c-ed2fd6d1d208&quot;
+    &quot;accountId&quot;: &quot;02370531-1e43-40c4-89fc-09825f90f8b1&quot;
   }
 }</component>
   <component name="MarkdownSettingsMigration">
@@ -55,7 +61,7 @@
       <scope name="PHP-Files" />
     </order>
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="developer@192.168.1.52:22 password">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/bin/php8.1">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/composer" />
       <path value="$PROJECT_DIR$/layout" />
@@ -113,15 +119,15 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.webide.settings.project.settings.php&quot;,
     &quot;two.files.diff.last.used.file&quot;: &quot;C:/Users/speich/Websites/WebsiteTemplate/scripts/php/Html/SelectField.php&quot;
   }
 }</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-PS-243.26053.13" />
-        <option value="bundled-php-predefined-a98d8de5180a-1ec7b7818973-com.jetbrains.php.sharedIndexes-PS-243.26053.13" />
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-PS-251.26927.60" />
+        <option value="bundled-php-predefined-a98d8de5180a-e5747d4f5a45-com.jetbrains.php.sharedIndexes-PS-251.26927.60" />
       </set>
     </attachedChunks>
   </component>
@@ -262,6 +268,10 @@
       <workItem from="1741252312480" duration="4067000" />
       <workItem from="1741261754439" duration="13000" />
       <workItem from="1743075698688" duration="1226000" />
+      <workItem from="1744100370335" duration="3140000" />
+      <workItem from="1744103620854" duration="2949000" />
+      <workItem from="1746368596031" duration="1405000" />
+      <workItem from="1752323002454" duration="306000" />
     </task>
     <task id="LOCAL-00018" summary="handle case when input stream returns an emtpy string">
       <option name="closed" value="true" />
@@ -367,7 +377,79 @@
       <option name="project" value="LOCAL" />
       <updated>1743076896369</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="fix replace with empty string">
+      <option name="closed" value="true" />
+      <created>1743434586145</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1743434586145</updated>
+    </task>
+    <task id="LOCAL-00032" summary="use explicitly set domain for cookies">
+      <option name="closed" value="true" />
+      <created>1744101224223</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1744101224223</updated>
+    </task>
+    <task id="LOCAL-00033" summary="grammar">
+      <option name="closed" value="true" />
+      <created>1744101630243</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1744101630243</updated>
+    </task>
+    <task id="LOCAL-00034" summary="set cookie option secure to true">
+      <option name="closed" value="true" />
+      <created>1744101979640</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1744101979640</updated>
+    </task>
+    <task id="LOCAL-00035" summary="use cookie default options">
+      <option name="closed" value="true" />
+      <created>1744102810644</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1744102810644</updated>
+    </task>
+    <task id="LOCAL-00036" summary="handle subdomain www.host.my the same as host.my">
+      <option name="closed" value="true" />
+      <created>1744103276385</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1744103276385</updated>
+    </task>
+    <task id="LOCAL-00037" summary="fix not removing subdomain www when setting language cookie">
+      <option name="closed" value="true" />
+      <created>1744104290299</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1744104290299</updated>
+    </task>
+    <task id="LOCAL-00038" summary="fix not removing subdomain www when setting language cookie statically">
+      <option name="closed" value="true" />
+      <created>1744105355832</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1744105355832</updated>
+    </task>
+    <task id="LOCAL-00039" summary="fix property created dynamically">
+      <option name="closed" value="true" />
+      <created>1746369393773</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1746369393773</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -391,15 +473,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update Http.php" />
-    <MESSAGE value="update LanguageMenu.php" />
-    <MESSAGE value="update MenuItem.php" />
-    <MESSAGE value="update PagedNav.php" />
-    <MESSAGE value="update html/CheckBox.php" />
-    <MESSAGE value="update html/DivList.php" />
-    <MESSAGE value="update html/Form.php" />
-    <MESSAGE value="update html/Html.php" />
-    <MESSAGE value="update html/OptionElement.php" />
     <MESSAGE value="update html/RadioButton.php" />
     <MESSAGE value="update html/RadioGroup.php" />
     <MESSAGE value="update html/SelectField.php" />
@@ -416,6 +489,15 @@
     <MESSAGE value="change visibility of member" />
     <MESSAGE value="add missing php extension to composer" />
     <MESSAGE value="whitelisting was ignored when null was passed" />
-    <option name="LAST_COMMIT_MESSAGE" value="whitelisting was ignored when null was passed" />
+    <MESSAGE value="fix replace with empty string" />
+    <MESSAGE value="use explicitly set domain for cookies" />
+    <MESSAGE value="grammar" />
+    <MESSAGE value="set cookie option secure to true" />
+    <MESSAGE value="use cookie default options" />
+    <MESSAGE value="handle subdomain www.host.my the same as host.my" />
+    <MESSAGE value="fix not removing subdomain www when setting language cookie" />
+    <MESSAGE value="fix not removing subdomain www when setting language cookie statically" />
+    <MESSAGE value="fix property created dynamically" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix property created dynamically" />
   </component>
 </project>

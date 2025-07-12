@@ -10,6 +10,13 @@
             </list>
           </settings>
         </remote-mappings>
+        <remote-mappings server-id="php@79ee3339-4a67-4311-a487-9d40169c6777">
+          <settings>
+            <list>
+              <mapping local-root="$PROJECT_DIR$" remote-root="/var/www/html/WebsiteTemplate" />
+            </list>
+          </settings>
+        </remote-mappings>
       </list>
     </list>
   </component>

@@ -334,8 +334,8 @@ class Menu
 
         $autoActive = $urlPage['path'] === $urlItem['path'];    // handles case MATCH_PATH_ONLY
         if ($type !== self::MATCH_PATH && $autoActive && array_key_exists('query', $urlItem)) {
-            $query = new QueryString();
             parse_str($urlItem['query'], $arr);
+            $query = new QueryString(array_keys($arr)); // whitelist query param used in item->linkUrl
             if ($type === self::MATCH_FULL) {
                 $autoActive = $query->in($arr);
             } elseif ($type === self::MATCH_QUERY_VARS) {
