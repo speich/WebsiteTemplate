@@ -201,7 +201,7 @@ class Controller
      * Prints the body in chunks if outputChunked is set to true.
      * @param string|null $data response body
      */
-    public function printBody(string $data = null): void
+    public function printBody(?string $data = null): void
     {
         // an error occurred
         if (count($this->err->get()) > 0) {

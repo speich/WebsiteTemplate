@@ -110,7 +110,7 @@ class Website
      * @param ?string $format
      * @return DateTime|string|null
      */
-    public static function getLastUpdate(string $format = null): DateTime|string|null
+    public static function getLastUpdate(?string $format = null): DateTime|string|null
     {
         return $format === null ? self::$lastUpdate : self::$lastUpdate->format($format);
     }
