@@ -133,7 +133,7 @@ class SelectField extends Form
      * @param bool|string|null $val
      * @param ?int $type SelectField::SELECTED_BY_VALUE | SelectField::SELECTED_BY_TEXT
      */
-    public function setSelected(bool|string $val = null, ?int $type = null): void
+    public function setSelected(bool|string|null $val = null, ?int $type = null): void
     {
         $val = $val ?? false;
         $deselect = $val === false;
@@ -191,7 +191,7 @@ class SelectField extends Form
      *
      * @return string Html
      */
-    public function render(int $type = null): string
+    public function render(?int $type = null): string
     {
         $type = $type ?? self::RENDER_ALL;
 

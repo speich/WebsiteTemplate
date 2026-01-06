@@ -94,7 +94,7 @@ class RadioGroup extends Form
      * @param ?int $layout self::RENDER_VERTICALLY or self::RENDER_HORIZONTALLY
      * @return string html
      */
-    public function render(int $layout = null): string
+    public function render(?int $layout = null): string
     {
         $this->addCssClass($this->cssClassMain);
         if ($layout === self::RENDER_VERTICALLY) {
