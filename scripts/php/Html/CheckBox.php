@@ -3,16 +3,20 @@
 namespace WebsiteTemplate\Html;
 
 /**
- * Create a HTMLSelectElement.
+ * Create an HTMLInputElement of type checkbox.
  */
 class CheckBox extends Form
 {
+
+    use InputRadioCheckboxTrait;
+
     /** @var string value attribute */
     public string $val;
 
     /**
-     * Construct a CheckBox object.
+     * Construct an HTMLInputElement of type checkbox.
      * Sets the id attribute and the value attribute.
+     *
      * @param string $id
      * @param string $val
      */
@@ -26,6 +30,7 @@ class CheckBox extends Form
     /**
      * Set the form element or item to be selected.
      * If set then the HTMLFormElement is rendered selected.
+     *
      * @param bool $checked
      */
     public function setChecked(?bool $checked = null): void
@@ -34,44 +39,21 @@ class CheckBox extends Form
         $this->checked = $checked ?? true;
     }
 
-
     /**
      * Print the HTMLCheckboxElement.
+     *
      * @return string Html
      */
     public function render(): string
     {
-        $css = $this->renderCssClass();
-        $strHtml = '';
-
-        $strLabel = '';
+        $strInput = $this->renderInput('checkbox');
         if ($this->label) {
-            $strLabel .= '<label for="'.$this->getId().'" '.$css.'>'.$this->getLabel().'</label>';
-        }
-        if ($this->labelPosition === Form::LABEL_BEFORE) {
-            $strHtml .= $strLabel;
-        }
-
-        $strHtml .= '<input id="'.$this->getId().'" name="'.$this->name.'"';
-        $strHtml .= ' type="checkbox" value="'.$this->val.'"';
-        if ($this->checked === true) {
-            $strHtml .= ' checked="checked"';
-        }
-        if ($this->disabled === true) {
-            $strHtml .= ' disabled="disabled"';
-        }
-        if ($this->tabIndex) {
-            $strHtml .= ' tabindex="'.$this->tabIndex.'"';
-        }
-        $strHtml .= $css;
-        if ($this->required === true) {
-            $strHtml .= ' required="required"';
-        }
-        $strHtml .= '>';
-        if ($this->labelPosition === Form::LABEL_AFTER) {
-            $strHtml .= $strLabel;
+            $strHtml = $this->renderLabel($strInput);
+        } else {
+            $strHtml = $strInput;
         }
 
         return $strHtml;
     }
+
 }

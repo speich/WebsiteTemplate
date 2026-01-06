@@ -2,8 +2,6 @@
 
 namespace WebsiteTemplate\Html;
 
-use PDOStatement;
-
 /**
  * Class to create HTMLFormElements.
  *
@@ -13,11 +11,18 @@ use PDOStatement;
  */
 class Form extends Html
 {
+
     /** Render the label before the form element */
     public const LABEL_BEFORE = 1;
 
     /** Render the label after the form element */
     public const LABEL_AFTER = 2;
+
+    /** Render the label wrapped around the form field and placed the text before the radio button */
+    public const LABEL_WRAPPED_BEFORE = 3;
+
+    /** Render the label wrapped around the form field and placed the text after the radio button */
+    public const LABEL_WRAPPED_AFTER = 4;
 
     /** @var bool renderAsHtml label attribute */
     protected bool $label = false;
@@ -25,8 +30,8 @@ class Form extends Html
     /** @var string label */
     protected string $labelName = '';
 
-    /** @var string|int|PDOStatement position of label in relation to element */
-    protected string|int|PDOStatement $labelPosition = Form::LABEL_BEFORE;
+    /** @var int position of label in relation to the element */
+    protected int $labelPosition = Form::LABEL_BEFORE;
 
     /** @var bool|string disabled attribute */
     protected string|bool $disabled = false;
@@ -45,6 +50,7 @@ class Form extends Html
 
     /**
      * Set the element's tab index
+     *
      * @param int $index
      */
     public function setTabIndex(int $index): void
@@ -56,25 +62,12 @@ class Form extends Html
      * Set a form element to disabled.
      * If set to true the HTMLFormAttribute disabled="disabled" is rendered
      * and the element is disabled by the browser.
+     *
      * @param bool $bool
      */
     public function setDisabled(?bool $bool = null): void
     {
         $this->disabled = $bool ?? true;
-    }
-
-    /**
-     * Set the form element label.
-     * If set then the label attribute is rendered. The position can be set to before or after with the constants
-     * HTML_LABEL_BEFORE and HTML_LABEL_AFTER.
-     * @param string $label label
-     * @param int|null|PDOStatement $position position of label
-     */
-    public function setLabel(string $label, int|null|PDOStatement $position = null): void
-    {
-        $this->labelName = $label;
-        $this->label = true;
-        $this->labelPosition = $position ?? self::LABEL_BEFORE;
     }
 
     /**
@@ -87,7 +80,58 @@ class Form extends Html
     }
 
     /**
+     * Set HTMLAttribute required to true or false.
+     *
+     * @param bool $bool
+     */
+    public function setRequired(?bool $bool = null): void
+    {
+        $this->required = $bool ?? true;
+    }
+
+    /**
+     * Set the name attribute of the element
+     *
+     * @param bool|string $name
+     */
+    public function setName(bool|string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @param string $strInput
+     *
+     * @return string
+     */
+    protected function renderLabel(string $strInput): string
+    {
+        $css = $this->renderCssClass();
+        $labelTag = '<label for="'.$this->getId().'"'.$css.'>';
+        $label = $this->getLabel();
+        switch ($this->labelPosition) {
+            case self::LABEL_BEFORE:
+                $strHtml = $labelTag.$label.'</label>'.$strInput;
+                break;
+            case self::LABEL_AFTER:
+                $strHtml = $strInput.$labelTag.$label.'</label>';
+                break;
+            case self::LABEL_WRAPPED_BEFORE:
+                $strHtml = $labelTag.$label.$strInput.'</label>';
+                break;
+            case self::LABEL_WRAPPED_AFTER:
+                $strHtml = $labelTag.$strInput.$label.'</label>';
+                break;
+            default:
+                $strHtml = $labelTag.$label.'</label>'.$strInput;
+        }
+
+        return $strHtml;
+    }
+
+    /**
      * Return the label of the HTMLFormElement.
+     *
      * @return string|bool label or false
      */
     public function getLabel(): bool|string
@@ -100,20 +144,18 @@ class Form extends Html
     }
 
     /**
-     * Set HTMLAttribute required to true or false.
-     * @param bool $bool
+     * Set the form element label.
+     * If set then the label attribute is rendered. The position can be set to before or after with the constants
+     * HTML_LABEL_BEFORE and HTML_LABEL_AFTER.
+     *
+     * @param string $label label
+     * @param int|null $position position of label
      */
-    public function setRequired(?bool $bool = null): void
+    public function setLabel(string $label, int|null $position = null): void
     {
-        $this->required = $bool ?? true;
+        $this->labelName = $label;
+        $this->label = true;
+        $this->labelPosition = $position ?? $this->labelPosition;
     }
 
-    /**
-     * Set the name attribute of the element
-     * @param bool|string $name
-     */
-    public function setName(bool|string $name): void
-    {
-        $this->name = $name;
-    }
 }

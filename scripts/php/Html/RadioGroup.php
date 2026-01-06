@@ -69,8 +69,7 @@ class RadioGroup extends Form
         foreach ($this->radios as $radio) {
             if ($radio->val === $value) {
                 $radio->setChecked();
-            }
-            else {
+            } else {
                 $radio->setChecked(false);
             }
         }

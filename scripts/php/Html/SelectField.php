@@ -4,7 +4,6 @@ namespace WebsiteTemplate\Html;
 
 use function count;
 
-
 /**
  * This class creates an HtmlSelectElement.
  */
@@ -32,11 +31,15 @@ class SelectField extends Form
     /** @var OptionElement[] array holding option elements */
     public array $arrOption = [];
 
+    /** @var bool automatically index option values if passed $arrOption is a 1-dim array */
+    public bool $autoOptionValues = true;
+
     /** @var bool multiple attribute */
     private bool $multiple = false;
 
     /**
      * Note: this should be set to at least 2, when you want to use css height and not have multiple = true
+     *
      * @var int number of visible rows
      */
     private int $size = 1;
@@ -47,14 +50,11 @@ class SelectField extends Form
     /** @var false|string text of the first option */
     private string|bool $defaultText = 'Bitte auswählen';
 
-    /** @var string value of the first option element  */
+    /** @var string value of the first option element */
     private string $defaultValue = '';
 
     /** @var false|int automatically set the option title attribute from option text or value attribute */
     private false|int $autoOptionTitle = false;
-
-    /** @var bool automatically index option values if passed $arrOption is a 1-dim array */
-    public bool $autoOptionValues = true;
 
     /**
      * Construct a SelectFld object.
@@ -105,6 +105,7 @@ class SelectField extends Form
     /**
      * Set the HTMLMultipleAttribute to true.
      * Set to false by default.
+     *
      * @param ?bool $multiple
      */
     public function setMultiple(?bool $multiple = null): void
@@ -114,7 +115,8 @@ class SelectField extends Form
 
     /**
      * Set the number of visible rows.
-     * Note: this is independent of multiple attribute
+     * Note: this is independent of multiple attributes
+     *
      * @param int $size
      */
     public function setSize(int $size): void
@@ -123,10 +125,11 @@ class SelectField extends Form
     }
 
     /**
-     * Set a HTMLOptionElement to selected.
+     * Set an HTMLOptionElement to selected.
      * Passing false or null deselects everything.
-     * If no type is given, the value attribute is used to set item selected. If type = HTML_OPTION_TEXT then
+     * If no type is given, the value attribute is used to set the item selected. If type = HTML_OPTION_TEXT then
      * the option text is used to set selected.
+     *
      * @param bool|string|null $val
      * @param ?int $type SelectField::SELECTED_BY_VALUE | SelectField::SELECTED_BY_TEXT
      */
@@ -155,7 +158,9 @@ class SelectField extends Form
 
     /**
      * Returns the first selected value or text
+     *
      * @param int|null $type SelectField::SELECTED_BY_VALUE | SelectField::SELECTED_BY_TEXT
+     *
      * @return bool|string
      */
     public function getSelected(?int $type = null): bool|string
@@ -171,6 +176,7 @@ class SelectField extends Form
 
     /**
      * Returns the select option elements.
+     *
      * @return OptionElement[]
      */
     public function getSelectedOptions(): array
@@ -179,41 +185,68 @@ class SelectField extends Form
     }
 
     /**
-     * Overwrite the default text of the first item in the list.
-     * Default text value is 'Bitte auswählen'.
-     * Set to false if no default item (first item in the list) should be displayed.
-     *
-     * @param false|string $txt
-     */
-    public function setDefaultText(false|string $txt): void
-    {
-        $this->defaultText = $txt;
-    }
-
-    /**
      * Print the HTMLSelectElement.
-     * @param ?int $type render all elements or specific elements only
+     *
+     * @param ?int $type render option elements only
+     *
      * @return string Html
      */
     public function render(int $type = null): string
     {
         $type = $type ?? self::RENDER_ALL;
-        $strHtml = '';
+
+        $options = $this->renderOptions();
         if ($type === self::RENDER_ALL) {
-            $strHtml .= $this->labelPosition === Form::LABEL_BEFORE ? $this->renderLabel() : '';
-            $strHtml .= $this->renderSelect();
+            $element = $this->renderSelect().$options.'</select>';
+        } else {
+            $element = $options;
         }
-        $strHtml .= $this->renderOptions();
-        if ($type === self::RENDER_ALL) {
-            $strHtml .= '</select>';
-            $strHtml .= $this->labelPosition === Form::LABEL_AFTER ? $this->renderLabel() : '';
+        if ($this->label) {
+            $strHtml = $this->renderLabel($element);
+        } else {
+            $strHtml = $element;
         }
 
         return $strHtml;
     }
 
     /**
+     * Render HTML option elements.
+     *
+     * @return string
+     */
+    private function renderOptions(): string
+    {
+        $str = '';
+        if ($this->defaultText !== false) {
+            $option = new OptionElement();
+            $option->text = $this->defaultText;
+            $option->value = $this->defaultValue;
+            $str .= $option->render();
+        }
+        foreach ($this->arrOption as $option) {
+            $this->setAutoOptionTitle($option);
+            $str .= $option->render();
+        }
+
+        return $str;
+    }
+
+    /**
+     * Set the title attribute automatically.
+     *
+     * @param OptionElement $option
+     */
+    protected function setAutoOptionTitle(OptionElement $option): void
+    {
+        if ($this->autoOptionTitle !== false) {
+            $option->title = $this->autoOptionTitle === self::OPTION_TITLE_FROM_TEXT ? $option->text : $option->value;
+        }
+    }
+
+    /**
      * Render HTML select element.
+     *
      * @return string
      */
     private function renderSelect(): string
@@ -241,42 +274,8 @@ class SelectField extends Form
     }
 
     /**
-     * Render HTML option elements.
-     * @return string
-     */
-    private function renderOptions(): string
-    {
-        $str = '';
-        if ($this->defaultText !== false) {
-            $option = new OptionElement();
-            $option->text = $this->defaultText;
-            $option->value = $this->defaultValue;
-            $str .= $option->render();
-        }
-        foreach ($this->arrOption as $option) {
-            $this->setAutoOptionTitle($option);
-            $str .= $option->render();
-        }
-
-        return $str;
-    }
-
-    /**
-     * Render HTML for label element.
-     * @return string
-     */
-    private function renderLabel(): string
-    {
-        $str = '';
-        if ($this->label) {
-            $str .= '<label for="'.$this->getId().'" '.$this->renderCssClass().'>'.$this->getLabel().'</label>';
-        }
-
-        return $str;
-    }
-
-    /**
-     * Return default text of first unselected option.
+     * Return the default text of the first unselected option.
+     *
      * @return false|string
      */
     public function getDefaultText(): false|string
@@ -285,8 +284,21 @@ class SelectField extends Form
     }
 
     /**
+     * Overwrite the default text of the first item in the list.
+     * Default text value is 'Bitte auswählen'.
+     * Set to false if no default item (the first item in the list) should be displayed.
+     *
+     * @param false|string $txt
+     */
+    public function setDefaultText(false|string $txt): void
+    {
+        $this->defaultText = $txt;
+    }
+
+    /**
      * Enable setting the title attribute on the option element automatically.
      * Title can be set from the option text or option value attribute.
+     *
      * @param int $type SelectField::OPTION_TITLE_FROM_TEXT | SelectField::OPTION_TITLE_FROM_VALUE
      */
     public function setOptionTitleAuto(int $type = self::OPTION_TITLE_FROM_TEXT): void
@@ -294,14 +306,4 @@ class SelectField extends Form
         $this->autoOptionTitle = $type;
     }
 
-    /**
-     * Set the title attribute automatically.
-     * @param OptionElement $option
-     */
-    protected function setAutoOptionTitle(OptionElement $option): void
-    {
-        if ($this->autoOptionTitle !== false) {
-            $option->title = $this->autoOptionTitle === self::OPTION_TITLE_FROM_TEXT ? $option->text : $option->value;
-        }
-    }
 }
