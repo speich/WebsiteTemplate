@@ -11,22 +11,22 @@ class SelectField extends Form
 {
 
     /** use the option text to set the option title attribute */
-    public const OPTION_TITLE_FROM_TEXT = 1;
+    public const int OPTION_TITLE_FROM_TEXT = 1;
 
     /** use the option value to set the option title attribute */
-    public const OPTION_TITLE_FROM_VALUE = 2;
+    public const int OPTION_TITLE_FROM_VALUE = 2;
 
     /** Use the value attribute to set the HTMLOptionElement to selected. */
-    public const SELECTED_BY_VALUE = 1;
+    public const int SELECTED_BY_VALUE = 1;
 
     /** Use the child text to set HTMLOptionElement to selected. */
-    public const SELECTED_BY_TEXT = 2;
+    public const int SELECTED_BY_TEXT = 2;
 
     /** Render all elements */
-    public const RENDER_ALL = 1;
+    public const int RENDER_ALL = 1;
 
     /** Render only the option elements without the Select element. */
-    public const RENDER_OPTION_ONLY = 2;
+    public const int RENDER_OPTION_ONLY = 2;
 
     /** @var OptionElement[] array holding option elements */
     public array $arrOption = [];
@@ -80,7 +80,7 @@ class SelectField extends Form
     /**
      * Create an array of option elements
      * If argument $options is a 1-dim array: created value attribute if autoOptionValues is true, otherwise no value attribute is set.
-     * If arguments $options is a 2-dim array: use the first index as the value attribute, the second as text.
+     * If argument $options is a 2-dim array: use the first index as the value attribute, the second as text.
      *
      * @param iterable $options
      */

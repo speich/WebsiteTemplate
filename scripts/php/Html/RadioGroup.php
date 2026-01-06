@@ -9,9 +9,9 @@ namespace WebsiteTemplate\Html;
  */
 class RadioGroup extends Form
 {
-    public const RENDER_HORIZONTALLY = 1;
+    public const int RENDER_HORIZONTALLY = 1;
 
-    public const RENDER_VERTICALLY = 2;
+    public const int RENDER_VERTICALLY = 2;
 
     public string $cssClassMain = 'radiogroup';
 
@@ -89,8 +89,8 @@ class RadioGroup extends Form
     }
 
     /**
-     * Render the radio button group as html.
-     * Sets a css class which renders the group horizontally.
+     * Render the radio button group as HTML.
+     * Sets a CSS class which renders the group horizontally.
      * @param ?int $layout self::RENDER_VERTICALLY or self::RENDER_HORIZONTALLY
      * @return string html
      */

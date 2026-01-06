@@ -13,16 +13,16 @@ class Form extends Html
 {
 
     /** Render the label before the form element */
-    public const LABEL_BEFORE = 1;
+    public const int LABEL_BEFORE = 1;
 
     /** Render the label after the form element */
-    public const LABEL_AFTER = 2;
+    public const int LABEL_AFTER = 2;
 
     /** Render the label wrapped around the form field and placed the text before the radio button */
-    public const LABEL_WRAPPED_BEFORE = 3;
+    public const int LABEL_WRAPPED_BEFORE = 3;
 
     /** Render the label wrapped around the form field and placed the text after the radio button */
-    public const LABEL_WRAPPED_AFTER = 4;
+    public const int LABEL_WRAPPED_AFTER = 4;
 
     /** @var bool renderAsHtml label attribute */
     protected bool $label = false;
@@ -59,8 +59,8 @@ class Form extends Html
     }
 
     /**
-     * Set a form element to disabled.
-     * If set to true the HTMLFormAttribute disabled="disabled" is rendered
+     * Set a form element disabled.
+     * If set to true, the HTMLFormAttribute disabled="disabled" is rendered
      * and the element is disabled by the browser.
      *
      * @param bool $bool
@@ -145,7 +145,7 @@ class Form extends Html
 
     /**
      * Set the form element label.
-     * If set then the label attribute is rendered. The position can be set to before or after with the constants
+     * If set, then the label attribute is rendered. The position can be set to before or after with the constants
      * HTML_LABEL_BEFORE and HTML_LABEL_AFTER.
      *
      * @param string $label label
