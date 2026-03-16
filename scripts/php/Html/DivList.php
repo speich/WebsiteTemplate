@@ -22,7 +22,7 @@ class DivList extends Html
     private string $labelName;
 
     /**
-     * Construct a HtmlDivList object.
+     * Construct a list of HtmlDiv elements.
      * @param string $id Id of container element
      * @param array $arrItem Array of elements
      */
