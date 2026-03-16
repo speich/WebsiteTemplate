@@ -2,6 +2,8 @@
 
 namespace WebsiteTemplate\Html;
 
+use function count;
+
 /**
  * Base class to create HTML snippets.
  *
@@ -14,8 +16,8 @@ abstract class Html
     /** @var bool|string html id attribute */
     protected string|bool $id = false;
 
-    /** @var string html class attribute */
-    private string $cssClass = '';
+    /** @var array html classes */
+    private array $cssClass = [];
 
     /** @var string title attribute */
     protected string $title = '';
@@ -46,24 +48,23 @@ abstract class Html
     }
 
     /**
-     * Add one or several css classes.
-     * Adds one or more classes to the css attribute. Existing classes with the same name are overwritten.
+     * Add one or several CSS classes.
+     * Adds one or more classes to the CSS attribute. Existing classes with the same name are overwritten.
      * @param string ...$name
      */
     public function addCssClass(...$name): void
     {
-        $arr = explode(' ', $this->cssClass);
-        $this->cssClass = implode(' ', array_unique(array_merge($arr, $name)));
+        $this->cssClass = array_unique(array_merge($this->cssClass, $name));
     }
 
     /**
      * Return the class attribute of a HTMLElement.
      * Returns the
-     * @return string html class attribute string
+     * @return string HTML class attribute string
      */
     public function renderCssClass(): string
     {
-        return $this->cssClass === '' ? '' : ' class="'.$this->cssClass.'"';
+        return count($this->cssClass) === 0 ? '' : ' class="'.implode($this->cssClass).'"';
     }
 
     /**
