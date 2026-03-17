@@ -2,6 +2,7 @@
 
 namespace WebsiteTemplate\Html;
 
+use function array_key_exists;
 use function count;
 
 /**
@@ -11,22 +12,22 @@ class SelectField extends Form
 {
 
     /** use the option text to set the option title attribute */
-    public const int OPTION_TITLE_FROM_TEXT = 1;
+    public const OPTION_TITLE_FROM_TEXT = 1;
 
     /** use the option value to set the option title attribute */
-    public const int OPTION_TITLE_FROM_VALUE = 2;
+    public const OPTION_TITLE_FROM_VALUE = 2;
 
     /** Use the value attribute to set the HTMLOptionElement to selected. */
-    public const int SELECTED_BY_VALUE = 1;
+    public const SELECTED_BY_VALUE = 1;
 
     /** Use the child text to set HTMLOptionElement to selected. */
-    public const int SELECTED_BY_TEXT = 2;
+    public const SELECTED_BY_TEXT = 2;
 
     /** Render all elements */
-    public const int RENDER_ALL = 1;
+    public const RENDER_ALL = 1;
 
     /** Render only the option elements without the Select element. */
-    public const int RENDER_OPTION_ONLY = 2;
+    public const RENDER_OPTION_ONLY = 2;
 
     /** @var OptionElement[] array holding option elements */
     public array $arrOption = [];
@@ -56,6 +57,12 @@ class SelectField extends Form
     /** @var false|int automatically set the option title attribute from option text or value attribute */
     private false|int $autoOptionTitle = false;
 
+    /** @var string key for the value if the option array is associative */
+    public string $keyValue = 'value';
+
+    /** @var string key for the text if the option array is associative */
+    public string $keyText = 'text';
+
     /**
      * Construct a SelectFld object.
      *
@@ -79,8 +86,9 @@ class SelectField extends Form
 
     /**
      * Create an array of option elements
-     * If argument $options is a 1-dim array: created value attribute if autoOptionValues is true, otherwise no value attribute is set.
-     * If argument $options is a 2-dim array: use the first index as the value attribute, the second as text.
+     * If the argument $options is a 1-dim array: created value attribute if autoOptionValues is true, otherwise no value attribute is set.
+     * If the argument $options is a 2-dim array: use the first index as the value attribute, the second as text. If the array is associative,
+     * the keys $keyValue and $keyText can be set to use the keys as value and text attribute.
      *
      * @param iterable $options
      */
@@ -90,8 +98,8 @@ class SelectField extends Form
         foreach ($options as $row) {
             $option = new OptionElement();
             if (count($row) > 1) {
-                $option->value = $row[0];
-                $option->text = $row[1];
+                $option->value = $row[0] ?? (array_key_exists($this->keyValue, $row) ? $row[$this->keyValue] : current($row));
+                $option->text = $row[1] ?? (array_key_exists($this->keyText, $row) ? $row[$this->keyText] : next($row));
             } else {
                 if ($this->autoOptionValues) {
                     $option->value = $i++;
