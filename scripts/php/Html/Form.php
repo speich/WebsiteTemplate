@@ -13,16 +13,16 @@ class Form extends Html
 {
 
     /** Render the label before the form element */
-    public const int LABEL_BEFORE = 1;
+    public const LABEL_BEFORE = 1;
 
     /** Render the label after the form element */
-    public const int LABEL_AFTER = 2;
+    public const LABEL_AFTER = 2;
 
     /** Render the label wrapped around the form field and placed the text before the radio button */
-    public const int LABEL_WRAPPED_BEFORE = 3;
+    public const LABEL_WRAPPED_BEFORE = 3;
 
     /** Render the label wrapped around the form field and placed the text after the radio button */
-    public const int LABEL_WRAPPED_AFTER = 4;
+    public const LABEL_WRAPPED_AFTER = 4;
 
     /** @var bool renderAsHtml label attribute */
     protected bool $label = false;

@@ -9,9 +9,9 @@ namespace WebsiteTemplate\Html;
  */
 class RadioGroup extends Form
 {
-    public const int RENDER_HORIZONTALLY = 1;
+    public const RENDER_HORIZONTALLY = 1;
 
-    public const int RENDER_VERTICALLY = 2;
+    public const RENDER_VERTICALLY = 2;
 
     public string $cssClassMain = 'radiogroup';
 
