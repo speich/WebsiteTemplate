@@ -4,59 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="-implement wrapping label around (input) element&#10;-fix grammar">
-      <change afterPath="$PROJECT_DIR$/demo/HeadWebsiteTemplate.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo/inc_default.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo/inc_global.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo/inc_php.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo/index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo/layout/css/menu.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo/layout/inc_layout.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/php/Layout/BodyEnd.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/php/Layout/BodyStart.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/php/Layout/Head.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/WebsiteTemplate.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WebsiteTemplate.iml" afterDir="false" />
+    <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="-refactor css&#10;-reorganize folder structure&#10;-use a class instead of an include">
+      <change afterPath="$PROJECT_DIR$/demo/layout/css/layout.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/css/menu.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/css/modern-normalize.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/remote-mappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/remote-mappings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/scopes/PHP_Files.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc_script.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/layout/css/layout.css" beforeDir="false" afterPath="$PROJECT_DIR$/demo/layout/css/layout.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/layout/css/menu.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/layout/css/reset.css" beforeDir="false" afterPath="$PROJECT_DIR$/demo/layout/css/reset.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/layout/images/arrowdown.gif" beforeDir="false" afterPath="$PROJECT_DIR$/demo/layout/images/arrowdown.gif" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/layout/images/arrowleft.gif" beforeDir="false" afterPath="$PROJECT_DIR$/demo/layout/images/arrowleft.gif" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/layout/images/arrowright.gif" beforeDir="false" afterPath="$PROJECT_DIR$/demo/layout/images/arrowright.gif" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/layout/inc_bodyend.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/layout/inc_bodystart.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/layout/inc_head.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/layout/inc_nav.php" beforeDir="false" afterPath="$PROJECT_DIR$/demo/layout/inc_nav.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/js/formUtil.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/formUtil.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/js/numberUtil.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/numberUtil.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/js/stringUtil.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/stringUtil.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Controller.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/CssBemTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/CssBemTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/Error.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Error.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/Header.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/Html/Checkbox.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/Checkbox.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/Html/DivList.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/DivList.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/Html/Form.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/Form.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/Html/Html.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/Html.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/Html/InputRadioCheckboxTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/InputRadioCheckboxTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/Html/OptionElement.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/OptionElement.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/Html/RadioButton.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/RadioButton.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/Html/RadioGroup.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/RadioGroup.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/Html/SelectField.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/SelectField.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/Http.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Http.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/Language.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Language.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/LanguageMenu.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/LanguageMenu.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/Menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Menu.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/MenuItem.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/MenuItem.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/PagedNav.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/PagedNav.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/QueryString.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/QueryString.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/Website.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Website.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/HeadWebsiteTemplate.php" beforeDir="false" afterPath="$PROJECT_DIR$/demo/HeadWebsiteTemplate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/layout/css/layout.css" beforeDir="false" afterPath="$PROJECT_DIR$/demo/layout/css/layout.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/layout/css/menu.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/menu.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/layout/css/reset.css" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,14 +29,21 @@
     </option>
   </component>
   <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
-    <pharConfigPath>$PROJECT_DIR$/library/composer.json</pharConfigPath>
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution>
       <interpreter name="nfi-docker composer" composer="composer" />
     </execution>
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="58" />
+    <option name="cachedIndexableFilesCount" value="63" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="PUSH_TAGS">
@@ -115,67 +82,65 @@
     <urls />
   </component>
   <component name="NamedScopeManager">
-    <order>
-      <scope name="PHP-Files" />
-    </order>
+    <scope name="bun watcher" pattern="(file:*.js||file:*.css)&amp;&amp;!file:*.min.js&amp;&amp;!file:*.min.css&amp;&amp;!file:*.map" />
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0000000000000084" />
-      <entry key="MS500" value="1.001535240973264" />
-      <entry key="S2" value="1.3070697104909117" />
-      <entry key="S5" value="2.3862367924610353" />
-      <entry key="S10" value="3.642009577302273" />
-      <entry key="S30" value="5.533136203536553" />
-      <entry key="S60" value="6.731426637075229" />
-      <entry key="M2" value="8.656087899027929" />
-      <entry key="M5" value="13.874595604362261" />
-      <entry key="M10" value="22.230491266902135" />
-      <entry key="M15" value="28.943326157742945" />
-      <entry key="M30" value="52.0303924575373" />
-      <entry key="H1" value="177.67330006087784" />
-      <entry key="H2" value="555.0525089423201" />
-      <entry key="H4" value="1121.9866401165016" />
-      <entry key="D1" value="2153.26652444423" />
-      <entry key="W1" value="2421.718433259355" />
+      <entry key="MS100" value="1.8526348917679567" />
+      <entry key="MS500" value="1.968624951793941" />
+      <entry key="S2" value="2.0449019955715855" />
+      <entry key="S5" value="2.3816629412433046" />
+      <entry key="S10" value="2.8444204866651077" />
+      <entry key="S30" value="3.6964412546759986" />
+      <entry key="S60" value="4.184744897524961" />
+      <entry key="M2" value="4.554959651912084" />
+      <entry key="M5" value="5.78739018567277" />
+      <entry key="M10" value="10.64479493370883" />
+      <entry key="M15" value="17.564126784392272" />
+      <entry key="M30" value="42.70582555793928" />
+      <entry key="H1" value="120.87374182338881" />
+      <entry key="H2" value="402.40947731978906" />
+      <entry key="H4" value="948.1537610644584" />
+      <entry key="D1" value="2168.6074892411575" />
+      <entry key="W1" value="2521.283023847596" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="7.367835849061754E-94" />
-      <entry key="MS500" value="2.3630232150647144E-19" />
-      <entry key="S2" value="2.204788815190926E-5" />
-      <entry key="S5" value="0.013719776861252954" />
-      <entry key="S10" value="0.11722016102447165" />
-      <entry key="S30" value="0.5361905712210471" />
-      <entry key="S60" value="0.9587287300947578" />
-      <entry key="M2" value="1.522414777579367" />
-      <entry key="M5" value="2.619116348351872" />
-      <entry key="M10" value="4.27171810123292" />
-      <entry key="M15" value="5.533862669494639" />
-      <entry key="M30" value="7.82373149367932" />
-      <entry key="H1" value="10.160124430555834" />
-      <entry key="H2" value="12.65947735690415" />
-      <entry key="H4" value="15.13647403384358" />
-      <entry key="D1" value="18.908904653378205" />
-      <entry key="W1" value="19.83484581269938" />
+      <entry key="MS100" value="1.2860155436512544E-43" />
+      <entry key="MS500" value="2.6414916583885592E-9" />
+      <entry key="S2" value="0.007169061580557539" />
+      <entry key="S5" value="0.13873464408749328" />
+      <entry key="S10" value="0.37247099764611646" />
+      <entry key="S30" value="0.719500037227881" />
+      <entry key="S60" value="0.8482388813272244" />
+      <entry key="M2" value="0.9233199164027648" />
+      <entry key="M5" value="1.056028858232211" />
+      <entry key="M10" value="1.2864193242949509" />
+      <entry key="M15" value="1.499337654590674" />
+      <entry key="M30" value="2.508379808917937" />
+      <entry key="H1" value="5.156041315653229" />
+      <entry key="H2" value="9.162835428187538" />
+      <entry key="H4" value="13.412954585916266" />
+      <entry key="D1" value="20.044307974748765" />
+      <entry key="W1" value="21.70277752196067" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.7900413118633843" />
-      <entry key="MS500" value="0.9554506422506283" />
-      <entry key="S2" value="1.2927112406976629" />
-      <entry key="S5" value="2.3851026016994568" />
-      <entry key="S10" value="3.7290362032304163" />
-      <entry key="S30" value="6.030259159626975" />
-      <entry key="S60" value="7.657374156730944" />
-      <entry key="M2" value="10.152125245509408" />
-      <entry key="M5" value="16.474097081172097" />
-      <entry key="M10" value="26.48445329174801" />
-      <entry key="M15" value="34.46096218714841" />
-      <entry key="M30" value="59.84189501793771" />
-      <entry key="H1" value="187.82503164950202" />
-      <entry key="H2" value="567.7063294740504" />
-      <entry key="H4" value="1137.1194771545506" />
-      <entry key="D1" value="2172.17460891572" />
-      <entry key="W1" value="2441.5531543337297" />
+      <entry key="MS100" value="0.9553658660857312" />
+      <entry key="MS500" value="1.4240873176436708" />
+      <entry key="S2" value="1.8560571204182699" />
+      <entry key="S5" value="2.3863177068474664" />
+      <entry key="S10" value="3.1083829178095344" />
+      <entry key="S30" value="4.355171600913179" />
+      <entry key="S60" value="4.9959659180020015" />
+      <entry key="M2" value="5.45738281214863" />
+      <entry key="M5" value="6.833188385826193" />
+      <entry key="M10" value="11.923644787424895" />
+      <entry key="M15" value="19.05642971711568" />
+      <entry key="M30" value="45.207054763362386" />
+      <entry key="H1" value="126.02271070000461" />
+      <entry key="H2" value="411.5663497785287" />
+      <entry key="H4" value="961.5624211284022" />
+      <entry key="D1" value="2188.650728042007" />
+      <entry key="W1" value="2542.9856357950293" />
     </decayedShown>
   </component>
   <component name="PhpServers">
@@ -187,7 +152,7 @@
       </server>
     </servers>
   </component>
-  <component name="PhpWorkspaceProjectConfiguration">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="nfi-docker php">
     <include_path>
       <path value="$PROJECT_DIR$/layout" />
       <path value="$PROJECT_DIR$/library" />
@@ -262,6 +227,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Docker.frankenphp: Compose Deployment.executor": "Run",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -275,15 +241,18 @@
     "credentialsType com.jetbrains.php.remote.interpreter.ui.PhpInplaceEditRemoteSdkForm": "Docker Compose",
     "dumpAutoload /home/simon/Websites/WebsiteTemplate/composer.json": "--no-interaction --ansi --verbose --classmap-authoritative --apcu",
     "git-widget-placeholder": "dev-css-bem",
+    "javascript.preferred.runtime.type.id": "node",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "/home/simon/Websites/WebsiteTemplate/scripts/php",
+    "last_opened_file_path": "/home/simon/Websites/WebsiteTemplate",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
+    "nodejs_interpreter_path": "docker-compose://[/home/simon/Websites/frankenphp/docker-compose.yml]:assets/bun",
+    "nodejs_package_manager_path": "bun",
+    "npm.modern-normalize:build.executor": "Run",
     "run.code.analysis.last.selected.profile": "aDefault",
-    "settings.editor.selected.configurable": "Errors",
+    "settings.editor.selected.configurable": "watcher.settings",
     "to.speed.mode.migration.done": "true",
     "two.files.diff.last.used.file": "C:/Users/speich/Websites/WebsiteTemplate/scripts/php/Html/SelectField.php"
   }
@@ -294,11 +263,42 @@
       <recent name="$PROJECT_DIR$/scripts/php/Layout" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/css" />
       <recent name="$PROJECT_DIR$/demo" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/layout" />
       <recent name="$PROJECT_DIR$/library" />
     </key>
+  </component>
+  <component name="RunManager" selected="Docker.frankenphp: Compose Deployment">
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml" />
+      <method v="2" />
+    </configuration>
+    <configuration name="frankenphp: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker ERITHACUS">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="../frankenphp/docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="modern-normalize:build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="modern-normalize:build" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Docker.frankenphp: Compose Deployment" />
+        <item itemvalue="npm.modern-normalize:build" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -454,6 +454,7 @@
       <workItem from="1783001970275" duration="784000" />
       <workItem from="1783005118055" duration="854000" />
       <workItem from="1783319599341" duration="10027000" />
+      <workItem from="1783345395039" duration="2673000" />
     </task>
     <task id="LOCAL-00018" summary="handle case when input stream returns an emtpy string">
       <option name="closed" value="true" />
@@ -647,7 +648,23 @@
       <option name="project" value="LOCAL" />
       <updated>1767714160140</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="-refactor css&#10;-reorganize folder structure&#10;-use a class instead of an include">
+      <option name="closed" value="true" />
+      <created>1783341618186</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1783341618186</updated>
+    </task>
+    <task id="LOCAL-00043" summary="-refactor css&#10;-reorganize folder structure&#10;-use a class instead of an include">
+      <option name="closed" value="true" />
+      <created>1783341624916</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1783341624916</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -671,7 +688,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update html/SelectField.php" />
     <MESSAGE value="trim whitespace" />
     <MESSAGE value="handle case when input stream returns an emtpy string" />
     <MESSAGE value="range start and end should be integers" />
@@ -696,7 +712,8 @@
     <MESSAGE value="fix property created dynamically" />
     <MESSAGE value="fix broken whitelisting after previous commit removing passing null" />
     <MESSAGE value="-implement wrapping label around (input) element&#10;-fix grammar" />
-    <option name="LAST_COMMIT_MESSAGE" value="-implement wrapping label around (input) element&#10;-fix grammar" />
+    <MESSAGE value="-refactor css&#10;-reorganize folder structure&#10;-use a class instead of an include" />
+    <option name="LAST_COMMIT_MESSAGE" value="-refactor css&#10;-reorganize folder structure&#10;-use a class instead of an include" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

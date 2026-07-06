@@ -1,0 +1,15 @@
+{
+  "lockfileVersion": 1,
+  "configVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "website-template",
+      "dependencies": {
+        "modern-normalize": "3.0.1",
+      },
+    },
+  },
+  "packages": {
+    "modern-normalize": ["modern-normalize@3.0.1", "", {}, "sha512-VqlMdYi59Uch6fnUPxnpijWUQe+TW6zeWCvyr6Mb7JibheHzSuAAoJi2c71ZwIaWKpECpGpYHoaaBp6rBRr+/g=="],
+  }
+}

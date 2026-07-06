@@ -2,20 +2,20 @@
     /* --- Component Variables --- */
 
     /* Text Colors */
-    --menu-text-primary: #578626;       /* Green */
-    --menu-text-secondary: #555555;     /* Dark Gray */
-    --menu-text-active: #a00a00;        /* Dark Red */
-    --menu-text-active-alt: #b31e00;    /* Brighter Red (Vertical) */
-    --menu-text-disabled: #cccccc;      /* Light Gray */
+    --menu-text-primary: #578626;
+    --menu-text-secondary: #555555;
+    --menu-text-active: #a00a00;
+    --menu-text-active-alt: #b31e00;
+    --menu-text-disabled: #cccccc;
 
     /* Backgrounds */
-    --menu-bg-submenu: #fafafa;         /* Off-white */
+    --menu-bg-submenu: #fafafa;
     --menu-bg-gradient-start: #ffffff;
     --menu-bg-gradient-end: #efefef;
 
     /* Borders & Shadows */
-    --menu-border: #999999;             /* Medium Gray */
-    --menu-border-light: #cccccc;       /* Light Gray */
+    --menu-border: #999999;
+    --menu-border-light: #cccccc;
     --menu-shadow-dark: #cccccc;
     --menu-shadow-light: #ffffff;
 
@@ -48,9 +48,9 @@
     color: var(--menu-text-disabled);
 }
 
-/* ==========================================================================
+/* =========================================================================
    Horizontal Menu (Animated with Dropdowns)
-   ========================================================================== */
+   ========================================================================= */
 
 .menu_horizontal {
     font-size: 11px;
