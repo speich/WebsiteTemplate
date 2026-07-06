@@ -6,7 +6,7 @@ use function array_key_exists;
 use function count;
 
 /**
- * Helper class which allows website to be multi language.
+ * Helper class that allows a website to be multi-language.
  */
 class Language
 {
@@ -180,7 +180,7 @@ class Language
             $lang = $matches[1];
         } // from page name
         elseif (preg_match('/-'.$this->langCaptureGroup.'\.php/', $this->getPage(), $matches) === 1) {
-            // note: default language is not part of the page name, e.g. page{-defaultLang}.php does not exist
+            // note: the default language is not part of the page name, e.g. page{-defaultLang}.php does not exist
             $lang = $matches[1];
         } // cookie?
         elseif (isset($_COOKIE['lang'])) {
@@ -201,7 +201,7 @@ class Language
     {
         $options = [
             ...Website::$pageCookieDefaultOptions,
-            // note: we can't do this in the constructor, because it is used statically.
+            // note: we can't do this in the constructor because it is used statically.
             'Domain' => str_replace('www.', '', $_SERVER['HTTP_HOST']),
             'Expires' => time() + 3600 * 24 * 365,
         ];
@@ -223,7 +223,7 @@ class Language
     }
 
     /**
-     * Modify the name of page to match the current language.
+     * Modify the name of the page to match the current language.
      * Inserts a minus character and the language abbreviation between page name and page extension except
      * for the default language, e.g.: mypage.php -> mypage-fr.php
      * @param string $page page only
@@ -237,8 +237,7 @@ class Language
         }
 
         // remove language postfix
-        $removed = $this->removePostfix($page);
-        $page = $removed ?? $page;
+        $page = $this->removePostfix($page);
 
         // add new language postfix
         if ($lang !== $this->langDefault) {

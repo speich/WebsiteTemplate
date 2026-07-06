@@ -5,22 +5,58 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="-implement wrapping label around (input) element&#10;-fix grammar">
-      <change afterPath="$PROJECT_DIR$/scripts/php/CssBemTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sshConfigs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sshConfigs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/webServers.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/HeadWebsiteTemplate.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/inc_default.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/inc_global.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/inc_php.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/index.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/layout/css/menu.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/layout/inc_layout.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/php/Layout/BodyEnd.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/php/Layout/BodyStart.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/php/Layout/Head.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/WebsiteTemplate.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WebsiteTemplate.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/remote-mappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/remote-mappings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/layout/css/menu.css" beforeDir="false" afterPath="$PROJECT_DIR$/layout/css/menu.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/layout/inc_nav.php" beforeDir="false" afterPath="$PROJECT_DIR$/layout/inc_nav.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library/dojo.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/Html/CheckBox.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/Html/Checkbox.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/Html/DivList.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/Html/DivList.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/Html/Html.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/Html/Html.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/Html/InputRadioCheckboxTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/Html/InputRadioCheckboxTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/Html/RadioButton.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/Html/RadioButton.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/Html/RadioGroup.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/Html/RadioGroup.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/LanguageMenu.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/LanguageMenu.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/Menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/Menu.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/PagedNav.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/PagedNav.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc_script.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/layout/css/layout.css" beforeDir="false" afterPath="$PROJECT_DIR$/demo/layout/css/layout.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/layout/css/menu.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/layout/css/reset.css" beforeDir="false" afterPath="$PROJECT_DIR$/demo/layout/css/reset.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/layout/images/arrowdown.gif" beforeDir="false" afterPath="$PROJECT_DIR$/demo/layout/images/arrowdown.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/layout/images/arrowleft.gif" beforeDir="false" afterPath="$PROJECT_DIR$/demo/layout/images/arrowleft.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/layout/images/arrowright.gif" beforeDir="false" afterPath="$PROJECT_DIR$/demo/layout/images/arrowright.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/layout/inc_bodyend.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/layout/inc_bodystart.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/layout/inc_head.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/layout/inc_nav.php" beforeDir="false" afterPath="$PROJECT_DIR$/demo/layout/inc_nav.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/js/formUtil.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/formUtil.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/js/numberUtil.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/numberUtil.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/js/stringUtil.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/stringUtil.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Controller.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/CssBemTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/CssBemTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/Error.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Error.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/Header.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/Html/Checkbox.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/Checkbox.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/Html/DivList.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/DivList.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/Html/Form.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/Form.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/Html/Html.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/Html.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/Html/InputRadioCheckboxTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/InputRadioCheckboxTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/Html/OptionElement.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/OptionElement.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/Html/RadioButton.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/RadioButton.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/Html/RadioGroup.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/RadioGroup.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/Html/SelectField.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/SelectField.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/Http.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Http.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/Language.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Language.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/LanguageMenu.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/LanguageMenu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/Menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Menu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/MenuItem.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/MenuItem.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/PagedNav.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/PagedNav.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/QueryString.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/QueryString.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/Website.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Website.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,9 +69,9 @@
     </option>
   </component>
   <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
-    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <pharConfigPath>$PROJECT_DIR$/library/composer.json</pharConfigPath>
     <execution>
-      <executable path="composer" />
+      <interpreter name="nfi-docker composer" composer="composer" />
     </execution>
   </component>
   <component name="EmbeddingIndexingInfo">
@@ -85,67 +121,105 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.038553126538176" />
-      <entry key="MS500" value="1.7472994236078643" />
-      <entry key="S2" value="2.539733481420834" />
-      <entry key="S5" value="2.7997778216727793" />
-      <entry key="S10" value="2.9374426843688717" />
-      <entry key="S30" value="3.7901556885268026" />
-      <entry key="S60" value="4.982912372670272" />
-      <entry key="M2" value="7.548147949230906" />
-      <entry key="M5" value="35.812307272691214" />
-      <entry key="M10" value="117.34505830320131" />
-      <entry key="M15" value="205.84723092430153" />
-      <entry key="M30" value="438.7855520476529" />
-      <entry key="H1" value="783.5565383521296" />
-      <entry key="H2" value="1234.1508457584287" />
-      <entry key="H4" value="1669.452711762795" />
-      <entry key="D1" value="2251.2578207496554" />
-      <entry key="W1" value="2380.445659801463" />
+      <entry key="MS100" value="1.0000000000000084" />
+      <entry key="MS500" value="1.001535240973264" />
+      <entry key="S2" value="1.3070697104909117" />
+      <entry key="S5" value="2.3862367924610353" />
+      <entry key="S10" value="3.642009577302273" />
+      <entry key="S30" value="5.533136203536553" />
+      <entry key="S60" value="6.731426637075229" />
+      <entry key="M2" value="8.656087899027929" />
+      <entry key="M5" value="13.874595604362261" />
+      <entry key="M10" value="22.230491266902135" />
+      <entry key="M15" value="28.943326157742945" />
+      <entry key="M30" value="52.0303924575373" />
+      <entry key="H1" value="177.67330006087784" />
+      <entry key="H2" value="555.0525089423201" />
+      <entry key="H4" value="1121.9866401165016" />
+      <entry key="D1" value="2153.26652444423" />
+      <entry key="W1" value="2421.718433259355" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="8.652220442031854E-152" />
-      <entry key="MS500" value="6.129506574162911E-31" />
-      <entry key="S2" value="2.7980558494193908E-8" />
-      <entry key="S5" value="9.522315166581005E-4" />
-      <entry key="S10" value="0.03085824876334302" />
-      <entry key="S30" value="0.31376857369591077" />
-      <entry key="S60" value="0.5705427937290276" />
-      <entry key="M2" value="0.85078974500603" />
-      <entry key="M5" value="1.292465917164745" />
-      <entry key="M10" value="1.5798995069340533" />
-      <entry key="M15" value="1.7210253712912762" />
-      <entry key="M30" value="2.0569077752151452" />
-      <entry key="H1" value="2.7471785066418253" />
-      <entry key="H2" value="3.829682723284695" />
-      <entry key="H4" value="4.964822032078735" />
-      <entry key="D1" value="6.56874485900908" />
-      <entry key="W1" value="6.93559783062263" />
+      <entry key="MS100" value="7.367835849061754E-94" />
+      <entry key="MS500" value="2.3630232150647144E-19" />
+      <entry key="S2" value="2.204788815190926E-5" />
+      <entry key="S5" value="0.013719776861252954" />
+      <entry key="S10" value="0.11722016102447165" />
+      <entry key="S30" value="0.5361905712210471" />
+      <entry key="S60" value="0.9587287300947578" />
+      <entry key="M2" value="1.522414777579367" />
+      <entry key="M5" value="2.619116348351872" />
+      <entry key="M10" value="4.27171810123292" />
+      <entry key="M15" value="5.533862669494639" />
+      <entry key="M30" value="7.82373149367932" />
+      <entry key="H1" value="10.160124430555834" />
+      <entry key="H2" value="12.65947735690415" />
+      <entry key="H4" value="15.13647403384358" />
+      <entry key="D1" value="18.908904653378205" />
+      <entry key="W1" value="19.83484581269938" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.04665016345264502" />
-      <entry key="MS500" value="1.0355050654820372" />
-      <entry key="S2" value="2.243335769030066" />
-      <entry key="S5" value="2.666188099006311" />
-      <entry key="S10" value="2.8937818369179817" />
-      <entry key="S30" value="4.062830604914441" />
-      <entry key="S60" value="5.525220860401327" />
-      <entry key="M2" value="8.380751828775745" />
-      <entry key="M5" value="37.09457965772791" />
-      <entry key="M10" value="118.91798647063345" />
-      <entry key="M15" value="207.56242518662845" />
-      <entry key="M30" value="440.83777929236095" />
-      <entry key="H1" value="786.2998908769492" />
-      <entry key="H2" value="1237.977659412897" />
-      <entry key="H4" value="1674.4156504396296" />
-      <entry key="D1" value="2257.8261530697637" />
-      <entry key="W1" value="2387.3811955798797" />
+      <entry key="MS100" value="0.7900413118633843" />
+      <entry key="MS500" value="0.9554506422506283" />
+      <entry key="S2" value="1.2927112406976629" />
+      <entry key="S5" value="2.3851026016994568" />
+      <entry key="S10" value="3.7290362032304163" />
+      <entry key="S30" value="6.030259159626975" />
+      <entry key="S60" value="7.657374156730944" />
+      <entry key="M2" value="10.152125245509408" />
+      <entry key="M5" value="16.474097081172097" />
+      <entry key="M10" value="26.48445329174801" />
+      <entry key="M15" value="34.46096218714841" />
+      <entry key="M30" value="59.84189501793771" />
+      <entry key="H1" value="187.82503164950202" />
+      <entry key="H2" value="567.7063294740504" />
+      <entry key="H4" value="1137.1194771545506" />
+      <entry key="D1" value="2172.17460891572" />
+      <entry key="W1" value="2441.5531543337297" />
     </decayedShown>
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/bin/php8.1">
+  <component name="PhpServers">
+    <servers>
+      <server host="websitetemplate.test" id="5fde986b-472a-4694-acf6-50192de343a5" name="WebsiteTemplate" port="443" use_path_mappings="true">
+        <path_mappings>
+          <mapping local-root="$PROJECT_DIR$" remote-root="/var/www/html/websitetemplate" />
+        </path_mappings>
+      </server>
+    </servers>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
       <path value="$PROJECT_DIR$/layout" />
       <path value="$PROJECT_DIR$/library" />
+      <path value="$PROJECT_DIR$/library/vendor/composer" />
+      <path value="$PROJECT_DIR$/library/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/library/vendor/myclabs/deep-copy" />
+      <path value="$PROJECT_DIR$/library/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/library/vendor/phar-io/manifest" />
+      <path value="$PROJECT_DIR$/library/vendor/phar-io/version" />
+      <path value="$PROJECT_DIR$/library/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/library/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/library/vendor/phpunit/php-invoker" />
+      <path value="$PROJECT_DIR$/library/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/library/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/library/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/library/vendor/sebastian/cli-parser" />
+      <path value="$PROJECT_DIR$/library/vendor/sebastian/code-unit" />
+      <path value="$PROJECT_DIR$/library/vendor/sebastian/code-unit-reverse-lookup" />
+      <path value="$PROJECT_DIR$/library/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/library/vendor/sebastian/complexity" />
+      <path value="$PROJECT_DIR$/library/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/library/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/library/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/library/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/library/vendor/sebastian/lines-of-code" />
+      <path value="$PROJECT_DIR$/library/vendor/sebastian/object-enumerator" />
+      <path value="$PROJECT_DIR$/library/vendor/sebastian/object-reflector" />
+      <path value="$PROJECT_DIR$/library/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/library/vendor/sebastian/resource-operations" />
+      <path value="$PROJECT_DIR$/library/vendor/sebastian/type" />
+      <path value="$PROJECT_DIR$/library/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/library/vendor/theseer/tokenizer" />
       <path value="$PROJECT_DIR$/scripts" />
       <path value="$PROJECT_DIR$/vendor/composer" />
       <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
@@ -197,20 +271,35 @@
     "WebServerToolWindowFactoryState": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "credentialsType com.jetbrains.php.remote.interpreter.ui.PhpCreateRemoteSdkForm": "Docker Compose",
+    "credentialsType com.jetbrains.php.remote.interpreter.ui.PhpInplaceEditRemoteSdkForm": "Docker Compose",
+    "dumpAutoload /home/simon/Websites/WebsiteTemplate/composer.json": "--no-interaction --ansi --verbose --classmap-authoritative --apcu",
     "git-widget-placeholder": "dev-css-bem",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "/home/speich/Websites/WebsiteTemplate",
+    "last_opened_file_path": "/home/simon/Websites/WebsiteTemplate/scripts/php",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "run.code.analysis.last.selected.profile": "aDefault",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "settings.editor.selected.configurable": "Errors",
     "to.speed.mode.migration.done": "true",
     "two.files.diff.last.used.file": "C:/Users/speich/Websites/WebsiteTemplate/scripts/php/Html/SelectField.php"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/scripts/php/Layout" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/demo" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/layout" />
+      <recent name="$PROJECT_DIR$/library" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -608,5 +697,9 @@
     <MESSAGE value="fix broken whitelisting after previous commit removing passing null" />
     <MESSAGE value="-implement wrapping label around (input) element&#10;-fix grammar" />
     <option name="LAST_COMMIT_MESSAGE" value="-implement wrapping label around (input) element&#10;-fix grammar" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

@@ -20,10 +20,7 @@ class Website
     /** @var string host e.g. lfi.ch */
     private string $host;
 
-    /** @var string http protocol */
-    public string $protocol = 'https';
-
-    /** @var string current path from root including page, e.g. /scripts/php/inc_global.php */
+    /** @var string current path from root including page, e.g. /src/php/inc_global.php */
     public mixed $path;
 
     /** @var string current page without path, e.g. inc_global.php */
@@ -40,9 +37,6 @@ class Website
 
     /** @var string web root directory on web server */
     private string $webroot = '/';
-
-    /** @var string character set */
-    public string $charset = 'utf-8';
 
     /** @var ?DateTime date of last update */
     private static ?DateTime $lastUpdate;
@@ -80,7 +74,7 @@ class Website
         if ($this->host === false) {
             exit('not a whitelisted domain');
         }
-        $arrUrl = parse_url($this->getProtocol(true).$this->host.$_SERVER['REQUEST_URI']);
+        $arrUrl = parse_url('https://'.$this->host.$_SERVER['REQUEST_URI']);
         $this->query = $arrUrl['query'] ?? '';
         if (isset($arrUrl['path'])) {
             $this->path = $arrUrl['path'];
@@ -238,23 +232,4 @@ class Website
         setcookie('backPage', '', $options);
     }
 
-    /**
-     * Returns the current protocol.
-     * Returns the current protocol (only http or https) from the requested page.
-     * including the colon and the double slashes e.g. <protocol>:// unless false is passed as the method argument.
-     * @param bool $full return additional characters?
-     * @return string
-     */
-    public function getProtocol(?bool $full = null): string
-    {
-        if ((!empty($_SERVER['SERVER_PROTOCOL']) && $_SERVER['SERVER_PROTOCOL'] === 'HTTP/2.0') ||
-            (!empty($_SERVER['HTTP2']) && $_SERVER['HTTP2'] === 'on') ||
-            (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
-            (!empty($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] === 443)) {
-            $this->protocol = 'https';
-        } else {
-            $this->protocol = 'http';
-        }
-        return $full === false ? $this->protocol : $this->protocol.'://';
-    }
 }

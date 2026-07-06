@@ -1,0 +1,206 @@
+.menu {
+    /* --- Component Variables --- */
+
+    /* Text Colors */
+    --menu-text-primary: #578626;       /* Green */
+    --menu-text-secondary: #555555;     /* Dark Gray */
+    --menu-text-active: #a00a00;        /* Dark Red */
+    --menu-text-active-alt: #b31e00;    /* Brighter Red (Vertical) */
+    --menu-text-disabled: #cccccc;      /* Light Gray */
+
+    /* Backgrounds */
+    --menu-bg-submenu: #fafafa;         /* Off-white */
+    --menu-bg-gradient-start: #ffffff;
+    --menu-bg-gradient-end: #efefef;
+
+    /* Borders & Shadows */
+    --menu-border: #999999;             /* Medium Gray */
+    --menu-border-light: #cccccc;       /* Light Gray */
+    --menu-shadow-dark: #cccccc;
+    --menu-shadow-light: #ffffff;
+
+    /* --- Base Styles --- */
+    cursor: pointer;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu a:hover, .menu div:hover {
+    color: var(--menu-text-active);
+}
+
+.menu a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.menu__item {
+    color: var(--menu-text-primary);
+}
+
+.menu__item_active > .menu__link {
+    color: var(--menu-text-active);
+}
+
+.menu__item_disabled > .menu__link {
+    color: var(--menu-text-disabled);
+}
+
+/* ==========================================================================
+   Horizontal Menu (Animated with Dropdowns)
+   ========================================================================== */
+
+.menu_horizontal {
+    font-size: 11px;
+    margin-left: 7px;
+    margin-top: 12px;
+    background: linear-gradient(to bottom, var(--menu-bg-gradient-start), var(--menu-bg-gradient-end)) no-repeat;
+    border: solid var(--menu-border);
+    border-width: 1px 0;
+}
+
+/* Top-level items */
+.menu_horizontal > .menu__item {
+    color: var(--menu-text-secondary);
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.menu_horizontal .menu__link {
+    padding: 4px 12px;
+}
+
+/* Submenu container */
+.menu_horizontal ul {
+    position: absolute;
+    border: 1px solid var(--menu-border);
+    background-color: var(--menu-bg-submenu);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .5s ease-in-out;
+    box-shadow: var(--menu-shadow-dark) 4px 4px 4px;
+    z-index: 100; /* Ensures dropdown stays on top of other content */
+    margin: 0;
+    padding: 0;
+}
+
+.menu_horizontal .menu__item:hover > ul {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Submenu items */
+.menu_horizontal ul .menu__item {
+    display: flex;
+    position: relative; /* Fixes 3rd-level submenu anchoring */
+}
+
+.menu_horizontal ul .menu__link {
+    flex: auto;
+    min-width: 120px;
+    padding: 8px 24px 8px 12px; /* Increased right padding to clear the chevron */
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* 3rd-level+ submenu positioning */
+.menu_horizontal .menu__item ul ul {
+    left: 100%;
+    top: -1px;
+}
+
+/* --- Chevron for Horizontal Submenus --- */
+.menu_horizontal ul .menu__item_has-children > .menu__link {
+    position: relative;
+}
+
+.menu_horizontal ul .menu__item_has-children > .menu__link::after {
+    content: '';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(-50%) rotate(-45deg); /* Points Right */
+}
+
+/* Add separator lines between specific horizontal menu items */
+.menu_horizontal > .menu__item:nth-child(2) > ul > .menu__item:nth-child(1),
+.menu_horizontal > .menu__item:nth-child(3) > ul > .menu__item:nth-child(1),
+.menu_horizontal > .menu__item:nth-child(3) > ul ul > .menu__item:nth-child(2) {
+    border-bottom: 1px solid;
+    border-image: linear-gradient(
+            to right,
+            var(--menu-bg-gradient-start),
+            var(--menu-bg-gradient-start) 3px,
+            var(--menu-border-light) 12px,
+            var(--menu-border-light) calc(100% - 12px),
+            var(--menu-bg-gradient-start) calc(100% - 3px)
+    ) 1;
+    box-shadow: 0 1px var(--menu-shadow-light);
+}
+
+/* ==========================================================================
+   Vertical Menus (Classic and Open)
+   ========================================================================== */
+
+.menu_vertical,
+.menu_vertical-open {
+    width: 150px;
+}
+
+.menu_vertical ul,
+.menu_vertical-open ul {
+    margin-left: 12px;
+    padding: 0;
+}
+
+.menu_vertical .menu__item,
+.menu_vertical-open .menu__item {
+    padding: 1px 0;
+}
+
+.menu_vertical .menu__link,
+.menu_vertical-open .menu__link {
+    padding: 6px 0;
+    border-bottom: 1px solid var(--menu-border);
+}
+
+.menu_vertical .menu__item_active:not(.menu__item_has-children) > .menu__link,
+.menu_vertical-open .menu__item_active:not(.menu__item_has-children) > .menu__link {
+    color: var(--menu-text-active-alt);
+    background-image: linear-gradient(to bottom, var(--menu-bg-gradient-start), var(--menu-bg-gradient-end));
+}
+
+/* --- Chevrons for Vertical Menus --- */
+.menu_vertical .menu__item_has-children > .menu__link,
+.menu_vertical-open .menu__item_has-children > .menu__link {
+    position: relative;
+    padding-right: 24px;
+}
+
+/* Default state: Pointing Right */
+.menu_vertical .menu__item_has-children > .menu__link::after,
+.menu_vertical-open .menu__item_has-children > .menu__link::after {
+    content: '';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(-50%) rotate(-45deg); /* Points Right */
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Open state: Pointing Down */
+.menu_vertical .menu__item_open > .menu__link::after,
+.menu_vertical-open .menu__item_open > .menu__link::after {
+    transform: translateY(-50%) rotate(45deg); /* Points Down */
+}

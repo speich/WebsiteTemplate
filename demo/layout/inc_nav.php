@@ -6,16 +6,6 @@ use WebsiteTemplate\Menu;
  * Each item needs its unique id for the menu to function properly.
  */
 
-/* simple horizontal menu */
-$menu1 = new Menu([
-	[1, 0, 'Home', $web->getWebRoot().'index.php'],
-	[2, 0, 'About', $web->getWebRoot().'about.php'],
-	[3, 0, 'Services', $web->getWebRoot().'services.php'],
-	[7, 0, 'Contact', $web->getWebRoot().'contact.php']
-]);
-$menu1->setActive($web->getWebRoot().'services.php');
-$menu1->bemModifier = 'horizontal';
-
 /* Advanced animated horizontal menu with submenus */
 $menu2 = new Menu([
     [1, 0, 'Home', $web->getWebRoot().'index.php'],
@@ -34,7 +24,7 @@ $menu2 = new Menu([
 ]);
 $menu2->allChildrenRendered = true;
 $menu2->setActive($web->getWebRoot().'services/more.php');
-$menu2->bemModifier = 'horizontal-animated';
+$menu2->bemModifier = 'horizontal';
 
 /* Simple vertical menu */
 $menu3 = new Menu([

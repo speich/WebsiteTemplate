@@ -94,7 +94,7 @@ class Menu
      */
     private int $autoActiveMatching = Menu::MATCH_PATH;
     /**
-     * Flag to mark first ul tag in recursion when rendering HTML.
+     * Flag to mark the first ul tag in recursion when rendering HTML.
      * @var bool is first HTMLULElement
      */
     private bool $firstUl = true;
@@ -253,7 +253,7 @@ class Menu
                     }
                 }
             }
-        } // match provided url
+        } // match the provided url
         else {
             foreach ($this->arrItem as $item) {
                 if ($item->linkUrl === $url) {
@@ -319,7 +319,7 @@ class Menu
     }
 
     /**
-     * Check if menu item should be set to active.
+     * Check if the menu item should be set to active.
      * @param MenuItem $item
      * @param int|null $type
      * @return bool
@@ -397,7 +397,12 @@ class Menu
     {
         $this->html .= '<ul';
         if ($this->firstUl) {
-            $this->html .= ' class="'.$this->bemClass(element: '').'"';
+            $ulClasses = [$this->bemClass(element: '', modifier: '')];
+            if (!empty($this->bemModifier)) {
+                $ulClasses[] = $this->bemClass(element: '');
+            }
+            $this->html .= ' class="'. implode(' ', $ulClasses) .'"';
+
             if ($this->cssId !== null) {
                 $this->html .= ' id="'.$this->cssId.'"';
             }
@@ -412,7 +417,7 @@ class Menu
                 $cssClass = $item->getCssClass() === '' ? '' : ' class="'.$item->getCssClass().'"';
                 $this->html .= '<li'.$itemIdPrefix.$cssClass.'>';
                 $tagName = $item->linkUrl === null ? 'div' : 'a';
-                $this->html .= '<'.$tagName.' class="'.$this->bemClass('link').'"';
+                $this->html .= '<'.$tagName.' class="'.$this->bemClass(element: 'link', modifier: '').'"';
                 if ($item->linkUrl !== null) {
                     $this->html .= ' href="'.htmlspecialchars($item->linkUrl, ENT_QUOTES,
                             $this->charset).'"'.($item->linkTarget === null ? '' : ' target="'.$item->linkTarget.'"');
@@ -430,14 +435,13 @@ class Menu
 
         return $this->html;
     }
-
     /**
      * Sets the CSS class string of the item depending on it's status.
      * @param MenuItem $item
      */
     protected function setItemCssClass(MenuItem $item): void
     {
-        $item->addCssClass($this->bemClass());
+        $item->addCssClass($this->bemClass(modifier: ''));
         $hasChild = $this->checkChildExists($item->id);
         if ($hasChild) {
             $item->addCssClass($this->bemClass(modifier: 'has-children'));
