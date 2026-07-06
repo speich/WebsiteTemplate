@@ -1,163 +1,163 @@
 .menu {
-	cursor: pointer;
-	list-style: none;
+    cursor: pointer;
+    list-style: none;
 }
 
 .menu a:hover, .menu div:hover {
-	color: #a00a00;
+    color: #a00a00;
 }
 
 .menu a {
-	display: block;
-	text-decoration: none;
-	color: inherit;
+    display: block;
+    text-decoration: none;
+    color: inherit;
 }
 
-.menu .menuActive > a, .menu .menuActive > div {
-	color: #a00a00;
+.menu__item {
+    color: #578626;
 }
 
-.menu li {
-	color: #578626;
+.menu__item_active > .menu__link {
+    color: #a00a00;
 }
 
-li.menuItemDisabled > a, li.menuItemDisabled > div {
-	color: #cccccc;
+.menu__item_disabled > .menu__link {
+    color: #cccccc;
 }
 
-/** menu1 is a simple horizontal menu */
-.menu1 {
-	margin-top: 12px;
+/** menu_horizontal is a simple horizontal menu (was menu1) */
+.menu_horizontal {
+    margin-top: 12px;
 }
 
-.menu1 li {
-	display: inline-block; /* inline-block is not supported in IE < 8 */
-	font-size: 1.1em;
-	font-weight: bold;
-	padding-right: 24px;
+.menu_horizontal > .menu__item {
+    display: inline-block; /* inline-block is not supported in IE < 8 */
+    font-size: 1.1em;
+    font-weight: bold;
+    padding-right: 24px;
 }
 
 /**
-	menu2 is an advanced horizontal menu with animated submenus
+	menu_horizontal-animated is an advanced horizontal menu with animated submenus (was menu2)
 	Modified from http://accu.org/index.php/journals/1399 to use css3 transitions
  */
-.menu2 {
-	font-size: 11px;
-	margin-left: 7px;
-	background: linear-gradient(to bottom, #ffffff, #efefef) no-repeat;
-	border: solid #999999;
-	border-width: 1px 0 1px 0;
+.menu_horizontal-animated {
+    font-size: 11px;
+    margin-left: 7px;
+    background: linear-gradient(to bottom, #ffffff, #efefef) no-repeat;
+    border: solid #999999;
+    border-width: 1px 0 1px 0;
 }
 
-.menu2 li {
-	color: #555555;
-	position: relative;
-	display: inline-block;
-	vertical-align: top;
+.menu_horizontal-animated > .menu__item {
+    color: #555555;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
 }
 
-.menu2 ul {
-	position: absolute;
-	border: 1px solid #999999;
-	background-color: #fafafa;
-	opacity: 0;
-	visibility: hidden;
-	transition: opacity .5s ease-in-out;
-	box-shadow: #cccccc 4px 4px 4px;
+.menu_horizontal-animated ul {
+    position: absolute;
+    border: 1px solid #999999;
+    background-color: #fafafa;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .5s ease-in-out;
+    box-shadow: #cccccc 4px 4px 4px;
 }
 
-.menu2 li:hover > ul {
-	opacity: 1;
-	visibility: visible;
+.menu_horizontal-animated .menu__item:hover > ul {
+    opacity: 1;
+    visibility: visible;
 }
 
-.menu2 a, .menu2 div {
-	padding: 4px 12px;
+.menu_horizontal-animated .menu__link {
+    padding: 4px 12px;
 }
 
-.menu2 ul li {
-	display: flex;
+.menu_horizontal-animated ul .menu__item {
+    display: flex;
 }
 
-.menu2 ul li a, .menu2 ul li div {
-	flex: auto;
-	min-width: 120px;
-	padding: 8px 12px 8px 12px;
-	font-size: 12px;
-	white-space: nowrap;
+.menu_horizontal-animated ul .menu__link {
+    flex: auto;
+    min-width: 120px;
+    padding: 8px 12px 8px 12px;
+    font-size: 12px;
+    white-space: nowrap;
 }
 
-.menu2 ul li.menuHasChild > a, .menu2 ul li.menuHasChild > div {
-	background: url(../images/arrowright.gif) right 3px center no-repeat;
+.menu_horizontal-animated ul .menu__item_has-children > .menu__link {
+    background: url(../images/arrowright.gif) right 3px center no-repeat;
 }
 
-.menu2 li ul ul {
-	left: 100%;
-	top: -1px
+.menu_horizontal-animated .menu__item ul ul {
+    left: 100%;
+    top: -1px
 }
 
 /* add separator lines between specific menu items */
-.menu2 > li:nth-child(2) > ul > li:nth-child(1),
-.menu2 > li:nth-child(3) > ul > li:nth-child(1),
-.menu2 > li:nth-child(3) > ul ul > li:nth-child(2) {
-	border-bottom: 1px solid;
-	border-image: linear-gradient(
-			to right, #ffffff, #ffffff 3px,
-			#cccccc 12px, #cccccc calc(100% - 12px), #ffffff calc(100% - 3px)
-	) 1;
-	box-shadow: 0 1px #ffffff;
+.menu_horizontal-animated > .menu__item:nth-child(2) > ul > .menu__item:nth-child(1),
+.menu_horizontal-animated > .menu__item:nth-child(3) > ul > .menu__item:nth-child(1),
+.menu_horizontal-animated > .menu__item:nth-child(3) > ul ul > .menu__item:nth-child(2) {
+    border-bottom: 1px solid;
+    border-image: linear-gradient(
+            to right, #ffffff, #ffffff 3px,
+            #cccccc 12px, #cccccc calc(100% - 12px), #ffffff calc(100% - 3px)
+    ) 1;
+    box-shadow: 0 1px #ffffff;
 }
 
-/** Menu 3 is a classic vertical menu with submenus **/
-.menu3 {
-	width: 150px;
+/** menu_vertical is a classic vertical menu with submenus (was menu3) **/
+.menu_vertical {
+    width: 150px;
 }
 
-.menu3 ul {
-	margin-left: 12px;
+.menu_vertical ul {
+    margin-left: 12px;
 }
 
-.menu3 li {
-	padding: 1px 0 1px 0;
+.menu_vertical .menu__item {
+    padding: 1px 0 1px 0;
 }
 
-.menu3 a, .menu3 div {
-	padding: 6px 0 6px 0;
-	border-bottom: 1px solid #999999;
+.menu_vertical .menu__link {
+    padding: 6px 0 6px 0;
+    border-bottom: 1px solid #999999;
 }
 
-.menu3 .menuHasChild {
-	background: url('../images/arrowleft.gif') right 9px no-repeat;
+.menu_vertical .menu__item_has-children {
+    background: url('../images/arrowleft.gif') right 9px no-repeat;
 }
 
-.menu3 .menuOpen {
-	background: url('../images/arrowdown.gif') right 13px no-repeat;
+.menu_vertical .menu__item_open {
+    background: url('../images/arrowdown.gif') right 13px no-repeat;
 }
 
-.menu3 .menuActive:not(.menuHasChild) > a, .menu3 .menuActive:not(.menuHasChild) > div {
-	color: #b31e00;
-	background-image: linear-gradient(to bottom, #ffffff, #efefef);
+.menu_vertical .menu__item_active:not(.menu__item_has-children) > .menu__link {
+    color: #b31e00;
+    background-image: linear-gradient(to bottom, #ffffff, #efefef);
 }
 
-/** Menu 3 is a classic vertical menu with submenus **/
-.menu4 {
-	width: 150px;
+/** menu_vertical-open is a vertical menu with all children rendered (was menu4) **/
+.menu_vertical-open {
+    width: 150px;
 }
 
-.menu4 ul {
-	margin-left: 12px;
+.menu_vertical-open ul {
+    margin-left: 12px;
 }
 
-.menu4 li {
-	padding: 1px 0 1px 0;
+.menu_vertical-open .menu__item {
+    padding: 1px 0 1px 0;
 }
 
-.menu4 a, .menu4 div {
-	padding: 6px 0 6px 0;
-	border-bottom: 1px solid #999999;
+.menu_vertical-open .menu__link {
+    padding: 6px 0 6px 0;
+    border-bottom: 1px solid #999999;
 }
 
-.menu4 .menuActive:not(.menuHasChild) > a, .menu4 .menuActive:not(.menuHasChild) > div {
-	color: #b31e00;
-	background-image: linear-gradient(to bottom, #ffffff, #efefef);
+.menu_vertical-open .menu__item_active:not(.menu__item_has-children) > .menu__link {
+    color: #b31e00;
+    background-image: linear-gradient(to bottom, #ffffff, #efefef);
 }

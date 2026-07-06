@@ -5,11 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="-implement wrapping label around (input) element&#10;-fix grammar">
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/php/CssBemTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sshConfigs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sshConfigs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/webServers.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/Html/Form.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/Html/Form.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/layout/css/menu.css" beforeDir="false" afterPath="$PROJECT_DIR$/layout/css/menu.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/layout/inc_nav.php" beforeDir="false" afterPath="$PROJECT_DIR$/layout/inc_nav.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/dojo.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/Html/CheckBox.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/Html/Checkbox.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/Html/DivList.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/Html/DivList.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/Html/Html.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/Html/Html.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/Html/InputRadioCheckboxTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/Html/InputRadioCheckboxTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/Html/RadioButton.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/Html/RadioButton.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/php/Html/RadioGroup.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/Html/RadioGroup.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/php/Html/SelectField.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/Html/SelectField.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/LanguageMenu.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/LanguageMenu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/Menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/Menu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/php/PagedNav.php" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/php/PagedNav.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,7 +39,7 @@
     </execution>
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="55" />
+    <option name="cachedIndexableFilesCount" value="58" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="Git.Settings">
@@ -40,7 +51,7 @@
     </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="dev" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -51,6 +62,9 @@
     &quot;assignee&quot;: &quot;speich&quot;
   }
 }</component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="d5f8f362-477f-43f9-bd35-083b3d8b7193" />
+  </component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/speich/WebsiteTemplate.git&quot;,
@@ -68,6 +82,65 @@
     <order>
       <scope name="PHP-Files" />
     </order>
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.038553126538176" />
+      <entry key="MS500" value="1.7472994236078643" />
+      <entry key="S2" value="2.539733481420834" />
+      <entry key="S5" value="2.7997778216727793" />
+      <entry key="S10" value="2.9374426843688717" />
+      <entry key="S30" value="3.7901556885268026" />
+      <entry key="S60" value="4.982912372670272" />
+      <entry key="M2" value="7.548147949230906" />
+      <entry key="M5" value="35.812307272691214" />
+      <entry key="M10" value="117.34505830320131" />
+      <entry key="M15" value="205.84723092430153" />
+      <entry key="M30" value="438.7855520476529" />
+      <entry key="H1" value="783.5565383521296" />
+      <entry key="H2" value="1234.1508457584287" />
+      <entry key="H4" value="1669.452711762795" />
+      <entry key="D1" value="2251.2578207496554" />
+      <entry key="W1" value="2380.445659801463" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="8.652220442031854E-152" />
+      <entry key="MS500" value="6.129506574162911E-31" />
+      <entry key="S2" value="2.7980558494193908E-8" />
+      <entry key="S5" value="9.522315166581005E-4" />
+      <entry key="S10" value="0.03085824876334302" />
+      <entry key="S30" value="0.31376857369591077" />
+      <entry key="S60" value="0.5705427937290276" />
+      <entry key="M2" value="0.85078974500603" />
+      <entry key="M5" value="1.292465917164745" />
+      <entry key="M10" value="1.5798995069340533" />
+      <entry key="M15" value="1.7210253712912762" />
+      <entry key="M30" value="2.0569077752151452" />
+      <entry key="H1" value="2.7471785066418253" />
+      <entry key="H2" value="3.829682723284695" />
+      <entry key="H4" value="4.964822032078735" />
+      <entry key="D1" value="6.56874485900908" />
+      <entry key="W1" value="6.93559783062263" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="0.04665016345264502" />
+      <entry key="MS500" value="1.0355050654820372" />
+      <entry key="S2" value="2.243335769030066" />
+      <entry key="S5" value="2.666188099006311" />
+      <entry key="S10" value="2.8937818369179817" />
+      <entry key="S30" value="4.062830604914441" />
+      <entry key="S60" value="5.525220860401327" />
+      <entry key="M2" value="8.380751828775745" />
+      <entry key="M5" value="37.09457965772791" />
+      <entry key="M10" value="118.91798647063345" />
+      <entry key="M15" value="207.56242518662845" />
+      <entry key="M30" value="440.83777929236095" />
+      <entry key="H1" value="786.2998908769492" />
+      <entry key="H2" value="1237.977659412897" />
+      <entry key="H4" value="1674.4156504396296" />
+      <entry key="D1" value="2257.8261530697637" />
+      <entry key="W1" value="2387.3811955798797" />
+    </decayedShown>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/bin/php8.1">
     <include_path>
@@ -113,34 +186,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/speich/Websites/WebsiteTemplate/scripts/php/Html/SelectField.php&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.PHP&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;two.files.diff.last.used.file&quot;: &quot;C:/Users/speich/Websites/WebsiteTemplate/scripts/php/Html/SelectField.php&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "WebServerToolWindowFactoryState": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "dev-css-bem",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "/home/speich/Websites/WebsiteTemplate",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "aDefault",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "to.speed.mode.migration.done": "true",
+    "two.files.diff.last.used.file": "C:/Users/speich/Websites/WebsiteTemplate/scripts/php/Html/SelectField.php"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-PS-253.29346.151" />
-        <option value="bundled-php-predefined-a98d8de5180a-0e0d91225499-com.jetbrains.php.sharedIndexes-PS-253.29346.151" />
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-PS-261.26222.71" />
+        <option value="bundled-php-predefined-a98d8de5180a-6bbb74dbab74-com.jetbrains.php.sharedIndexes-PS-261.26222.71" />
       </set>
     </attachedChunks>
   </component>
@@ -286,6 +361,10 @@
       <workItem from="1746368596031" duration="1405000" />
       <workItem from="1752323002454" duration="1287000" />
       <workItem from="1767711590577" duration="3024000" />
+      <workItem from="1782990186387" duration="5840000" />
+      <workItem from="1783001970275" duration="784000" />
+      <workItem from="1783005118055" duration="854000" />
+      <workItem from="1783319599341" duration="10027000" />
     </task>
     <task id="LOCAL-00018" summary="handle case when input stream returns an emtpy string">
       <option name="closed" value="true" />

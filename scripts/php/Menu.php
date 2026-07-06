@@ -28,6 +28,8 @@ use function is_array;
  */
 class Menu
 {
+    use CssBemTrait;
+
     /**
      * Item url should match only the path of the page url when setting item to active automatically.
      * @var int
@@ -74,20 +76,13 @@ class Menu
      * @var bool
      */
     public bool $autoActive = true;
+
     /**  @var ?string prefix for item ID attribute */
     public ?string $itemIdPrefix = null;
-    /** @var string CSS class name of the menu */
-    public string $cssClass = 'menu';
+
     /** @var ?string CSS ID of the menu */
     public ?string $cssId = null;
-    /** @var string CSS class name, when item has at least one child */
-    public string $cssItemHasChildren = 'menuHasChild';
-    /** @var string CSS class name, when item is active */
-    public string $cssItemActive = 'menuActive';
-    /** @var string CSS class name, when the menu is open. */
-    public string $cssItemOpen = 'menuOpen';
-    /** @var string CSS class name, when item hast at least one active child. */
-    public string $cssItemActiveChild = 'menuHasActiveChild';
+
     /**
      * The html of the created menu.
      * @var string rendered html
@@ -123,6 +118,12 @@ class Menu
      */
     public function __construct(?array $arrItem = null)
     {
+        // Initialize BEM defaults here (not as property overrides) because CssBemTrait
+        // is composed directly; redeclaring $bemBlock/$bemElement in the class body
+        // would trigger PHP's trait-property compatibility check (different default).
+        $this->bemBlock = 'menu';
+        $this->bemElement = 'item';
+
         if ($arrItem !== null) {
             $this->addAll($arrItem);
         }
@@ -145,7 +146,7 @@ class Menu
      * @param MenuItem|array $newItem item to add
      * @param int|string|null $idAfter id of item to insert new item after
      */
-    public function add(MenuItem|array$newItem, int|string|null $idAfter = null): void
+    public function add(MenuItem|array $newItem, int|string|null $idAfter = null): void
     {
         if (is_array($newItem)) {
             $newItem = $this->itemFromArray($newItem);
@@ -396,7 +397,7 @@ class Menu
     {
         $this->html .= '<ul';
         if ($this->firstUl) {
-            $this->html .= ' class="'.$this->cssClass.'"';
+            $this->html .= ' class="'.$this->bemClass(element: '').'"';
             if ($this->cssId !== null) {
                 $this->html .= ' id="'.$this->cssId.'"';
             }
@@ -411,7 +412,7 @@ class Menu
                 $cssClass = $item->getCssClass() === '' ? '' : ' class="'.$item->getCssClass().'"';
                 $this->html .= '<li'.$itemIdPrefix.$cssClass.'>';
                 $tagName = $item->linkUrl === null ? 'div' : 'a';
-                $this->html .= '<'.$tagName;
+                $this->html .= '<'.$tagName.' class="'.$this->bemClass('link').'"';
                 if ($item->linkUrl !== null) {
                     $this->html .= ' href="'.htmlspecialchars($item->linkUrl, ENT_QUOTES,
                             $this->charset).'"'.($item->linkTarget === null ? '' : ' target="'.$item->linkTarget.'"');
@@ -436,19 +437,20 @@ class Menu
      */
     protected function setItemCssClass(MenuItem $item): void
     {
+        $item->addCssClass($this->bemClass());
         $hasChild = $this->checkChildExists($item->id);
         if ($hasChild) {
-            $item->addCssClass($this->cssItemHasChildren);
+            $item->addCssClass($this->bemClass(modifier: 'has-children'));
             if ($this->allChildrenOpen || $item->getActive()) {
                 // children can be open even when nothing is active
-                $item->addCssClass($this->cssItemOpen);
+                $item->addCssClass($this->bemClass(modifier: 'open'));
             }
         }
         if ($item->getActive()) {
-            $item->addCssClass($this->cssItemActive);
+            $item->addCssClass($this->bemClass(modifier: 'active'));
         }
         if ($item->getHasActiveChild()) {
-            $item->addCssClass($this->cssItemActiveChild);
+            $item->addCssClass($this->bemClass(modifier: 'has-active-child'));
         }
     }
 

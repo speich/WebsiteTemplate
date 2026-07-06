@@ -11,6 +11,8 @@ namespace WebsiteTemplate;
  */
 class PagedNav
 {
+    use CssBemTrait;
+
     // Note: numRec and numRecPerPage are private to force setting either through constructor or setter setProps
 
     /** @var int total number of records with the current query */
@@ -36,9 +38,6 @@ class PagedNav
 
     /** @var int large forward-backward link, e.g. [-50] [+50] */
     public int $stepBig = 50;
-
-    /** @var string name of the CSS class of the container element */
-    public string $cssClass = 'pgNav';
 
     /** @var array translations for internationalization */
     public array $i18n = [
@@ -92,6 +91,11 @@ class PagedNav
      */
     public function __construct(string $path, ?int $numRec = null, ?int $numRecPerPage = null, ?int $numLinks = null)
     {
+        // Initialize BEM defaults here (not as property overrides) because CssBemTrait
+        // is composed directly; redeclaring $bemBlock/$bemElement in the class body
+        // would trigger PHP's trait-property compatibility check (different default).
+        $this->bemBlock = 'pg-nav';
+
         $this->path = $path;
         if (is_numeric($numRec)) {
             $this->setNumRec($numRec);
@@ -162,7 +166,7 @@ class PagedNav
     }
 
     /**
-     * Calculate lower boundary of range of pages to display in navigation.
+     * Calculate the lower boundary of the range of pages to display in navigation.
      * @param int $curPage current page number
      * @return int
      */
@@ -179,7 +183,7 @@ class PagedNav
     }
 
     /**
-     * Calculate upper boundary of range of pages to display in navigation.
+     * Calculate the upper boundary of the range of pages to display in navigation.
      * @param int $curPage current page number
      * @return int
      */
@@ -212,10 +216,10 @@ class PagedNav
         $query = new QueryString($this->whitelist);
         $lb = $this->getLowerBoundary($curPage);
         $ub = $this->getUpperBoundary($curPage);
-        $str = '<div class="'.$this->cssClass.'">';
+        $str = '<div class="'.$this->bemClass().'">';
 
         if ($this->renderText) {
-            $str .= '<div class="text">';
+            $str .= '<div class="'.$this->bemClass('text').'">';
             $str .= $this->i18n[$this->lang]['search result'].': '.$this->numRec.' ';
             $str .= $this->numRec > 1 ? $this->i18n[$this->lang]['entries'] : $this->i18n[$this->lang]['entry'];
             $str .= ' '.$this->i18n[$this->lang]['on']." $this->numPages ";
@@ -223,12 +227,12 @@ class PagedNav
             $str .= '</div>';
         }
 
-        $str .= '<div class="pages">';
+        $str .= '<div class="'.$this->bemClass('pages').'">';
         // link jump back small
         if ($lb > $this->numLinks / 2) {
             // reuse existing query string in navigation links
             $queryStr = $query->withString([$this->queryVarName => $curPage - $this->stepSmall]);
-            $str .= '<span class="pageStepSmall prevPages"><a href="'.$this->path.$queryStr.'">';
+            $str .= '<span class="'.$this->bemClass('step-small', 'prev').'"><a href="'.$this->path.$queryStr.'">';
             $str .= '[-'.$this->stepSmall.']';
             $str .= '</a></span>';
         }
@@ -236,9 +240,9 @@ class PagedNav
         for (; $lb <= $ub; $lb++) {
             if ($this->numPages > 1) {
                 if ($lb === $curPage) {
-                    $str .= '<span class="curPage">';
+                    $str .= '<span class="'.$this->bemClass('page', 'current').'">';
                 } else {
-                    $str .= '<span class="page">';
+                    $str .= '<span class="'.$this->bemClass('page').'">';
                     $queryStr = $query->withString([$this->queryVarName => $lb]);
                     $str .= '<a href="'.$this->path.$queryStr.'">';
                 }
@@ -253,7 +257,7 @@ class PagedNav
         if ($ub <= $this->numPages - $this->numLinks / 2) {
             // reuse query string
             $queryStr = $query->withString([$this->queryVarName => $curPage + $this->stepSmall]);
-            $str .= '<span class="pageStepSmall nextPages"><a href="'.$this->path.$queryStr.'">';
+            $str .= '<span class="'.$this->bemClass('step-small', 'next').'"><a href="'.$this->path.$queryStr.'">';
             $str .= '[+'.$this->stepSmall.']';
             $str .= '</a></span>';
         }

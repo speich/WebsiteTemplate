@@ -21,6 +21,8 @@ class DivList extends Html
     /** @var string label for list */
     private string $labelName;
 
+    public ?string $bemBlock = 'divlist';
+
     /**
      * Construct a list of HtmlDiv elements.
      * @param string $id Id of container element
@@ -48,15 +50,17 @@ class DivList extends Html
      */
     public function render(): string
     {
+        $this->addCssClass($this->bemClass());
         $strHtml = '<div id="'.$this->getId().'"'.$this->renderCssClass().'>';
         if ($this->label) {
-            $strHtml .= '<div>'.$this->labelName.'</div>';
+            $strHtml .= '<div class="'.$this->bemClass('label').'">'.$this->labelName.'</div>';
         }
         foreach ($this->arrItem as $item) {
             if (is_array($item)) {
-                $strHtml .= '<div><a href="'.$item[0].'">'.$item[1].'</a></div>';
+                $strHtml .= '<div class="'.$this->bemClass('item').'">';
+                $strHtml .= '<a class="'.$this->bemClass('link').'" href="'.$item[0].'">'.$item[1].'</a></div>';
             } else {
-                $strHtml .= '<div>'.$item.'</div>';
+                $strHtml .= '<div class="'.$this->bemClass('item').'">'.$item.'</div>';
             }
         }
         $strHtml .= '</div>';

@@ -13,9 +13,7 @@ class RadioGroup extends Form
 
     public const RENDER_VERTICALLY = 2;
 
-    public string $cssClassMain = 'radiogroup';
-
-    public string $cssClassVertical = 'layout-vertical';
+    public ?string $bemBlock = 'radiogroup';
 
     /** @var RadioButton[] */
     public array $radios = [];
@@ -32,6 +30,7 @@ class RadioGroup extends Form
         foreach ($values as $key => $value) {
             $radio = new RadioButton($name.(++$key), $value);
             $radio->setName($name);
+            $radio->addCssClass($this->bemClass('item'));
             $this->radios[] = $radio;
         }
     }
@@ -96,9 +95,9 @@ class RadioGroup extends Form
      */
     public function render(?int $layout = null): string
     {
-        $this->addCssClass($this->cssClassMain);
+        $this->addCssClass($this->bemClass());
         if ($layout === self::RENDER_VERTICALLY) {
-            $this->addCssClass($this->cssClassVertical);
+            $this->addCssClass($this->bemClass(modifier: 'vertical'));
         }
         $html = '<div'.($this->id ? ' id="'.$this->getId().'"' : '').$this->renderCssClass().'>';
         foreach ($this->radios as $radio) {

@@ -8,14 +8,10 @@ namespace WebsiteTemplate;
  */
 class LanguageMenu
 {
+    use CssBemTrait;
+
     /** @var ?string id attribute of HTMLUListElement */
     public ?string $cssId = null;
-
-    /** @var string class attribute of HTMLUListElement */
-    public string $cssClass = 'nav';
-
-    /** @var string class attribute of HTMLLIElement */
-    public string $liClassActive = 'navActive';
 
     /** @var string url to redirect to if page does not exists in that language */
     public string $redirect;
@@ -39,6 +35,12 @@ class LanguageMenu
      */
     public function __construct(Language $lang, Website $web)
     {
+        // Initialize BEM defaults here (not as property overrides) because CssBemTrait
+        // is composed directly; redeclaring $bemBlock/$bemElement in the class body
+        // would trigger PHP's trait-property compatibility check (different default).
+        $this->bemBlock = 'lang-menu';
+        $this->bemElement = 'item';
+
         $this->lang = $lang;
         $this->web = $web;
         $this->redirect = '/'.$web->indexPage;
@@ -65,7 +67,7 @@ class LanguageMenu
         $query = new QueryString($this->whitelist);
         $str = '';
         $cssId = $this->cssId === null ? '' : ' id="'.$this->cssId.'"';
-        $str .= '<ul'.$cssId.' class="'.$this->cssClass.'">';
+        $str .= '<ul'.$cssId.' class="'.$this->bemClass(element: '').'">';
         foreach ($language->arrLang as $lang => $label) {
             $page = $this->lang->createPage($this->web->page, $lang);
             $path = $this->web->getDir();
@@ -76,9 +78,10 @@ class LanguageMenu
                 $url = $this->redirect.$query->withString(['lang' => $lang, 'url' => $path.$page]);
             }
             if ($lang === $language->get()) {
-                $str .= '<li class="'.$this->liClassActive.'">'.$text.'</li>';
+                $str .= '<li class="'.$this->bemClass(modifier: 'active').'">'.$text.'</li>';
             } else {
-                $str .= '<li><a href="'.htmlspecialchars($url).'" title="'.$label.'">'.$text.'</a></li>';
+                $str .= '<li class="'.$this->bemClass().'">';
+                $str .= '<a class="'.$this->bemClass('link').'" href="'.htmlspecialchars($url).'" title="'.$label.'">'.$text.'</a></li>';
             }
         }
         $str .= '</ul>';

@@ -18,10 +18,18 @@ trait InputRadioCheckboxTrait
      */
     public function renderInput(string $type): string
     {
-        $strInput = '';
-        $css = $this->renderCssClass();
+        $this->addCssClass($this->bemClass());
+        if ($this->checked) {
+            $this->addCssClass($this->bemClass(modifier: 'checked'));
+        }
+        if ($this->disabled) {
+            $this->addCssClass($this->bemClass(modifier: 'disabled'));
+        }
+        if ($this->required) {
+            $this->addCssClass($this->bemClass(modifier: 'required'));
+        }
 
-        $strInput .= '<input id="'.$this->getId().'"';
+        $strInput = '<input id="'.$this->getId().'"';
         if ($this->name !== false) {
             $strInput .= ' name="'.$this->name.'"';
         }
@@ -35,7 +43,7 @@ trait InputRadioCheckboxTrait
         if ($this->tabIndex) {
             $strInput .= ' tabindex="'.$this->tabIndex.'"';
         }
-        $strInput .= $css;
+        $strInput .= $this->renderCssClass();
         if ($this->required === true) {
             $strInput .= ' required="required"';
         }

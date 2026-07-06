@@ -16,6 +16,8 @@ class RadioButton extends Form
     /** @var string value attribute */
     public string $val;
 
+    public ?string $bemBlock = 'radio';
+
     /**
      * Construct an HTMLInputElement of type radio.
      * The constructor sets the id and value attribute of the HTMLRadioElement.
@@ -27,6 +29,7 @@ class RadioButton extends Form
     {
         $this->setId($id);
         $this->val = $val;
+        $this->name = $id;
     }
 
     /**

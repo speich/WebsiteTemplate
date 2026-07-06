@@ -5,13 +5,15 @@ namespace WebsiteTemplate\Html;
 /**
  * Create an HTMLInputElement of type checkbox.
  */
-class CheckBox extends Form
+class Checkbox extends Form
 {
 
     use InputRadioCheckboxTrait;
 
     /** @var string value attribute */
     public string $val;
+
+    public ?string $bemBlock = 'checkbox';
 
     /**
      * Construct an HTMLInputElement of type checkbox.
