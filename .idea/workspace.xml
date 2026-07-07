@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="-use modern-normalize to reset css&#10;-create and use minified css using bun">
-      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/HeadWebsiteTemplate.php" beforeDir="false" afterPath="$PROJECT_DIR$/demo/HeadWebsiteTemplate.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/demo/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/layout/css/layout.css" beforeDir="false" afterPath="$PROJECT_DIR$/demo/layout/css/layout.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/layout/css/layout.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/demo/layout/css/layout.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/layout/inc_nav.php" beforeDir="false" afterPath="$PROJECT_DIR$/demo/layout/inc_nav.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/menu.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/menu.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/menu.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/menu.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/php/Menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Menu.php" afterDir="false" />
-    </list>
+    <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="-refactoring&#10;-css improvements" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -84,61 +73,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="8.435967195163565E-6" />
-      <entry key="MS500" value="0.16819417148827187" />
-      <entry key="S2" value="1.0782938347454734" />
-      <entry key="S5" value="1.6975615860478337" />
-      <entry key="S10" value="2.439296148788754" />
-      <entry key="S30" value="4.524018154590995" />
-      <entry key="S60" value="6.421219583311893" />
-      <entry key="M2" value="8.1800109710914" />
-      <entry key="M5" value="9.843314297055256" />
-      <entry key="M10" value="12.464059351427135" />
-      <entry key="M15" value="19.07380485871243" />
-      <entry key="M30" value="59.271002358827026" />
-      <entry key="H1" value="153.94529206331447" />
-      <entry key="H2" value="371.44563200533435" />
-      <entry key="H4" value="863.3452028625259" />
-      <entry key="D1" value="2353.91841152034" />
-      <entry key="W1" value="2864.0674291811297" />
+      <entry key="MS100" value="1.419660389093067" />
+      <entry key="MS500" value="2.389852858592162" />
+      <entry key="S2" value="4.111627179784545" />
+      <entry key="S5" value="5.328887358710205" />
+      <entry key="S10" value="6.063917920761264" />
+      <entry key="S30" value="7.7565474804711645" />
+      <entry key="S60" value="10.006858123254204" />
+      <entry key="M2" value="12.673944555315513" />
+      <entry key="M5" value="15.521679167935664" />
+      <entry key="M10" value="18.603958322512298" />
+      <entry key="M15" value="25.193135296953983" />
+      <entry key="M30" value="64.90044101844714" />
+      <entry key="H1" value="159.16019772630787" />
+      <entry key="H2" value="376.2880595791005" />
+      <entry key="H4" value="867.8352101650067" />
+      <entry key="D1" value="2359.7766722346314" />
+      <entry key="W1" value="2870.8689376513253" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0000000000256022" />
-      <entry key="S2" value="1.0032752417361073" />
-      <entry key="S5" value="1.1540376858271553" />
-      <entry key="S10" value="1.6228503663735934" />
-      <entry key="S30" value="2.965575675248127" />
-      <entry key="S60" value="3.766306764628482" />
-      <entry key="M2" value="4.31494274489768" />
-      <entry key="M5" value="4.707347910274064" />
-      <entry key="M10" value="4.852346587924651" />
-      <entry key="M15" value="4.920177072162348" />
-      <entry key="M30" value="5.213235585682606" />
-      <entry key="H1" value="6.440375234112959" />
-      <entry key="H2" value="9.851371185966126" />
-      <entry key="H4" value="15.235954879179717" />
-      <entry key="D1" value="26.267099000033717" />
-      <entry key="W1" value="29.42031810079759" />
+      <entry key="MS100" value="9.466567193625521E-183" />
+      <entry key="MS500" value="3.937662633200985E-37" />
+      <entry key="S2" value="7.947485078528157E-10" />
+      <entry key="S5" value="2.640850654421543E-4" />
+      <entry key="S10" value="0.024549372918243162" />
+      <entry key="S30" value="0.7334372882003161" />
+      <entry key="S60" value="1.8730211344783538" />
+      <entry key="M2" value="3.0429059624722608" />
+      <entry key="M5" value="4.093565038081218" />
+      <entry key="M10" value="4.524957581665632" />
+      <entry key="M15" value="4.696300362008555" />
+      <entry key="M30" value="5.0932491027741325" />
+      <entry key="H1" value="6.365828795885281" />
+      <entry key="H2" value="9.794191123074064" />
+      <entry key="H4" value="15.191673698189595" />
+      <entry key="D1" value="26.254359953675795" />
+      <entry key="W1" value="29.418279348719953" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.0063540105540725806" />
-      <entry key="MS500" value="0.5311035009307844" />
-      <entry key="S2" value="1.8563910471909304" />
-      <entry key="S5" value="2.7373582590953607" />
-      <entry key="S10" value="3.9686657336368656" />
-      <entry key="S30" value="7.411963296648976" />
-      <entry key="S60" value="10.132711277860857" />
-      <entry key="M2" value="12.461801109257314" />
-      <entry key="M5" value="14.535577874543742" />
-      <entry key="M10" value="17.30800142297617" />
-      <entry key="M15" value="23.987619737754553" />
-      <entry key="M30" value="64.47933781801397" />
-      <entry key="H1" value="160.38091888592237" />
-      <entry key="H2" value="381.2921768335009" />
-      <entry key="H4" value="878.5769604542129" />
-      <entry key="D1" value="2380.1842114887227" />
-      <entry key="W1" value="2893.4875372084607" />
+      <entry key="MS100" value="1.3713015445605752" />
+      <entry key="MS500" value="2.373344323347582" />
+      <entry key="S2" value="4.104428607076194" />
+      <entry key="S5" value="5.325316965847443" />
+      <entry key="S10" value="6.08487507786509" />
+      <entry key="S30" value="8.469978693124455" />
+      <entry key="S60" value="11.85220415133866" />
+      <entry key="M2" value="15.693260663309468" />
+      <entry key="M5" value="19.602041713223368" />
+      <entry key="M10" value="23.12103582596663" />
+      <entry key="M15" value="29.88333451748064" />
+      <entry key="M30" value="69.98888854093788" />
+      <entry key="H1" value="165.52132595242125" />
+      <entry key="H2" value="386.07744879676204" />
+      <entry key="H4" value="883.0226969937538" />
+      <entry key="D1" value="2386.0297334898337" />
+      <entry key="W1" value="2900.2870068987327" />
     </decayedShown>
   </component>
   <component name="PhpServers">
@@ -465,7 +454,7 @@
       <workItem from="1783005118055" duration="854000" />
       <workItem from="1783319599341" duration="10027000" />
       <workItem from="1783345395039" duration="5468000" />
-      <workItem from="1783405109570" duration="5849000" />
+      <workItem from="1783405109570" duration="6342000" />
     </task>
     <task id="LOCAL-00018" summary="handle case when input stream returns an emtpy string">
       <option name="closed" value="true" />
@@ -683,7 +672,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783348118770</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="-refactoring&#10;-css improvements">
+      <option name="closed" value="true" />
+      <created>1783411728789</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1783411728790</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -707,7 +704,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="handle case when input stream returns an emtpy string" />
     <MESSAGE value="range start and end should be integers" />
     <MESSAGE value="used server variable should not contain the query string" />
     <MESSAGE value="update phpstorm settings" />
@@ -732,7 +728,8 @@
     <MESSAGE value="-implement wrapping label around (input) element&#10;-fix grammar" />
     <MESSAGE value="-refactor css&#10;-reorganize folder structure&#10;-use a class instead of an include" />
     <MESSAGE value="-use modern-normalize to reset css&#10;-create and use minified css using bun" />
-    <option name="LAST_COMMIT_MESSAGE" value="-use modern-normalize to reset css&#10;-create and use minified css using bun" />
+    <MESSAGE value="-refactoring&#10;-css improvements" />
+    <option name="LAST_COMMIT_MESSAGE" value="-refactoring&#10;-css improvements" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
