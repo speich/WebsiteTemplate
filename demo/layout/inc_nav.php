@@ -46,5 +46,5 @@ $menu2 = new Menu([
 		[6, 3, 'some'],
 	[7, 0, 'Contact']
 ]);
-$menu2->bemModifier = 'vertical-open';
+$menu2->bemModifier = 'vertical';
 $menu2->setActive('/services/load.php');

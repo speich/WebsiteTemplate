@@ -8,9 +8,9 @@ body {
 
 /* menu: specific separator lines */
 .menu_horizontal {
-    & > .menu__item:nth-child(2) > ul > .menu__item:nth-child(1),
-    & > .menu__item:nth-child(3) > ul > .menu__item:nth-child(1),
-    & > .menu__item:nth-child(3) > ul ul > .menu__item:nth-child(2) {
+    > .menu__item:nth-child(2) > ul > .menu__item:nth-child(1),
+    > .menu__item:nth-child(3) > ul > .menu__item:nth-child(1),
+    > .menu__item:nth-child(3) > ul ul > .menu__item:nth-child(2) {
         border-bottom: 1px solid var(--menu-border-light);
     }
 }

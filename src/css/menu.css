@@ -20,6 +20,7 @@
     cursor: pointer;
 
     /* Reset list styles and spacing for the root AND all nested submenus */
+
     &,
     & ul {
         list-style: none;
@@ -51,9 +52,12 @@
 
     &.menu__item_disabled > .menu__link {
         color: var(--menu-text-disabled);
+        pointer-events: none;
+        cursor: not-allowed;
     }
 
     /* --- Global Chevron for all items with children --- */
+
     &.menu__item_has-children > .menu__link {
         position: relative;
         padding-right: 1.5em; /* Ensures text never overlaps the arrow */
@@ -71,11 +75,6 @@
             transition: transform 0.2s ease-in-out;
         }
     }
-
-    /* Open State (Rotates arrow down) */
-    &.menu__item_open > .menu__link::after {
-        transform: translateY(-75%) rotate(45deg);
-    }
 }
 
 /* ==========================================================================
@@ -87,12 +86,14 @@
     border-width: 1px 0;
 
     /* Reveal ALL nested dropdowns on hover */
+
     & .menu__item:hover > ul {
         opacity: 1;
         visibility: visible;
     }
 
     /* Top-level items */
+
     & > .menu__item {
         color: var(--menu-text-secondary);
         position: relative;
@@ -100,6 +101,7 @@
         vertical-align: top;
 
         /* UX Tweak: Top-level horizontal dropdowns point DOWN, not right */
+
         &.menu__item_has-children > .menu__link::after {
             transform: translateY(-75%) rotate(45deg);
         }
@@ -110,6 +112,7 @@
     }
 
     /* Submenu container */
+
     & ul {
         position: absolute;
         border: 1px solid var(--menu-border);
@@ -121,6 +124,7 @@
         z-index: 100;
 
         /* Submenu items */
+
         & .menu__item {
             display: flex;
             position: relative;
@@ -144,17 +148,21 @@
 /* ==========================================================================
    Vertical Menus (Classic and Open)
    ========================================================================== */
-.menu_vertical,
-.menu_vertical-open {
+.menu_vertical {
     --menu-link-padding: 0.75em 1.5em 0.75em 0.25em;
     width: 10em;
 
-    & ul {
+    ul {
         margin-left: 0.75em;
     }
 
-    & .menu__link {
+    .menu__link {
         padding: var(--menu-link-padding);
         border-bottom: 1px solid var(--menu-border);
+    }
+
+    /* Open State (Rotates arrow down) */
+    .menu__item_open > .menu__link::after {
+        transform: translateY(-75%) rotate(45deg);
     }
 }
