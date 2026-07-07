@@ -10,8 +10,7 @@
     --menu-bg-gradient-end: #efefef;
     --menu-border: #999999;
     --menu-border-light: #cccccc;
-    --menu-shadow-dark: #cccccc;
-    --menu-shadow-light: #ffffff;
+    --menu-shadow: #cccccc 0px 4px 4px 0;
 
     /* --- Base Styles --- */
     cursor: pointer;
@@ -116,7 +115,7 @@
         opacity: 0;
         visibility: hidden;
         transition: opacity .5s ease-in-out;
-        box-shadow: var(--menu-shadow-dark) 4px 4px 4px;
+        box-shadow: var(--menu-shadow);
         z-index: 100;
 
         /* Submenu items */
@@ -135,8 +134,8 @@
 
     /* 3rd-level+ submenu positioning */
     & .menu__item ul ul {
-        left: calc(100% - 0.5em);
-        top: -1px;
+        left: calc(100% - 0.25em);
+        top: 3px;
     }
 }
 

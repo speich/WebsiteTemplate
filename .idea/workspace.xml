@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="remove unused div">
-      <change beforePath="$PROJECT_DIR$/demo/layout/css/layout.css" beforeDir="false" afterPath="$PROJECT_DIR$/demo/layout/css/layout.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/layout/css/layout.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/demo/layout/css/layout.min.css" afterDir="false" />
+    <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="fix separator lines">
+      <change afterPath="$PROJECT_DIR$/src/js/langUtil.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/js/urlUtil.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/js/formUtil.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/formUtil.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/js/numberUtil.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/numberUtil.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/js/stringUtil.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/stringUtil.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,61 +82,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.8513297675947084E-20" />
-      <entry key="MS500" value="1.1310889427372689E-4" />
-      <entry key="S2" value="0.10312744971315939" />
-      <entry key="S5" value="0.40410347346632525" />
-      <entry key="S10" value="0.682302526420795" />
-      <entry key="S30" value="1.6261052653619676" />
-      <entry key="S60" value="2.9851046327271913" />
-      <entry key="M2" value="5.286887593244182" />
-      <entry key="M5" value="10.780617898935747" />
-      <entry key="M10" value="17.33331856350191" />
-      <entry key="M15" value="24.243276834896864" />
-      <entry key="M30" value="59.53156124883303" />
-      <entry key="H1" value="149.20146862015173" />
-      <entry key="H2" value="361.88293615142396" />
-      <entry key="H4" value="849.1391683494288" />
-      <entry key="D1" value="2357.146974470792" />
-      <entry key="W1" value="2879.4946717202774" />
+      <entry key="MS100" value="1.0000000000000353" />
+      <entry key="MS500" value="1.002538126158422" />
+      <entry key="S2" value="1.37051760962666" />
+      <entry key="S5" value="2.225008134971889" />
+      <entry key="S10" value="3.363403733931058" />
+      <entry key="S30" value="10.843900011763472" />
+      <entry key="S60" value="20.88751373770073" />
+      <entry key="M2" value="32.34054940790507" />
+      <entry key="M5" value="53.43610166279736" />
+      <entry key="M10" value="79.83318737845251" />
+      <entry key="M15" value="99.5389888037221" />
+      <entry key="M30" value="145.34279721426398" />
+      <entry key="H1" value="233.57621812704602" />
+      <entry key="H2" value="436.99653548896566" />
+      <entry key="H4" value="911.3653383195762" />
+      <entry key="D1" value="2475.316637502559" />
+      <entry key="W1" value="3037.9363102975317" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0000000003448768" />
-      <entry key="S10" value="1.0000185708580394" />
-      <entry key="S30" value="1.0264816283032436" />
-      <entry key="S60" value="1.1631820135428264" />
-      <entry key="M2" value="1.4505851824881648" />
-      <entry key="M5" value="2.468724707886464" />
-      <entry key="M10" value="3.8005715970733527" />
-      <entry key="M15" value="4.5805771333701095" />
-      <entry key="M30" value="5.799277213688028" />
-      <entry key="H1" value="7.510563155263615" />
-      <entry key="H2" value="11.12212833764387" />
-      <entry key="H4" value="16.665722619035854" />
-      <entry key="D1" value="28.10161009588717" />
-      <entry key="W1" value="31.393789651782736" />
+      <entry key="MS100" value="2.0505492272879916E-278" />
+      <entry key="MS500" value="2.899840025357779E-56" />
+      <entry key="S2" value="1.3049489132946863E-14" />
+      <entry key="S5" value="2.7944061903777594E-6" />
+      <entry key="S10" value="0.0016905200402285074" />
+      <entry key="S30" value="0.15794168816773077" />
+      <entry key="S60" value="0.6658550407393822" />
+      <entry key="M2" value="1.5523104241796086" />
+      <entry key="M5" value="2.7133954392135857" />
+      <entry key="M10" value="3.484466810861874" />
+      <entry key="M15" value="4.150113501150712" />
+      <entry key="M30" value="5.919280516346966" />
+      <entry key="H1" value="8.469626855343595" />
+      <entry key="H2" value="12.638477498542818" />
+      <entry key="H4" value="18.710315270285584" />
+      <entry key="D1" value="31.52787778655026" />
+      <entry key="W1" value="35.30152210064813" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="8.344642541856883E-16" />
-      <entry key="MS500" value="0.001017588155909551" />
-      <entry key="S2" value="0.26160369180486454" />
-      <entry key="S5" value="0.8740704537503918" />
-      <entry key="S10" value="1.363992635441686" />
-      <entry key="S30" value="2.5256649042558807" />
-      <entry key="S60" value="4.0762355576402864" />
-      <entry key="M2" value="6.695561004561405" />
-      <entry key="M5" value="13.227724955806273" />
-      <entry key="M10" value="21.120317153281604" />
-      <entry key="M15" value="28.813441207201755" />
-      <entry key="M30" value="65.32366744621518" />
-      <entry key="H1" value="156.70615338536516" />
-      <entry key="H2" value="372.99968583884595" />
-      <entry key="H4" value="865.8003962170545" />
-      <entry key="D1" value="2385.247218051128" />
-      <entry key="W1" value="2910.8882406811676" />
+      <entry key="MS100" value="4.4006370244676886E-4" />
+      <entry key="MS500" value="0.21412223340274486" />
+      <entry key="S2" value="0.9797212293444486" />
+      <entry key="S5" value="1.966746957775439" />
+      <entry key="S10" value="3.165574034036519" />
+      <entry key="S30" value="10.879440727645234" />
+      <entry key="S60" value="21.462727986201685" />
+      <entry key="M2" value="33.8264179075372" />
+      <entry key="M5" value="56.111113045204014" />
+      <entry key="M10" value="83.29364940615561" />
+      <entry key="M15" value="103.67069249910723" />
+      <entry key="M30" value="151.2499695419642" />
+      <entry key="H1" value="242.03723557423373" />
+      <entry key="H2" value="449.628213820867" />
+      <entry key="H4" value="930.0703596181793" />
+      <entry key="D1" value="2506.842953491005" />
+      <entry key="W1" value="3073.2375804230196" />
     </decayedShown>
   </component>
   <component name="PhpServers">
@@ -207,6 +213,9 @@
       <path value="$PROJECT_DIR$/vendor/theseer/tokenizer" />
     </include_path>
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="AISelfReview" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -234,7 +243,7 @@
     "git-widget-placeholder": "dev-css-bem",
     "javascript.preferred.runtime.type.id": "node",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "/home/simon/Websites/WebsiteTemplate",
+    "last_opened_file_path": "/home/simon/Websites/WebsiteTemplate/src/js",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -250,6 +259,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/js" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/scripts/php/Layout" />
     </key>
@@ -457,7 +467,7 @@
       <workItem from="1783005118055" duration="854000" />
       <workItem from="1783319599341" duration="10027000" />
       <workItem from="1783345395039" duration="5468000" />
-      <workItem from="1783405109570" duration="6643000" />
+      <workItem from="1783405109570" duration="9742000" />
     </task>
     <task id="LOCAL-00018" summary="handle case when input stream returns an emtpy string">
       <option name="closed" value="true" />
@@ -691,7 +701,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783412236129</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="fix separator lines">
+      <option name="closed" value="true" />
+      <created>1783412589304</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1783412589304</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -715,7 +733,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="used server variable should not contain the query string" />
     <MESSAGE value="update phpstorm settings" />
     <MESSAGE value="remove keys from http_build_query" />
     <MESSAGE value="remove dependency of the class Website on the render method" />
@@ -740,7 +757,8 @@
     <MESSAGE value="-use modern-normalize to reset css&#10;-create and use minified css using bun" />
     <MESSAGE value="-refactoring&#10;-css improvements" />
     <MESSAGE value="remove unused div" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove unused div" />
+    <MESSAGE value="fix separator lines" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix separator lines" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
