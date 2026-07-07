@@ -52,7 +52,8 @@ class Menu
 
     /**
      * Hold menu items.
-     * @var MenuItem[]
+     * The array keys correspond to the unique ID of the MenuItem.
+     * @var array<int|string, MenuItem>
      */
     public array $arrItem = [];
 
@@ -114,14 +115,14 @@ class Menu
      *  [4, 0, 'item 9']
      * ]
      * or use the add method for each item individually.
-     * @param array<int, array{0: int|string, 1: int|string, 2: string, 3: string|null}> $arrItem
+     * @param array<int, array{0: int|string, 1: int|string, 2: string, 3?: string|null}> $menuData
      *         An array of menu items where each item is defined by:
      *         [0] => id (int|string)
      *         [1] => parentId (int|string)
      *         [2] => linkTxt (string)
      *         [3] => linkUrl (string|null)
      */
-    public function __construct(?array $arrItem = null)
+    public function __construct(?array $menuData = null)
     {
         // Initialize BEM defaults here (not as property overrides) because CssBemTrait
         // is composed directly; redeclaring $bemBlock/$bemElement in the class body
@@ -129,19 +130,19 @@ class Menu
         $this->bemBlock = 'menu';
         $this->bemElement = 'item';
 
-        if ($arrItem !== null) {
-            $this->addAll($arrItem);
+        if ($menuData !== null) {
+            $this->addAll($menuData);
         }
     }
 
     /**
      * Add all items to the menu.
-     * @param array $items
+     * @param array<int, array{0: int|string, 1: int|string, 2: string, 3?: string|null}> $menuData
      * @return void
      */
-    public function addAll(array $items): void
+    public function addAll(array $menuData): void
     {
-        foreach ($items as $item) {
+        foreach ($menuData as $item) {
             $this->arrItem[$item[0]] = $this->itemFromArray($item);
         }
     }
@@ -465,7 +466,7 @@ class Menu
     }
 
     /**
-     * Check if menu item has at least one child menu.
+     * Check if a menu item has at least one child menu.
      * @param int|string $id item id
      * @return bool
      */
@@ -480,5 +481,15 @@ class Menu
         }
 
         return $found;
+    }
+
+    /**
+     * Returns a menu item by its ID.
+     * @param string|int $id The unique ID of the menu item
+     * @return ?MenuItem Returns the item, or null if the ID does not exist
+     */
+    public function byId(string|int $id): ?MenuItem
+    {
+        return $this->arrItem[$id] ?? null;
     }
 }
