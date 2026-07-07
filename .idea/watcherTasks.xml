@@ -5,7 +5,7 @@
       <option name="arguments" value="compose -f ../frankenphp/docker-compose.yml exec -T --workdir /app/WebsiteTemplate/$FileRelativeDir$ assets bun build --outdir=. --entry-naming=&quot;[name].min.[ext]&quot; --minify --sourcemap=linked  --external=&quot;*.css&quot; $FileName$" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" />
-      <option name="exitCodeBehavior" value="ALWAYS" />
+      <option name="exitCodeBehavior" value="ERROR" />
       <option name="fileExtension" value="css" />
       <option name="immediateSync" value="true" />
       <option name="name" value="bun css" />

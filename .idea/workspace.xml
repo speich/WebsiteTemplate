@@ -4,19 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="-refactor css&#10;-reorganize folder structure&#10;-use a class instead of an include">
-      <change afterPath="$PROJECT_DIR$/demo/layout/css/layout.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/css/menu.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/css/modern-normalize.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/scopes/PHP_Files.xml" beforeDir="false" />
+    <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="-use modern-normalize to reset css&#10;-create and use minified css using bun">
+      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/demo/HeadWebsiteTemplate.php" beforeDir="false" afterPath="$PROJECT_DIR$/demo/HeadWebsiteTemplate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/demo/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/demo/layout/css/layout.css" beforeDir="false" afterPath="$PROJECT_DIR$/demo/layout/css/layout.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/layout/css/menu.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/menu.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/layout/css/reset.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/layout/css/layout.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/demo/layout/css/layout.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/layout/inc_nav.php" beforeDir="false" afterPath="$PROJECT_DIR$/demo/layout/inc_nav.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/menu.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/menu.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/menu.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/menu.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/Menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Menu.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +33,7 @@
     </execution>
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="63" />
+    <option name="cachedIndexableFilesCount" value="65" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -86,61 +84,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.8526348917679567" />
-      <entry key="MS500" value="1.968624951793941" />
-      <entry key="S2" value="2.0449019955715855" />
-      <entry key="S5" value="2.3816629412433046" />
-      <entry key="S10" value="2.8444204866651077" />
-      <entry key="S30" value="3.6964412546759986" />
-      <entry key="S60" value="4.184744897524961" />
-      <entry key="M2" value="4.554959651912084" />
-      <entry key="M5" value="5.78739018567277" />
-      <entry key="M10" value="10.64479493370883" />
-      <entry key="M15" value="17.564126784392272" />
-      <entry key="M30" value="42.70582555793928" />
-      <entry key="H1" value="120.87374182338881" />
-      <entry key="H2" value="402.40947731978906" />
-      <entry key="H4" value="948.1537610644584" />
-      <entry key="D1" value="2168.6074892411575" />
-      <entry key="W1" value="2521.283023847596" />
+      <entry key="MS100" value="8.435967195163565E-6" />
+      <entry key="MS500" value="0.16819417148827187" />
+      <entry key="S2" value="1.0782938347454734" />
+      <entry key="S5" value="1.6975615860478337" />
+      <entry key="S10" value="2.439296148788754" />
+      <entry key="S30" value="4.524018154590995" />
+      <entry key="S60" value="6.421219583311893" />
+      <entry key="M2" value="8.1800109710914" />
+      <entry key="M5" value="9.843314297055256" />
+      <entry key="M10" value="12.464059351427135" />
+      <entry key="M15" value="19.07380485871243" />
+      <entry key="M30" value="59.271002358827026" />
+      <entry key="H1" value="153.94529206331447" />
+      <entry key="H2" value="371.44563200533435" />
+      <entry key="H4" value="863.3452028625259" />
+      <entry key="D1" value="2353.91841152034" />
+      <entry key="W1" value="2864.0674291811297" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.2860155436512544E-43" />
-      <entry key="MS500" value="2.6414916583885592E-9" />
-      <entry key="S2" value="0.007169061580557539" />
-      <entry key="S5" value="0.13873464408749328" />
-      <entry key="S10" value="0.37247099764611646" />
-      <entry key="S30" value="0.719500037227881" />
-      <entry key="S60" value="0.8482388813272244" />
-      <entry key="M2" value="0.9233199164027648" />
-      <entry key="M5" value="1.056028858232211" />
-      <entry key="M10" value="1.2864193242949509" />
-      <entry key="M15" value="1.499337654590674" />
-      <entry key="M30" value="2.508379808917937" />
-      <entry key="H1" value="5.156041315653229" />
-      <entry key="H2" value="9.162835428187538" />
-      <entry key="H4" value="13.412954585916266" />
-      <entry key="D1" value="20.044307974748765" />
-      <entry key="W1" value="21.70277752196067" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0000000000256022" />
+      <entry key="S2" value="1.0032752417361073" />
+      <entry key="S5" value="1.1540376858271553" />
+      <entry key="S10" value="1.6228503663735934" />
+      <entry key="S30" value="2.965575675248127" />
+      <entry key="S60" value="3.766306764628482" />
+      <entry key="M2" value="4.31494274489768" />
+      <entry key="M5" value="4.707347910274064" />
+      <entry key="M10" value="4.852346587924651" />
+      <entry key="M15" value="4.920177072162348" />
+      <entry key="M30" value="5.213235585682606" />
+      <entry key="H1" value="6.440375234112959" />
+      <entry key="H2" value="9.851371185966126" />
+      <entry key="H4" value="15.235954879179717" />
+      <entry key="D1" value="26.267099000033717" />
+      <entry key="W1" value="29.42031810079759" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9553658660857312" />
-      <entry key="MS500" value="1.4240873176436708" />
-      <entry key="S2" value="1.8560571204182699" />
-      <entry key="S5" value="2.3863177068474664" />
-      <entry key="S10" value="3.1083829178095344" />
-      <entry key="S30" value="4.355171600913179" />
-      <entry key="S60" value="4.9959659180020015" />
-      <entry key="M2" value="5.45738281214863" />
-      <entry key="M5" value="6.833188385826193" />
-      <entry key="M10" value="11.923644787424895" />
-      <entry key="M15" value="19.05642971711568" />
-      <entry key="M30" value="45.207054763362386" />
-      <entry key="H1" value="126.02271070000461" />
-      <entry key="H2" value="411.5663497785287" />
-      <entry key="H4" value="961.5624211284022" />
-      <entry key="D1" value="2188.650728042007" />
-      <entry key="W1" value="2542.9856357950293" />
+      <entry key="MS100" value="0.0063540105540725806" />
+      <entry key="MS500" value="0.5311035009307844" />
+      <entry key="S2" value="1.8563910471909304" />
+      <entry key="S5" value="2.7373582590953607" />
+      <entry key="S10" value="3.9686657336368656" />
+      <entry key="S30" value="7.411963296648976" />
+      <entry key="S60" value="10.132711277860857" />
+      <entry key="M2" value="12.461801109257314" />
+      <entry key="M5" value="14.535577874543742" />
+      <entry key="M10" value="17.30800142297617" />
+      <entry key="M15" value="23.987619737754553" />
+      <entry key="M30" value="64.47933781801397" />
+      <entry key="H1" value="160.38091888592237" />
+      <entry key="H2" value="381.2921768335009" />
+      <entry key="H4" value="878.5769604542129" />
+      <entry key="D1" value="2380.1842114887227" />
+      <entry key="W1" value="2893.4875372084607" />
     </decayedShown>
   </component>
   <component name="PhpServers">
@@ -227,6 +225,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Docker.Ollama: Compose Deployment.executor": "Run",
     "Docker.frankenphp: Compose Deployment.executor": "Run",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
@@ -252,7 +251,7 @@
     "nodejs_package_manager_path": "bun",
     "npm.modern-normalize:build.executor": "Run",
     "run.code.analysis.last.selected.profile": "aDefault",
-    "settings.editor.selected.configurable": "watcher.settings",
+    "settings.editor.selected.configurable": "Errors",
     "to.speed.mode.migration.done": "true",
     "two.files.diff.last.used.file": "C:/Users/speich/Websites/WebsiteTemplate/scripts/php/Html/SelectField.php"
   }
@@ -270,9 +269,19 @@
       <recent name="$PROJECT_DIR$/library" />
     </key>
   </component>
-  <component name="RunManager" selected="Docker.frankenphp: Compose Deployment">
+  <component name="RunManager" selected="Docker.Ollama: Compose Deployment">
+    <configuration name="Ollama: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker ERITHACUS">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="../../Projects/Ollama/docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
-      <deployment type="docker-compose.yml" />
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
       <method v="2" />
     </configuration>
     <configuration name="frankenphp: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker ERITHACUS">
@@ -295,6 +304,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Docker.Ollama: Compose Deployment" />
         <item itemvalue="Docker.frankenphp: Compose Deployment" />
         <item itemvalue="npm.modern-normalize:build" />
       </list>
@@ -454,7 +464,8 @@
       <workItem from="1783001970275" duration="784000" />
       <workItem from="1783005118055" duration="854000" />
       <workItem from="1783319599341" duration="10027000" />
-      <workItem from="1783345395039" duration="2673000" />
+      <workItem from="1783345395039" duration="5468000" />
+      <workItem from="1783405109570" duration="5849000" />
     </task>
     <task id="LOCAL-00018" summary="handle case when input stream returns an emtpy string">
       <option name="closed" value="true" />
@@ -664,7 +675,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783341624916</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="-use modern-normalize to reset css&#10;-create and use minified css using bun">
+      <option name="closed" value="true" />
+      <created>1783348118770</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1783348118770</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -688,7 +707,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="trim whitespace" />
     <MESSAGE value="handle case when input stream returns an emtpy string" />
     <MESSAGE value="range start and end should be integers" />
     <MESSAGE value="used server variable should not contain the query string" />
@@ -713,7 +731,8 @@
     <MESSAGE value="fix broken whitelisting after previous commit removing passing null" />
     <MESSAGE value="-implement wrapping label around (input) element&#10;-fix grammar" />
     <MESSAGE value="-refactor css&#10;-reorganize folder structure&#10;-use a class instead of an include" />
-    <option name="LAST_COMMIT_MESSAGE" value="-refactor css&#10;-reorganize folder structure&#10;-use a class instead of an include" />
+    <MESSAGE value="-use modern-normalize to reset css&#10;-create and use minified css using bun" />
+    <option name="LAST_COMMIT_MESSAGE" value="-use modern-normalize to reset css&#10;-create and use minified css using bun" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

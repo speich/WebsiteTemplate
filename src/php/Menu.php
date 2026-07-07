@@ -114,7 +114,12 @@ class Menu
      *  [4, 0, 'item 9']
      * ]
      * or use the add method for each item individually.
-     * @param array|null $arrItem menu items
+     * @param array<int, array{0: int|string, 1: int|string, 2: string, 3: string|null}> $arrItem
+     *         An array of menu items where each item is defined by:
+     *         [0] => id (int|string)
+     *         [1] => parentId (int|string)
+     *         [2] => linkTxt (string)
+     *         [3] => linkUrl (string|null)
      */
     public function __construct(?array $arrItem = null)
     {
@@ -126,6 +131,18 @@ class Menu
 
         if ($arrItem !== null) {
             $this->addAll($arrItem);
+        }
+    }
+
+    /**
+     * Add all items to the menu.
+     * @param array $items
+     * @return void
+     */
+    public function addAll(array $items): void
+    {
+        foreach ($items as $item) {
+            $this->arrItem[$item[0]] = $this->itemFromArray($item);
         }
     }
 
@@ -157,18 +174,6 @@ class Menu
         } else {
             // note: arrItem is an associative array where key and index are not the same.
             $this->insert($newItem, $idAfter);
-        }
-    }
-
-    /**
-     * Add all items to the menu.
-     * @param array $items
-     * @return void
-     */
-    public function addAll(array $items): void
-    {
-        foreach ($items as $item) {
-            $this->arrItem[$item[0]] = $this->itemFromArray($item);
         }
     }
 
@@ -401,7 +406,7 @@ class Menu
             if (!empty($this->bemModifier)) {
                 $ulClasses[] = $this->bemClass(element: '');
             }
-            $this->html .= ' class="'. implode(' ', $ulClasses) .'"';
+            $this->html .= ' class="'.implode(' ', $ulClasses).'"';
 
             if ($this->cssId !== null) {
                 $this->html .= ' id="'.$this->cssId.'"';
@@ -435,6 +440,7 @@ class Menu
 
         return $this->html;
     }
+
     /**
      * Sets the CSS class string of the item depending on it's status.
      * @param MenuItem $item

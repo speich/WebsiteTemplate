@@ -1,13 +1,23 @@
+@import "../../../src/css/menu.min.css";
+
 body {
-	background-color: #ffffff;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 1rem;
-	padding: 1.5rem;
+    background-color: #ffffff;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    padding: 1.5rem;
 }
 
-h2 {
-	margin-bottom: 2rem;
+/* menu: specific separator lines */
+& > .menu__item:nth-child(2) > ul > .menu__item:nth-child(1),
+& > .menu__item:nth-child(3) > ul > .menu__item:nth-child(1),
+& > .menu__item:nth-child(3) > ul ul > .menu__item:nth-child(2) {
+    border-bottom: 1px solid;
+    border-image: linear-gradient(
+            to right,
+            var(--menu-bg-gradient-start),
+            var(--menu-bg-gradient-start) 3px,
+            var(--menu-border-light) 12px,
+            var(--menu-border-light) calc(100% - 12px),
+            var(--menu-bg-gradient-start) calc(100% - 3px)
+    ) 1;
+    box-shadow: 0 1px var(--menu-shadow-light);
 }
-
-p { margin: 0.5rem 0; }
-.menu { margin: 4rem; }

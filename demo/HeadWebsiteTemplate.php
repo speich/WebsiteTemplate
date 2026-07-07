@@ -18,7 +18,6 @@ class HeadWebsiteTemplate extends Head
         return '<meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <link type="text/css" rel="stylesheet" href="/src/css/modern-normalize.min.css" media="all">
-            <link type="text/css" rel="stylesheet" href="/src/css/menu.min.css" media="all">
-            <link type="text/css" rel="stylesheet" href="/demo/layout/css/layout.min.css" media="all">';
+             <link type="text/css" rel="stylesheet" href="/demo/layout/css/layout.min.css" media="all">';
     }
 }

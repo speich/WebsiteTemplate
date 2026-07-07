@@ -8,7 +8,8 @@
 
 <body>
 <p>Default Website Project Template</p>
-<h2>Simple CSS menu</h2>
+<h2>Cascading dropdown menu</h2>
+<p>An animated and fluid menu in pure CSS with nested sub menus.</p>
 <?php echo $menu2->render(); ?>
 
 <h2>PHP menu</h2>
