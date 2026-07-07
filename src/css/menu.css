@@ -5,12 +5,16 @@
     --menu-text-active: #a00a00;
     --menu-text-active-alt: #b31e00;
     --menu-text-disabled: #cccccc;
-    --menu-bg-submenu: #fafafa;
     --menu-bg-gradient-start: #ffffff;
     --menu-bg-gradient-end: #efefef;
     --menu-border: #999999;
     --menu-border-light: #cccccc;
     --menu-shadow: #cccccc 0px 4px 4px 0;
+    --menu-link-padding: 0.25em 0.75em;
+    --submenu-bg: #fafafa;
+    --submenu-padding: 0.25em;
+    --submenu-link-padding: 0.5em 1.5em 0.5em 1em;
+
 
     /* --- Base Styles --- */
     cursor: pointer;
@@ -78,8 +82,6 @@
    Horizontal Menu (Animated with Dropdowns)
    ========================================================================== */
 .menu_horizontal {
-    margin-left: 0.45em;
-    margin-top: 0.75em;
     background: linear-gradient(to bottom, var(--menu-bg-gradient-start), var(--menu-bg-gradient-end)) no-repeat;
     border: solid var(--menu-border);
     border-width: 1px 0;
@@ -104,14 +106,14 @@
     }
 
     & .menu__link {
-        padding: 0.25em 0.75em;
+        padding: var(--menu-link-padding);
     }
 
     /* Submenu container */
     & ul {
         position: absolute;
         border: 1px solid var(--menu-border);
-        background-color: var(--menu-bg-submenu);
+        background-color: var(--submenu-bg);
         opacity: 0;
         visibility: hidden;
         transition: opacity .5s ease-in-out;
@@ -126,8 +128,8 @@
 
         & .menu__link {
             flex: auto;
-            min-width: 7.5em;
-            padding: 0.5em 1.5em 0.5em 0.75em;
+            min-width: 9em;
+            padding: var(--submenu-link-padding);
             white-space: nowrap;
         }
     }
@@ -144,23 +146,15 @@
    ========================================================================== */
 .menu_vertical,
 .menu_vertical-open {
-    width: 9.5em;
+    --menu-link-padding: 0.75em 1.5em 0.75em 0.25em;
+    width: 10em;
 
     & ul {
         margin-left: 0.75em;
     }
 
-    & .menu__item {
-        padding: 1px 0;
-    }
-
     & .menu__link {
-        padding: 0.375em 0;
+        padding: var(--menu-link-padding);
         border-bottom: 1px solid var(--menu-border);
-    }
-
-    & .menu__item_active:not(.menu__item_has-children) > .menu__link {
-        color: var(--menu-text-active-alt);
-        background-image: linear-gradient(to bottom, var(--menu-bg-gradient-start), var(--menu-bg-gradient-end));
     }
 }
