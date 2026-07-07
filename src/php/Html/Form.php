@@ -116,24 +116,13 @@ class Form extends Html
         $css = $this->renderCssClass();
         $labelTag = '<label for="'.$this->getId().'"'.$css.'>';
         $label = $this->getLabel();
-        switch ($this->labelPosition) {
-            case self::LABEL_BEFORE:
-                $strHtml = $labelTag.$label.'</label>'.$strInput;
-                break;
-            case self::LABEL_AFTER:
-                $strHtml = $strInput.$labelTag.$label.'</label>';
-                break;
-            case self::LABEL_WRAPPED_BEFORE:
-                $strHtml = $labelTag.$label.$strInput.'</label>';
-                break;
-            case self::LABEL_WRAPPED_AFTER:
-                $strHtml = $labelTag.$strInput.$label.'</label>';
-                break;
-            default:
-                $strHtml = $labelTag.$label.'</label>'.$strInput;
-        }
 
-        return $strHtml;
+        return match ($this->labelPosition) {
+            self::LABEL_AFTER => $strInput.$labelTag.$label.'</label>',
+            self::LABEL_WRAPPED_BEFORE => $labelTag.$label.$strInput.'</label>',
+            self::LABEL_WRAPPED_AFTER => $labelTag.$strInput.$label.'</label>',
+            default => $labelTag.$label.'</label>'.$strInput,
+        };
     }
 
     /**

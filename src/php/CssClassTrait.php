@@ -22,7 +22,7 @@ trait CssClassTrait
         $classes = explode(' ', implode(' ', $names));
 
         // Trim each class and safely filter out empty strings (preserves '0' if it exists)
-        $newClasses = array_filter(array_map('trim', $classes), fn($class) => $class !== '');
+        $newClasses = array_filter(array_map('trim', $classes), static fn($class) => $class !== '');
 
         // Merge, deduplicate, and re-index the final array
         $this->cssClasses = array_values(array_unique(array_merge($this->cssClasses, $newClasses)));

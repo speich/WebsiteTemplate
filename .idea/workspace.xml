@@ -4,14 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="fix open/closed chevron">
+    <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="fix grammar">
       <change beforePath="$PROJECT_DIR$/src/php/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Controller.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/php/Html/Checkbox.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/Checkbox.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/CssClassTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/CssClassTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/Error.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Error.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/Header.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Header.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/php/Html/Form.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/Form.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/php/Html/Html.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/Html.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/php/Html/InputRadioCheckboxTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/InputRadioCheckboxTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/php/Html/RadioButton.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/RadioButton.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/php/Html/RadioGroup.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/RadioGroup.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/Http.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Http.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,61 +82,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0" />
-      <entry key="S10" value="1.0" />
-      <entry key="S30" value="1.0000000000943583" />
-      <entry key="S60" value="1.0000122087349388" />
-      <entry key="M2" value="1.0047610610907505" />
-      <entry key="M5" value="1.1768311358469428" />
-      <entry key="M10" value="1.6068371761297002" />
-      <entry key="M15" value="2.0723531087263467" />
-      <entry key="M30" value="5.775396006800149" />
-      <entry key="H1" value="27.315129321188085" />
-      <entry key="H2" value="118.0755201159428" />
-      <entry key="H4" value="431.77739699962075" />
-      <entry key="D1" value="2269.4509509450677" />
-      <entry key="W1" value="3177.516035309888" />
+      <entry key="MS100" value="1.0987069149230042" />
+      <entry key="MS500" value="1.9355114230719455" />
+      <entry key="S2" value="3.1105451929212835" />
+      <entry key="S5" value="3.5923501151018717" />
+      <entry key="S10" value="3.7862126209362406" />
+      <entry key="S30" value="3.9300773188534506" />
+      <entry key="S60" value="4.024741128794396" />
+      <entry key="M2" value="4.279483373736921" />
+      <entry key="M5" value="5.15425979645263" />
+      <entry key="M10" value="6.26323223856307" />
+      <entry key="M15" value="7.076123713672489" />
+      <entry key="M30" value="10.555639000469014" />
+      <entry key="H1" value="29.706514770423755" />
+      <entry key="H2" value="115.17750011930224" />
+      <entry key="H4" value="420.4876589946854" />
+      <entry key="D1" value="2260.1930925622187" />
+      <entry key="W1" value="3181.254865938292" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
-      <entry key="S2" value="2.3918755505923512E-151" />
-      <entry key="S5" value="5.6428280082600925E-61" />
-      <entry key="S10" value="7.530715654849251E-31" />
-      <entry key="S30" value="1.1049134832894146E-10" />
-      <entry key="S60" value="1.579244898374108E-5" />
-      <entry key="M2" value="0.006625472043434408" />
-      <entry key="M5" value="0.2575776110013664" />
-      <entry key="M10" value="0.8778449412907285" />
-      <entry key="M15" value="1.3238241883248978" />
-      <entry key="M30" value="2.093624228988614" />
-      <entry key="H1" value="3.3964648392021606" />
-      <entry key="H2" value="6.73575034566172" />
-      <entry key="H4" value="13.769634565302082" />
-      <entry key="D1" value="36.628306468553646" />
-      <entry key="W1" value="45.30260940083943" />
+      <entry key="S2" value="3.9351950291243034E-286" />
+      <entry key="S5" value="6.886330874733455E-115" />
+      <entry key="S10" value="8.319204231158774E-58" />
+      <entry key="S30" value="1.1422034091505368E-19" />
+      <entry key="S60" value="5.077583476155472E-10" />
+      <entry key="M2" value="3.756822017336175E-5" />
+      <entry key="M5" value="0.03253491142584907" />
+      <entry key="M10" value="0.31198848825972403" />
+      <entry key="M15" value="0.6642182713454088" />
+      <entry key="M30" value="1.4829926159746776" />
+      <entry key="H1" value="2.85855958689946" />
+      <entry key="H2" value="6.179396254801269" />
+      <entry key="H4" value="13.188713867084047" />
+      <entry key="D1" value="36.36610970603817" />
+      <entry key="W1" value="45.25613948465266" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9075191553171609" />
-      <entry key="MS500" value="0.9807790039885513" />
-      <entry key="S2" value="0.9951597218200828" />
-      <entry key="S5" value="0.9980610700524115" />
-      <entry key="S10" value="0.9990300646389034" />
-      <entry key="S30" value="0.999676583826617" />
-      <entry key="S60" value="0.9998659867335624" />
-      <entry key="M2" value="1.011246400335305" />
-      <entry key="M5" value="1.433475456179835" />
-      <entry key="M10" value="2.483140916356074" />
-      <entry key="M15" value="3.39462080842653" />
-      <entry key="M30" value="7.867405339385988" />
-      <entry key="H1" value="30.70869553593454" />
-      <entry key="H2" value="124.80676057870309" />
-      <entry key="H4" value="445.5419970819638" />
-      <entry key="D1" value="2306.0770853475237" />
-      <entry key="W1" value="3222.8182647732656" />
+      <entry key="MS100" value="1.047978382708691" />
+      <entry key="MS500" value="1.9190770686733007" />
+      <entry key="S2" value="3.1042286738872065" />
+      <entry key="S5" value="3.5894643788454785" />
+      <entry key="S10" value="3.784697708632841" />
+      <entry key="S30" value="3.929554750466798" />
+      <entry key="S60" value="4.024475544341789" />
+      <entry key="M2" value="4.279382271663225" />
+      <entry key="M5" value="5.186614708526484" />
+      <entry key="M10" value="6.574638381910024" />
+      <entry key="M15" value="7.739536752235073" />
+      <entry key="M30" value="12.037474823847198" />
+      <entry key="H1" value="32.562628117193896" />
+      <entry key="H2" value="121.35275559465583" />
+      <entry key="H4" value="433.67154906001616" />
+      <entry key="D1" value="2296.5570454621366" />
+      <entry key="W1" value="3226.5106258339606" />
     </decayedShown>
   </component>
   <component name="PhpServers">
@@ -213,7 +214,7 @@
     </include_path>
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="AISelfReview" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
@@ -466,23 +467,7 @@
       <workItem from="1783005118055" duration="854000" />
       <workItem from="1783319599341" duration="10027000" />
       <workItem from="1783345395039" duration="5468000" />
-      <workItem from="1783405109570" duration="22592000" />
-    </task>
-    <task id="LOCAL-00024" summary="remove dependency of the class Website on the render method">
-      <option name="closed" value="true" />
-      <created>1739352998219</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1739352998219</updated>
-    </task>
-    <task id="LOCAL-00025" summary="change folder case to CamelCase">
-      <option name="closed" value="true" />
-      <created>1741253128676</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1741253128676</updated>
+      <workItem from="1783405109570" duration="23485000" />
     </task>
     <task id="LOCAL-00026" summary="-property type was used inconsistently&#10;-rename method to be more sensible">
       <option name="closed" value="true" />
@@ -724,7 +709,23 @@
       <option name="project" value="LOCAL" />
       <updated>1783430771909</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="refactor">
+      <option name="closed" value="true" />
+      <created>1783437368411</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1783437368411</updated>
+    </task>
+    <task id="LOCAL-00057" summary="fix grammar">
+      <option name="closed" value="true" />
+      <created>1783438021746</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1783438021746</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -748,8 +749,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="whitelisting was ignored when null was passed" />
-    <MESSAGE value="fix replace with empty string" />
     <MESSAGE value="use explicitly set domain for cookies" />
     <MESSAGE value="grammar" />
     <MESSAGE value="set cookie option secure to true" />
@@ -773,7 +772,9 @@
     <MESSAGE value="code cleanup" />
     <MESSAGE value="remove redundancy of css class methods  and refactor into a Trait" />
     <MESSAGE value="fix open/closed chevron" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix open/closed chevron" />
+    <MESSAGE value="refactor" />
+    <MESSAGE value="fix grammar" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix grammar" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

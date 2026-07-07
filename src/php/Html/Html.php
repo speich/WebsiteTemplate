@@ -4,7 +4,6 @@ namespace WebsiteTemplate\Html;
 
 use WebsiteTemplate\CssBemTrait;
 use WebsiteTemplate\CssClassTrait;
-use function count;
 
 /**
  * Base class to create HTML snippets.

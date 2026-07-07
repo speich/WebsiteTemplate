@@ -3,7 +3,6 @@
 namespace WebsiteTemplate;
 
 use function array_key_exists;
-use function count;
 use function in_array;
 
 /**
@@ -109,7 +108,7 @@ class Header
         // Filter out any existing headers that match the name (case-insensitive)
         $this->headers = array_filter(
             $this->headers,
-            fn($key) => strtolower($key) !== strtolower($name),
+            static fn($key) => strtolower($key) !== strtolower($name),
             ARRAY_FILTER_USE_KEY
         );
 

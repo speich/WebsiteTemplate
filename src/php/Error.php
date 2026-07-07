@@ -33,7 +33,7 @@ class Error
     {
         // set_error_handler() does not catch fatal errors such as exceeding the allowed memory size
         // -> use register_shutdown_function() in addition
-        set_error_handler([$this, 'set'], E_ALL);
+        set_error_handler([$this, 'set']);
     }
 
     /**

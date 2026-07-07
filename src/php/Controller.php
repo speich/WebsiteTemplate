@@ -200,6 +200,7 @@ class Controller
      * Prints the body section of the HTTP response.
      * Prints the body in chunks if outputChunked is set to true.
      * @param string|null $data response body
+     * @throws JsonException
      */
     public function printBody(?string $data = null): void
     {

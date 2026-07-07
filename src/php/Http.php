@@ -23,7 +23,7 @@ class Http
         $lines = is_array($header) ? $header : explode("\r\n", $header);
         //$lines = array_filter($lines, !'empty');
         $head[0] = trim(array_shift($lines));  // message is always first line in header
-        preg_match("/HTTP\/[0-9\.]+\s+([0-9]+)/", $head[0], $code);
+        preg_match('/HTTP\/[0-9\.]+\s+([0-9]+)/', $head[0], $code);
         $head[1] = (int)$code[1];
         foreach ($lines as $line) {
             $arr = explode(':', $line, 2);
