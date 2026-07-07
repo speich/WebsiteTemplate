@@ -10,13 +10,10 @@
 <h1>Default Website Project Template</h1>
 <h2>Cascading dropdown menu</h2>
 <p>An animated and fluid menu in pure CSS with nested sub menus.</p>
-<?php echo $menu2->render(); ?>
+<?php echo $menu1->render(); ?>
 
 <h2>PHP menu</h2>
-<?php echo $menu3->render(); ?>
-
-<h2>PHP Menu all open</h2>
-<?php echo $menu4->render(); ?>
+<?php echo $menu2->render(); ?>
 
 </body>
 </html>

@@ -4,15 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="fix separator lines">
-      <change afterPath="$PROJECT_DIR$/src/js/langUtil.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/js/urlUtil.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/formUtil.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/formUtil.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/numberUtil.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/numberUtil.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/stringUtil.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/stringUtil.js" afterDir="false" />
+    <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="-make shadow configurable&#10;-improve submenu position">
+      <change beforePath="$PROJECT_DIR$/demo/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/demo/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/layout/inc_nav.php" beforeDir="false" afterPath="$PROJECT_DIR$/demo/layout/inc_nav.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/menu.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/menu.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/menu.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/menu.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/Menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Menu.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,61 +79,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0000000000000353" />
-      <entry key="MS500" value="1.002538126158422" />
-      <entry key="S2" value="1.37051760962666" />
-      <entry key="S5" value="2.225008134971889" />
-      <entry key="S10" value="3.363403733931058" />
-      <entry key="S30" value="10.843900011763472" />
-      <entry key="S60" value="20.88751373770073" />
-      <entry key="M2" value="32.34054940790507" />
-      <entry key="M5" value="53.43610166279736" />
-      <entry key="M10" value="79.83318737845251" />
-      <entry key="M15" value="99.5389888037221" />
-      <entry key="M30" value="145.34279721426398" />
-      <entry key="H1" value="233.57621812704602" />
-      <entry key="H2" value="436.99653548896566" />
-      <entry key="H4" value="911.3653383195762" />
-      <entry key="D1" value="2475.316637502559" />
-      <entry key="W1" value="3037.9363102975317" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0000000000000038" />
+      <entry key="S2" value="1.0004646251664735" />
+      <entry key="S5" value="1.1008894706518566" />
+      <entry key="S10" value="1.6292834911019671" />
+      <entry key="S30" value="3.154879494693087" />
+      <entry key="S60" value="3.9450882912040943" />
+      <entry key="M2" value="4.793247623274944" />
+      <entry key="M5" value="8.559558339413957" />
+      <entry key="M10" value="16.527709832541305" />
+      <entry key="M15" value="25.246412877209995" />
+      <entry key="M30" value="49.6860257571105" />
+      <entry key="H1" value="104.74114536026056" />
+      <entry key="H2" value="257.69898719676866" />
+      <entry key="H4" value="666.8095140995312" />
+      <entry key="D1" value="2410.9987362442766" />
+      <entry key="W1" value="3140.1548435541795" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="2.0505492272879916E-278" />
-      <entry key="MS500" value="2.899840025357779E-56" />
-      <entry key="S2" value="1.3049489132946863E-14" />
-      <entry key="S5" value="2.7944061903777594E-6" />
-      <entry key="S10" value="0.0016905200402285074" />
-      <entry key="S30" value="0.15794168816773077" />
-      <entry key="S60" value="0.6658550407393822" />
-      <entry key="M2" value="1.5523104241796086" />
-      <entry key="M5" value="2.7133954392135857" />
-      <entry key="M10" value="3.484466810861874" />
-      <entry key="M15" value="4.150113501150712" />
-      <entry key="M30" value="5.919280516346966" />
-      <entry key="H1" value="8.469626855343595" />
-      <entry key="H2" value="12.638477498542818" />
-      <entry key="H4" value="18.710315270285584" />
-      <entry key="D1" value="31.52787778655026" />
-      <entry key="W1" value="35.30152210064813" />
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="6.709665846598033E-94" />
+      <entry key="S5" value="5.378737586926888E-38" />
+      <entry key="S10" value="2.3192105525214583E-19" />
+      <entry key="S30" value="6.143936842638666E-7" />
+      <entry key="S60" value="7.83985575804474E-4" />
+      <entry key="M2" value="0.02839019047623579" />
+      <entry key="M5" value="0.2898256327055305" />
+      <entry key="M10" value="0.8318664152544295" />
+      <entry key="M15" value="1.3443283075332726" />
+      <entry key="M30" value="2.5311187210775756" />
+      <entry key="H1" value="4.557748917689225" />
+      <entry key="H2" value="8.74539607759037" />
+      <entry key="H4" value="15.853172739232932" />
+      <entry key="D1" value="33.913057646150996" />
+      <entry key="W1" value="39.86987158008898" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="4.4006370244676886E-4" />
-      <entry key="MS500" value="0.21412223340274486" />
-      <entry key="S2" value="0.9797212293444486" />
-      <entry key="S5" value="1.966746957775439" />
-      <entry key="S10" value="3.165574034036519" />
-      <entry key="S30" value="10.879440727645234" />
-      <entry key="S60" value="21.462727986201685" />
-      <entry key="M2" value="33.8264179075372" />
-      <entry key="M5" value="56.111113045204014" />
-      <entry key="M10" value="83.29364940615561" />
-      <entry key="M15" value="103.67069249910723" />
-      <entry key="M30" value="151.2499695419642" />
-      <entry key="H1" value="242.03723557423373" />
-      <entry key="H2" value="449.628213820867" />
-      <entry key="H4" value="930.0703596181793" />
-      <entry key="D1" value="2506.842953491005" />
-      <entry key="W1" value="3073.2375804230196" />
+      <entry key="MS100" value="2.0866795210398086E-11" />
+      <entry key="MS500" value="0.007309558576811391" />
+      <entry key="S2" value="0.292805847278293" />
+      <entry key="S5" value="0.6973764869872484" />
+      <entry key="S10" value="1.338838667573061" />
+      <entry key="S30" value="2.9636631542560234" />
+      <entry key="S60" value="3.8226502001590092" />
+      <entry key="M2" value="4.7483336493211485" />
+      <entry key="M5" value="8.805605166650283" />
+      <entry key="M10" value="17.325303209397955" />
+      <entry key="M15" value="26.561095173632143" />
+      <entry key="M30" value="52.19551083273557" />
+      <entry key="H1" value="109.28410677633512" />
+      <entry key="H2" value="266.43406250740406" />
+      <entry key="H4" value="682.6552652112375" />
+      <entry key="D1" value="2444.909607350424" />
+      <entry key="W1" value="3180.0243577547476" />
     </decayedShown>
   </component>
   <component name="PhpServers">
@@ -467,15 +464,7 @@
       <workItem from="1783005118055" duration="854000" />
       <workItem from="1783319599341" duration="10027000" />
       <workItem from="1783345395039" duration="5468000" />
-      <workItem from="1783405109570" duration="9742000" />
-    </task>
-    <task id="LOCAL-00018" summary="handle case when input stream returns an emtpy string">
-      <option name="closed" value="true" />
-      <created>1698138529454</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1698138529454</updated>
+      <workItem from="1783405109570" duration="16600000" />
     </task>
     <task id="LOCAL-00019" summary="range start and end should be integers">
       <option name="closed" value="true" />
@@ -709,7 +698,31 @@
       <option name="project" value="LOCAL" />
       <updated>1783412589304</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="quick update of the utilities">
+      <option name="closed" value="true" />
+      <created>1783415582240</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1783415582240</updated>
+    </task>
+    <task id="LOCAL-00049" summary="set php version back to 8.1">
+      <option name="closed" value="true" />
+      <created>1783415721430</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1783415721430</updated>
+    </task>
+    <task id="LOCAL-00050" summary="-make shadow configurable&#10;-improve submenu position">
+      <option name="closed" value="true" />
+      <created>1783418160527</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1783418160528</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -733,9 +746,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update phpstorm settings" />
-    <MESSAGE value="remove keys from http_build_query" />
-    <MESSAGE value="remove dependency of the class Website on the render method" />
     <MESSAGE value="change folder case to CamelCase" />
     <MESSAGE value="-property type was used inconsistently&#10;-rename method to be more sensible" />
     <MESSAGE value="-property types were used inconsistently.&#10;-rename method to be more sensible." />
@@ -758,7 +768,10 @@
     <MESSAGE value="-refactoring&#10;-css improvements" />
     <MESSAGE value="remove unused div" />
     <MESSAGE value="fix separator lines" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix separator lines" />
+    <MESSAGE value="quick update of the utilities" />
+    <MESSAGE value="set php version back to 8.1" />
+    <MESSAGE value="-make shadow configurable&#10;-improve submenu position" />
+    <option name="LAST_COMMIT_MESSAGE" value="-make shadow configurable&#10;-improve submenu position" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
