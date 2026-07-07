@@ -5,6 +5,8 @@
 
 namespace WebsiteTemplate;
 
+use WebsiteTemplate\Html\CssBemTrait;
+use WebsiteTemplate\Http\QueryString;
 use function array_key_exists;
 use function array_slice;
 use function count;

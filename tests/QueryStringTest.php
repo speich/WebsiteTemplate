@@ -1,8 +1,8 @@
 <?php
 
 
-use WebsiteTemplate\QueryString;
 use PHPUnit\Framework\TestCase;
+use WebsiteTemplate\Http\QueryString;
 
 final class QueryStringTest extends TestCase
 {

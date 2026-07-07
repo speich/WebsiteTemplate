@@ -1,6 +1,6 @@
 <?php
 
-namespace WebsiteTemplate;
+namespace WebsiteTemplate\Html;
 
 use LogicException;
 

@@ -2,6 +2,9 @@
 
 namespace WebsiteTemplate;
 
+use WebsiteTemplate\Html\CssBemTrait;
+use WebsiteTemplate\Http\QueryString;
+
 /**
  * Class LanguageMenu
  * Class to render a menu to change the language

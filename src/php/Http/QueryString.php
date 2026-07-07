@@ -1,6 +1,6 @@
 <?php
 
-namespace WebsiteTemplate;
+namespace WebsiteTemplate\Http;
 
 
 use function array_key_exists;

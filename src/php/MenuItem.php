@@ -5,6 +5,8 @@
 
 namespace WebsiteTemplate;
 
+use WebsiteTemplate\Html\CssClassTrait;
+
 /**
  * Class to create menu items.
  * MenuItems are part of a simple recursive php menu.

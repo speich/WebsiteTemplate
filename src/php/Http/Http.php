@@ -1,6 +1,6 @@
 <?php
 
-namespace WebsiteTemplate;
+namespace WebsiteTemplate\Http;
 
 use function count;
 use function is_array;

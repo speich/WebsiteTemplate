@@ -6,6 +6,9 @@
 
 namespace WebsiteTemplate;
 
+use WebsiteTemplate\Html\CssBemTrait;
+use WebsiteTemplate\Http\QueryString;
+
 /**
  * Class to create and display a paged navigation.
  */

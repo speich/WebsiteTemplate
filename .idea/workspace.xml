@@ -4,15 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="fix grammar">
-      <change beforePath="$PROJECT_DIR$/src/php/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Controller.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/php/CssClassTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/CssClassTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/php/Error.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Error.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/php/Header.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/php/Html/Form.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/Form.php" afterDir="false" />
+    <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="fix warnings reported by phpstorm">
+      <change afterPath="$PROJECT_DIR$/src/php/Http/Request.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/php/Http/Response.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/Controller.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/CssBemTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/CssBemTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/CssClassTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/CssClassTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/Header.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Http/Header.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/php/Html/Html.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/Html.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/php/Html/InputRadioCheckboxTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/InputRadioCheckboxTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/php/Http.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Http.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/Http.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Http/Http.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/LanguageMenu.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/LanguageMenu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/Menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Menu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/MenuItem.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/MenuItem.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/PagedNav.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/PagedNav.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/QueryString.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Http/QueryString.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/QueryStringTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/QueryStringTest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,61 +88,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0987069149230042" />
-      <entry key="MS500" value="1.9355114230719455" />
-      <entry key="S2" value="3.1105451929212835" />
-      <entry key="S5" value="3.5923501151018717" />
-      <entry key="S10" value="3.7862126209362406" />
-      <entry key="S30" value="3.9300773188534506" />
-      <entry key="S60" value="4.024741128794396" />
-      <entry key="M2" value="4.279483373736921" />
-      <entry key="M5" value="5.15425979645263" />
-      <entry key="M10" value="6.26323223856307" />
-      <entry key="M15" value="7.076123713672489" />
-      <entry key="M30" value="10.555639000469014" />
-      <entry key="H1" value="29.706514770423755" />
-      <entry key="H2" value="115.17750011930224" />
-      <entry key="H4" value="420.4876589946854" />
-      <entry key="D1" value="2260.1930925622187" />
-      <entry key="W1" value="3181.254865938292" />
-    </decayedCancelled>
-    <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
-      <entry key="S2" value="3.9351950291243034E-286" />
-      <entry key="S5" value="6.886330874733455E-115" />
-      <entry key="S10" value="8.319204231158774E-58" />
-      <entry key="S30" value="1.1422034091505368E-19" />
-      <entry key="S60" value="5.077583476155472E-10" />
-      <entry key="M2" value="3.756822017336175E-5" />
-      <entry key="M5" value="0.03253491142584907" />
-      <entry key="M10" value="0.31198848825972403" />
-      <entry key="M15" value="0.6642182713454088" />
-      <entry key="M30" value="1.4829926159746776" />
-      <entry key="H1" value="2.85855958689946" />
-      <entry key="H2" value="6.179396254801269" />
-      <entry key="H4" value="13.188713867084047" />
-      <entry key="D1" value="36.36610970603817" />
-      <entry key="W1" value="45.25613948465266" />
+      <entry key="S2" value="5.121856800638728E-110" />
+      <entry key="S5" value="2.249288303609065E-44" />
+      <entry key="S10" value="2.1693993443653267E-22" />
+      <entry key="S30" value="1.1908330845534016E-7" />
+      <entry key="S60" value="5.940410384823674E-4" />
+      <entry key="M2" value="0.042151374733043" />
+      <entry key="M5" value="0.5579301288112506" />
+      <entry key="M10" value="1.73757121912215" />
+      <entry key="M15" value="3.2424710137737374" />
+      <entry key="M30" value="8.254530639426966" />
+      <entry key="H1" value="23.800528692423377" />
+      <entry key="H2" value="94.33694869503503" />
+      <entry key="H4" value="371.4261101320951" />
+      <entry key="D1" value="2214.9428092567437" />
+      <entry key="W1" value="3181.630339234414" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0" />
+      <entry key="S30" value="1.0000000698799576" />
+      <entry key="S60" value="1.000373825083673" />
+      <entry key="M2" value="1.0273428322543914" />
+      <entry key="M5" value="1.3592353511101376" />
+      <entry key="M10" value="1.8554739464082914" />
+      <entry key="M15" value="2.1855626969595323" />
+      <entry key="M30" value="2.937249892575082" />
+      <entry key="H1" value="4.281497819375968" />
+      <entry key="H2" value="7.409454802572037" />
+      <entry key="H4" value="14.243761088348974" />
+      <entry key="D1" value="38.43673529899428" />
+      <entry key="W1" value="48.08953454643975" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.047978382708691" />
-      <entry key="MS500" value="1.9190770686733007" />
-      <entry key="S2" value="3.1042286738872065" />
-      <entry key="S5" value="3.5894643788454785" />
-      <entry key="S10" value="3.784697708632841" />
-      <entry key="S30" value="3.929554750466798" />
-      <entry key="S60" value="4.024475544341789" />
-      <entry key="M2" value="4.279382271663225" />
-      <entry key="M5" value="5.186614708526484" />
-      <entry key="M10" value="6.574638381910024" />
-      <entry key="M15" value="7.739536752235073" />
-      <entry key="M30" value="12.037474823847198" />
-      <entry key="H1" value="32.562628117193896" />
-      <entry key="H2" value="121.35275559465583" />
-      <entry key="H4" value="433.67154906001616" />
-      <entry key="D1" value="2296.5570454621366" />
-      <entry key="W1" value="3226.5106258339606" />
+      <entry key="MS100" value="1.6219309254107808E-4" />
+      <entry key="MS500" value="0.17458481655842473" />
+      <entry key="S2" value="0.6464004018106168" />
+      <entry key="S5" value="0.8398479125168961" />
+      <entry key="S10" value="0.9164321647110036" />
+      <entry key="S30" value="0.9713301195279876" />
+      <entry key="S60" value="0.9865093219198116" />
+      <entry key="M2" value="1.0615426476343377" />
+      <entry key="M5" value="1.910547277179685" />
+      <entry key="M10" value="3.587192651043099" />
+      <entry key="M15" value="5.423101876284592" />
+      <entry key="M30" value="11.188362334232389" />
+      <entry key="H1" value="28.07896143945257" />
+      <entry key="H2" value="101.74243010568496" />
+      <entry key="H4" value="385.6652552398752" />
+      <entry key="D1" value="2253.377360398047" />
+      <entry key="W1" value="3229.7194838411565" />
     </decayedShown>
   </component>
   <component name="PhpServers">
@@ -467,15 +473,7 @@
       <workItem from="1783005118055" duration="854000" />
       <workItem from="1783319599341" duration="10027000" />
       <workItem from="1783345395039" duration="5468000" />
-      <workItem from="1783405109570" duration="23485000" />
-    </task>
-    <task id="LOCAL-00026" summary="-property type was used inconsistently&#10;-rename method to be more sensible">
-      <option name="closed" value="true" />
-      <created>1741253193218</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1741253193219</updated>
+      <workItem from="1783405109570" duration="25570000" />
     </task>
     <task id="LOCAL-00027" summary="-property types were used inconsistently.&#10;-rename method to be more sensible.">
       <option name="closed" value="true" />
@@ -725,7 +723,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783438021746</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="fix warnings reported by phpstorm">
+      <option name="closed" value="true" />
+      <created>1783438275033</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1783438275033</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -749,7 +755,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="use explicitly set domain for cookies" />
     <MESSAGE value="grammar" />
     <MESSAGE value="set cookie option secure to true" />
     <MESSAGE value="use cookie default options" />
@@ -774,7 +779,8 @@
     <MESSAGE value="fix open/closed chevron" />
     <MESSAGE value="refactor" />
     <MESSAGE value="fix grammar" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix grammar" />
+    <MESSAGE value="fix warnings reported by phpstorm" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix warnings reported by phpstorm" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

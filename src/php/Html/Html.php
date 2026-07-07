@@ -2,9 +2,6 @@
 
 namespace WebsiteTemplate\Html;
 
-use WebsiteTemplate\CssBemTrait;
-use WebsiteTemplate\CssClassTrait;
-
 /**
  * Base class to create HTML snippets.
  *

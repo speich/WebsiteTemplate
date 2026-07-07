@@ -1,6 +1,6 @@
 <?php
 
-namespace WebsiteTemplate;
+namespace WebsiteTemplate\Html;
 
 /**
  * Trait to handle adding and rendering CSS classes.
