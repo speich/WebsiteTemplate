@@ -37,14 +37,14 @@ class Menu
     public const MATCH_PATH = 1;
 
     /**
-     * Item url should match both path and query string of page url when setting item to active automatically.
+     * Item url should match both the path and query string of the page url when setting the item to active automatically.
      * All query string variables and values of the item url have to occur also in the query string of the page url.
      * @var int
      */
     public const MATCH_FULL = 2;
 
     /**
-     * Item url should match path and partially the query string of page url when setting item to active automatically.
+     * Item url should match the path and partially the query string of page url when setting item to active automatically.
      * Only all query string variables but not the query values of the item url have to occur also in the query string of the page url.
      * @var int
      */
@@ -73,7 +73,7 @@ class Menu
     public bool $allChildrenOpen = false;
 
     /**
-     * Automatically set the CSS state to active if url is the same as of the current page.
+     * Automatically set the CSS state to active if the url is the same as of the current page.
      * @var bool
      */
     public bool $autoActive = true;
@@ -443,7 +443,7 @@ class Menu
     }
 
     /**
-     * Sets the CSS class string of the item depending on it's status.
+     * Sets the CSS class string of the item depending on its status.
      * @param MenuItem $item
      */
     protected function setItemCssClass(MenuItem $item): void

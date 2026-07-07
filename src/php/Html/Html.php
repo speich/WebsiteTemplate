@@ -19,14 +19,8 @@ abstract class Html
     /** @var bool|string html id attribute */
     protected string|bool $id = false;
 
-    /** @var array html classes */
-    private array $cssClass = [];
-
     /** @var string title attribute */
     protected string $title = '';
-
-    /** @var string style attribute */
-    protected string $cssStyle;
 
     /**
      * Set the id attribute of a HTMLElement.
@@ -48,35 +42,6 @@ abstract class Html
         }
 
         return false;
-    }
-
-    /**
-     * Add one or several CSS classes.
-     * Adds one or more classes to the CSS attribute. Existing classes with the same name are overwritten.
-     * @param string ...$name
-     */
-    public function addCssClass(...$name): void
-    {
-        $this->cssClass = array_unique(array_merge($this->cssClass, $name));
-    }
-
-    /**
-     * Return the class attribute of a HTMLElement.
-     * Returns the
-     * @return string HTML class attribute string
-     */
-    public function renderCssClass(): string
-    {
-        return count($this->cssClass) === 0 ? '' : ' class="'.implode($this->cssClass).'"';
-    }
-
-    /**
-     * Set the style attribute of a HTMLElement.
-     * @param string $style
-     */
-    public function setCssStyle(string $style): void
-    {
-        $this->cssStyle = $style;
     }
 
     /**

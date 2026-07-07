@@ -13,6 +13,8 @@ namespace WebsiteTemplate;
  */
 class MenuItem
 {
+    use CssClassTrait;
+
     /**  @var string|int id */
     public string|int $id;
 
@@ -25,12 +27,10 @@ class MenuItem
     /** @var ?string url of the link */
     public ?string $linkUrl;
 
-    /** @var string CSS class name */
-    private string $cssClass = '';
+    /** @var ?string link target */
+    public ?string $linkTarget = null;
 
-    /** @var bool render children */
     private bool $childToBeRendered = false;
-
     /**
      * Note: When this property is null, the css active state is set automatically by Menu::setActive() depending
      * on the current url.
@@ -40,9 +40,6 @@ class MenuItem
 
     /** @var bool has item an active child ? */
     private bool $hasActiveChild = false;
-
-    /** @var ?string link target */
-    public ?string $linkTarget = null;
 
     /**
      * Constructs the menu item.
@@ -75,15 +72,6 @@ class MenuItem
     }
 
     /**
-     * Set item to be active.
-     * @param bool $active
-     */
-    public function setActive(?bool $active = null): void
-    {
-        $this->active = $active ?? true;
-    }
-
-    /**
      * Get item active status.
      * @return ?bool
      */
@@ -93,11 +81,12 @@ class MenuItem
     }
 
     /**
-     * @param bool $hasActiveChild
+     * Set item to be active.
+     * @param bool $active
      */
-    public function setHasActiveChild(bool $hasActiveChild): void
+    public function setActive(?bool $active = null): void
     {
-        $this->hasActiveChild = $hasActiveChild;
+        $this->active = $active ?? true;
     }
 
     /**
@@ -109,23 +98,11 @@ class MenuItem
     }
 
     /**
-     * Add one or several css classes.
-     * Adds one or more classes to the css attribute. Existing classes with the same name are overwritten.
-     * @param string ...$name
+     * @param bool $hasActiveChild
      */
-    public function addCssClass(...$name): void
+    public function setHasActiveChild(bool $hasActiveChild): void
     {
-        $arr = explode(' ', $this->cssClass);
-        $this->cssClass = implode(' ', array_unique(array_merge($arr, $name)));
-        $this->cssClass = trim($this->cssClass);
+        $this->hasActiveChild = $hasActiveChild;
     }
 
-    /**
-     * Returns the css class string
-     * @return string
-     */
-    public function getCssClass(): string
-    {
-        return $this->cssClass;
-    }
 }
