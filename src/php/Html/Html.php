@@ -3,6 +3,7 @@
 namespace WebsiteTemplate\Html;
 
 use WebsiteTemplate\CssBemTrait;
+use WebsiteTemplate\CssClassTrait;
 use function count;
 
 /**
@@ -14,6 +15,7 @@ use function count;
  */
 abstract class Html
 {
+    use CssClassTrait;
     use CssBemTrait;
 
     /** @var bool|string html id attribute */

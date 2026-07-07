@@ -33,17 +33,6 @@ class RadioButton extends Form
     }
 
     /**
-     * Set the checked attribute to checked.
-     *
-     * @param bool $checked
-     */
-    public function setChecked(?bool $checked = null): void
-    {
-        // TODO: remove method use Checkbox::checked and SelectField. setSelected instead
-        $this->checked = $checked ?? true;
-    }
-
-    /**
      * Print out the HTML radio button.
      *
      * @return string Html

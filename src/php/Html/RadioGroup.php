@@ -20,7 +20,7 @@ class RadioGroup extends Form
 
     /**
      * RadioGroup constructor.
-     * Uses the $name attribute to create the group of radios with same name.
+     * Uses the $name attribute to create the group of radios with the same name.
      * Keys of $values array will be used to index the id attribute together with the name attribute
      * @param string $name
      * @param array $values
@@ -58,12 +58,12 @@ class RadioGroup extends Form
     }
 
     /**
-     * Set a radio button of the group to checked.
+     * Set a radio button of the group to checked state.
      * Sets the radio button, where the value attribute equals the parameter $value to checked.
      * Note: uses strict comparison
      * @param string $value value to set checked
      */
-    public function setChecked(string $value): void
+    public function setCheckedVal(string $value): void
     {
         foreach ($this->radios as $radio) {
             if ($radio->val === $value) {
@@ -75,8 +75,8 @@ class RadioGroup extends Form
     }
 
     /**
-     * Set all radios to disabled.
-     * If set to true the HTMLFormAttribute disabled="disabled" is rendered
+     * Set all radios to the disabled state.
+     * If set to true, the HTMLFormAttribute disabled="disabled" is rendered
      * and the element is disabled by the browser.
      * @param bool $bool
      */

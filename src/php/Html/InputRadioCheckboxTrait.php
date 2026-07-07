@@ -2,6 +2,9 @@
 
 namespace WebsiteTemplate\Html;
 
+use WebsiteTemplate\CssBemTrait;
+use WebsiteTemplate\CssClassTrait;
+
 trait InputRadioCheckboxTrait
 {
 
