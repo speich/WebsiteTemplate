@@ -1,6 +1,6 @@
 <?php
 /**
- * Sets global variables, includes class files and intializes main objects.
+ * Sets global variables, includes classes, and initializes main objects.
  * This file needs to be included in every page
  */
 

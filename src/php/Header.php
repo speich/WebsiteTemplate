@@ -32,7 +32,7 @@ class Header
 
     /**
      * Set the MIME type of the header.
-     * Abbreviations can be used instead of full MIME type for some content types.
+     * Abbreviations can be used instead of a full MIME type for some content types.
      * @param string $contentType
      */
     public function setContentType(string $contentType): void
@@ -52,7 +52,7 @@ class Header
 
     /**
      * Extracts the range start and end from the header.
-     * Returns an array with start and end key or null if range header is not sent.
+     * Returns an array with a start and end key or null if the range header is not sent.
      * @return array|null
      */
     public function getRange(): ?array
@@ -68,7 +68,7 @@ class Header
 
     /**
      * Creates the range header.
-     * Returns an array where the first item ist the name of the range header and second the value.
+     * Returns an array where the first item ist the name of the range header and a second the value.
      * Note: Uses items instead of bytes as the ranges-specifier to work with dstore
      * @param array $arrRange array containing start and end
      * @param int $numRec total number of items
@@ -76,7 +76,7 @@ class Header
      */
     public function createRange(array $arrRange, int $numRec): array
     {
-        $end = $arrRange['end'] > $numRec ? $numRec : $arrRange['end'];
+        $end = min($arrRange['end'], $numRec);
 
         return ['Content-Range', 'items='.$arrRange['start'].'-'.$end.'/'.$numRec];
     }
@@ -99,25 +99,20 @@ class Header
     }
 
     /**
-     * Add a header to the headers array.
-     * Note: Header with same name will be overwritten no matter its case
+     * Add a header to the header array.
+     * Note: Header with the same name will be overwritten no matter its case
      * @param string $name
      * @param string $value
      */
     public function add(string $name, string $value): void
     {
-        // ARRAY_FILTER_USE_KEY is only available in php5.6+
-        /*
-        $this->headers = array_filter($this->headers, function ($key, $name) {
-            return strtolower($key) !== strtolower($name);
-        }, ARRAY_FILTER_USE_KEY);
-        */
-        $keys = array_keys($this->headers);
-        for ($i = 0, $iMax = count($this->headers); $i < $iMax; $i++) {
-            if (strtolower($keys[$i]) === strtolower($name)) {
-                unset($this->headers[$keys[$i]]);
-            }
-        }
+        // Filter out any existing headers that match the name (case-insensitive)
+        $this->headers = array_filter(
+            $this->headers,
+            fn($key) => strtolower($key) !== strtolower($name),
+            ARRAY_FILTER_USE_KEY
+        );
+
         $this->headers[$name] = $value;
     }
 

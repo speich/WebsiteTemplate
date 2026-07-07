@@ -5,7 +5,7 @@ namespace WebsiteTemplate\Html;
 /**
  * Class to create a list of HTMLDivElements.
  *
- * Mimics a HTMLSelectElement, but constructed with HTMLDivElements.
+ * Mimics an HTMLSelectElement, but constructed with HTMLDivElements.
  * You can pass to the constructor either a 1-dim array or a 2-dim array.
  * In the second case the first item would be used to set anchor attribute.
  */
@@ -21,7 +21,7 @@ class DivList extends Html
     /** @var string label for list */
     private string $labelName;
 
-    public ?string $bemBlock = 'divlist';
+    public ?string $bemBlock = 'div-list';
 
     /**
      * Construct a list of HtmlDiv elements.

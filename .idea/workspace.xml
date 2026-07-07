@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="remove redundancy of css class methods  and refactor into a Trait">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/HeadWebsiteTemplate.php" beforeDir="false" afterPath="$PROJECT_DIR$/demo/HeadWebsiteTemplate.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/layout/css/layout.css" beforeDir="false" afterPath="$PROJECT_DIR$/demo/layout/css/layout.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/layout/inc_nav.php" beforeDir="false" afterPath="$PROJECT_DIR$/demo/layout/inc_nav.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/menu.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/menu.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/menu.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/menu.min.css" afterDir="false" />
+    <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="fix open/closed chevron">
+      <change beforePath="$PROJECT_DIR$/src/php/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Controller.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/Html/Checkbox.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/Checkbox.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/Html/Form.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/Form.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/Html/Html.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/Html.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/Html/InputRadioCheckboxTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/InputRadioCheckboxTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/Html/RadioButton.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/RadioButton.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/Html/RadioGroup.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/RadioGroup.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,60 +82,60 @@
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
       <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0001610733624051" />
-      <entry key="S2" value="1.127824109739386" />
-      <entry key="S5" value="2.1782593358828635" />
-      <entry key="S10" value="5.213223840264157" />
-      <entry key="S30" value="13.170921334769542" />
-      <entry key="S60" value="17.398687834841528" />
-      <entry key="M2" value="20.39452986178872" />
-      <entry key="M5" value="22.846796398595345" />
-      <entry key="M10" value="24.243067397592526" />
-      <entry key="M15" value="26.414340476770878" />
-      <entry key="M30" value="40.56838610294729" />
-      <entry key="H1" value="85.21660145092243" />
-      <entry key="H2" value="215.6606476586875" />
-      <entry key="H4" value="588.5520044479583" />
-      <entry key="D1" value="2387.6513650718384" />
-      <entry key="W1" value="3194.1851028599535" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0" />
+      <entry key="S30" value="1.0000000000943583" />
+      <entry key="S60" value="1.0000122087349388" />
+      <entry key="M2" value="1.0047610610907505" />
+      <entry key="M5" value="1.1768311358469428" />
+      <entry key="M10" value="1.6068371761297002" />
+      <entry key="M15" value="2.0723531087263467" />
+      <entry key="M30" value="5.775396006800149" />
+      <entry key="H1" value="27.315129321188085" />
+      <entry key="H2" value="118.0755201159428" />
+      <entry key="H4" value="431.77739699962075" />
+      <entry key="D1" value="2269.4509509450677" />
+      <entry key="W1" value="3177.516035309888" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
-      <entry key="S2" value="0.0" />
-      <entry key="S5" value="1.5828939872265107E-168" />
-      <entry key="S10" value="1.268010594007679E-84" />
-      <entry key="S30" value="1.4203485953578407E-28" />
-      <entry key="S60" value="1.8645984574535657E-14" />
-      <entry key="M2" value="2.3042958198184104E-7" />
-      <entry key="M5" value="0.0042559501955787725" />
-      <entry key="M10" value="0.11560636411094773" />
-      <entry key="M15" value="0.3666482850510072" />
-      <entry key="M30" value="1.3826441366425748" />
-      <entry key="H1" value="3.4968965735221462" />
-      <entry key="H2" value="7.717729998931077" />
-      <entry key="H4" value="15.114748841196263" />
-      <entry key="D1" value="35.52771001181509" />
-      <entry key="W1" value="42.63502714102382" />
+      <entry key="S2" value="2.3918755505923512E-151" />
+      <entry key="S5" value="5.6428280082600925E-61" />
+      <entry key="S10" value="7.530715654849251E-31" />
+      <entry key="S30" value="1.1049134832894146E-10" />
+      <entry key="S60" value="1.579244898374108E-5" />
+      <entry key="M2" value="0.006625472043434408" />
+      <entry key="M5" value="0.2575776110013664" />
+      <entry key="M10" value="0.8778449412907285" />
+      <entry key="M15" value="1.3238241883248978" />
+      <entry key="M30" value="2.093624228988614" />
+      <entry key="H1" value="3.3964648392021606" />
+      <entry key="H2" value="6.73575034566172" />
+      <entry key="H4" value="13.769634565302082" />
+      <entry key="D1" value="36.628306468553646" />
+      <entry key="W1" value="45.30260940083943" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9659363289248456" />
-      <entry key="MS500" value="0.9932526780913042" />
-      <entry key="S2" value="1.1259156570739837" />
-      <entry key="S5" value="2.1768954861002814" />
-      <entry key="S10" value="5.21166089323634" />
-      <entry key="S30" value="13.169461838620032" />
-      <entry key="S60" value="17.396450566156282" />
-      <entry key="M2" value="20.39121377750323" />
-      <entry key="M5" value="22.848152767079064" />
-      <entry key="M10" value="24.35593498161459" />
-      <entry key="M15" value="26.777451645722625" />
-      <entry key="M30" value="41.94480149548052" />
-      <entry key="H1" value="88.70545151012612" />
-      <entry key="H2" value="223.3704869631247" />
-      <entry key="H4" value="603.6600699210808" />
-      <entry key="D1" value="2423.176819941805" />
-      <entry key="W1" value="3236.8197523135887" />
+      <entry key="MS100" value="0.9075191553171609" />
+      <entry key="MS500" value="0.9807790039885513" />
+      <entry key="S2" value="0.9951597218200828" />
+      <entry key="S5" value="0.9980610700524115" />
+      <entry key="S10" value="0.9990300646389034" />
+      <entry key="S30" value="0.999676583826617" />
+      <entry key="S60" value="0.9998659867335624" />
+      <entry key="M2" value="1.011246400335305" />
+      <entry key="M5" value="1.433475456179835" />
+      <entry key="M10" value="2.483140916356074" />
+      <entry key="M15" value="3.39462080842653" />
+      <entry key="M30" value="7.867405339385988" />
+      <entry key="H1" value="30.70869553593454" />
+      <entry key="H2" value="124.80676057870309" />
+      <entry key="H4" value="445.5419970819638" />
+      <entry key="D1" value="2306.0770853475237" />
+      <entry key="W1" value="3222.8182647732656" />
     </decayedShown>
   </component>
   <component name="PhpServers">
@@ -465,15 +466,7 @@
       <workItem from="1783005118055" duration="854000" />
       <workItem from="1783319599341" duration="10027000" />
       <workItem from="1783345395039" duration="5468000" />
-      <workItem from="1783405109570" duration="20509000" />
-    </task>
-    <task id="LOCAL-00023" summary="remove dependency of the class Website on the render method">
-      <option name="closed" value="true" />
-      <created>1739352435134</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1739352435134</updated>
+      <workItem from="1783405109570" duration="22592000" />
     </task>
     <task id="LOCAL-00024" summary="remove dependency of the class Website on the render method">
       <option name="closed" value="true" />
@@ -723,7 +716,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783430372725</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="fix open/closed chevron">
+      <option name="closed" value="true" />
+      <created>1783430771909</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1783430771909</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -747,7 +748,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add missing php extension to composer" />
     <MESSAGE value="whitelisting was ignored when null was passed" />
     <MESSAGE value="fix replace with empty string" />
     <MESSAGE value="use explicitly set domain for cookies" />
@@ -772,7 +772,8 @@
     <MESSAGE value="make css padding configurable" />
     <MESSAGE value="code cleanup" />
     <MESSAGE value="remove redundancy of css class methods  and refactor into a Trait" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove redundancy of css class methods  and refactor into a Trait" />
+    <MESSAGE value="fix open/closed chevron" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix open/closed chevron" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

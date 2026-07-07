@@ -68,7 +68,7 @@ class Controller
     {
         // Note on types when using json_decode():
         // Values true, false and null are returned as TRUE, FALSE and NULL respectively.
-        // NULL is returned if the json cannot be decoded or if the encoded data is deeper than the recursion limit
+        // NULL is returned if the JSON cannot be decoded or if the encoded data is deeper than the recursion limit
         $data = null;
         switch ($this->method) {
             case 'POST':
@@ -121,7 +121,7 @@ class Controller
     }
 
     /**
-     * Returns the http method, e.g. GET, POST, PUT or DELETE
+     * Returns the http method, e.g., GET, POST, PUT, or DELETE
      * @return null|string
      */
     public function getMethod(): ?string
@@ -141,7 +141,7 @@ class Controller
     /**
      * Returns the path split into segments.
      * Contains any client-provided pathname information trailing the actual script filename but preceding the query string.
-     * Returns null, if no path information is available. If path is only a slash and $asString is false, an array with and empty string is returned.
+     * Returns null if no path information is available. If the path is only a slash and $asString is false, an array with an empty string is returned.
      * @param ?bool $asString return a string instead of an array
      * @return array|string|null
      */
@@ -158,7 +158,7 @@ class Controller
 
     /**
      * Prints the header section of the HTTP response.
-     * Sets the Status Code, Content-Type and additional headers set optionally.
+     * Sets the Status Code, Content-Type, and additional headers set optionally.
      */
     public function printHeader(): void
     {

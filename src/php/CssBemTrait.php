@@ -7,11 +7,11 @@ use LogicException;
 /**
  * Trait to build CSS class names following BEM naming conventions.
  * Block and element are separated by a double underscore, the modifier by a single underscore.
- * Hyphens are only used inside compound (multi-word) names, e.g. block-name__elem-name_mod-name.
+ * Hyphens are only used inside compound (multi-word) names, e.g., block-name__elem-name_mod-name.
  *
  * Classes using this trait can set $bemBlock, $bemElement, $bemModifier as defaults, used whenever the
  * corresponding argument is omitted (null) in bemClass(). Pass an empty string '' explicitly to opt out
- * of a default for a single call, e.g. bemClass(element: '') for a block-only class name.
+ * of a default for a single call, e.g., bemClass(element: '') for a block-only class name.
  */
 trait CssBemTrait
 {

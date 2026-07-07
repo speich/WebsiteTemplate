@@ -32,7 +32,7 @@ class Language
 
     /**
      * Returns the language code.
-     * Gets the language short code by order of precedence of query string, session, cookie or http header.
+     * Gets the language short code by order of precedence of query string, session, cookie, or http header.
      * @return string
      */
     public function get(): string
@@ -51,7 +51,7 @@ class Language
 
     /**
      * Returns an array containing languages from the accept-language header.
-     * e.g. Array (
+     * e.g., Array (
      *    [en-ca] => 1
      *    [en] => 0.8
      *    [en-us] => 0.6
@@ -89,7 +89,7 @@ class Language
     }
 
     /**
-     * Return language string extracted from HTTP header.
+     * Return language string extracted from the HTTP header.
      * @return bool|string
      */
     public function fromHeader(): bool|string
@@ -146,7 +146,7 @@ class Language
 
     /**
      * Checks if the language is valid.
-     * Checks the language against the list of available languages, e.g. from Language::arrLang
+     * Checks the language against the list of available languages, e.g., from Language::arrLang
      * @param string $lang
      * @return bool
      */
@@ -166,8 +166,8 @@ class Language
 
     /**
      * Tries to detect the language automatically.
-     * Detects the language in the following order: from the query string, from the page name, from the cookie or
-     * from the http header.
+     * Detects the language in the following order: from the query string, from the page name, from the cookie,
+     * or from the http header.
      * @return string|false
      */
     public function autoDetect(): bool|string
@@ -175,12 +175,12 @@ class Language
         // from query string
         if (isset($_GET['lang'])) {
             $lang = preg_replace('/\W/', '', $_GET['lang']);
-        } // from directory, e.g. /en/
+        } // from directory, e.g., /en/
         elseif (preg_match('/\/'.$this->langCaptureGroup.'(\/|$)/', $_SERVER['REQUEST_URI'], $matches) === 1) {
             $lang = $matches[1];
         } // from page name
         elseif (preg_match('/-'.$this->langCaptureGroup.'\.php/', $this->getPage(), $matches) === 1) {
-            // note: the default language is not part of the page name, e.g. page{-defaultLang}.php does not exist
+            // note: the default language is not part of the page name, e.g., page{-defaultLang}.php does not exist
             $lang = $matches[1];
         } // cookie?
         elseif (isset($_COOKIE['lang'])) {

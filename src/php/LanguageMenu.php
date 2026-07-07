@@ -56,8 +56,8 @@ class LanguageMenu
     }
 
     /**
-     * Returns a HTML string with links to the current page in all available languages.
-     * Method checks if the page exist for each language. If it doesn't, the link will point to a language switcher page,
+     * Returns an HTML string with links to the current page in all available languages.
+     * Method checks if the page exists for each language. If it doesn't, the link will point to a language switcher page,
      * which is referenced with the property LanguageMenu::redirect
      * @return string html
      */

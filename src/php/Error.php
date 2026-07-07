@@ -6,6 +6,7 @@
 
 namespace WebsiteTemplate;
 
+use JsonException;
 use function count;
 
 
@@ -81,6 +82,7 @@ class Error
      * Returns all errors as a json array.
      * Returns '[]' when there are no errors
      * @return string json
+     * @throws JsonException
      */
     public function getAsJson(): string
     {
@@ -92,7 +94,7 @@ class Error
             if ($err['line'] > 0) {
                 $msg .= ' in '.$err['file'].' on line '.$err['line'];
             }
-            $json .= json_encode(['msg' => $msg]);
+            $json .= json_encode(['msg' => $msg], JSON_THROW_ON_ERROR);
             if ($key < count($errs) - 1) {
                 $json .= ',';
             }

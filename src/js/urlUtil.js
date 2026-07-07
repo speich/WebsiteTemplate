@@ -44,8 +44,8 @@ export const urlUtil = {
   },
 
   /**
-   * Returns either the full url or only the path, but both without the query string.
-   * E.g. returns the address https://www.lfi.ch/resultate/resultateauswahl.php?p=theme
+   * Returns either the full url or only the path, but both without the query string
+   * e.g., returns the address https://www.lfi.ch/resultate/resultateauswahl.php?p=theme
    * either as https://www.lfi.ch/resultate/resultateauswahl.php
    * or as /resultate/resultateauswahl.php
    * @param {Boolean} [pathOnly] return only path

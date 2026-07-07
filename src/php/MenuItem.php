@@ -1,7 +1,6 @@
 <?php
 /**
- * This file a class to create items for the navigation menu.
- * @author Simon Speich
+ * This file contains a class to create items for the navigation menu.
  */
 
 namespace WebsiteTemplate;
@@ -32,7 +31,7 @@ class MenuItem
 
     private bool $childToBeRendered = false;
     /**
-     * Note: When this property is null, the css active state is set automatically by Menu::setActive() depending
+     * Note: When this property is null, the CSS active state is set automatically by Menu::setActive() depending
      * on the current url.
      * @var ?bool is item active
      */

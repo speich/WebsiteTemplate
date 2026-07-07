@@ -13,7 +13,7 @@ class RadioGroup extends Form
 
     public const RENDER_VERTICALLY = 2;
 
-    public ?string $bemBlock = 'radiogroup';
+    public ?string $bemBlock = 'radio-group';
 
     /** @var RadioButton[] */
     public array $radios = [];

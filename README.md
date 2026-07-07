@@ -3,9 +3,9 @@ Furthermore, the folder structure can be used as a template for your website.
 
 ## Features
 * Simple REST controller
-* Navigation generation with automatically marking active page
+* Navigation generation with automatically marking an active page
 * Multilingual support
 * Generate form elements directly from PHP
 * JavaScript utils
 
-Checkout the index.php to see how the menu and the template works.
+Check out the index.php to see how the menu and the template work.

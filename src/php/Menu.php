@@ -31,7 +31,7 @@ class Menu
     use CssBemTrait;
 
     /**
-     * Item url should match only the path of the page url when setting item to active automatically.
+     * Item url should match only the path of the page url when setting an item to active automatically.
      * @var int
      */
     public const MATCH_PATH = 1;
@@ -227,8 +227,8 @@ class Menu
     }
 
     /**
-     * Sets child/parent items to render and/or active according to URL matching scheme
-     * or by explicitly setting item to active.
+     * Sets child/parent items to render and/or to active, according to the URL matching scheme
+     * or by explicitly setting an item to active.
      * Should be called before rendering if AutoInit is set to false;
      * When argument $url is provided, then the item with matching url is set to active.
      * @param ?string $url
@@ -303,7 +303,7 @@ class Menu
 
     /**
      * Returns ID of every item that is active.
-     * Returns a string if only one item is active, an array if there are several items active or false if none is active.
+     * Returns a string if only one item is active, an array if there are several items active, or false if none is active.
      * @return int|string|array|false id
      */
     public function getActive(): bool|int|array|string
@@ -370,9 +370,9 @@ class Menu
      * Set the url matching pattern.
      * Set the matching pattern to use when automatically setting the item to active.
      * The pattern is used to compare the current page url with the item url.
-     * Menu::MATCH_PATH = 1 = item url matches path only (default)
-     * Menu::MATCH_FULL = 2 = item url matches path + all query variables,
-     * Menu::MATCH_QUERY_ANY = 3 = item url matches path and at least on of the query parameters (name and value)
+     * Menu::MATCH_PATH = 1 = item url matches the path only (default)
+     * Menu::MATCH_FULL = 2 = item url matches the path and all query variables,
+     * Menu::MATCH_QUERY_ANY = 3 = item url matches path and at least one of the query parameters (name and value)
      * @param int $type
      */
     public function setAutoActiveMatching(int $type): void

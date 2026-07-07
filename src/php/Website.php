@@ -200,7 +200,7 @@ class Website
         $url = $url ?? $_SERVER['REQUEST_URI'];
         $options = [
             ...self::$pageCookieDefaultOptions,
-            // note: we can't do this in the constructor, because it is used statically.
+            // note: we can't do this in the constructor because it is used statically.
             'Domain' => str_replace('www.', '', $_SERVER['HTTP_HOST']),
         ];
 
@@ -224,7 +224,7 @@ class Website
         unset($_COOKIE['backPage']);
         $options = [
             ...self::$pageCookieDefaultOptions,
-            // note: we can't do this in the constructor, because it is used statically.
+            // note: we can't do this in the constructor because it is used statically.
             'Domain' => str_replace('www.', '', $_SERVER['HTTP_HOST']),
             'Expires' => 0,
 

@@ -11,8 +11,8 @@ use function is_array;
  * Class QueryString
  * Class to work with query strings.
  * Reads the query string from the server. Allowed keys can be whitelisted.
- * All methods related to adding something expect the passed array to have keys and values. All methods removing something expect
- * the passed array only to contains values.
+ * All methods related to adding something expect the passed array to have keys and values.
+ * All methods removing something expect the passed array only to contain values.
  * @package LFI
  */
 class QueryString
@@ -55,7 +55,7 @@ class QueryString
 
     /**
      * Add query variables to the query string.
-     * $vars is expected to be a associative array with key values.
+     * $vars is expected to be an associative array with key values.
      * @param array $vars keys and values
      */
     public function add(array $vars): void
@@ -88,7 +88,7 @@ class QueryString
 
     /**
      * Returns the query string.
-     * Returns the urlencoded string prefixed with a question mark. If there is no query an empty string is returned.
+     * Returns the urlencoded string prefixed with a question mark. If there is no query, an empty string is returned.
      * @param ?int $encType by default PHP_QUERY_RFC1738
      * @return string
      */
@@ -104,9 +104,9 @@ class QueryString
 
     /**
      * Returns the URL-encoded query string.
-     * Returns the string prefixed with a question mark. If there is no query an empty string is returned.
-     * With the argument $arrInc variables and values can be included to the returned query string without changing the internally
-     * stored original query string read from the server. The variable names should used as the keys of the array and the
+     * Returns the string prefixed with a question mark. If there is no query, an empty string is returned.
+     * With the argument $arrInc variables and values can be included in the returned query string without changing the internally
+     * stored original query string read from the server. The variable names should be used as the keys of the array and the
      * values as the array values.
      * With the argument $arrExcl variables can be excluded from the returned query string without changing the internally
      * stored original query string read from the server. The array should consist only of the variable names as the array values.
