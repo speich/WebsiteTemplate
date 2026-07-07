@@ -1,206 +1,160 @@
 /**
+ * A Module providing helper methods to work with forms.
  * @module formUtil
  */
-define(function() {
-	"use strict";
+export const formUtil = {
 
-	/**
-	 * A Module providing helper methods to work with numbers.
-	 * @exports formUtil
-	 */
-	return {
+    /**
+     * Clear all form field values.
+     * @param {HTMLFormElement} frm form element to clear fields
+     * @param {Array} [exceptions=[]] ids of fields to skip
+     */
+    clearAll(frm, exceptions = []) {
+        // 1. Array.from() handles the collection.
+        // 2. Array.includes() replaces the entire _filterReferenced helper.
+        const fields = Array.from(frm.elements).filter(
+            fld => !exceptions.includes(fld.id)
+        );
 
-		/**
-		 * Clear all form filed values, e.g. set them to empty.
-		 * fom.reset() sets the form back not to empty, but to the state before resetting,
-		 * e.g. if form field values were not empty but had default values (set by PHP),
-		 * these values are restored
-		 * @param {HTMLFormElement} frm form element to clear fields
-		 * @param {Array} [exceptions] ids of fields to skip
-		 */
-		clearAll: function(frm, exceptions) {
-			var arr = [], el, j, i = 0, len = frm.length,
-				arrSkip = exceptions || false;
+        for (const el of fields) {
+            const nodeName = el.nodeName.toLowerCase();
+            const type = el.type ? el.type.toLowerCase() : '';
 
-			for (i; i < len; i++) {
-				arr.push(frm[i]);
-			}
+            if (nodeName === 'input') {
+                if (['text', 'password'].includes(type)) {
+                    el.value = '';
+                } else if (['checkbox', 'radio'].includes(type)) {
+                    el.value = '';
+                    el.checked = false;
+                }
+            } else if (nodeName === 'textarea') {
+                el.value = '';
+            } else if (nodeName === 'select') {
+                el.selectedIndex = -1;
+                // If it's a multi-select, safely uncheck all options
+                if (el.multiple) {
+                    Array.from(el.options).forEach(opt => opt.selected = false);
+                }
+            }
+        }
+    },
 
-			if (arrSkip) {
-				arr = arr.filter(function(fld) {
-					var notMatched = true, z = 0, lenZ = arrSkip.length;
+    /**
+     * Set a form element to selected.
+     * @param {HTMLInputElement|HTMLSelectElement|RadioNodeList} node form field
+     * @param {String|Number|Array} [val] value of an option element to select
+     */
+    setSelected(node, val) {
+        if (val == null) return; // Catches both null and undefined
 
-					for (z; z < lenZ; z++) {
-						if (fld.id === arrSkip[z]) {
-							notMatched = false;
-							break;
-						}
-					}
-					return notMatched;
-				});
-			}
+        if (node instanceof RadioNodeList) {
+            node.value = String(val);
+        } else if (node.matches('input[type="checkbox"]')) {
+            node.checked = true;
+        } else if (node.matches('input, textarea')) {
+            node.value = String(val);
+        } else if (node.matches('select')) {
+            this._setSelectedSelect(node, val);
+        }
+    },
 
-			len = arr.length;
-			for (i = 0; i < len; i++) {
-				el = arr[i];
-				switch (el.nodeName.toLowerCase()) {
-					case 'input':
-						switch (el.getAttribute('type').toLowerCase()) {
-							case 'text':
-								el.value = '';
-								break;
-							case 'password':
-								el.value = '';
-								break;
-							case 'checkbox':
-								el.value = '';
-								el.checked = false;
-								break;
-						}
-						break;
-					case 'textarea':
-						el.value = '';
-						break;
-					case 'select':
-						j = el.options.length - 1;
-						for (j; j > -1; j--) {
-							el.options[j].selected = false;
-						}
-						el.selectedIndex = -1;
-						break;
-				}
-			}
-		},
+    /**
+     * @param {HTMLSelectElement} node
+     * @param {string|number|array} val
+     * @private
+     */
+    _setSelectedSelect(node, val) {
+        const targetValues = new Set([val].flat().map(String));
 
-		/**
-		 * Set a form element to selected.
-		 * @param {HTMLElement} node form field
-		 * @param {string} [val] value
-		 */
-		setSelected: function(node, val) 	{
-			var j, i = 0, len = node.length;
+        for (const option of Array.from(node.options)) {
+            option.selected = targetValues.has(option.value);
+        }
+    },
 
-			val = (val === 0 ? '0' : val);
-			if (!node.nodeName) {  // e.g. radio group
-				for (i = 0; i < len; i++) {
-					if (node[i].value == val) {
-						this.setSelected(node[i]);
-						break;
-					}
-				}
-			}
-			else {
-				switch (node.nodeName.toUpperCase()) {
-					case 'INPUT':
-						switch (node.getAttribute('type').toLowerCase()) {
-							case 'checkbox':
-								node.checked = true;
-								break;
-							case 'radio':
-								node.checked = true;
-								break;
-						}
-						break;
-					case 'SELECT':
-						j = node.options.length - 1;
-						for (j; j > -1; j--) {
-							if (node.options[j].value == val) {
-								node.options[j].selected = true;
-							}
-						}
-						break;
-				}
-			}
-		},
+    /**
+     * Create an HTML select element.
+     * @param {Object[]} data
+     * @param {String} nameVal
+     * @param {String} nameTxt
+     * @param {String} [nameSelected]
+     * @param {HTMLSelectElement} [el]
+     * @return {HTMLSelectElement}
+     */
+    createSelect(data, nameVal, nameTxt, nameSelected, el) {
+        const sel = el || document.createElement('select');
 
-		/**
-		 * Set form elements to read only.
-		 * The HTML attribute readonly is only valid on textarea, input type=text and type password.
-		 * Make this work also for select and radio by removing focus.
-		 * Note: readonly elements are posted whereas disabled are not.
-		 * @param {HTMLElement} el form field
-		 * @param {Boolean} readOnly
-		 */
-		setReadOnly: function(el, readOnly) {
-			var j;
+        data.forEach((item) => {
+            const opt = document.createElement('option');
+            opt.value = item[nameVal];
+            opt.text = item[nameTxt];
 
-			if (!el) {
-				return;
-			}
+            if (item[nameSelected] != null) {
+                opt.selected = true;
+            }
+            sel.add(opt);
+        });
 
-			/**
-			 * Sets the elements style property.
-			 * @param {HTMLElement} el element
-			 * @param {Boolean} readOnly
-			 */
-			function setStyle(el, readOnly) {
-				if (readOnly) {
-					el.style.backgroundColor = '#eeeeee';
-					el.style.color = '#666666';
-				}
-				else {
-					el.style.backgroundColor = 'inherit';
-					el.style.color = 'inherit';
-				}
-			}
+        return sel;
+    },
 
-			switch (el.nodeName.toLowerCase()) {
-				case 'input':
-					switch (el.getAttribute('type').toLowerCase()) {
-						case 'checkbox':
-							el.onfocus = function() {
-								this.blur();
-							};
-							break;
-						case 'radio':
-							if (readOnly) {
-								el.onfocus = function() {
-									this.blur();
-								};
-							}
-							else {
-								el.onfocus = null;
-							}
-							break;
-						default:
-							el.readOnly = !!readOnly;
-					}
-					break;
-				case 'select':
-					if (readOnly) {
-						el.onfocus = function() {
-							this.blur();
-						};
-					}
-					else {
-						el.onfocus = null;
-					}
-					j = el.options.length - 1;
-					for (j; j > -1; j--) {
-						el.options[j].style.backgroundColor = 'white';	// this is not set back correctly in SetStyle?
-					}
-					break;
-				default:
-					el.readOnly = !!readOnly;
-			}
+    /**
+     * Create a radio element.
+     * @param {String} id
+     * @param {String} name
+     * @param {String} value
+     * @param {Boolean} [checked=false]
+     * @returns {HTMLInputElement}
+     */
+    createInputRadio(id, name, value, checked = false) {
+        const el = document.createElement('input');
 
-			setStyle(el, readOnly);
-		},
+        Object.assign(el, { id, type: 'radio', name, value, checked });
 
-		/**
-		 * Set all form elements to readonly.
-		 * @param {HTMLFormElement} frm
-		 * @param {Boolean} [readOnly]
-		 */
-		setReadOnlyAll: function(frm, readOnly) {
-			var i, flds = frm.elements, len = flds.length;
+        return el;
+    },
 
-			for (i = 0; i < len; i++) {
-				if (flds[i].nodeName.toLowerCase() !== 'fieldset') {
-					readOnly = readOnly !== undefined ? readOnly : true;
-					this.setReadOnly(flds[i], readOnly);
-				}
-			}
-		}
-	};
-});
+    /**
+     * Set form elements to read-only.
+     * @param {HTMLElement} el form field
+     * @param {Boolean} readOnly
+     */
+    setReadOnly(el, readOnly) {
+        if (!el) return;
+
+        const isReadOnly = !!readOnly;
+        const nodeName = el.nodeName.toUpperCase();
+        const type = el.type ? el.type.toLowerCase() : '';
+
+        // Selects, checkboxes, and radios do not support the readonly attribute natively.
+        if (nodeName === 'SELECT' || ['checkbox', 'radio'].includes(type)) {
+            if (isReadOnly) {
+                // Arrow functions keep this clean
+                el.onfocus = () => el.blur();
+            } else {
+                el.onfocus = null;
+            }
+        } else {
+            el.readOnly = isReadOnly;
+        }
+
+        if (el.required && isReadOnly) {
+            el.required = false;
+        }
+
+        el.classList.toggle('readOnly', isReadOnly);
+    },
+
+    /**
+     * Set all form elements to readonly.
+     * @param {HTMLFormElement} frm
+     * @param {Boolean} [readOnly=true]
+     */
+    setReadOnlyAll(frm, readOnly = true) {
+        // Array.from() allows us to use .forEach() directly on the form elements
+        Array.from(frm.elements).forEach((el) => {
+            if (el.nodeName.toUpperCase() !== 'FIELDSET') {
+                this.setReadOnly(el, readOnly);
+            }
+        });
+    },
+};
