@@ -22,12 +22,13 @@ class Header
 
     /** @var array $contentTypes MIME types lookup */
     private array $contentTypes = [
-        'text' => 'text/plain',
         'csv' => 'text/csv',
+        'html' => 'text/html',
         'json' => 'application/json',
         'pdf' => 'application/pdf',
-        'html' => 'text/html',
         'svg' => 'image/svg+xml',
+        'text' => 'text/plain',
+        'zip' => 'application/zip',
     ];
 
     /**
