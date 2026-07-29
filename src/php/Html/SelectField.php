@@ -10,52 +10,35 @@ use function count;
  */
 class SelectField extends Form
 {
-
-    /** use the option text to set the option title attribute */
-    public const OPTION_TITLE_FROM_TEXT = 1;
-
-    /** use the option value to set the option title attribute */
-    public const OPTION_TITLE_FROM_VALUE = 2;
-
-    /** Use the value attribute to set the HTMLOptionElement to selected. */
-    public const SELECTED_BY_VALUE = 1;
-
-    /** Use the child text to set HTMLOptionElement to selected. */
-    public const SELECTED_BY_TEXT = 2;
-
-    /** Render all elements */
-    public const RENDER_ALL = 1;
-
-    /** Render only the option elements without the Select element. */
-    public const RENDER_OPTION_ONLY = 2;
-
     /** @var OptionElement[] array holding option elements */
     public array $arrOption = [];
 
-    /** @var bool automatically index option values if passed $arrOption is a 1-dim array */
+    /** @var bool automatically index the option values if the passed $arrOption is a 1-dim array */
     public bool $autoOptionValues = true;
 
     /** @var bool multiple attribute */
-    private bool $multiple = false;
+    public bool $multiple = false;
 
-    /**
-     * Note: this should be set to at least 2, when you want to use css height and not have multiple = true
-     *
-     * @var int number of visible rows
-     */
-    private int $size = 1;
+    /** @var int|null size atttibute */
+    public ?int $size = null;
 
     /** @var array contains the selected text and values */
     private array $selectedOptions = [];
 
-    /** @var false|string text of the first option */
-    private string|bool $defaultText = 'Bitte auswählen';
+    /** @var string|null text of the first option in the list */
+    public ?string $defaultText = null;
 
     /** @var string value of the first option element */
-    private string $defaultValue = '';
+    public string $defaultValue = '';
 
-    /** @var false|int automatically set the option title attribute from option text or value attribute */
-    private false|int $autoOptionTitle = false;
+    /** @var OptionTitleSource|null automatically set the option title attribute */
+    public ?OptionTitleSource $autoOptionTitle = null;
+
+    /** @var SelectRenderMode Default rendering behavior for this select field */
+    public SelectRenderMode $renderMode = SelectRenderMode::All;
+
+    /** @var OptionSelectionMethod Default method used for matching and retrieving selected options */
+    public OptionSelectionMethod $selectionMethod = OptionSelectionMethod::Value;
 
     /** @var string key for the value if the option array is associative */
     public string $keyValue = 'value';
@@ -100,7 +83,7 @@ class SelectField extends Form
         $i = 0;
         foreach ($options as $row) {
             $option = new OptionElement();
-            if (count($row) > 1) {
+            if (is_array($row)) {
                 $option->value = $row[0] ?? (array_key_exists($this->keyValue, $row) ? $row[$this->keyValue] : current($row));
                 $option->text = $row[1] ?? (array_key_exists($this->keyText, $row) ? $row[$this->keyText] : next($row));
             } else {
@@ -113,27 +96,6 @@ class SelectField extends Form
         }
     }
 
-    /**
-     * Set the HTMLMultipleAttribute to true.
-     * Set to false by default.
-     *
-     * @param ?bool $multiple
-     */
-    public function setMultiple(?bool $multiple = null): void
-    {
-        $this->multiple = $multiple ?? true;
-    }
-
-    /**
-     * Set the number of visible rows.
-     * Note: this is independent of multiple attributes
-     *
-     * @param int $size
-     */
-    public function setSize(int $size): void
-    {
-        $this->size = $size;
-    }
 
     /**
      * Set an HTMLOptionElement to selected.
@@ -142,9 +104,9 @@ class SelectField extends Form
      * the option text is used to set selected.
      *
      * @param bool|string|null $val
-     * @param ?int $type SelectField::SELECTED_BY_VALUE | SelectField::SELECTED_BY_TEXT
+     * @param OptionSelectionMethod|null $method
      */
-    public function setSelected(bool|string|null $val = null, ?int $type = null): void
+    public function setSelected(bool|string|null $val = null, ?OptionSelectionMethod $method = null): void
     {
         $val = $val ?? false;
         $deselect = $val === false;
@@ -152,13 +114,13 @@ class SelectField extends Form
             $this->selectedOptions = [];
         }
 
-        $type = $type ?? self::SELECTED_BY_VALUE;
+        $method = $method ?? $this->selectionMethod;
         foreach ($this->arrOption as $option) {
             if ($deselect) {
                 // deselect all
                 $option->selected = false;
             } else {
-                $testVal = $type === self::SELECTED_BY_TEXT ? $option->text : $option->value;
+                $testVal = $method === OptionSelectionMethod::Text ? $option->text : $option->value;
                 if ($val === $testVal) {
                     $option->selected = true;
                     $this->selectedOptions[] = $option;
@@ -170,15 +132,17 @@ class SelectField extends Form
     /**
      * Returns the first selected value or text
      *
-     * @param int|null $type SelectField::SELECTED_BY_VALUE | SelectField::SELECTED_BY_TEXT
+     * @param OptionSelectionMethod|null $method
      *
      * @return bool|string
      */
-    public function getSelected(?int $type = null): bool|string
+    public function getSelected(?OptionSelectionMethod $method = null): bool|string
     {
+        $method = $method ?? $this->selectionMethod;
+
         foreach ($this->arrOption as $option) {
             if ($option->selected) {
-                return $type === self::SELECTED_BY_TEXT ? $option->text : $option->value;
+                return $method === OptionSelectionMethod::Text ? $option->text : $option->value;
             }
         }
 
@@ -198,16 +162,16 @@ class SelectField extends Form
     /**
      * Print the HTMLSelectElement.
      *
-     * @param ?int $type render option elements only
+     * @param SelectRenderMode|null $mode render option elements only
      *
      * @return string Html
      */
-    public function render(?int $type = null): string
+    public function render(?SelectRenderMode $mode = null): string
     {
-        $type = $type ?? self::RENDER_ALL;
+        $mode = $mode ?? $this->renderMode;
 
         $options = $this->renderOptions();
-        if ($type === self::RENDER_ALL) {
+        if ($mode === SelectRenderMode::All) {
             $element = $this->renderSelect().$options.'</select>';
         } else {
             $element = $options;
@@ -229,7 +193,7 @@ class SelectField extends Form
     private function renderOptions(): string
     {
         $str = '';
-        if ($this->defaultText !== false) {
+        if ($this->defaultText !== null) {
             $option = new OptionElement();
             $option->text = $this->defaultText;
             $option->value = $this->defaultValue;
@@ -244,14 +208,19 @@ class SelectField extends Form
     }
 
     /**
-     * Set the title attribute automatically.
+     * Automatically sets the title attribute on an option element based on the selected TitleSource.
      *
-     * @param OptionElement $option
+     * The title attribute acts as a native browser tooltip to improve UX when the user hovers over an option:
+     * - TitleSource::Text: Useful for fixed-width select menus. If the CSS truncates long option text,
+     *   the user can still read the full string on hover.
+     * - TitleSource::Value: Allows the user to reveal the underlying hidden value attribute (such as a database ID).
+     *
+     * @param OptionElement $option The option element to modify.
      */
     protected function setAutoOptionTitle(OptionElement $option): void
     {
-        if ($this->autoOptionTitle !== false) {
-            $option->title = $this->autoOptionTitle === self::OPTION_TITLE_FROM_TEXT ? $option->text : $option->value;
+        if ($this->autoOptionTitle !== null) {
+            $option->title = $this->autoOptionTitle === OptionTitleSource::Text ? $option->text : $option->value;
         }
     }
 
@@ -266,13 +235,13 @@ class SelectField extends Form
         if ($this->multiple) {
             $str .= ' multiple="multiple"';
         }
-        if ($this->size > 1) {
+        if ($this->size !== null) {
             $str .= ' size="'.$this->size.'"';
         }
         if ($this->disabled) {
             $str .= ' disabled="disabled"';
         }
-        if ($this->tabIndex) {
+        if ($this->tabIndex !== null) {
             $str .= ' tabindex="'.$this->tabIndex.'"';
         }
         $str .= $this->renderCssClass();
@@ -282,39 +251,6 @@ class SelectField extends Form
         $str .= '>';
 
         return $str;
-    }
-
-    /**
-     * Return the default text of the first unselected option.
-     *
-     * @return false|string
-     */
-    public function getDefaultText(): false|string
-    {
-        return $this->defaultText;
-    }
-
-    /**
-     * Overwrite the default text of the first item in the list.
-     * Default text value is 'Bitte auswählen'.
-     * Set to false if no default item (the first item in the list) should be displayed.
-     *
-     * @param false|string $txt
-     */
-    public function setDefaultText(false|string $txt): void
-    {
-        $this->defaultText = $txt;
-    }
-
-    /**
-     * Enable setting the title attribute on the option element automatically.
-     * Title can be set from the option text or option value attribute.
-     *
-     * @param int $type SelectField::OPTION_TITLE_FROM_TEXT | SelectField::OPTION_TITLE_FROM_VALUE
-     */
-    public function setOptionTitleAuto(int $type = self::OPTION_TITLE_FROM_TEXT): void
-    {
-        $this->autoOptionTitle = $type;
     }
 
 }
