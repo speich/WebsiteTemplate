@@ -2,6 +2,8 @@
 
 namespace WebsiteTemplate\Html;
 
+use LogicException;
+
 /**
  * Class to create HTMLFormElements.
  *
@@ -11,100 +13,26 @@ namespace WebsiteTemplate\Html;
 class Form extends Html
 {
 
-    /** Render the label before the form element */
-    public const LABEL_BEFORE = 1;
+    /** @var string|null label */
+    public ?string $label = null;
 
-    /** Render the label after the form element */
-    public const LABEL_AFTER = 2;
-
-    /** Render the label wrapped around the form field and placed the text before the radio button */
-    public const LABEL_WRAPPED_BEFORE = 3;
-
-    /** Render the label wrapped around the form field and placed the text after the radio button */
-    public const LABEL_WRAPPED_AFTER = 4;
-
-    /** @var bool renderAsHtml label attribute */
-    protected bool $label = false;
-
-    /** @var string label */
-    protected string $labelName = '';
-
-    /** @var int position of label in relation to the element */
-    protected int $labelPosition = Form::LABEL_BEFORE;
+    /** @var LabelPosition position of label in relation to the element */
+    public LabelPosition $labelPosition = LabelPosition::Before;
 
     /** @var bool|string disabled attribute */
-    protected string|bool $disabled = false;
+    public bool $disabled = false;
 
     /** @var bool|string selected attribute */
-    protected string|bool $checked = false;
+    public bool $checked = false;
 
     /** @var bool|string required attribute */
-    protected string|bool $required = false;
+    public bool $required = false;
 
-    /** @var bool|int tab index attribute */
-    protected int|bool $tabIndex = false;
+    /** @var int|null tab index attribute */
+    public ?int $tabIndex = null;
 
-    /** @var bool|string name attribute */
-    protected string|bool $name = false;
-
-    /**
-     * Set the element's tab index
-     *
-     * @param int $index
-     */
-    public function setTabIndex(int $index): void
-    {
-        $this->tabIndex = $index;
-    }
-
-    /**
-     * Set the checked/selected state of the form element.
-     */
-    public function setChecked(bool $checked = true): void
-    {
-        $this->checked = $checked;
-    }
-
-    /**
-     * Set a form element disabled.
-     * If set to true, the HTMLFormAttribute disabled="disabled" is rendered
-     * and the element is disabled by the browser.
-     *
-     * @param bool $bool
-     */
-    public function setDisabled(?bool $bool = null): void
-    {
-        $this->disabled = $bool ?? true;
-    }
-
-    /**
-     * Remove form element label.
-     */
-    public function removeLabel(): void
-    {
-        $this->labelName = null;
-        $this->label = false;
-    }
-
-    /**
-     * Set HTMLAttribute required to true or false.
-     *
-     * @param bool $bool
-     */
-    public function setRequired(?bool $bool = null): void
-    {
-        $this->required = $bool ?? true;
-    }
-
-    /**
-     * Set the name attribute of the element
-     *
-     * @param bool|string $name
-     */
-    public function setName(bool|string $name): void
-    {
-        $this->name = $name;
-    }
+    /** @var string|null name attribute */
+    public ?string $name = null;
 
     /**
      * @param string $strInput
@@ -113,45 +41,41 @@ class Form extends Html
      */
     protected function renderLabel(string $strInput): string
     {
-        $css = $this->renderCssClass();
-        $labelTag = '<label for="'.$this->getId().'"'.$css.'>';
-        $label = $this->getLabel();
+        $isWrapped = self::isLabelWrapped($this->labelPosition);
+        $hasId = ($this->id !== null && $this->id !== '');
+
+        // 1. Check for the impossible accessibility state
+        if (!$isWrapped && !$hasId) {
+            throw new LogicException(
+                'A form element using a sibling label layout must have an ID set to generate a valid "for" attribute.'
+            );
+        }
+
+        if ($isWrapped) {
+            $this->addCssClass($this->bemClass());
+            $css = $this->renderCssClass();
+        } else {
+            $css = ' class="'.$this->bemClass('label').'"';
+        }
+
+        // 2. Safely assemble the label tag
+        $labelTag = '<label';
+        if ($hasId) {
+            $labelTag .= ' for="'.$this->id.'"';
+        }
+        $labelTag .= $css.'>';
 
         return match ($this->labelPosition) {
-            self::LABEL_AFTER => $strInput.$labelTag.$label.'</label>',
-            self::LABEL_WRAPPED_BEFORE => $labelTag.$label.$strInput.'</label>',
-            self::LABEL_WRAPPED_AFTER => $labelTag.$strInput.$label.'</label>',
-            default => $labelTag.$label.'</label>'.$strInput,
+            LabelPosition::After => $strInput.$labelTag.$this->label.'</label>',
+            LabelPosition::Before => $labelTag.$this->label.$strInput.'</label>',
+            LabelPosition::WrappedAfter => $labelTag.$strInput.$this->label.'</label>',
+            LabelPosition::WrappedBefore => $labelTag.$this->label.'</label>'.$strInput,
         };
     }
 
-    /**
-     * Return the label of the HTMLFormElement.
-     *
-     * @return string|bool label or false
-     */
-    public function getLabel(): bool|string
+    public static function isLabelWrapped($position): bool
     {
-        if ($this->label) {
-            return $this->labelName;
-        }
-
-        return false;
-    }
-
-    /**
-     * Set the form element label.
-     * If set, then the label attribute is rendered. The position can be set to before or after with the constants
-     * HTML_LABEL_BEFORE and HTML_LABEL_AFTER.
-     *
-     * @param string $label label
-     * @param int|null $position position of label
-     */
-    public function setLabel(string $label, int|null $position = null): void
-    {
-        $this->labelName = $label;
-        $this->label = true;
-        $this->labelPosition = $position ?? $this->labelPosition;
+        return in_array($position, [LabelPosition::WrappedBefore, LabelPosition::WrappedAfter], true);
     }
 
 }

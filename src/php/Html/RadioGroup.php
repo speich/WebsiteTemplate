@@ -2,6 +2,8 @@
 
 namespace WebsiteTemplate\Html;
 
+use WebsiteTemplate\Orientation;
+
 /**
  * Class RadioGroup
  * Creates HTMLRadioElements
@@ -9,27 +11,32 @@ namespace WebsiteTemplate\Html;
  */
 class RadioGroup extends Form
 {
-    public const RENDER_HORIZONTALLY = 1;
-
-    public const RENDER_VERTICALLY = 2;
-
     public ?string $bemBlock = 'radio-group';
 
     /** @var RadioButton[] */
     public array $radios = [];
 
     /**
+     * @var Orientation render the radio group horizontally or vertically
+     */
+    public Orientation $orientation = Orientation::Horizontal;
+
+    /**
      * RadioGroup constructor.
      * Uses the $name attribute to create the group of radios with the same name.
-     * Keys of $values array will be used to index the id attribute together with the name attribute
-     * @param string $name
-     * @param array $values
+     *
+     * @param string $name The name attribute shared by all radio buttons in the group
+     * @param array $values Array format: ['Attr value' => 'Label Text']
+     * @param bool $nameOnly if true, only the name attribute is set, otherwise the id attribute is set to the name attribute
      */
-    public function __construct(string $name, array $values)
+    public function __construct(string $name, array $values, bool $nameOnly = true)
     {
-        foreach ($values as $key => $value) {
-            $radio = new RadioButton($name.(++$key), $value);
-            $radio->setName($name);
+        $index = 1;
+        foreach ($values as $attrValue => $labelText) {
+            $id = $name.$index++;
+            $radio = new RadioButton($id, (string)$attrValue, $nameOnly);
+            $radio->name = $name;
+            $radio->label = $labelText;
             $radio->addCssClass($this->bemClass('item'));
             $this->radios[] = $radio;
         }
@@ -37,13 +44,14 @@ class RadioGroup extends Form
 
     /**
      * @param array $labels
-     * @param ?int $position
+     * @param LabelPosition|null $position
      */
-    public function setLabels(array $labels, ?int $position = null): void
+    public function setLabels(array $labels, ?LabelPosition $position = null): void
     {
-        $position = $position ?? Form::LABEL_BEFORE;
+        $position = $position ?? LabelPosition::WrappedAfter;
         foreach ($labels as $key => $label) {
-            $this->radios[$key]->setLabel($label, $position);
+            $this->radios[$key]->label = $label;
+            $this->radios[$key]->labelPosition = $position;
         }
     }
 
@@ -53,7 +61,7 @@ class RadioGroup extends Form
     public function setTabIndices(array $indices): void
     {
         foreach ($indices as $key => $index) {
-            $this->radios[$key]->setTabIndex($index);
+            $this->radios[$key]->tabIndex = $index;
         }
     }
 
@@ -66,11 +74,7 @@ class RadioGroup extends Form
     public function setCheckedVal(string $value): void
     {
         foreach ($this->radios as $radio) {
-            if ($radio->val === $value) {
-                $radio->setChecked();
-            } else {
-                $radio->setChecked(false);
-            }
+            $radio->checked = $radio->val === $value;
         }
     }
 
@@ -83,23 +87,23 @@ class RadioGroup extends Form
     public function setDisabled(?bool $bool = null): void
     {
         foreach ($this->radios as $radio) {
-            $radio->setDisabled($bool);
+            $radio->disabled = $bool;
         }
     }
 
     /**
      * Render the radio button group as HTML.
      * Sets a CSS class which renders the group horizontally.
-     * @param ?int $layout self::RENDER_VERTICALLY or self::RENDER_HORIZONTALLY
+     * @param ?Orientation $orientation
      * @return string html
      */
-    public function render(?int $layout = null): string
+    public function render(?Orientation $orientation = null): string
     {
-        $this->addCssClass($this->bemClass());
-        if ($layout === self::RENDER_VERTICALLY) {
-            $this->addCssClass($this->bemClass(modifier: 'vertical'));
+        if ($orientation !== null) {
+            $this->orientation = $orientation;
         }
-        $html = '<div'.($this->id ? ' id="'.$this->getId().'"' : '').$this->renderCssClass().'>';
+        $this->addCssClass($this->bemClass(), $this->bemClass(modifier: $this->orientation->value));
+        $html = '<div'.($this->id ? ' id="'.$this->id.'"' : '').$this->renderCssClass().'>';
         foreach ($this->radios as $radio) {
             $html .= $radio->render();
         }

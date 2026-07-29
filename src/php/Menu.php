@@ -33,26 +33,6 @@ class Menu
     use CssBemTrait;
 
     /**
-     * Item url should match only the path of the page url when setting an item to active automatically.
-     * @var int
-     */
-    public const MATCH_PATH = 1;
-
-    /**
-     * Item url should match both the path and query string of the page url when setting the item to active automatically.
-     * All query string variables and values of the item url have to occur also in the query string of the page url.
-     * @var int
-     */
-    public const MATCH_FULL = 2;
-
-    /**
-     * Item url should match the path and partially the query string of page url when setting item to active automatically.
-     * Only all query string variables but not the query values of the item url have to occur also in the query string of the page url.
-     * @var int
-     */
-    public const MATCH_QUERY_VARS = 3;
-
-    /**
      * Hold menu items.
      * The array keys correspond to the unique ID of the MenuItem.
      * @var array<int|string, MenuItem>
@@ -87,15 +67,22 @@ class Menu
     public ?string $cssId = null;
 
     /**
+     * @var Orientation render the menu group horizontally or vertically
+     */
+    public Orientation $orientation = Orientation::Horizontal;
+
+
+    /**
      * The html of the created menu.
      * @var string rendered html
      */
     private string $html = '';
+
     /**
      * Sets the url matching pattern of $autoActive property.
-     * @var int
+     * @var MenuItemUrl
      */
-    private int $autoActiveMatching = Menu::MATCH_PATH;
+    private MenuItemUrl $autoActiveMatching = MenuItemUrl::MatchPath;
     /**
      * Flag to mark the first ul tag in recursion when rendering HTML.
      * @var bool is first HTMLULElement
@@ -329,10 +316,10 @@ class Menu
     /**
      * Check if the menu item should be set to active.
      * @param MenuItem $item
-     * @param int|null $type
+     * @param MenuItemUrl|null $type
      * @return bool
      */
-    protected function checkAutoActive(MenuItem $item, ?int $type = null): bool
+    protected function checkAutoActive(MenuItem $item, ?MenuItemUrl $type = null): bool
     {
         $url = $_SERVER['REQUEST_URI'];
         $urlPage = parse_url($url);
@@ -342,12 +329,12 @@ class Menu
         }
 
         $autoActive = $urlPage['path'] === $urlItem['path'];    // handles case MATCH_PATH_ONLY
-        if ($type !== self::MATCH_PATH && $autoActive && array_key_exists('query', $urlItem)) {
+        if ($type !== MenuItemUrl::MatchPath && $autoActive && array_key_exists('query', $urlItem)) {
             parse_str($urlItem['query'], $arr);
             $query = new QueryString(array_keys($arr)); // whitelist query param used in item->linkUrl
-            if ($type === self::MATCH_FULL) {
+            if ($type === MenuItemUrl::MatchFull) {
                 $autoActive = $query->in($arr);
-            } elseif ($type === self::MATCH_QUERY_VARS) {
+            } elseif ($type === MenuItemUrl::MatchQueryVars) {
                 $keys = array_keys($arr);
                 $autoActive = $query->in($keys);
             }
@@ -360,10 +347,10 @@ class Menu
      * Return the url matching pattern.
      * Returns the matching pattern used when automatically setting the item to active.
      * The pattern is used to compare the current page url with the item url.
-     * @return int
+     * @return MenuItemUrl
      * @see Menu::setAutoActiveMatching()
      */
-    public function getAutoActiveMatching(): int
+    public function getAutoActiveMatching(): MenuItemUrl
     {
         return $this->autoActiveMatching;
     }
@@ -372,12 +359,9 @@ class Menu
      * Set the url matching pattern.
      * Set the matching pattern to use when automatically setting the item to active.
      * The pattern is used to compare the current page url with the item url.
-     * Menu::MATCH_PATH = 1 = item url matches the path only (default)
-     * Menu::MATCH_FULL = 2 = item url matches the path and all query variables,
-     * Menu::MATCH_QUERY_ANY = 3 = item url matches path and at least one of the query parameters (name and value)
-     * @param int $type
+     * @param MenuItemUrl $type
      */
-    public function setAutoActiveMatching(int $type): void
+    public function setAutoActiveMatching(MenuItemUrl $type): void
     {
         $this->autoActiveMatching = $type;
     }
@@ -405,9 +389,16 @@ class Menu
     {
         $this->html .= '<ul';
         if ($this->firstUl) {
+            // 1. Get the base block class (e.g., 'menu')
             $ulClasses = [$this->bemClass(element: '', modifier: '')];
+
+            // 2. Add the orientation modifier
+            $ulClasses[] = $this->bemClass(element: '', modifier: $this->orientation->value);
+
+            // 3. add extra custom modifiers if any
             if (!empty($this->bemModifier)) {
-                $ulClasses[] = $this->bemClass(element: '');
+                // (Assuming your bemClass method accepts the modifier directly here)
+                $ulClasses[] = $this->bemClass(element: '', modifier: $this->bemModifier);
             }
             $this->html .= ' class="'.implode(' ', $ulClasses).'"';
 

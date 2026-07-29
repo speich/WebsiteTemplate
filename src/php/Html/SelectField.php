@@ -63,6 +63,8 @@ class SelectField extends Form
     /** @var string key for the text if the option array is associative */
     public string $keyText = 'text';
 
+    public ?string $bemBlock = 'select';
+
     /**
      * Construct a SelectFld object.
      *
@@ -71,14 +73,15 @@ class SelectField extends Form
      * array values are used as the text of the HTMLOptionElements.
      * Otherwise, the first dimension is used as the value, and the second as the text.
      *
+     * @param string $name name attribute
      * @param iterable $arrOption text and value data
-     * @param string|null $id
+     * @param bool $nameOnly if true, only the name attribute is set, otherwise the id attribute is set to the name attribute
      */
-    public function __construct(iterable $arrOption, ?string $id = null)
+    public function __construct(string $name, iterable $arrOption, bool $nameOnly = true)
     {
-        if ($id !== null) {
-            $this->setId($id);
-            $this->name = $id;
+        $this->name = $name;
+        if (!$nameOnly) {
+            $this->id = $name;
         }
         // already initializing here instead of only when rendering, allows setting an option selected.
         $this->initOptions($arrOption);
@@ -209,7 +212,7 @@ class SelectField extends Form
         } else {
             $element = $options;
         }
-        if ($this->label) {
+        if ($this->label !== null) {
             $strHtml = $this->renderLabel($element);
         } else {
             $strHtml = $element;
@@ -259,7 +262,7 @@ class SelectField extends Form
      */
     private function renderSelect(): string
     {
-        $str = '<select'.($this->id ? ' id="'.$this->getId().'"' : '').($this->name ? ' name="'.$this->name.'"' : '');
+        $str = '<select'.($this->id ? ' id="'.$this->id.'"' : '').($this->name ? ' name="'.$this->name.'"' : '');
         if ($this->multiple) {
             $str .= ' multiple="multiple"';
         }

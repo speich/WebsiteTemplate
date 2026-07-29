@@ -1,5 +1,6 @@
 <?php
 use WebsiteTemplate\Menu;
+use WebsiteTemplate\Orientation;
 
 /**
  * This include file creates the navigation menu.
@@ -29,7 +30,6 @@ $menu1 = new Menu([
     [4, 0, 'Portfolio'],
     [5, 0, 'Contact']
 ]);
-$menu1->bemModifier = 'horizontal';
 $menu1->setActive('/services/load.php');
 $menu1->allChildrenRendered = true;
 
@@ -46,5 +46,5 @@ $menu2 = new Menu([
 		[6, 3, 'some'],
 	[7, 0, 'Contact']
 ]);
-$menu2->bemModifier = 'vertical';
+$menu2->orientation = Orientation::Vertical;
 $menu2->setActive('/services/load.php');

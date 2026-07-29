@@ -14,49 +14,10 @@ abstract class Html
     use CssClassTrait;
     use CssBemTrait;
 
-    /** @var bool|string html id attribute */
-    protected string|bool $id = false;
+    /** @var string|null html id attribute */
+    public ?string $id = null;
 
-    /** @var string title attribute */
-    protected string $title = '';
+    /** @var string|null title attribute */
+    public ?string $title = null;
 
-    /**
-     * Set the id attribute of a HTMLElement.
-     * @param int|string $id
-     */
-    public function setId(int|string $id): void
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * Return the id attribute of a HTMLElement.
-     * @return string|bool id or false
-     */
-    public function getId(): bool|string
-    {
-        if ($this->id) {
-            return $this->id;
-        }
-
-        return false;
-    }
-
-    /**
-     * Get the title attribute.
-     * @return string
-     */
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
-    /**
-     * Set the title attribute
-     * @param string $title
-     */
-    public function setTitle(string $title): void
-    {
-        $this->title = $title;
-    }
 }

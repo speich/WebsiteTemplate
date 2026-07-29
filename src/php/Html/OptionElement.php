@@ -25,7 +25,7 @@ class OptionElement
      */
     public function render(): string
     {
-        $value = $this->value === null ? '' : ' value="'.$this->value.'"';
+        $value = $this->value === null ? '' : ' value="'.htmlspecialchars($this->value, ENT_QUOTES).'"';
         $sel = $this->selected ? ' selected="selected"' : '';
         $title = $this->title === null ? '' : ' title="'.$this->title.'"';
 

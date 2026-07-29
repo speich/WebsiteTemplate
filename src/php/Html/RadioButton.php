@@ -18,18 +18,24 @@ class RadioButton extends Form
 
     public ?string $bemBlock = 'radio';
 
+    // Override the base Form default for radio buttons
+    public LabelPosition $labelPosition = LabelPosition::WrappedAfter;
+
     /**
      * Construct an HTMLInputElement of type radio.
-     * The constructor sets the id and value attribute of the HTMLRadioElement.
+     * Sets the nane attribute, the value attribute, and optionally the id attribute.
      *
-     * @param string $id HTMLAttribute id
-     * @param string $val HTMLAttribute value
+     * @param string $name name attribute
+     * @param string $val value attribute
+     * @param bool $nameOnly if true, only the name attribute is set, otherwise the id attribute is set to the name attribute
      */
-    public function __construct(string $id, string $val)
+    public function __construct(string $name, string $val, bool $nameOnly = true)
     {
-        $this->setId($id);
+        $this->name = $name;
         $this->val = $val;
-        $this->name = $id;
+        if (!$nameOnly) {
+            $this->id = $name;
+        }
     }
 
     /**
@@ -39,8 +45,8 @@ class RadioButton extends Form
      */
     public function render(): string
     {
-        $strInput = $this->renderInput('radio');
-        if ($this->label) {
+        $strInput = $this->renderInput(InputType::Radio);
+        if ($this->label !== null) {
             $strHtml = $this->renderLabel($strInput);
         } else {
             $strHtml = $strInput;
