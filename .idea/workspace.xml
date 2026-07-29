@@ -4,21 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="fix warnings reported by phpstorm">
-      <change afterPath="$PROJECT_DIR$/src/php/Http/Request.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/php/Http/Response.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/php/Controller.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/php/CssBemTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/CssBemTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/php/CssClassTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/CssClassTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/php/Header.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Http/Header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/php/Html/Html.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/Html.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/php/Http.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Http/Http.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/php/LanguageMenu.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/LanguageMenu.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/php/Menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Menu.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/php/MenuItem.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/MenuItem.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/php/PagedNav.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/PagedNav.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/php/QueryString.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Http/QueryString.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/QueryStringTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/QueryStringTest.php" afterDir="false" />
+    <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="- make api calls more consistent&#10;- use Enums instead of constants where applicable">
+      <change afterPath="$PROJECT_DIR$/src/css/form.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/php/Html/OptionSelectionMethod.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/php/Html/OptionTitleSource.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/php/Html/SelectRenderMode.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/WebsiteTemplate.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WebsiteTemplate.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/demo/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/Html/SelectField.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/SelectField.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,13 +33,14 @@
     </execution>
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="65" />
+    <option name="cachedIndexableFilesCount" value="69" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -85,64 +82,67 @@
   </component>
   <component name="NamedScopeManager">
     <scope name="bun watcher" pattern="(file:*.js||file:*.css)&amp;&amp;!file:*.min.js&amp;&amp;!file:*.min.css&amp;&amp;!file:*.map" />
+    <order>
+      <scope name="PHP-Files" />
+    </order>
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="0.0" />
-      <entry key="S2" value="5.121856800638728E-110" />
-      <entry key="S5" value="2.249288303609065E-44" />
-      <entry key="S10" value="2.1693993443653267E-22" />
-      <entry key="S30" value="1.1908330845534016E-7" />
-      <entry key="S60" value="5.940410384823674E-4" />
-      <entry key="M2" value="0.042151374733043" />
-      <entry key="M5" value="0.5579301288112506" />
-      <entry key="M10" value="1.73757121912215" />
-      <entry key="M15" value="3.2424710137737374" />
-      <entry key="M30" value="8.254530639426966" />
-      <entry key="H1" value="23.800528692423377" />
-      <entry key="H2" value="94.33694869503503" />
-      <entry key="H4" value="371.4261101320951" />
-      <entry key="D1" value="2214.9428092567437" />
-      <entry key="W1" value="3181.630339234414" />
-    </decayedCancelled>
-    <decayedSelected>
       <entry key="MS100" value="1.0" />
       <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0" />
-      <entry key="S10" value="1.0" />
-      <entry key="S30" value="1.0000000698799576" />
-      <entry key="S60" value="1.000373825083673" />
-      <entry key="M2" value="1.0273428322543914" />
-      <entry key="M5" value="1.3592353511101376" />
-      <entry key="M10" value="1.8554739464082914" />
-      <entry key="M15" value="2.1855626969595323" />
-      <entry key="M30" value="2.937249892575082" />
-      <entry key="H1" value="4.281497819375968" />
-      <entry key="H2" value="7.409454802572037" />
-      <entry key="H4" value="14.243761088348974" />
-      <entry key="D1" value="38.43673529899428" />
-      <entry key="W1" value="48.08953454643975" />
+      <entry key="S2" value="1.0000000001274942" />
+      <entry key="S5" value="1.0002111396705706" />
+      <entry key="S10" value="1.0252972642949378" />
+      <entry key="S30" value="1.664614594209209" />
+      <entry key="S60" value="2.594758782460561" />
+      <entry key="M2" value="3.838532777681768" />
+      <entry key="M5" value="8.429239333419485" />
+      <entry key="M10" value="16.32340527113704" />
+      <entry key="M15" value="23.789669487399305" />
+      <entry key="M30" value="45.23141835480871" />
+      <entry key="H1" value="81.60110494616403" />
+      <entry key="H2" value="141.29113621894098" />
+      <entry key="H4" value="298.40782237196584" />
+      <entry key="D1" value="2088.3647199236275" />
+      <entry key="W1" value="3415.284511542934" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="1.312530885635048E-162" />
+      <entry key="MS500" value="4.203605062024251E-33" />
+      <entry key="S2" value="8.052031711037091E-9" />
+      <entry key="S5" value="5.785783660088422E-4" />
+      <entry key="S10" value="0.024053655980096712" />
+      <entry key="S30" value="0.28866653321374197" />
+      <entry key="S60" value="0.5406587377381924" />
+      <entry key="M2" value="0.8921771259046376" />
+      <entry key="M5" value="2.6671787788679118" />
+      <entry key="M10" value="5.870593185903968" />
+      <entry key="M15" value="8.836349589088007" />
+      <entry key="M30" value="17.342471098402438" />
+      <entry key="H1" value="32.47750761016364" />
+      <entry key="H2" value="52.632726404412374" />
+      <entry key="H4" value="74.42788003388097" />
+      <entry key="D1" value="126.3723733444382" />
+      <entry key="W1" value="147.6446060806648" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.6219309254107808E-4" />
-      <entry key="MS500" value="0.17458481655842473" />
-      <entry key="S2" value="0.6464004018106168" />
-      <entry key="S5" value="0.8398479125168961" />
-      <entry key="S10" value="0.9164321647110036" />
-      <entry key="S30" value="0.9713301195279876" />
-      <entry key="S60" value="0.9865093219198116" />
-      <entry key="M2" value="1.0615426476343377" />
-      <entry key="M5" value="1.910547277179685" />
-      <entry key="M10" value="3.587192651043099" />
-      <entry key="M15" value="5.423101876284592" />
-      <entry key="M30" value="11.188362334232389" />
-      <entry key="H1" value="28.07896143945257" />
-      <entry key="H2" value="101.74243010568496" />
-      <entry key="H4" value="385.6652552398752" />
-      <entry key="D1" value="2253.377360398047" />
-      <entry key="W1" value="3229.7194838411565" />
+      <entry key="MS100" value="2.25169568420599E-125" />
+      <entry key="MS500" value="1.1762562365438787E-25" />
+      <entry key="S2" value="5.85800109192009E-7" />
+      <entry key="S5" value="0.003494083646679882" />
+      <entry key="S10" value="0.09028679649883085" />
+      <entry key="S30" value="1.2511825478413114" />
+      <entry key="S60" value="2.6676521591542715" />
+      <entry key="M2" value="4.451570736230589" />
+      <entry key="M5" value="10.954970226562486" />
+      <entry key="M10" value="22.10380492264882" />
+      <entry key="M15" value="32.555091263428686" />
+      <entry key="M30" value="62.52490213745022" />
+      <entry key="H1" value="114.04330788702181" />
+      <entry key="H2" value="193.898971927288" />
+      <entry key="H4" value="372.81875778467156" />
+      <entry key="D1" value="2214.731921974062" />
+      <entry key="W1" value="3562.928225683986" />
     </decayedShown>
   </component>
   <component name="PhpServers">
@@ -240,6 +240,7 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "Shell Script.docker npm install.executor": "Run",
     "WebServerToolWindowFactoryState": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
@@ -250,9 +251,12 @@
     "javascript.preferred.runtime.type.id": "node",
     "junie.onboarding.icon.badge.shown": "true",
     "last_opened_file_path": "/home/simon/Websites/WebsiteTemplate/src/js",
+    "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.jshint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.jshint": "",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_interpreter_path": "docker-compose://[/home/simon/Websites/frankenphp/docker-compose.yml]:assets/bun",
     "nodejs_package_manager_path": "bun",
@@ -277,52 +281,19 @@
       <recent name="$PROJECT_DIR$/library" />
     </key>
   </component>
-  <component name="RunManager" selected="Docker.Ollama: Compose Deployment">
-    <configuration name="Ollama: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker ERITHACUS">
-      <deployment type="docker-compose.yml">
-        <settings>
-          <option name="sourceFilePath" value="../../Projects/Ollama/docker-compose.yml" />
-        </settings>
-      </deployment>
-      <method v="2" />
-    </configuration>
+  <component name="RunManager">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="frankenphp: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker ERITHACUS">
-      <deployment type="docker-compose.yml">
-        <settings>
-          <option name="sourceFilePath" value="../frankenphp/docker-compose.yml" />
-        </settings>
-      </deployment>
-      <method v="2" />
-    </configuration>
-    <configuration name="modern-normalize:build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="modern-normalize:build" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Docker.Ollama: Compose Deployment" />
-        <item itemvalue="Docker.frankenphp: Compose Deployment" />
-        <item itemvalue="npm.modern-normalize:build" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-PS-261.26222.71" />
-        <option value="bundled-php-predefined-a98d8de5180a-6bbb74dbab74-com.jetbrains.php.sharedIndexes-PS-261.26222.71" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-PS-262.8665.325" />
+        <option value="bundled-php-predefined-a98d8de5180a-ff90ddd8021d-com.jetbrains.php.sharedIndexes-PS-262.8665.325" />
       </set>
     </attachedChunks>
   </component>
@@ -474,14 +445,9 @@
       <workItem from="1783319599341" duration="10027000" />
       <workItem from="1783345395039" duration="5468000" />
       <workItem from="1783405109570" duration="25570000" />
-    </task>
-    <task id="LOCAL-00027" summary="-property types were used inconsistently.&#10;-rename method to be more sensible.">
-      <option name="closed" value="true" />
-      <created>1741254093655</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1741254093655</updated>
+      <workItem from="1783510979586" duration="3749000" />
+      <workItem from="1784817075271" duration="20000" />
+      <workItem from="1785307895201" duration="24084000" />
     </task>
     <task id="LOCAL-00028" summary="change visibility of member">
       <option name="closed" value="true" />
@@ -731,7 +697,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783438275033</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="- make api calls more consistent&#10;- use Enums instead of constants where applicable">
+      <option name="closed" value="true" />
+      <created>1785335706156</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1785335706157</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -755,7 +729,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="grammar" />
     <MESSAGE value="set cookie option secure to true" />
     <MESSAGE value="use cookie default options" />
     <MESSAGE value="handle subdomain www.host.my the same as host.my" />
@@ -780,7 +753,8 @@
     <MESSAGE value="refactor" />
     <MESSAGE value="fix grammar" />
     <MESSAGE value="fix warnings reported by phpstorm" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix warnings reported by phpstorm" />
+    <MESSAGE value="- make api calls more consistent&#10;- use Enums instead of constants where applicable" />
+    <option name="LAST_COMMIT_MESSAGE" value="- make api calls more consistent&#10;- use Enums instead of constants where applicable" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
