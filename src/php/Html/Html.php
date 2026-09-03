@@ -12,7 +12,7 @@ namespace WebsiteTemplate\Html;
 abstract class Html
 {
     use CssClassTrait;
-    use CssBemTrait;
+    use CssBlockTrait;
 
     /** @var string|null html id attribute */
     public ?string $id = null;

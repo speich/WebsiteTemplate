@@ -16,7 +16,7 @@ class RadioButton extends Form
     /** @var string value attribute */
     public string $val;
 
-    public ?string $bemBlock = 'radio';
+    public ?string $blockName = 'radio';
 
     // Override the base Form default for radio buttons
     public LabelPosition $labelPosition = LabelPosition::WrappedAfter;

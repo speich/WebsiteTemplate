@@ -6,7 +6,7 @@
 
 namespace WebsiteTemplate;
 
-use WebsiteTemplate\Html\CssBemTrait;
+use WebsiteTemplate\Html\CssBlockTrait;
 use WebsiteTemplate\Http\QueryString;
 
 /**
@@ -14,7 +14,7 @@ use WebsiteTemplate\Http\QueryString;
  */
 class PagedNav
 {
-    use CssBemTrait;
+    use CssBlockTrait;
 
     // Note: numRec and numRecPerPage are private to force setting either through constructor or setter setProps
 
@@ -95,7 +95,7 @@ class PagedNav
     public function __construct(string $path, ?int $numRec = null, ?int $numRecPerPage = null, ?int $numLinks = null)
     {
         // Initialize BEM defaults here (not as property overrides) because CssBemTrait
-        // is composed directly; redeclaring $bemBlock/$bemElement in the class body
+        // is composed directly; redeclaring $blockName/$bemElement in the class body
         // would trigger PHP's trait-property compatibility check (different default).
         $this->bemBlock = 'pg-nav';
 
@@ -219,10 +219,10 @@ class PagedNav
         $query = new QueryString($this->whitelist);
         $lb = $this->getLowerBoundary($curPage);
         $ub = $this->getUpperBoundary($curPage);
-        $str = '<div class="'.$this->bemClass().'">';
+        $str = '<div class="'.$this->blockClass().'">';
 
         if ($this->renderText) {
-            $str .= '<div class="'.$this->bemClass('text').'">';
+            $str .= '<div class="'.$this->blockClass('text').'">';
             $str .= $this->i18n[$this->lang]['search result'].': '.$this->numRec.' ';
             $str .= $this->numRec > 1 ? $this->i18n[$this->lang]['entries'] : $this->i18n[$this->lang]['entry'];
             $str .= ' '.$this->i18n[$this->lang]['on']." $this->numPages ";
@@ -230,12 +230,12 @@ class PagedNav
             $str .= '</div>';
         }
 
-        $str .= '<div class="'.$this->bemClass('pages').'">';
+        $str .= '<div class="'.$this->blockClass('pages').'">';
         // link jump back small
         if ($lb > $this->numLinks / 2) {
             // reuse existing query string in navigation links
             $queryStr = $query->withString([$this->queryVarName => $curPage - $this->stepSmall]);
-            $str .= '<span class="'.$this->bemClass('step-small', 'prev').'"><a href="'.$this->path.$queryStr.'">';
+            $str .= '<span class="'.$this->blockClass('step-small', 'prev').'"><a href="'.$this->path.$queryStr.'">';
             $str .= '[-'.$this->stepSmall.']';
             $str .= '</a></span>';
         }
@@ -243,9 +243,9 @@ class PagedNav
         for (; $lb <= $ub; $lb++) {
             if ($this->numPages > 1) {
                 if ($lb === $curPage) {
-                    $str .= '<span class="'.$this->bemClass('page', 'current').'">';
+                    $str .= '<span class="'.$this->blockClass('page', 'current').'">';
                 } else {
-                    $str .= '<span class="'.$this->bemClass('page').'">';
+                    $str .= '<span class="'.$this->blockClass('page').'">';
                     $queryStr = $query->withString([$this->queryVarName => $lb]);
                     $str .= '<a href="'.$this->path.$queryStr.'">';
                 }
@@ -260,7 +260,7 @@ class PagedNav
         if ($ub <= $this->numPages - $this->numLinks / 2) {
             // reuse query string
             $queryStr = $query->withString([$this->queryVarName => $curPage + $this->stepSmall]);
-            $str .= '<span class="'.$this->bemClass('step-small', 'next').'"><a href="'.$this->path.$queryStr.'">';
+            $str .= '<span class="'.$this->blockClass('step-small', 'next').'"><a href="'.$this->path.$queryStr.'">';
             $str .= '[+'.$this->stepSmall.']';
             $str .= '</a></span>';
         }

@@ -4,17 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="- make api calls more consistent&#10;- use Enums instead of constants where applicable">
+    <list default="true" id="f821bcf3-dbc1-43ae-b135-bae6785dc70c" name="Changes" comment="install/update dependencies">
       <change afterPath="$PROJECT_DIR$/src/css/form.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/php/Html/OptionSelectionMethod.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/php/Html/OptionTitleSource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/php/Html/SelectRenderMode.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/WebsiteTemplate.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WebsiteTemplate.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/demo/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/layout/css/layout.css" beforeDir="false" afterPath="$PROJECT_DIR$/demo/layout/css/layout.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/layout/css/layout.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/layout/inc_nav.php" beforeDir="false" afterPath="$PROJECT_DIR$/demo/layout/inc_nav.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/menu.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/menu.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/menu.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/Html/Checkbox.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/Checkbox.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/Html/CssBemTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/CssBlockTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/Html/DivList.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/DivList.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/Html/Form.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/Form.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/Html/Html.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/Html.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/Html/InputRadioCheckboxTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/InputRadioCheckboxTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/Html/RadioButton.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/RadioButton.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/Html/RadioGroup.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/RadioGroup.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/php/Html/SelectField.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Html/SelectField.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/LanguageMenu.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/LanguageMenu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/Menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/Menu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/PagedNav.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/PagedNav.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +43,7 @@
     </execution>
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="69" />
+    <option name="cachedIndexableFilesCount" value="77" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -89,60 +99,60 @@
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
       <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0000000001274942" />
-      <entry key="S5" value="1.0002111396705706" />
-      <entry key="S10" value="1.0252972642949378" />
-      <entry key="S30" value="1.664614594209209" />
-      <entry key="S60" value="2.594758782460561" />
-      <entry key="M2" value="3.838532777681768" />
-      <entry key="M5" value="8.429239333419485" />
-      <entry key="M10" value="16.32340527113704" />
-      <entry key="M15" value="23.789669487399305" />
-      <entry key="M30" value="45.23141835480871" />
-      <entry key="H1" value="81.60110494616403" />
-      <entry key="H2" value="141.29113621894098" />
-      <entry key="H4" value="298.40782237196584" />
-      <entry key="D1" value="2088.3647199236275" />
-      <entry key="W1" value="3415.284511542934" />
+      <entry key="MS500" value="1.0001253283136866" />
+      <entry key="S2" value="1.1058064879557952" />
+      <entry key="S5" value="1.407197328086165" />
+      <entry key="S10" value="1.6381201743856417" />
+      <entry key="S30" value="1.8664151034424266" />
+      <entry key="S60" value="2.3402265132786155" />
+      <entry key="M2" value="6.406365599781488" />
+      <entry key="M5" value="24.419416171076016" />
+      <entry key="M10" value="56.58651139393289" />
+      <entry key="M15" value="94.16448464643545" />
+      <entry key="M30" value="228.9572626013238" />
+      <entry key="H1" value="454.64399445315854" />
+      <entry key="H2" value="708.0482626904648" />
+      <entry key="H4" value="991.8242295850589" />
+      <entry key="D1" value="2898.8223906702415" />
+      <entry key="W1" value="4361.6331547357695" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.312530885635048E-162" />
-      <entry key="MS500" value="4.203605062024251E-33" />
-      <entry key="S2" value="8.052031711037091E-9" />
-      <entry key="S5" value="5.785783660088422E-4" />
-      <entry key="S10" value="0.024053655980096712" />
-      <entry key="S30" value="0.28866653321374197" />
-      <entry key="S60" value="0.5406587377381924" />
-      <entry key="M2" value="0.8921771259046376" />
-      <entry key="M5" value="2.6671787788679118" />
-      <entry key="M10" value="5.870593185903968" />
-      <entry key="M15" value="8.836349589088007" />
-      <entry key="M30" value="17.342471098402438" />
-      <entry key="H1" value="32.47750761016364" />
-      <entry key="H2" value="52.632726404412374" />
-      <entry key="H4" value="74.42788003388097" />
-      <entry key="D1" value="126.3723733444382" />
-      <entry key="W1" value="147.6446060806648" />
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="6.882495693003844E-293" />
+      <entry key="S2" value="9.108466233702708E-74" />
+      <entry key="S5" value="6.1666282083878815E-30" />
+      <entry key="S10" value="2.8385997381196823E-15" />
+      <entry key="S30" value="2.455453485181661E-5" />
+      <entry key="S60" value="0.008354205062316544" />
+      <entry key="M2" value="0.1572486988354135" />
+      <entry key="M5" value="0.9209020809075291" />
+      <entry key="M10" value="1.6621188677882845" />
+      <entry key="M15" value="2.037565662539146" />
+      <entry key="M30" value="3.144786624438798" />
+      <entry key="H1" value="9.133510225632628" />
+      <entry key="H2" value="26.306008462363707" />
+      <entry key="H4" value="52.7897924903934" />
+      <entry key="D1" value="121.86471733384825" />
+      <entry key="W1" value="150.18412058032806" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="2.25169568420599E-125" />
-      <entry key="MS500" value="1.1762562365438787E-25" />
-      <entry key="S2" value="5.85800109192009E-7" />
-      <entry key="S5" value="0.003494083646679882" />
-      <entry key="S10" value="0.09028679649883085" />
-      <entry key="S30" value="1.2511825478413114" />
-      <entry key="S60" value="2.6676521591542715" />
-      <entry key="M2" value="4.451570736230589" />
-      <entry key="M5" value="10.954970226562486" />
-      <entry key="M10" value="22.10380492264882" />
-      <entry key="M15" value="32.555091263428686" />
-      <entry key="M30" value="62.52490213745022" />
-      <entry key="H1" value="114.04330788702181" />
-      <entry key="H2" value="193.898971927288" />
-      <entry key="H4" value="372.81875778467156" />
-      <entry key="D1" value="2214.731921974062" />
-      <entry key="W1" value="3562.928225683986" />
+      <entry key="MS100" value="1.4022196716272388E-4" />
+      <entry key="MS500" value="0.16969509907275424" />
+      <entry key="S2" value="0.7462799826638497" />
+      <entry key="S5" value="1.2426890474510814" />
+      <entry key="S10" value="1.5517172540715913" />
+      <entry key="S30" value="1.8365747646265758" />
+      <entry key="S60" value="2.332955309897989" />
+      <entry key="M2" value="6.55385134058805" />
+      <entry key="M5" value="25.333478406118893" />
+      <entry key="M10" value="58.24377658796347" />
+      <entry key="M15" value="96.19808383808495" />
+      <entry key="M30" value="232.09728873732664" />
+      <entry key="H1" value="463.76825629538376" />
+      <entry key="H2" value="734.3415519150869" />
+      <entry key="H4" value="1044.6016677737382" />
+      <entry key="D1" value="3020.682045819814" />
+      <entry key="W1" value="4511.81635719079" />
     </decayedShown>
   </component>
   <component name="PhpServers">
@@ -230,43 +240,45 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Docker.Ollama: Compose Deployment.executor": "Run",
-    "Docker.frankenphp: Compose Deployment.executor": "Run",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "Shell Script.docker npm install.executor": "Run",
-    "WebServerToolWindowFactoryState": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "credentialsType com.jetbrains.php.remote.interpreter.ui.PhpCreateRemoteSdkForm": "Docker Compose",
-    "credentialsType com.jetbrains.php.remote.interpreter.ui.PhpInplaceEditRemoteSdkForm": "Docker Compose",
-    "dumpAutoload /home/simon/Websites/WebsiteTemplate/composer.json": "--no-interaction --ansi --verbose --classmap-authoritative --apcu",
-    "git-widget-placeholder": "dev-css-bem",
-    "javascript.preferred.runtime.type.id": "node",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "/home/simon/Websites/WebsiteTemplate/src/js",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.jshint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.jshint": "",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_interpreter_path": "docker-compose://[/home/simon/Websites/frankenphp/docker-compose.yml]:assets/bun",
-    "nodejs_package_manager_path": "bun",
-    "npm.modern-normalize:build.executor": "Run",
-    "run.code.analysis.last.selected.profile": "aDefault",
-    "settings.editor.selected.configurable": "Errors",
-    "to.speed.mode.migration.done": "true",
-    "two.files.diff.last.used.file": "C:/Users/speich/Websites/WebsiteTemplate/scripts/php/Html/SelectField.php"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Docker.Ollama: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.frankenphp: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;KEY_CHAT_IN_TOOLWINDOW&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;Shell Script.docker npm install.executor&quot;: &quot;Run&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;credentialsType com.jetbrains.php.remote.interpreter.ui.PhpCreateRemoteSdkForm&quot;: &quot;Docker Compose&quot;,
+    &quot;credentialsType com.jetbrains.php.remote.interpreter.ui.PhpInplaceEditRemoteSdkForm&quot;: &quot;Docker Compose&quot;,
+    &quot;dumpAutoload /home/simon/Websites/WebsiteTemplate/composer.json&quot;: &quot;--no-interaction --ansi --verbose --classmap-authoritative --apcu&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev-css-bem&quot;,
+    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/simon/Websites/WebsiteTemplate/src/js&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.jshint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.jshint&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;docker-compose://[/home/simon/Websites/frankenphp/docker-compose.yml]:assets/bun&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;bun&quot;,
+    &quot;npm.menu:build.executor&quot;: &quot;Run&quot;,
+    &quot;npm.modern-normalize:build.executor&quot;: &quot;Run&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;watcher.settings&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;two.files.diff.last.used.file&quot;: &quot;C:/Users/speich/Websites/WebsiteTemplate/scripts/php/Html/SelectField.php&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/js" />
@@ -281,19 +293,34 @@
       <recent name="$PROJECT_DIR$/library" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="npm.menu:build">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
       </deployment>
       <method v="2" />
     </configuration>
+    <configuration name="menu:build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="menu:build" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.menu:build" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-PS-262.8665.325" />
-        <option value="bundled-php-predefined-a98d8de5180a-ff90ddd8021d-com.jetbrains.php.sharedIndexes-PS-262.8665.325" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-PS-262.9437.196" />
+        <option value="bundled-php-predefined-a98d8de5180a-9522f28f0b20-com.jetbrains.php.sharedIndexes-PS-262.9437.196" />
       </set>
     </attachedChunks>
   </component>
@@ -447,39 +474,16 @@
       <workItem from="1783405109570" duration="25570000" />
       <workItem from="1783510979586" duration="3749000" />
       <workItem from="1784817075271" duration="20000" />
-      <workItem from="1785307895201" duration="24084000" />
-    </task>
-    <task id="LOCAL-00028" summary="change visibility of member">
-      <option name="closed" value="true" />
-      <created>1741261686673</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1741261686673</updated>
-    </task>
-    <task id="LOCAL-00029" summary="add missing php extension to composer">
-      <option name="closed" value="true" />
-      <created>1741261723750</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1741261723750</updated>
-    </task>
-    <task id="LOCAL-00030" summary="whitelisting was ignored when null was passed">
-      <option name="closed" value="true" />
-      <created>1743076896369</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1743076896369</updated>
-    </task>
-    <task id="LOCAL-00031" summary="fix replace with empty string">
-      <option name="closed" value="true" />
-      <created>1743434586145</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1743434586145</updated>
+      <workItem from="1785307895201" duration="24445000" />
+      <workItem from="1785393177754" duration="3744000" />
+      <workItem from="1788351703591" duration="1138000" />
+      <workItem from="1788353672331" duration="168000" />
+      <workItem from="1788353868949" duration="702000" />
+      <workItem from="1788354581053" duration="111000" />
+      <workItem from="1788354715099" duration="30000" />
+      <workItem from="1788354819107" duration="83000" />
+      <workItem from="1788355044134" duration="4792000" />
+      <workItem from="1788417914198" duration="976000" />
     </task>
     <task id="LOCAL-00032" summary="use explicitly set domain for cookies">
       <option name="closed" value="true" />
@@ -705,7 +709,39 @@
       <option name="project" value="LOCAL" />
       <updated>1785335706157</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="use Enums for the SelectField rendering">
+      <option name="closed" value="true" />
+      <created>1785341384257</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1785341384258</updated>
+    </task>
+    <task id="LOCAL-00061" summary="add form elements to demo page (WIP), which also acts as a test">
+      <option name="closed" value="true" />
+      <created>1785341594740</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1785341594740</updated>
+    </task>
+    <task id="LOCAL-00062" summary="update phpstorm settings/config">
+      <option name="closed" value="true" />
+      <created>1785341624942</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1785341624942</updated>
+    </task>
+    <task id="LOCAL-00063" summary="install/update dependencies">
+      <option name="closed" value="true" />
+      <created>1785341644525</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1785341644525</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -729,10 +765,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="set cookie option secure to true" />
-    <MESSAGE value="use cookie default options" />
-    <MESSAGE value="handle subdomain www.host.my the same as host.my" />
-    <MESSAGE value="fix not removing subdomain www when setting language cookie" />
     <MESSAGE value="fix not removing subdomain www when setting language cookie statically" />
     <MESSAGE value="fix property created dynamically" />
     <MESSAGE value="fix broken whitelisting after previous commit removing passing null" />
@@ -754,7 +786,11 @@
     <MESSAGE value="fix grammar" />
     <MESSAGE value="fix warnings reported by phpstorm" />
     <MESSAGE value="- make api calls more consistent&#10;- use Enums instead of constants where applicable" />
-    <option name="LAST_COMMIT_MESSAGE" value="- make api calls more consistent&#10;- use Enums instead of constants where applicable" />
+    <MESSAGE value="use Enums for the SelectField rendering" />
+    <MESSAGE value="add form elements to demo page (WIP), which also acts as a test" />
+    <MESSAGE value="update phpstorm settings/config" />
+    <MESSAGE value="install/update dependencies" />
+    <option name="LAST_COMMIT_MESSAGE" value="install/update dependencies" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

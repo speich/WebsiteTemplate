@@ -46,7 +46,7 @@ class SelectField extends Form
     /** @var string key for the text if the option array is associative */
     public string $keyText = 'text';
 
-    public ?string $bemBlock = 'select';
+    public ?string $blockName = 'select';
 
     /**
      * Construct a SelectFld object.

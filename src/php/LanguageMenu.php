@@ -2,7 +2,7 @@
 
 namespace WebsiteTemplate;
 
-use WebsiteTemplate\Html\CssBemTrait;
+use WebsiteTemplate\Html\CssBlockTrait;
 use WebsiteTemplate\Http\QueryString;
 
 /**
@@ -11,7 +11,7 @@ use WebsiteTemplate\Http\QueryString;
  */
 class LanguageMenu
 {
-    use CssBemTrait;
+    use CssBlockTrait;
 
     /** @var ?string id attribute of HTMLUListElement */
     public ?string $cssId = null;
@@ -39,7 +39,7 @@ class LanguageMenu
     public function __construct(Language $lang, Website $web)
     {
         // Initialize BEM defaults here (not as property overrides) because CssBemTrait
-        // is composed directly; redeclaring $bemBlock/$bemElement in the class body
+        // is composed directly; redeclaring $blockName/$bemElement in the class body
         // would trigger PHP's trait-property compatibility check (different default).
         $this->bemBlock = 'lang-menu';
         $this->bemElement = 'item';
@@ -70,7 +70,7 @@ class LanguageMenu
         $query = new QueryString($this->whitelist);
         $str = '';
         $cssId = $this->cssId === null ? '' : ' id="'.$this->cssId.'"';
-        $str .= '<ul'.$cssId.' class="'.$this->bemClass(element: '').'">';
+        $str .= '<ul'.$cssId.' class="'.$this->blockClass().'">';
         foreach ($language->arrLang as $lang => $label) {
             $page = $this->lang->createPage($this->web->page, $lang);
             $path = $this->web->getDir();
@@ -81,10 +81,10 @@ class LanguageMenu
                 $url = $this->redirect.$query->withString(['lang' => $lang, 'url' => $path.$page]);
             }
             if ($lang === $language->get()) {
-                $str .= '<li class="'.$this->bemClass(modifier: 'active').'">'.$text.'</li>';
+                $str .= '<li class="'.$this->blockClass('active').'">'.$text.'</li>';
             } else {
-                $str .= '<li class="'.$this->bemClass().'">';
-                $str .= '<a class="'.$this->bemClass('link').'" href="'.htmlspecialchars($url).'" title="'.$label.'">'.$text.'</a></li>';
+                $str .= '<li class="'.$this->blockClass().'">';
+                $str .= '<a class="'.$this->blockClass('link').'" href="'.htmlspecialchars($url).'" title="'.$label.'">'.$text.'</a></li>';
             }
         }
         $str .= '</ul>';

@@ -44,19 +44,10 @@ class Form extends Html
         $isWrapped = self::isLabelWrapped($this->labelPosition);
         $hasId = ($this->id !== null && $this->id !== '');
 
-        // 1. Check for the impossible accessibility state
-        if (!$isWrapped && !$hasId) {
-            throw new LogicException(
-                'A form element using a sibling label layout must have an ID set to generate a valid "for" attribute.'
-            );
-        }
-
         if ($isWrapped) {
-            $this->addCssClass($this->bemClass());
-            $css = $this->renderCssClass();
-        } else {
-            $css = ' class="'.$this->bemClass('label').'"';
+            $this->addCssClass($this->blockClass());
         }
+        $css = $this->renderCssClass();
 
         // 2. Safely assemble the label tag
         $labelTag = '<label';
@@ -64,18 +55,27 @@ class Form extends Html
             $labelTag .= ' for="'.$this->id.'"';
         }
         $labelTag .= $css.'>';
+        $label = $this->label ?? '';
 
         return match ($this->labelPosition) {
-            LabelPosition::After => $strInput.$labelTag.$this->label.'</label>',
-            LabelPosition::Before => $labelTag.$this->label.$strInput.'</label>',
-            LabelPosition::WrappedAfter => $labelTag.$strInput.$this->label.'</label>',
-            LabelPosition::WrappedBefore => $labelTag.$this->label.'</label>'.$strInput,
+            LabelPosition::Before => $labelTag . $label . '</label>' . $strInput,
+            LabelPosition::After => $strInput . $labelTag . $label . '</label>',
+            LabelPosition::WrappedBefore => $labelTag . $label . $strInput . '</label>',
+            LabelPosition::WrappedAfter => $labelTag . $strInput . $label . '</label>',
         };
     }
 
+    /**
+     * Check for wrapped label layout
+     * @param $position
+     * @return bool
+     */
     public static function isLabelWrapped($position): bool
     {
-        return in_array($position, [LabelPosition::WrappedBefore, LabelPosition::WrappedAfter], true);
+        return match ($position) {
+            LabelPosition::WrappedBefore, LabelPosition::WrappedAfter => true,
+            default => false,
+        };
     }
 
 }

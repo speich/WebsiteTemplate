@@ -12,14 +12,10 @@
     --menu-shadow: #cccccc 0px 4px 4px 0;
     --menu-link-padding: 0.25em 0.75em;
     --submenu-bg: #fafafa;
-    --submenu-padding: 0.25em;
     --submenu-link-padding: 0.5em 1.5em 0.5em 1em;
-
 
     /* --- Base Styles --- */
     cursor: pointer;
-
-    /* Reset list styles and spacing for the root AND all nested submenus */
 
     &,
     & ul {
@@ -28,39 +24,35 @@
         padding: 0;
     }
 
-    & a {
+    & li > a,
+    & li > div {
         display: block;
         text-decoration: none;
         color: inherit;
     }
 
-    & a:hover,
-    & div:hover {
-        color: var(--menu-text-active);
-    }
-}
-
-/* ==========================================================================
-   Base Item Styles (Colors & Chevrons)
-   ========================================================================== */
-.menu__item {
-    color: var(--menu-text-primary);
-
-    &.menu__item_active > .menu__link {
+    & li > a:hover,
+    & li > div:hover {
         color: var(--menu-text-active);
     }
 
-    &.menu__item_disabled > .menu__link {
-        color: var(--menu-text-disabled);
-        pointer-events: none;
-        cursor: not-allowed;
+    /* Currently active item */
+    & li:has(> [aria-current]) > a,
+    & li:has(> [aria-current]) > div {
+        color: var(--menu-text-active);
     }
 
-    /* --- Global Chevron for all items with children --- */
+    /* Ancestor of the active item (covers "has active child") */
+    & li:has([aria-current]) > a,
+    & li:has([aria-current]) > div {
+        color: var(--menu-text-active-alt);
+    }
 
-    &.menu__item_has-children > .menu__link {
+    /* Chevron for any item that currently has a rendered submenu */
+    & li:has(> ul) > a,
+    & li:has(> ul) > div {
         position: relative;
-        padding-right: 1.5em; /* Ensures text never overlaps the arrow */
+        padding-right: 1.5em;
 
         &::after {
             content: '';
@@ -71,7 +63,7 @@
             height: 0.4em;
             border-right: 1px solid currentColor;
             border-bottom: 1px solid currentColor;
-            transform: translateY(-50%) rotate(-45deg); /* Default: Points Right */
+            transform: translateY(-50%) rotate(-45deg); /* Default: points right */
             transition: transform 0.2s ease-in-out;
         }
     }
@@ -80,39 +72,36 @@
 /* ==========================================================================
    Horizontal Menu (Animated with Dropdowns)
    ========================================================================== */
-.menu_horizontal {
+.menu--horizontal {
     background: linear-gradient(to bottom, var(--menu-bg-gradient-start), var(--menu-bg-gradient-end)) no-repeat;
     border: solid var(--menu-border);
     border-width: 1px 0;
 
-    /* Reveal ALL nested dropdowns on hover */
-
-    & .menu__item:hover > ul {
+    & li:hover > ul {
         opacity: 1;
         visibility: visible;
     }
 
     /* Top-level items */
-
-    & > .menu__item {
+    & > li {
         color: var(--menu-text-secondary);
         position: relative;
         display: inline-block;
         vertical-align: top;
 
-        /* UX Tweak: Top-level horizontal dropdowns point DOWN, not right */
-
-        &.menu__item_has-children > .menu__link::after {
+        /* Top-level dropdowns point DOWN */
+        &:has(> ul) > a::after,
+        &:has(> ul) > div::after {
             transform: translateY(-75%) rotate(45deg);
         }
     }
 
-    & .menu__link {
+    & li > a,
+    & li > div {
         padding: var(--menu-link-padding);
     }
 
     /* Submenu container */
-
     & ul {
         position: absolute;
         border: 1px solid var(--menu-border);
@@ -123,14 +112,13 @@
         box-shadow: var(--menu-shadow);
         z-index: 100;
 
-        /* Submenu items */
-
-        & .menu__item {
+        & li {
             display: flex;
             position: relative;
         }
 
-        & .menu__link {
+        & li > a,
+        & li > div {
             flex: auto;
             min-width: 9em;
             padding: var(--submenu-link-padding);
@@ -138,17 +126,17 @@
         }
     }
 
-    /* 3rd-level+ submenu positioning */
-    & .menu__item ul ul {
+    /* 2rd-level+ submenu positioning */
+    & ul li ul {
         left: calc(100% - 0.25em);
         top: 3px;
     }
 }
 
-/* ==========================================================================
-   Vertical Menus (Classic and Open)
+/* =========================================================================
+   Vertical Menu
    ========================================================================== */
-.menu_vertical {
+.menu--vertical {
     --menu-link-padding: 0.75em 1.5em 0.75em 0.25em;
     width: 10em;
 
@@ -156,13 +144,16 @@
         margin-left: 0.75em;
     }
 
-    .menu__link {
+    li > a,
+    li > div {
         padding: var(--menu-link-padding);
         border-bottom: 1px solid var(--menu-border);
     }
 
-    /* Open State (Rotates arrow down) */
-    .menu__item_open > .menu__link::after {
+    /* Since a submenu is only ever rendered while it's "open" ,
+     :has(> ul) already IS the open indicator. */
+    li:has(> ul) > a::after,
+    li:has(> ul) > div::after {
         transform: translateY(-75%) rotate(45deg);
     }
 }

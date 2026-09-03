@@ -35,7 +35,7 @@ $menu1 = new Menu($data);
 $menu1->setActive('/services/load.php');
 $menu1->allChildrenRendered = true;
 
-/* Simple vertical menu showing all children */
 $menu2 = new Menu($data);
 $menu2->orientation = Orientation::Vertical;
 $menu2->setActive('/services/load.php');
+$menu2->allChildrenRendered = false;

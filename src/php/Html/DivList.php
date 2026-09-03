@@ -18,7 +18,7 @@ class DivList extends Html
     /** @var string|null label */
     public ?string $label = null;
 
-    public ?string $bemBlock = 'div-list';
+    public ?string $blockNameck = 'div-list';
 
     /**
      * Construct a list of HtmlDiv elements.
@@ -37,17 +37,17 @@ class DivList extends Html
      */
     public function render(): string
     {
-        $this->addCssClass($this->bemClass());
+        $this->addCssClass($this->blockClass());
         $strHtml = '<div id="'.($this->id ? ' id="'.$this->id.'"' : '').'"'.$this->renderCssClass().'>';
         if ($this->label !== null) {
-            $strHtml .= '<div class="'.$this->bemClass('label').'">'.$this->label.'</div>';
+            $strHtml .= '<div class="'.$this->blockClass('label').'">'.$this->label.'</div>';
         }
         foreach ($this->arrItem as $item) {
             if (is_array($item)) {
-                $strHtml .= '<div class="'.$this->bemClass('item').'">';
-                $strHtml .= '<a class="'.$this->bemClass('link').'" href="'.$item[0].'">'.$item[1].'</a></div>';
+                $strHtml .= '<div class="'.$this->blockClass('item').'">';
+                $strHtml .= '<a class="'.$this->blockClass('link').'" href="'.$item[0].'">'.$item[1].'</a></div>';
             } else {
-                $strHtml .= '<div class="'.$this->bemClass('item').'">'.$item.'</div>';
+                $strHtml .= '<div class="'.$this->blockClass('item').'">'.$item.'</div>';
             }
         }
         $strHtml .= '</div>';

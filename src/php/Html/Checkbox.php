@@ -13,7 +13,7 @@ class Checkbox extends Form
     /** @var string value attribute */
     public string $val;
 
-    public ?string $bemBlock = 'checkbox';
+    public ?string $blockName = 'checkbox';
 
     // Override the base Form default for radio buttons
     public LabelPosition $labelPosition = LabelPosition::WrappedAfter;

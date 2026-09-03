@@ -11,7 +11,7 @@ use WebsiteTemplate\Orientation;
  */
 class RadioGroup extends Form
 {
-    public ?string $bemBlock = 'radio-group';
+    public ?string $blockName = 'radio-group';
 
     /** @var RadioButton[] */
     public array $radios = [];
@@ -37,7 +37,7 @@ class RadioGroup extends Form
             $radio = new RadioButton($id, (string)$attrValue, $nameOnly);
             $radio->name = $name;
             $radio->label = $labelText;
-            $radio->addCssClass($this->bemClass('item'));
+            $radio->addCssClass($this->blockClass('item'));
             $this->radios[] = $radio;
         }
     }
@@ -102,7 +102,7 @@ class RadioGroup extends Form
         if ($orientation !== null) {
             $this->orientation = $orientation;
         }
-        $this->addCssClass($this->bemClass(), $this->bemClass(modifier: $this->orientation->value));
+        $this->addCssClass($this->blockClass(), $this->blockClass(modifier: $this->orientation->value));
         $html = '<div'.($this->id ? ' id="'.$this->id.'"' : '').$this->renderCssClass().'>';
         foreach ($this->radios as $radio) {
             $html .= $radio->render();
