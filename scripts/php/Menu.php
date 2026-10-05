@@ -121,7 +121,7 @@ class Menu
      * or use the add method for each item individually.
      * @param array|null $arrItem menu items
      */
-    public function __construct(array $arrItem = null)
+    public function __construct(?array $arrItem = null)
     {
         if ($arrItem !== null) {
             $this->addAll($arrItem);
@@ -226,7 +226,7 @@ class Menu
      * When argument $url is provided, then the item with matching url is set to active.
      * @param ?string $url
      */
-    public function setActive(string $url = null): void
+    public function setActive(?string $url = null): void
     {
         if ($url === null) {
             foreach ($this->arrItem as $item) {
