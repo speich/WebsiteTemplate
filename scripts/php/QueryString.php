@@ -116,7 +116,7 @@ class QueryString
      * @return string
      * @see http_build_query()
      */
-    public function withString(array $arrInc = null, array $arrExl = null, int $encType = null): string
+    public function withString(?array $arrInc = null, ?array $arrExl = null, ?int $encType = null): string
     {
         $encType = $encType ?? PHP_QUERY_RFC1738;
         $str = http_build_query($this->with($arrInc, $arrExl), $encType);
@@ -138,7 +138,7 @@ class QueryString
      * @param array|null $arrRemove keys to remove
      * @return array
      */
-    public function with(array $arrAdd = null, array $arrRemove = null): array
+    public function with(?array $arrAdd = null, ?array $arrRemove = null): array
     {
         $vars = $this->queryVars;
         if ($arrAdd !== null) {
