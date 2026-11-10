@@ -5,7 +5,7 @@
 
 namespace WebsiteTemplate;
 
-use WebsiteTemplate\Html\CssBemTrait;
+use WebsiteTemplate\Html\CssBlockTrait;
 use WebsiteTemplate\Http\QueryString;
 use function array_key_exists;
 use function array_slice;
@@ -30,27 +30,7 @@ use function is_array;
  */
 class Menu
 {
-    use CssBemTrait;
-
-    /**
-     * Item url should match only the path of the page url when setting an item to active automatically.
-     * @var int
-     */
-    public const MATCH_PATH = 1;
-
-    /**
-     * Item url should match both the path and query string of the page url when setting the item to active automatically.
-     * All query string variables and values of the item url have to occur also in the query string of the page url.
-     * @var int
-     */
-    public const MATCH_FULL = 2;
-
-    /**
-     * Item url should match the path and partially the query string of page url when setting item to active automatically.
-     * Only all query string variables but not the query values of the item url have to occur also in the query string of the page url.
-     * @var int
-     */
-    public const MATCH_QUERY_VARS = 3;
+    use CssBlockTrait;
 
     /**
      * Hold menu items.
@@ -69,12 +49,6 @@ class Menu
     public bool $allChildrenRendered = false;
 
     /**
-     * Set the CSS state of all parent items to open.
-     * @var bool
-     */
-    public bool $allChildrenOpen = false;
-
-    /**
      * Automatically set the CSS state to active if the url is the same as of the current page.
      * @var bool
      */
@@ -87,15 +61,22 @@ class Menu
     public ?string $cssId = null;
 
     /**
+     * @var Orientation render the menu group horizontally or vertically
+     */
+    public Orientation $orientation = Orientation::Horizontal;
+
+
+    /**
      * The html of the created menu.
      * @var string rendered html
      */
     private string $html = '';
+
     /**
      * Sets the url matching pattern of $autoActive property.
-     * @var int
+     * @var MenuItemUrl
      */
-    private int $autoActiveMatching = Menu::MATCH_PATH;
+    private MenuItemUrl $autoActiveMatching = MenuItemUrl::MatchPath;
     /**
      * Flag to mark the first ul tag in recursion when rendering HTML.
      * @var bool is first HTMLULElement
@@ -126,12 +107,8 @@ class Menu
      */
     public function __construct(?array $menuData = null)
     {
-        // Initialize BEM defaults here (not as property overrides) because CssBemTrait
-        // is composed directly; redeclaring $bemBlock/$bemElement in the class body
-        // would trigger PHP's trait-property compatibility check (different default).
-        $this->bemBlock = 'menu';
-        $this->bemElement = 'item';
-
+        // Initialize css class defaults here (not as property overrides) because CssBlockTrait is composed directly;
+        $this->blockName = 'menu';
         if ($menuData !== null) {
             $this->addAll($menuData);
         }
@@ -210,7 +187,6 @@ class Menu
             $this->setActive();
         }
         if (count($this->arrItem) > 0) {
-            $this->setHasActiveChildren();
             $str = $this->createHtml(reset($this->arrItem)->parentId);
 
             return $str.'</ul>';
@@ -304,35 +280,12 @@ class Menu
     }
 
     /**
-     * Returns ID of every item that is active.
-     * Returns a string if only one item is active, an array if there are several items active, or false if none is active.
-     * @return int|string|array|false id
-     */
-    public function getActive(): bool|int|array|string
-    {
-        $activeIds = [];
-        foreach ($this->arrItem as $item) {
-            if ($item->getActive()) {
-                $activeIds[] = $item->id;
-            }
-        }
-        $num = count($activeIds);
-        if ($num === 0) {
-            $activeIds = false;
-        } elseif ($num === 1) {
-            $activeIds = $activeIds[0];
-        }
-
-        return $activeIds;
-    }
-
-    /**
      * Check if the menu item should be set to active.
      * @param MenuItem $item
-     * @param int|null $type
+     * @param MenuItemUrl|null $type
      * @return bool
      */
-    protected function checkAutoActive(MenuItem $item, ?int $type = null): bool
+    protected function checkAutoActive(MenuItem $item, ?MenuItemUrl $type = null): bool
     {
         $url = $_SERVER['REQUEST_URI'];
         $urlPage = parse_url($url);
@@ -342,12 +295,12 @@ class Menu
         }
 
         $autoActive = $urlPage['path'] === $urlItem['path'];    // handles case MATCH_PATH_ONLY
-        if ($type !== self::MATCH_PATH && $autoActive && array_key_exists('query', $urlItem)) {
+        if ($type !== MenuItemUrl::MatchPath && $autoActive && array_key_exists('query', $urlItem)) {
             parse_str($urlItem['query'], $arr);
             $query = new QueryString(array_keys($arr)); // whitelist query param used in item->linkUrl
-            if ($type === self::MATCH_FULL) {
+            if ($type === MenuItemUrl::MatchFull) {
                 $autoActive = $query->in($arr);
-            } elseif ($type === self::MATCH_QUERY_VARS) {
+            } elseif ($type === MenuItemUrl::MatchQueryVars) {
                 $keys = array_keys($arr);
                 $autoActive = $query->in($keys);
             }
@@ -360,10 +313,10 @@ class Menu
      * Return the url matching pattern.
      * Returns the matching pattern used when automatically setting the item to active.
      * The pattern is used to compare the current page url with the item url.
-     * @return int
+     * @return MenuItemUrl
      * @see Menu::setAutoActiveMatching()
      */
-    public function getAutoActiveMatching(): int
+    public function getAutoActiveMatching(): MenuItemUrl
     {
         return $this->autoActiveMatching;
     }
@@ -372,28 +325,11 @@ class Menu
      * Set the url matching pattern.
      * Set the matching pattern to use when automatically setting the item to active.
      * The pattern is used to compare the current page url with the item url.
-     * Menu::MATCH_PATH = 1 = item url matches the path only (default)
-     * Menu::MATCH_FULL = 2 = item url matches the path and all query variables,
-     * Menu::MATCH_QUERY_ANY = 3 = item url matches path and at least one of the query parameters (name and value)
-     * @param int $type
+     * @param MenuItemUrl $type
      */
-    public function setAutoActiveMatching(int $type): void
+    public function setAutoActiveMatching(MenuItemUrl $type): void
     {
         $this->autoActiveMatching = $type;
-    }
-
-    /**
-     * Set hasActiveChild property for all items if they have at least an active child.
-     */
-    public function setHasActiveChildren(): void
-    {
-        foreach ($this->arrItem as $item) {
-            foreach ($this->arrItem as $child) {
-                if ($item->id === $child->parentId && $child->getActive()) {
-                    $item->setHasActiveChild(true);
-                }
-            }
-        }
     }
 
     /**
@@ -405,10 +341,10 @@ class Menu
     {
         $this->html .= '<ul';
         if ($this->firstUl) {
-            $ulClasses = [$this->bemClass(element: '', modifier: '')];
-            if (!empty($this->bemModifier)) {
-                $ulClasses[] = $this->bemClass(element: '');
-            }
+            $ulClasses = [
+                $this->blockClass(),
+                $this->blockClass($this->orientation->value),
+            ];
             $this->html .= ' class="'.implode(' ', $ulClasses).'"';
 
             if ($this->cssId !== null) {
@@ -420,15 +356,17 @@ class Menu
 
         foreach ($this->arrItem as $item) {
             if ($item->parentId === $parentId) {
-                $this->setItemCssClass($item);
                 $itemIdPrefix = $this->itemIdPrefix === null ? '' : ' id="'.$this->itemIdPrefix.$item->id.'"';
                 $cssClass = $item->getCssClass() === '' ? '' : ' class="'.$item->getCssClass().'"';
                 $this->html .= '<li'.$itemIdPrefix.$cssClass.'>';
                 $tagName = $item->linkUrl === null ? 'div' : 'a';
-                $this->html .= '<'.$tagName.' class="'.$this->bemClass(element: 'link', modifier: '').'"';
+                $this->html .= '<'.$tagName;
                 if ($item->linkUrl !== null) {
                     $this->html .= ' href="'.htmlspecialchars($item->linkUrl, ENT_QUOTES,
                             $this->charset).'"'.($item->linkTarget === null ? '' : ' target="'.$item->linkTarget.'"');
+                }
+                if ($item->getActive()) {
+                    $this->html .= ' aria-current="page"';
                 }
                 $this->html .= '>';
                 $this->html .= $item->linkTxt;
@@ -442,29 +380,6 @@ class Menu
         }
 
         return $this->html;
-    }
-
-    /**
-     * Sets the CSS class string of the item depending on its status.
-     * @param MenuItem $item
-     */
-    protected function setItemCssClass(MenuItem $item): void
-    {
-        $item->addCssClass($this->bemClass(modifier: ''));
-        $hasChild = $this->checkChildExists($item->id);
-        if ($hasChild) {
-            $item->addCssClass($this->bemClass(modifier: 'has-children'));
-            if ($this->allChildrenOpen || $item->getActive()) {
-                // children can be open even when nothing is active
-                $item->addCssClass($this->bemClass(modifier: 'open'));
-            }
-        }
-        if ($item->getActive()) {
-            $item->addCssClass($this->bemClass(modifier: 'active'));
-        }
-        if ($item->getHasActiveChild()) {
-            $item->addCssClass($this->bemClass(modifier: 'has-active-child'));
-        }
     }
 
     /**

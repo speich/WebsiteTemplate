@@ -6,6 +6,7 @@
     "modern-normalize": "3.0.1"
   },
   "scripts": {
-    "modern-normalize:build": "bun build ./node_modules/modern-normalize/modern-normalize.css --outdir=./src/css --entry-naming='[name].min.[ext]' --minify"
+    "modern-normalize:build": "bun build ./node_modules/modern-normalize/modern-normalize.css --outdir=./src/css --entry-naming='[name].min.[ext]' --minify",
+    "menu:build": "bun build ./src/css/menu.css --outdir=./src/css --entry-naming='[name].min.[ext]' --minify"
   }
 }

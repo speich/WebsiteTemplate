@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ProjectTasksOptions">
-    <TaskOptions isEnabled="true">
+    <TaskOptions isEnabled="false">
       <option name="arguments" value="compose -f ../frankenphp/docker-compose.yml exec -T --workdir /app/WebsiteTemplate/$FileRelativeDir$ assets bun build --outdir=. --entry-naming=&quot;[name].min.[ext]&quot; --minify --sourcemap=linked  --external=&quot;*.css&quot; $FileName$" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" />

@@ -3,7 +3,6 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/library/../src/php" isTestSource="false" packagePrefix="WebsiteTemplate\" />
       <sourceFolder url="file://$MODULE_DIR$/src/php" isTestSource="false" packagePrefix="WebsiteTemplate\" />
       <excludeFolder url="file://$MODULE_DIR$/vendor" />
     </content>

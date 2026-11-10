@@ -5,49 +5,37 @@ namespace WebsiteTemplate\Html;
 
 trait InputRadioCheckboxTrait
 {
-
-    // enable when >= php8.2
-    //public const TYPE_RADIO = 'radio';
-    //public const TYPE_CHECKBOX = 'checkbox';
-
     /**
      * Render the input element.
      *
-     * @param string $type radio or checkbox
+     * @param InputType $type
      *
      * @return string
      */
-    public function renderInput(string $type): string
+    public function renderInput(InputType $type): string
     {
-        $this->addCssClass($this->bemClass());
-        if ($this->checked) {
-            $this->addCssClass($this->bemClass(modifier: 'checked'));
+        $strInput = '<input';
+        if ($this->id !== null && $this->id !== '') {
+            $strInput .= ' id="'.$this->id.'"';
         }
-        if ($this->disabled) {
-            $this->addCssClass($this->bemClass(modifier: 'disabled'));
-        }
-        if ($this->required) {
-            $this->addCssClass($this->bemClass(modifier: 'required'));
-        }
-
-        $strInput = '<input id="'.$this->getId().'"';
-        if ($this->name !== false) {
+        if ($this->name !== null) {
             $strInput .= ' name="'.$this->name.'"';
         }
-        $strInput .= ' type="'.$type.'" value="'.$this->val.'"';
-        if ($this->checked === true) {
+        $strInput .= ' type="'.$type->value.'" value="'.htmlspecialchars($this->val, ENT_QUOTES).'"';
+
+        if ($this->checked) {
             $strInput .= ' checked="checked"';
         }
-        if ($this->disabled === true) {
+        if ($this->disabled) {
             $strInput .= ' disabled="disabled"';
         }
-        if ($this->tabIndex) {
+        if ($this->required) {
+            $strInput .= ' required="required"';
+        }
+        if ($this->tabIndex !== null) {
             $strInput .= ' tabindex="'.$this->tabIndex.'"';
         }
         $strInput .= $this->renderCssClass();
-        if ($this->required === true) {
-            $strInput .= ' required="required"';
-        }
         $strInput .= '>';
 
         return $strInput;
