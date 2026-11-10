@@ -31,6 +31,9 @@ class MenuItem
     /** @var ?string link target */
     public ?string $linkTarget = null;
 
+    /** @var bool whether the menu item is disabled */
+    public bool $disabled = false;
+
     private bool $childToBeRendered = false;
     /**
      * Note: When this property is null, the CSS active state is set automatically by Menu::setActive() depending

@@ -48,6 +48,13 @@
         color: var(--menu-text-active-alt);
     }
 
+    /* Disabled items */
+    & li:has(> [aria-disabled="true"]) > a,
+    & li:has(> [aria-disabled="true"]) > div {
+        color: var(--menu-text-disabled);
+        pointer-events: none;
+    }
+
     /* Chevron for any item that currently has a rendered submenu */
     & li:has(> ul) > a,
     & li:has(> ul) > div {

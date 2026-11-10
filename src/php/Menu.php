@@ -368,6 +368,9 @@ class Menu
                 if ($item->getActive()) {
                     $this->html .= ' aria-current="page"';
                 }
+                if ($item->disabled) {
+                    $this->html .= ' aria-disabled="true"';
+                }
                 $this->html .= '>';
                 $this->html .= $item->linkTxt;
                 $this->html .= '</'.$tagName.'>';
